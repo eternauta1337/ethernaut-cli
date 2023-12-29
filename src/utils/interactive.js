@@ -68,7 +68,7 @@ async function pickArguments(command) {
       {
         type: 'text',
         name: 'selected',
-        message: `${arg._name} ${chalk.gray(arg.description)}`,
+        message: `${arg._name}${chalk.gray(' ' + arg.description)}`,
       },
     ]);
 
@@ -95,7 +95,7 @@ async function pickOptions(command) {
         type: 'select',
         initial: opt.argChoices.indexOf(opt.defaultValue),
         name: 'selected',
-        message: `${name} ${chalk.gray(opt.description)}`,
+        message: `${name}${chalk.gray(' ' + opt.description)}`,
         choices: opt.argChoices,
       },
     ]);
@@ -113,7 +113,7 @@ async function pickOptions(command) {
 
 async function pickSubCommand(command) {
   const choices = command.commands.map((c) => ({
-    title: `${c.name()} ${chalk.gray(c.description())}`,
+    title: `${c.name()}${chalk.gray(' ' + c.description())}`,
     value: c.name(),
   }));
 
