@@ -13,7 +13,7 @@ command
 
     copy(result, () => {});
 
-    console.log(`${value} to bytes32:\n${result}\n(copied to clipboard)`);
+    console.log(result);
   });
 
 module.exports = command;

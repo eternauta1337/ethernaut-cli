@@ -2,11 +2,11 @@ const { Command, Option } = require('commander');
 const ethers = require('ethers');
 const { copy } = require('copy-paste');
 
-const unit = new Command();
+const command = new Command();
 
 const units = ['wei', 'ether', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 
-unit
+command
   .name('unit')
   .description('Converts between different units of Ether')
   .argument('[value]', 'Value to convert')
@@ -29,9 +29,7 @@ unit
 
     copy(result, () => {});
 
-    console.log(
-      `${value} ${options.source} to ${options.dest}:\n${result}\n(copied to clipboard)`
-    );
+    console.log(result);
   });
 
-module.exports = unit;
+module.exports = command;

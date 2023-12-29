@@ -19,12 +19,33 @@ function makeInteractive(command) {
         await pickSubCommand(command);
       } else {
         // This is an end command, so we'll populate its arguments and options
+
         const newArgs = await pickArguments(command);
+        // If the user cancelled any prompts, jump back or exit
+        if (newArgs.some((arg) => arg === undefined)) {
+          jumpBack(command);
+          return;
+        }
+        // console.log('newArgs', newArgs);
+
         const newOpts = await pickOptions(command);
+        // If the user cancelled any prompts, jump back or exit
+        if (Object.values(newOpts).some((opt) => opt === undefined)) {
+          jumpBack(command);
+          return;
+        }
+        // console.log('newOpts', newOpts);
+
+        // Run the action handler with the modified args and options
         command._optionValues = newOpts;
         originalActionHandler.apply(command, [newArgs]);
+
+        // After running the action in interactive mode,
+        // run it again indefinitely until the user cancels
+        command.parseAsync(['node', command.name(), '-i']);
       }
     } else {
+      // Run the action handler with the original args and options
       originalActionHandler.apply(command, [actionArgs]);
     }
   });
@@ -46,9 +67,12 @@ async function pickArguments(command) {
       { type: 'text', name: 'value', message: arg._name },
     ]);
 
-    if (value === undefined) process.exit(0);
-
     args.push(value);
+
+    // User cancelled prompt
+    if (value === undefined) {
+      break; // Stop picking args
+    }
   }
 
   return args;
@@ -61,19 +85,22 @@ async function pickOptions(command) {
     const name = opt.long.split('--')[1];
     if (name === 'interactive') continue;
 
-    const { result } = await prompts([
+    const { value } = await prompts([
       {
         type: 'select',
         initial: opt.argChoices.indexOf(opt.defaultValue),
-        name: 'result',
+        name: 'value',
         message: opt.long,
         choices: opt.argChoices,
       },
     ]);
 
-    if (result === undefined) process.exit(0);
+    opts[name] = opt.argChoices[value];
 
-    opts[name] = opt.argChoices[result];
+    // User cancelled prompt
+    if (value === undefined) {
+      break; // Stop picking options
+    }
   }
 
   return opts;
@@ -83,25 +110,34 @@ async function pickSubCommand(command) {
   const choices = command.commands.map((c) => ({
     title: c.name(),
   }));
+  // choices.push({ title: 'back', value: undefined });
 
-  const { commandName } = await prompts([
+  const { value } = await prompts([
     {
       type: 'autocomplete',
-      name: 'commandName',
+      name: 'value',
       message: command.pickSubCommandPrompt || 'Pick a command',
       choices,
     },
   ]);
 
-  if (commandName === undefined) process.exit(0);
+  if (value === undefined) {
+    jumpBack(command);
+  } else {
+    const selectedCommand = command.commands.find((c) => c.name() === value);
+    selectedCommand.parseAsync(['node', value, '-i']);
+  }
+}
 
-  const selectedCommand = command.commands.find(
-    (c) => c.name() === commandName
-  );
-
-  selectedCommand.parseAsync(['node', commandName, '-i']);
+function jumpBack(command) {
+  if (command.parent) {
+    command.parent.parseAsync(['node', command.parent.name(), '-i']);
+  } else {
+    process.exit(1);
+  }
 }
 
 module.exports = {
   makeInteractive,
+  pickSubCommand,
 };

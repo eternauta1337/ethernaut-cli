@@ -13,7 +13,7 @@ command
 
     copy(result, () => {});
 
-    console.log(`${value} to string:\n${result}\n(copied to clipboard)`);
+    console.log(result);
   });
 
 module.exports = command;
