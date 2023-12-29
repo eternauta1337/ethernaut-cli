@@ -1,4 +1,6 @@
 const { Command, Option } = require('commander');
+const ethers = require('ethers');
+const { copy } = require('copy-paste');
 
 const unit = new Command();
 
@@ -19,11 +21,17 @@ unit
       .choices(units)
   )
   .action(async (value, options) => {
-    console.log('\nunit');
-    console.log('value', value);
-    console.log('options', options);
+    const valueWei = ethers.utils.parseUnits(value, options.source);
+    let result = ethers.utils.formatUnits(valueWei, options.dest);
 
-    // TODO: Implement
+    const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
+    result = result.match(removeTrailingZeroes)[1];
+
+    copy(result, () => {});
+
+    console.log(
+      `${value} ${options.source} to ${options.dest}:\n${result}\n(copied to clipboard)`
+    );
   });
 
 module.exports = unit;

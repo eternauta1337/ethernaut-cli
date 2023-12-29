@@ -46,7 +46,7 @@ async function pickArguments(command) {
       { type: 'text', name: 'value', message: arg._name },
     ]);
 
-    if (!value) process.exit(0);
+    if (value === undefined) process.exit(0);
 
     args.push(value);
   }
@@ -71,7 +71,7 @@ async function pickOptions(command) {
       },
     ]);
 
-    if (!result) process.exit(0);
+    if (result === undefined) process.exit(0);
 
     opts[name] = opt.argChoices[result];
   }
@@ -93,7 +93,7 @@ async function pickSubCommand(command) {
     },
   ]);
 
-  if (!commandName) process.exit(0);
+  if (commandName === undefined) process.exit(0);
 
   const selectedCommand = command.commands.find(
     (c) => c.name() === commandName

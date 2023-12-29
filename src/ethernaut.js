@@ -9,9 +9,7 @@ ethernaut
   .name('ethernaut')
   .description('Ethereum swiss army knife/game/tool/superweapon')
   .version('1.0.0') // TODO: Read from package.json
-  .action(async () => {
-    console.log('ethernaut:', options);
-  });
+  .action(async () => {});
 
 ethernaut.addCommand(util);
 ethernaut.addCommand(play);
