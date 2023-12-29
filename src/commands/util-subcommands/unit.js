@@ -1,6 +1,6 @@
 const { Command, Option } = require('commander');
 const ethers = require('ethers');
-const { copy } = require('copy-paste');
+const { copyToClipboard } = require('../../utils/copy-to-clipboard');
 
 const command = new Command();
 
@@ -27,8 +27,7 @@ command
     const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
     result = result.match(removeTrailingZeroes)[1];
 
-    copy(result, () => {});
-
+    copyToClipboard(result);
     console.log(result);
   });
 

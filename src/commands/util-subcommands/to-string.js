@@ -1,6 +1,6 @@
-const { Command, Option } = require('commander');
+const { Command } = require('commander');
 const ethers = require('ethers');
-const { copy } = require('copy-paste');
+const { copyToClipboard } = require('../../utils/copy-to-clipboard');
 
 const command = new Command();
 
@@ -11,7 +11,7 @@ command
   .action(async (value) => {
     const result = ethers.utils.toUtf8String(value);
 
-    copy(result, () => {});
+    copyToClipboard(result);
 
     console.log(result);
   });
