@@ -2,7 +2,7 @@
   "name": "ethernaut-cli",
   "version": "1.0.0",
   "description": "Ethereum swiss army knife/game/tool/superweapon",
-  "main": "index.js",
+  "main": "src/ethernaut.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/ajsantander/ethernaut-cli/issues"
   },
-  "homepage": "https://github.com/ajsantander/ethernaut-cli#readme"
+  "homepage": "https://github.com/ajsantander/ethernaut-cli#readme",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "fuse.js": "^7.0.0",
+    "prompts": "^2.4.2"
+  }
 }
