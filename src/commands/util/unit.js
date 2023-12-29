@@ -3,7 +3,7 @@ const prompts = require('prompts');
 
 const unit = new Command();
 
-const units = ['wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney', 'ether'];
+const units = ['wei', 'ether', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 
 unit
   .name('unit')
