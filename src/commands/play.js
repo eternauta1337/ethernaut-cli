@@ -8,7 +8,7 @@ command
   .name('play')
   .description('Play The Ethernaut on the CLI')
   .action(async () => {
-    pickSubCommand(command);
+    // pickSubCommand(command); // Uncomment when subcommands are added
   });
 
 addCommands('commands/play-subcommands', command);

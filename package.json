@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/ajsantander/ethernaut-cli#readme",
   "dependencies": {
+    "chalk": "^2.4.2",
     "commander": "^11.1.0",
     "copy-paste": "^1.5.3",
     "ethers": "^5.7.2",

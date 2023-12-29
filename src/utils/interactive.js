@@ -1,4 +1,5 @@
 const prompts = require('prompts');
+const chalk = require('chalk');
 
 function makeInteractive(command) {
   // Makes -i in a multi-command like 'app util unit -i'
@@ -63,14 +64,18 @@ async function pickArguments(command) {
   const args = [];
 
   for (const arg of command._args) {
-    const { value } = await prompts([
-      { type: 'text', name: 'value', message: arg._name },
+    const { selected } = await prompts([
+      {
+        type: 'text',
+        name: 'selected',
+        message: `${arg._name} ${chalk.gray(arg.description)}`,
+      },
     ]);
 
-    args.push(value);
+    args.push(selected);
 
     // User cancelled prompt
-    if (value === undefined) {
+    if (selected === undefined) {
       break; // Stop picking args
     }
   }
@@ -85,20 +90,20 @@ async function pickOptions(command) {
     const name = opt.long.split('--')[1];
     if (name === 'interactive') continue;
 
-    const { value } = await prompts([
+    const { selected } = await prompts([
       {
         type: 'select',
         initial: opt.argChoices.indexOf(opt.defaultValue),
-        name: 'value',
-        message: opt.long,
+        name: 'selected',
+        message: `${name} ${chalk.gray(opt.description)}`,
         choices: opt.argChoices,
       },
     ]);
 
-    opts[name] = opt.argChoices[value];
+    opts[name] = opt.argChoices[selected];
 
     // User cancelled prompt
-    if (value === undefined) {
+    if (selected === undefined) {
       break; // Stop picking options
     }
   }
@@ -108,24 +113,24 @@ async function pickOptions(command) {
 
 async function pickSubCommand(command) {
   const choices = command.commands.map((c) => ({
-    title: c.name(),
+    title: `${c.name()} ${chalk.gray(c.description())}`,
+    value: c.name(),
   }));
-  // choices.push({ title: 'back', value: undefined });
 
-  const { value } = await prompts([
+  const { selected } = await prompts([
     {
       type: 'autocomplete',
-      name: 'value',
+      name: 'selected',
       message: command.pickSubCommandPrompt || 'Pick a command',
       choices,
     },
   ]);
 
-  if (value === undefined) {
+  if (selected === undefined) {
     jumpBack(command);
   } else {
-    const selectedCommand = command.commands.find((c) => c.name() === value);
-    selectedCommand.parseAsync(['node', value, '-i']);
+    const selectedCommand = command.commands.find((c) => c.name() === selected);
+    selectedCommand.parseAsync(['node', selected, '-i']);
   }
 }
 
