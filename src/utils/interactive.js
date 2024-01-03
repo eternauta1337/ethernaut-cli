@@ -74,10 +74,10 @@ async function pickArguments(command) {
     // console.log(arg);
 
     // Skip optional arguments
-    if (!arg.required) {
-      args.push(undefined);
-      continue;
-    }
+    // if (!arg.required) {
+    //   args.push(undefined);
+    //   continue;
+    // }
 
     let result;
     if (!arg.argChoices) {
@@ -153,7 +153,7 @@ async function pickOptions(command) {
     }
 
     // User cancelled prompt
-    if (selected === undefined) {
+    if (result === undefined) {
       break; // Stop picking options
     }
   }

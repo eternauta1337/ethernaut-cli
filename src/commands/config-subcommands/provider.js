@@ -2,6 +2,7 @@ const { Command } = require('commander');
 const prompts = require('prompts');
 const storage = require('../../utils/storage');
 const { validateURL } = require('../../utils/validate');
+const logger = require('../../utils/logger');
 
 const command = new Command();
 
@@ -31,8 +32,8 @@ command
     // Set as current
     storage.config.provider.current = provider;
 
-    console.log(
-      `${provider} set as the current provider${
+    logger.output(
+      `<${provider}> set as the current provider${
         isNew ? ', and added to the list of known providers' : ''
       }`
     );

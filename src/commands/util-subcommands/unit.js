@@ -1,6 +1,6 @@
 const { Command, Option } = require('commander');
 const ethers = require('ethers');
-const { copyToClipboard } = require('../../utils/copy-to-clipboard');
+const logger = require('../../utils/logger');
 
 const command = new Command();
 
@@ -27,8 +27,9 @@ command
     const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
     result = result.match(removeTrailingZeroes)[1];
 
-    copyToClipboard(result);
-    console.log(result);
+    logger.output(
+      `${value} ${options.source} to ${options.dest} is <${result}>`
+    );
   });
 
 module.exports = command;

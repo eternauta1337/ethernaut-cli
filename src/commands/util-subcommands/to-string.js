@@ -1,6 +1,6 @@
 const { Command } = require('commander');
 const ethers = require('ethers');
-const { copyToClipboard } = require('../../utils/copy-to-clipboard');
+const logger = require('../../utils/logger');
 
 const command = new Command();
 
@@ -11,9 +11,7 @@ command
   .action(async (value) => {
     const result = ethers.utils.toUtf8String(value);
 
-    copyToClipboard(result);
-
-    console.log(result);
+    logger.output(`${value} to string is <${result}>`);
   });
 
 module.exports = command;
