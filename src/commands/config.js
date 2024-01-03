@@ -11,7 +11,7 @@ command
     pickSubCommand(command);
   });
 
-addCommands('commands/config-subcommands', command);
+addCommands('commands/config', command);
 
 command.pickSubCommandPrompt = 'What do you want to configure';
 

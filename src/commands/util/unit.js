@@ -9,7 +9,7 @@ const units = ['wei', 'ether', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 command
   .name('unit')
   .description('Converts between different units of Ether')
-  .argument('[value]', 'Value to convert')
+  .argument('<value>', 'Value to convert')
   .addOption(
     new Option('-s, --source <sourceUnit>', 'Convert from this unit')
       .default('ether')

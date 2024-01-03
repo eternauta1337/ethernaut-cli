@@ -1,4 +1,4 @@
-const { Command } = require('commander');
+const { Command, Argument } = require('commander');
 const prompts = require('prompts');
 const storage = require('../../utils/storage');
 const { validateURL } = require('../../utils/validate');
@@ -9,7 +9,7 @@ const command = new Command();
 command
   .name('provider')
   .description('Set an Ethereum provider')
-  .argument('[provider]', 'Provider to set (and remember)')
+  .argument('<provider*>', 'Provider to set (and remember)')
   .action(async (provider, options) => {
     // Suggest if empty
     if (provider === undefined && options.interactive) {

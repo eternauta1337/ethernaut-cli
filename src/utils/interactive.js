@@ -6,6 +6,18 @@ function makeInteractive(command) {
   // apply to all subcommands
   command.enablePositionalOptions();
 
+  // Set all required arguments as optional
+  command.registeredArguments.forEach((arg) => {
+    // console.log(arg);
+    arg.required = false;
+
+    // If the argument name ends with *, set skip to true and remove * from the name
+    if (arg._name.endsWith('*')) {
+      arg.skip = true;
+      arg._name = arg._name.slice(0, -1);
+    }
+  });
+
   // Intercept the action handler
   const originalActionHandler = command._actionHandler;
   command.action(async (...args) => {
@@ -23,13 +35,12 @@ function makeInteractive(command) {
 
         const newArgs = await pickArguments(command);
         // console.log('newArgs', newArgs);
-        // If the user cancelled any prompts, jump back or exit
-        // Non required arguments can be skipped
+        // If the user cancelled any prompts, jump back or exit, except when arguments can be skipped
         for (let i = 0; i < command._args.length; i++) {
           const arg = command._args[i];
           const newArg = newArgs.length > i ? newArgs[i] : undefined;
 
-          if (newArg === undefined && arg.required) {
+          if (newArg === undefined && !arg.skip) {
             jumpBack(command);
             return;
           }
@@ -50,7 +61,6 @@ function makeInteractive(command) {
         // After running the action in interactive mode,
         // jump back to the parent command
         jumpBack(command);
-        // command.parseAsync(['node', command.name(), '-i']);
       }
     } else {
       // Run the action handler with the original args and options
@@ -74,10 +84,10 @@ async function pickArguments(command) {
     // console.log(arg);
 
     // Skip optional arguments
-    // if (!arg.required) {
-    //   args.push(undefined);
-    //   continue;
-    // }
+    if (arg.skip) {
+      args.push(undefined);
+      continue;
+    }
 
     let result;
     if (!arg.argChoices) {

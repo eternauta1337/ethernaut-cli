@@ -11,7 +11,7 @@ command
     pickSubCommand(command);
   });
 
-addCommands('commands/util-subcommands', command);
+addCommands('commands/util', command);
 
 command.pickSubCommandPrompt = 'Pick a util';
 

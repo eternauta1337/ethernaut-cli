@@ -7,7 +7,7 @@ const command = new Command();
 command
   .name('to-bytes')
   .description('Converts stuff to bytes32')
-  .argument('[value]', 'Value to convert')
+  .argument('<value>', 'Value to convert')
   .action(async (value) => {
     const result = ethers.utils.formatBytes32String(value);
 

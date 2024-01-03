@@ -11,7 +11,7 @@ command
     // pickSubCommand(command); // Uncomment when subcommands are added
   });
 
-addCommands('commands/play-subcommands', command);
+addCommands('commands/play', command);
 
 command.pickSubCommandPrompt = 'Pick a level';
 
