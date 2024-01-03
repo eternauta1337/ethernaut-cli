@@ -1,0 +1,15 @@
+{
+  "config": {
+    "provider": {
+      "list": [
+        "https://optimism.goerli.io",
+        "https://optimism.sepolia.io",
+        "https://optimism.mainnet.io",
+        "https://optimism.kovan.io",
+        "https://optimism.rinkeby.io",
+        "https://optimism.flanflenigan.io"
+      ],
+      "current": "https://optimism.kovan.io"
+    }
+  }
+}
