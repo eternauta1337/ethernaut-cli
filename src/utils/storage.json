@@ -1,16 +1,8 @@
 {
   "config": {
     "provider": {
-      "list": [
-        "https://optimism.goerli.io",
-        "https://optimism.sepolia.io",
-        "https://optimism.mainnet.io",
-        "https://optimism.kovan.io",
-        "https://optimism.rinkeby.io",
-        "https://optimism.flanflenigan.io",
-        "https://optimism.saraza.io"
-      ],
-      "current": "https://optimism.rinkeby.io"
+      "list": ["https://mainnet.optimism.io"],
+      "current": "https://mainnet.optimism.io"
     }
   }
 }

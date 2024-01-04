@@ -7,6 +7,11 @@ function validateURL(value) {
   }
 }
 
+function validateBytes32(value) {
+  return value.length === 66 && value.startsWith('0x');
+}
+
 module.exports = {
   validateURL,
+  validateBytes32,
 };
