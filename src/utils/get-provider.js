@@ -12,7 +12,7 @@ function getProvider() {
     );
   }
 
-  return new ethers.providers.JsonRpcProvider(providerURL);
+  return new ethers.JsonRpcProvider(providerURL);
 }
 
 module.exports = {

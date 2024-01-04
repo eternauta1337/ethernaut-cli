@@ -16,7 +16,7 @@ function output(msg) {
 }
 
 function info(...msgs) {
-  console.log(chalk.gray(`i> [${_getCallerFile()}] ${msgs.join(' ')}`));
+  console.log(chalk.gray(`i [${_getCallerFile()}] ${msgs.join(' ')}`));
 }
 
 function error(error) {

@@ -9,7 +9,7 @@ command
   .description('Converts stuff to bytes32')
   .argument('<value>', 'Value to convert')
   .action(async (value) => {
-    const result = ethers.utils.formatBytes32String(value);
+    const result = ethers.encodeBytes32String(value);
 
     logger.output(`"${value}" to bytes32 is <${result}>`);
   });
