@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract Instance {
+contract HelloEthernaut {
 
   string public password;
   uint8 public infoNum = 42;

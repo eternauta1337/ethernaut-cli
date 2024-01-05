@@ -19,6 +19,10 @@ function info(...msgs) {
   console.log(chalk.gray(`i [${_getCallerFile()}] ${msgs.join(' ')}`));
 }
 
+function warn(msg) {
+  console.error(chalk.yellow(msg));
+}
+
 function error(error) {
   console.error(chalk.red(error));
 }
@@ -53,4 +57,5 @@ module.exports = {
   output,
   info,
   error,
+  warn,
 };

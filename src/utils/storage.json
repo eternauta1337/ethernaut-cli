@@ -4,5 +4,19 @@
       "list": ["https://mainnet.optimism.io"],
       "current": "https://mainnet.optimism.io"
     }
+  },
+  "game": {
+    "players": [
+      {
+        "address": "0x123...",
+        "levels": [
+          {
+            "bundle": "intro",
+            "name": "Level 1",
+            "instance": "0x123..."
+          }
+        ]
+      }
+    ]
   }
 }
