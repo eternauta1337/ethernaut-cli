@@ -21,8 +21,8 @@ command
       .choices(units)
   )
   .action(async (value, options) => {
-    const valueWei = ethers.utils.parseUnits(value, options.source);
-    let result = ethers.utils.formatUnits(valueWei, options.dest);
+    const valueWei = ethers.parseUnits(value, options.source);
+    let result = ethers.formatUnits(valueWei, options.dest);
 
     const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
     result = result.match(removeTrailingZeroes)[1];
