@@ -1,49 +1,200 @@
-import { extendConfig, extendEnvironment } from "hardhat/config";
-import { lazyObject } from "hardhat/plugins";
-import { HardhatConfig, HardhatUserConfig } from "hardhat/types";
-import path from "path";
+import { extendEnvironment, task } from "hardhat/config";
+import {
+  HardhatRuntimeEnvironment,
+  ParamDefinition,
+  ScopeDefinition,
+  ScopesMap,
+  TaskDefinition,
+  TasksMap,
+} from "hardhat/types";
+import { AutoComplete, Input } from "enquirer"; // TODO: Why is this showing an error?
+import chalk from "chalk";
 
-import { ExampleHardhatRuntimeEnvironmentField } from "./ExampleHardhatRuntimeEnvironmentField";
-// This import is needed to let the TypeScript compiler know that it should include your type
-// extensions in your npm package's types file.
-import "./type-extensions";
-
-extendConfig(
-  (config: HardhatConfig, userConfig: Readonly<HardhatUserConfig>) => {
-    // We apply our default config here. Any other kind of config resolution
-    // or normalization should be placed here.
-    //
-    // `config` is the resolved config, which will be used during runtime and
-    // you should modify.
-    // `userConfig` is the config as provided by the user. You should not modify
-    // it.
-    //
-    // If you extended the `HardhatConfig` type, you need to make sure that
-    // executing this function ensures that the `config` object is in a valid
-    // state for its type, including its extensions. For example, you may
-    // need to apply a default value, like in this example.
-    const userPath = userConfig.paths?.newPath;
-
-    let newPath: string;
-    if (userPath === undefined) {
-      newPath = path.join(config.paths.root, "newPath");
-    } else {
-      if (path.isAbsolute(userPath)) {
-        newPath = userPath;
-      } else {
-        // We resolve relative paths starting from the project's root.
-        // Please keep this convention to avoid confusion.
-        newPath = path.normalize(path.join(config.paths.root, userPath));
-      }
-    }
-
-    config.paths.newPath = newPath;
-  }
-);
+let previousScope: HardhatRuntimeEnvironment | ScopeDefinition;
 
 extendEnvironment((hre) => {
-  // We add a field to the Hardhat Runtime Environment here.
-  // We use lazyObject to avoid initializing things until they are actually
-  // needed.
-  hre.example = lazyObject(() => new ExampleHardhatRuntimeEnvironmentField());
+  // console.log('Extending environment...');
+
+  makeTasksInteractive(hre.tasks, hre);
+  makeScopesInteractive(hre.scopes, hre);
+
+  overrideHelpTask(hre);
 });
+
+function overrideHelpTask(hre: HardhatRuntimeEnvironment) {
+  const helpTask = hre.tasks.help;
+
+  task(helpTask.name, helpTask.description).setAction(
+    async (taskArgs, hre, runSuper) => {
+      if (process.argv.length >= 3) {
+        runSuper(taskArgs);
+      } else {
+        previousScope = hre;
+        await pickTaskOrScope(collectTasksAndScopes(hre), hre);
+      }
+    }
+  );
+}
+
+async function pickTaskOrScope(
+  tasksOrScopes: (TaskDefinition | ScopeDefinition)[],
+  hre: HardhatRuntimeEnvironment
+) {
+  const choices = tasksOrScopes
+    .filter((item) => {
+      // Do not include subtasks
+      if (isTask(item)) {
+        return !(item as TaskDefinition).isSubtask;
+      } else {
+        return true;
+      }
+    })
+    .map((item) => {
+      const name = `${item.name}`;
+      const description = chalk.dim(`${item.description}`);
+      if (isTask(item)) {
+        return `${name} ${description}`;
+      } else {
+        return `[${name}] ${description}`;
+      }
+    });
+
+  const prompt = new AutoComplete({
+    name: "value",
+    message: "Pick a task or scope",
+    limit: 10,
+    choices,
+  });
+
+  const response: { value: string } = await prompt.run();
+
+  const taskOrScope = tasksOrScopes.find((taskOrScope) => {
+    return response.toString().includes(taskOrScope.name);
+  })!;
+
+  if (isTask(taskOrScope)) {
+    const task = taskOrScope as TaskDefinition;
+    await hre.run({ task: task.name, scope: task.scope });
+
+    if (task.scope) {
+      previousScope = hre.scopes[task.scope];
+    }
+
+    // console.log(previousScope);
+    if (previousScope) {
+      await pickTaskOrScope(Object.values(previousScope.tasks), hre);
+    }
+  } else {
+    const scope = taskOrScope as ScopeDefinition;
+    previousScope = scope;
+    await pickTaskOrScope(Object.values(scope.tasks), hre);
+  }
+}
+
+function isTask(taskOrScope: TaskDefinition | ScopeDefinition): boolean {
+  return "isSubtask" in taskOrScope;
+}
+
+function collectTasksAndScopes(hre: HardhatRuntimeEnvironment) {
+  let tasksAndScopes: (TaskDefinition | ScopeDefinition)[] = [];
+
+  for (let taskName in hre.tasks) {
+    const taskDefinition = hre.tasks[taskName];
+    tasksAndScopes.push(taskDefinition);
+  }
+
+  for (let scopeName in hre.scopes) {
+    const scopeDefinition = hre.scopes[scopeName];
+    tasksAndScopes.push(scopeDefinition);
+  }
+
+  return tasksAndScopes;
+}
+
+function makeTaskInteractive(
+  taskDefinition: TaskDefinition,
+  hre: HardhatRuntimeEnvironment
+) {
+  if (taskDefinition.isSubtask) {
+    return;
+  }
+
+  // Define the overriding action
+  const action = async (
+    taskArgs: any,
+    hre: HardhatRuntimeEnvironment,
+    runSuper: any
+  ) => {
+    // console.log('Overriding task:', taskDefinition.name);
+    // console.log('Original taskArgs:', taskArgs);
+    // console.log(taskDefinition);
+
+    const newParams = await collectParameters(taskDefinition);
+    // console.log('New params:', newParams);
+
+    Object.entries(newParams).forEach(([name, value]) => {
+      taskArgs[name] = value;
+    });
+    // console.log('New taskArgs:', taskArgs);
+
+    await runSuper(taskArgs, hre, runSuper);
+  };
+
+  // Finalize the override by calling the task in scope
+  if (taskDefinition.scope !== undefined) {
+    const scope = hre.scopes[taskDefinition.scope];
+    scope.task(taskDefinition.name, taskDefinition.description, action);
+  } else {
+    task(taskDefinition.name, taskDefinition.description, action);
+  }
+}
+
+async function collectParameters(taskDefinition: TaskDefinition) {
+  const positionalParamDefinitions = taskDefinition.positionalParamDefinitions;
+  const regularParamDefinitions = Object.values(
+    taskDefinition.paramDefinitions
+  );
+  const paramDefinitions = positionalParamDefinitions.concat(
+    regularParamDefinitions
+  );
+
+  const newParams: { [name: string]: any } = {};
+
+  for (let paramDefinition of paramDefinitions) {
+    // console.log(paramDefinition);
+
+    const prompt = new Input({
+      message: `Enter ${paramDefinition.name}`,
+      initial: paramDefinition.defaultValue,
+    });
+
+    const response = await prompt.run();
+
+    // TODO: Parse and validate using paramDefinition.type
+    // let value = response;
+    // if (paramDefinition.type) {
+    //   value = paramDefinition.type.parse(value);
+    // }
+
+    newParams[paramDefinition.name] = response;
+  }
+
+  return newParams;
+}
+
+function makeTasksInteractive(tasks: TasksMap, hre: HardhatRuntimeEnvironment) {
+  for (let taskName in tasks) {
+    const taskDefinition = tasks[taskName];
+    makeTaskInteractive(taskDefinition, hre);
+  }
+}
+
+function makeScopesInteractive(
+  scopes: ScopesMap,
+  hre: HardhatRuntimeEnvironment
+) {
+  for (let scopeName in scopes) {
+    const scopeDefinition = scopes[scopeName];
+    makeTasksInteractive(scopeDefinition.tasks, hre);
+  }
+}
