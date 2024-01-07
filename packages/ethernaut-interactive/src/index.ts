@@ -6,7 +6,10 @@ import {
   TaskDefinition,
   TasksMap,
 } from "hardhat/types";
-import { AutoComplete, Input } from "enquirer"; // TODO: Why is this showing an error?
+// TODO: It seems like enquirer is not exporting these types
+// See: https://github.com/enquirer/enquirer/issues/448
+// @ts-ignore
+import { AutoComplete, Input } from "enquirer";
 import chalk from "chalk";
 
 let previousScope: HardhatRuntimeEnvironment | ScopeDefinition;

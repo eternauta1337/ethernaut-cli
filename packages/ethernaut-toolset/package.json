@@ -1,9 +1,7 @@
 {
-  "name": "@ethernaut-cli/ethernaut-interactive",
+  "name": "@ethernaut-cli/ethernaut-toolset",
   "version": "0.0.1",
-  "description": "Enquirer based interactive prompts for Hardhat tasks",
-  "author": "Ethernaut",
-  "license": "ISC",
+  "description": "Toolset for Ethernauts",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
@@ -17,6 +15,7 @@
   "files": [
     "dist/src/",
     "src/",
+    "LICENSE",
     "README.md"
   ],
   "devDependencies": {
@@ -38,6 +37,6 @@
     "hardhat": "^2.0.0"
   },
   "dependencies": {
-    "enquirer": "^2.4.1"
+    "@nomicfoundation/hardhat-ethers": "^3.0.5"
   }
 }
