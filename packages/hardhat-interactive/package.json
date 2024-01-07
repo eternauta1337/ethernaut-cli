@@ -1,18 +1,11 @@
 {
-  "name": "hardhat-ts-plugin-boilerplate",
+  "name": "hardhat-interactive",
   "version": "0.0.1",
-  "description": "Hardhat TypeScript plugin boilerplate",
-  "repository": "github:nomiclabs/hardhat-ts-plugin-boilerplate",
-  "author": "Nomic Labs LLC",
-  "license": "MIT",
+  "description": "Enquirer based interactive prompts for Hardhat tasks",
+  "author": "Ethernaut",
+  "license": "ISC",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "keywords": [
-    "ethereum",
-    "smart-contracts",
-    "hardhat",
-    "hardhat-plugin"
-  ],
   "scripts": {
     "lint:fix": "prettier --write 'src/**/*.{js,ts}' 'test/**/*.{js,ts}' && tslint --fix --config tslint.json --project tsconfig.json",
     "lint": "tslint --config tslint.json --project tsconfig.json",
@@ -24,7 +17,6 @@
   "files": [
     "dist/src/",
     "src/",
-    "LICENSE",
     "README.md"
   ],
   "devDependencies": {

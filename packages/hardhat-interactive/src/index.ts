@@ -1,7 +1,6 @@
 import { extendEnvironment, task } from "hardhat/config";
 import {
   HardhatRuntimeEnvironment,
-  ParamDefinition,
   ScopeDefinition,
   ScopesMap,
   TaskDefinition,
