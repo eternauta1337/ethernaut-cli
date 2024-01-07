@@ -12,6 +12,7 @@
   "dependencies": {
     "@ethernaut-cli/ethernaut-interactive": "workspace:^",
     "@ethernaut-cli/ethernaut-toolset": "workspace:^",
+    "@ethernaut-cli/ethernaut-play": "workspace:^",
     "hardhat": "^2.0.0"
   },
   "devDependencies": {

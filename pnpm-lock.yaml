@@ -13,6 +13,9 @@ importers:
       '@ethernaut-cli/ethernaut-interactive':
         specifier: workspace:^
         version: link:../ethernaut-interactive
+      '@ethernaut-cli/ethernaut-play':
+        specifier: workspace:^
+        version: link:../ethernaut-play
       '@ethernaut-cli/ethernaut-toolset':
         specifier: workspace:^
         version: link:../ethernaut-toolset
@@ -29,6 +32,52 @@ importers:
       enquirer:
         specifier: ^2.4.1
         version: 2.4.1
+    devDependencies:
+      '@types/chai':
+        specifier: ^4.1.7
+        version: 4.3.11
+      '@types/fs-extra':
+        specifier: ^5.0.4
+        version: 5.1.0
+      '@types/mocha':
+        specifier: ^5.2.6
+        version: 5.2.7
+      '@types/node':
+        specifier: ^8.10.38
+        version: 8.10.66
+      chai:
+        specifier: ^4.2.0
+        version: 4.4.0
+      hardhat:
+        specifier: ^2.0.0
+        version: 2.19.4(ts-node@8.10.2)(typescript@4.9.5)
+      mocha:
+        specifier: ^7.1.2
+        version: 7.2.0
+      prettier:
+        specifier: 2.0.5
+        version: 2.0.5
+      ts-node:
+        specifier: ^8.1.0
+        version: 8.10.2(typescript@4.9.5)
+      tslint:
+        specifier: ^5.16.0
+        version: 5.20.1(typescript@4.9.5)
+      tslint-config-prettier:
+        specifier: ^1.18.0
+        version: 1.18.0
+      tslint-plugin-prettier:
+        specifier: ^2.0.1
+        version: 2.3.0(prettier@2.0.5)(tslint@5.20.1)
+      typescript:
+        specifier: ^4.0.3
+        version: 4.9.5
+
+  packages/ethernaut-play:
+    dependencies:
+      '@nomicfoundation/hardhat-ethers':
+        specifier: ^3.0.5
+        version: 3.0.5(ethers@6.9.2)(hardhat@2.19.4)
     devDependencies:
       '@types/chai':
         specifier: ^4.1.7
