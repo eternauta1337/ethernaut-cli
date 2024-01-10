@@ -94,4 +94,9 @@ function makeScopesInteractive(
   }
 }
 
-export { makeTasksInteractive, makeScopesInteractive };
+function makeAllTasksInteractive(hre: HardhatRuntimeEnvironment) {
+  makeTasksInteractive(hre.tasks, hre);
+  makeScopesInteractive(hre.scopes, hre);
+}
+
+export { makeAllTasksInteractive };

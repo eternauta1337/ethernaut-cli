@@ -1,16 +1,13 @@
 import {
   HardhatRuntimeEnvironment,
   ScopeDefinition,
-  ScopesMap,
   TaskDefinition,
-  TasksMap,
 } from "hardhat/types";
 // TODO: It seems like enquirer is not exporting these types
 // See: https://github.com/enquirer/enquirer/issues/448
 // @ts-ignore
 import { AutoComplete } from "enquirer";
 import chalk from "chalk";
-import hre from "hardhat";
 
 async function pickTask(
   hreOrScope: HardhatRuntimeEnvironment | ScopeDefinition,
