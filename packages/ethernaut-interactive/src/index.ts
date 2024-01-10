@@ -9,13 +9,11 @@ import {
 // TODO: It seems like enquirer is not exporting these types
 // See: https://github.com/enquirer/enquirer/issues/448
 // @ts-ignore
-import { AutoComplete, Input } from "enquirer";
-import chalk from "chalk";
-
-let previousScope: HardhatRuntimeEnvironment | ScopeDefinition;
+import { Input } from "enquirer";
+import { pickTask } from "./internal/task-browser";
 
 extendEnvironment((hre) => {
-  // console.log('Extending environment...');
+  hre.previousScope = hre;
 
   makeTasksInteractive(hre.tasks, hre);
   makeScopesInteractive(hre.scopes, hre);
@@ -31,86 +29,10 @@ function overrideHelpTask(hre: HardhatRuntimeEnvironment) {
       if (process.argv.length >= 3) {
         runSuper(taskArgs);
       } else {
-        previousScope = hre;
-        await pickTaskOrScope(collectTasksAndScopes(hre), hre);
+        await pickTask(hre, hre);
       }
     }
   );
-}
-
-async function pickTaskOrScope(
-  tasksOrScopes: (TaskDefinition | ScopeDefinition)[],
-  hre: HardhatRuntimeEnvironment
-) {
-  const choices = tasksOrScopes
-    .filter((item) => {
-      // Do not include subtasks
-      if (isTask(item)) {
-        return !(item as TaskDefinition).isSubtask;
-      } else {
-        return true;
-      }
-    })
-    .map((item) => {
-      const name = `${item.name}`;
-      const description = chalk.dim(`${item.description}`);
-      if (isTask(item)) {
-        return `${name} ${description}`;
-      } else {
-        return `[${name}] ${description}`;
-      }
-    });
-
-  const prompt = new AutoComplete({
-    name: "value",
-    message: "Pick a task or scope",
-    limit: 10,
-    choices,
-  });
-
-  const response: { value: string } = await prompt.run();
-
-  const taskOrScope = tasksOrScopes.find((taskOrScope) => {
-    return response.toString().includes(taskOrScope.name);
-  })!;
-
-  if (isTask(taskOrScope)) {
-    const task = taskOrScope as TaskDefinition;
-    await hre.run({ task: task.name, scope: task.scope });
-
-    if (task.scope) {
-      previousScope = hre.scopes[task.scope];
-    }
-
-    // console.log(previousScope);
-    if (previousScope) {
-      await pickTaskOrScope(Object.values(previousScope.tasks), hre);
-    }
-  } else {
-    const scope = taskOrScope as ScopeDefinition;
-    previousScope = scope;
-    await pickTaskOrScope(Object.values(scope.tasks), hre);
-  }
-}
-
-function isTask(taskOrScope: TaskDefinition | ScopeDefinition): boolean {
-  return "isSubtask" in taskOrScope;
-}
-
-function collectTasksAndScopes(hre: HardhatRuntimeEnvironment) {
-  let tasksAndScopes: (TaskDefinition | ScopeDefinition)[] = [];
-
-  for (let taskName in hre.tasks) {
-    const taskDefinition = hre.tasks[taskName];
-    tasksAndScopes.push(taskDefinition);
-  }
-
-  for (let scopeName in hre.scopes) {
-    const scopeDefinition = hre.scopes[scopeName];
-    tasksAndScopes.push(scopeDefinition);
-  }
-
-  return tasksAndScopes;
 }
 
 function makeTaskInteractive(
