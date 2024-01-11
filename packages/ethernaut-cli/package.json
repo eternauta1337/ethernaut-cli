@@ -1,21 +1,33 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@ethernaut-cli/ethernaut-interactive": "workspace:^",
-    "@ethernaut-cli/ethernaut-toolset": "workspace:^",
-    "@ethernaut-cli/ethernaut-play": "workspace:^",
-    "hardhat": "^2.0.0"
+  "scripts": {
+    "build": "tsc"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0"
+    "@types/chai": "^4.1.7",
+    "@types/fs-extra": "^5.0.4",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^8.10.38",
+    "chai": "^4.2.0",
+    "hardhat": "^2.0.0",
+    "mocha": "^7.1.2",
+    "prettier": "2.0.5",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^4.0.3"
+  },
+  "peerDependencies": {
+    "hardhat": "^2.0.0"
+  },
+  "dependencies": {
+    "enquirer": "^2.4.1"
   }
 }
