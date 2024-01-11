@@ -30,7 +30,7 @@ async function pickTask(
     .map((item) => {
       // Format task name and description
       const name = `${item.name}`;
-      const description = chalk.dim(`${item.description}`);
+      const description = getItemDescription(item);
       if (isTask(item)) {
         return `${name} ${description}`;
       } else {
@@ -52,6 +52,21 @@ async function pickTask(
   })!;
 
   await enterTaskOrScope(taskOrScope, hre);
+}
+
+function getItemDescription(item: TaskDefinition | ScopeDefinition) {
+  if (!item.description) return 'No description';
+
+  const MAX_LEN = 100;
+
+  let description;
+  if (item.description.length > MAX_LEN) {
+    description = item.description.substring(0, MAX_LEN) + '...';
+  } else {
+    description = item.description;
+  }
+
+   return chalk.dim(`${description}`);
 }
 
 async function enterTaskOrScope(
