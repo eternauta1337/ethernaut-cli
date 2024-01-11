@@ -9,6 +9,7 @@
     "lint": "tslint --config tslint.json --project tsconfig.json",
     "test": "mocha --exit --recursive 'test/**/*.test.ts'",
     "build": "tsc",
+    "copy-files": "copyfiles -a src/data/**/* dist",
     "watch": "tsc -w",
     "prepublishOnly": "npm run build"
   },
