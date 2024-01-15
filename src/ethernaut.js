@@ -1,20 +1,19 @@
 const { Command } = require('commander');
-const { makeInteractive, pickSubCommand } = require('./utils/interactive');
-const addCommands = require('./utils/add-commands');
+const { makeInteractive, pickSubCommand } = require('./internal/interactive');
+const addSubCommandsInFolder = require('./internal/add-commands');
 
-const command = new Command();
+const program = new Command();
 
-command
+program
   .name('ethernaut')
   .description('Ethereum swiss army knife/game/tool/superweapon')
   .version('1.0.0') // TODO: Read from package.json
   .action(async () => {
-    pickSubCommand(command);
+    pickSubCommand(program);
   });
 
-addCommands('commands', command);
+addSubCommandsInFolder('commands', program);
 
-command.pickSubCommandPrompt = 'Pick a command';
-makeInteractive(command);
+makeInteractive(program);
 
-command.parse(process.argv);
+program.parse(process.argv);

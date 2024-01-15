@@ -1,6 +1,6 @@
 const { Command, Option } = require('commander');
 const ethers = require('ethers');
-const logger = require('../../utils/logger');
+const logger = require('../../internal/logger');
 
 const command = new Command();
 

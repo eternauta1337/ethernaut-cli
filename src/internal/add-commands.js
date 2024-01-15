@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function addCommands(dir, command) {
+module.exports = function addSubCommandsInFolder(dir, command) {
   const absoluteDir = path.resolve(__dirname, '..', dir);
   const files = fs.readdirSync(absoluteDir);
 
@@ -19,7 +19,7 @@ module.exports = function addCommands(dir, command) {
       }
 
       // Then, recursively add subcommands
-      addCommands(filePath, subCommand);
+      addSubCommandsInFolder(filePath, subCommand);
     } else if (path.extname(file) === '.js' && file !== 'index.js') {
       // If it's a JS file (and not the index.js file), require it and add it as a command
       const subCommand = require(filePath);

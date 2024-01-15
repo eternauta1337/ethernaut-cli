@@ -181,7 +181,7 @@ async function pickSubCommand(command) {
     {
       type: 'autocomplete',
       name: 'selected',
-      message: command.pickSubCommandPrompt || 'Pick a command',
+      message: 'Pick a command',
       choices,
     },
   ]);

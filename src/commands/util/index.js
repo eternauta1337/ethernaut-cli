@@ -1,5 +1,5 @@
 const { Command } = require('commander');
-const { pickSubCommand } = require('../../utils/interactive');
+const { pickSubCommand } = require('../../internal/interactive');
 
 const command = new Command();
 
@@ -9,7 +9,5 @@ command
   .action(async () => {
     pickSubCommand(command);
   });
-
-command.pickSubCommandPrompt = 'Pick a util';
 
 module.exports = command;

@@ -1,8 +1,8 @@
 const { Command, Argument } = require('commander');
 const prompts = require('prompts');
-const storage = require('../../utils/storage');
-const { validateURL } = require('../../utils/validate');
-const logger = require('../../utils/logger');
+const storage = require('../../internal/storage');
+const { validateURL } = require('../../internal/validate');
+const logger = require('../../internal/logger');
 
 const command = new Command();
 

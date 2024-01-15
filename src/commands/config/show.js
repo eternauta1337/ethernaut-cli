@@ -1,5 +1,5 @@
 const { Command } = require('commander');
-const storage = require('../../utils/storage');
+const storage = require('../../internal/storage');
 const chalk = require('chalk');
 
 const command = new Command();
