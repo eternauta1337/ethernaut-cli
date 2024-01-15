@@ -1,5 +1,7 @@
 const { Command } = require('commander');
-const { makeInteractive } = require('./internal/interactive');
+const {
+  makeInteractive,
+} = require('./internal/interactive-commands/make-interactive');
 const { addCommands } = require('./internal/add-commands');
 
 const program = new Command();
