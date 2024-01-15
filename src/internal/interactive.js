@@ -139,20 +139,18 @@ async function pickOptions(command) {
     const name = opt.long.split('--')[1];
     if (name === 'interactive') continue;
 
-    let result;
-    if (opt.argChoices) {
-      result = await prompts([
-        {
-          type: 'select',
-          initial: opt.argChoices.indexOf(opt.defaultValue),
-          name: 'selected',
-          message: `${name}${chalk.gray(' ' + opt.description)}`,
-          choices: opt.argChoices,
-        },
-      ]);
+    let type = 'toggle';
+    if (opt.argChoices) type = 'select';
+    else {
+      if (opt.defaultValue !== undefined) {
+        if (typeof opt.defaultValue === 'boolean') type = 'toggle';
+        else type = 'text';
+      }
+    }
 
-      opts[name] = opt.argChoices[result.selected];
-    } else {
+    let result;
+
+    if (type === 'toggle') {
       result = await prompts([
         {
           type: 'toggle',
@@ -165,9 +163,30 @@ async function pickOptions(command) {
       ]);
 
       opts[name] = result.selected;
+    } else if (type === 'text') {
+      result = await prompts([
+        {
+          type: 'text',
+          name: 'selected',
+          message: `${name}${chalk.gray(' ' + opt.description)}`,
+        },
+      ]);
+
+      opts[name] = result.selected;
+    } else if (type === 'select') {
+      result = await prompts([
+        {
+          type: 'select',
+          initial: opt.argChoices.indexOf(opt.defaultValue),
+          name: 'selected',
+          message: `${name}${chalk.gray(' ' + opt.description)}`,
+          choices: opt.argChoices,
+        },
+      ]);
+
+      opts[name] = opt.argChoices[result.selected];
     }
 
-    // User cancelled prompt
     if (result === undefined) {
       break; // Stop picking options
     }
