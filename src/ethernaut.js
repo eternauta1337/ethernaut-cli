@@ -14,7 +14,7 @@ command
 
 addCommands('commands', command);
 
-command.pickSubCommandPrompt = 'Pick a bundle';
+command.pickSubCommandPrompt = 'Pick a command';
 makeInteractive(command);
 
 command.parse(process.argv);
