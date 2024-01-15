@@ -10,7 +10,6 @@ command
   )
   .option('-a, --address [address]', 'The address of the contract', '')
   .option('-n, --name [name]', 'The name of the contract', '')
-  .option('-p, --pp [pipu]', 'The name of the contract', false)
   .action(async (options) => {
     const { name, address } = options;
 
