@@ -182,8 +182,9 @@ async function pickSubCommand(command) {
     value: c.name(),
   }));
 
+  const backTitle = '↩ back';
   if (command.parent) {
-    choices.push({ title: 'Back', value: undefined });
+    choices.unshift({ title: backTitle, value: undefined });
   }
 
   const { selected } = await prompts([
@@ -199,7 +200,7 @@ async function pickSubCommand(command) {
     process.exit(0);
   }
 
-  if (selected === 'Back') {
+  if (selected === backTitle) {
     await jumpBack(command);
   } else {
     const selectedCommand = command.commands.find((c) => c.name() === selected);
