@@ -28,10 +28,10 @@ function makeInteractive(command) {
     const actionArgs = args.slice(0, expectedArgsCount);
     const options = args.slice(-2)[0];
 
-    if (options.interactive) {
+    if (options.interactive || command.commands.length > 0) {
       if (command.commands.length > 0) {
         // Run the action handler with the original args and options
-        originalActionHandler.apply(command, [actionArgs]);
+        await originalActionHandler.apply(command, [actionArgs]);
 
         // This command has subcommands, so we'll use prompts to select one
         await pickSubCommand(command);
@@ -46,7 +46,7 @@ function makeInteractive(command) {
           const newArg = newArgs.length > i ? newArgs[i] : undefined;
 
           if (newArg === undefined && !arg.skip) {
-            jumpBack(command);
+            await jumpBack(command);
             return;
           }
         }
@@ -55,7 +55,7 @@ function makeInteractive(command) {
         // console.log('newOpts', newOpts);
         // If the user cancelled any prompts, jump back or exit
         if (Object.values(newOpts).some((opt) => opt === undefined)) {
-          jumpBack(command);
+          await jumpBack(command);
           return;
         }
 
@@ -65,11 +65,11 @@ function makeInteractive(command) {
 
         // After running the action in interactive mode,
         // jump back to the parent command
-        jumpBack(command);
+        await jumpBack(command);
       }
     } else {
       // Run the action handler with the original args and options
-      originalActionHandler.apply(command, [actionArgs]);
+      await originalActionHandler.apply(command, [actionArgs]);
     }
   });
 
@@ -182,6 +182,10 @@ async function pickSubCommand(command) {
     value: c.name(),
   }));
 
+  if (command.parent) {
+    choices.push({ title: 'Back', value: undefined });
+  }
+
   const { selected } = await prompts([
     {
       type: 'autocomplete',
@@ -192,18 +196,22 @@ async function pickSubCommand(command) {
   ]);
 
   if (selected === undefined) {
-    jumpBack(command);
+    process.exit(0);
+  }
+
+  if (selected === 'Back') {
+    await jumpBack(command);
   } else {
     const selectedCommand = command.commands.find((c) => c.name() === selected);
     selectedCommand.parseAsync(['node', selected, '-i']);
   }
 }
 
-function jumpBack(command) {
+async function jumpBack(command) {
   if (command.parent) {
-    command.parent.parseAsync(['node', command.parent.name(), '-i']);
+    await command.parent.parseAsync(['node', command.parent.name(), '-i']);
   } else {
-    process.exit(1);
+    throw new Error('Cannot jump back from root command');
   }
 }
 
