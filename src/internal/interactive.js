@@ -11,6 +11,7 @@ function makeInteractive(command) {
     // console.log(arg);
     arg.required = false;
 
+    // Mark arguments that should be skipped in interactive mode with *
     // If the argument name ends with *, set skip to true and remove * from the name
     if (arg._name.endsWith('*')) {
       arg.skip = true;
@@ -19,6 +20,7 @@ function makeInteractive(command) {
   });
 
   // Intercept the action handler
+  // Collects arguments before executing the original action.
   const originalActionHandler = command._actionHandler;
   command.action(async (...args) => {
     // args is [...actionArgs, options, command]
@@ -28,6 +30,9 @@ function makeInteractive(command) {
 
     if (options.interactive) {
       if (command.commands.length > 0) {
+        // Run the action handler with the original args and options
+        originalActionHandler.apply(command, [actionArgs]);
+
         // This command has subcommands, so we'll use prompts to select one
         await pickSubCommand(command);
       } else {

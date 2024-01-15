@@ -1,6 +1,8 @@
 const { Command } = require('commander');
 const { makeInteractive, pickSubCommand } = require('./internal/interactive');
-const addSubCommandsInFolder = require('./internal/add-commands');
+const {
+  recursivelyAddSubCommandsInFolder,
+} = require('./internal/add-commands');
 
 const program = new Command();
 
@@ -12,7 +14,7 @@ program
     pickSubCommand(program);
   });
 
-addSubCommandsInFolder('commands', program);
+recursivelyAddSubCommandsInFolder('commands', program);
 
 makeInteractive(program);
 
