@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const prompts = require('prompts');
+const { prompt } = require('./prompt');
 
 async function pickArguments(args, command) {
   const newArgs = [];
@@ -19,36 +19,13 @@ async function pickArguments(args, command) {
       continue;
     }
 
-    let result;
-    if (!arg.argChoices) {
-      result = await prompts([
-        {
-          type: 'text',
-          name: 'selected',
-          message: `${arg._name}${chalk.gray(' ' + arg.description)}`,
-        },
-      ]);
+    const result = await prompt({
+      type: arg.argChoices ? 'select' : 'text',
+      message: `${arg._name}${chalk.gray(' ' + arg.description)}`,
+      choices: arg.argChoices,
+    });
 
-      newArgs.push(result.selected);
-    } else {
-      result = await prompts([
-        {
-          type: 'select',
-          initial: arg.defaultValue
-            ? arg.argChoices.indexOf(arg.defaultValue)
-            : '',
-          name: 'selected',
-          message: `${arg._name}${chalk.gray(' ' + arg.description)}`,
-          choices: arg.argChoices,
-        },
-      ]);
-
-      newArgs.push(arg.argChoices[result.selected]);
-    }
-
-    if (result.selected === undefined) {
-      process.exit(0);
-    }
+    newArgs.push(result);
   }
 
   return newArgs;

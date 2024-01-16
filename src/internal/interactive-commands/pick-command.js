@@ -1,6 +1,6 @@
 const chalk = require('chalk');
-const prompts = require('prompts');
 const { jumpBack } = require('./jump-back');
+const { prompt } = require('./prompt');
 
 async function pickCommand(command) {
   const choices = command.commands.map((c) => ({
@@ -13,24 +13,17 @@ async function pickCommand(command) {
     choices.unshift({ title: backTitle, value: undefined });
   }
 
-  const { selected } = await prompts([
-    {
-      type: 'autocomplete',
-      name: 'selected',
-      message: 'Pick a command',
-      choices,
-    },
-  ]);
+  const response = await prompt({
+    type: 'autocomplete',
+    message: 'Pick a command',
+    choices,
+  });
 
-  if (selected === undefined) {
-    process.exit(0);
-  }
-
-  if (selected === backTitle) {
+  if (response === backTitle) {
     await jumpBack(command);
   } else {
-    const selectedCommand = command.commands.find((c) => c.name() === selected);
-    selectedCommand.parseAsync(['node', selected]);
+    const selectedCommand = command.commands.find((c) => c.name() === response);
+    selectedCommand.parseAsync(['node', response]);
   }
 }
 
