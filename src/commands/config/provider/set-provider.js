@@ -6,34 +6,28 @@ const logger = require('@src/internal/logger');
 const command = new Command();
 
 command
-  .name('provider')
+  .name('set-provider')
   .description('Set an Ethereum provider')
   .addArgument(
-    new Argument('[provider]', 'Provider to set (and remembered)').choices(
+    new Argument('[provider]', 'Provider to set').choices(
       storage.config.provider.list
     )
   )
-  .action(async (provider, options) => {
+  .action(async (provider) => {
     // Validate URL
     if (provider === undefined || !validateURL(provider)) {
-      console.log(`${provider} is not a valid URL`);
+      logger.error(`${provider} is not a valid URL`);
       return;
     }
 
-    // Add to list if new
-    const isNew = !storage.config.provider.list.includes(provider);
-    if (isNew) {
-      storage.config.provider.list.push(provider);
+    if (!storage.config.provider.list.includes(provider)) {
+      logger.error(`${provider} is not a known provider`);
     }
 
     // Set as current
     storage.config.provider.current = provider;
 
-    logger.output(
-      `<${provider}> set as the current provider${
-        isNew ? ', and added to the list of known providers' : ''
-      }`
-    );
+    logger.output(`<${provider}> set as the current provider`);
   });
 
 module.exports = command;
