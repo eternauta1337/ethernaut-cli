@@ -7,7 +7,8 @@ function nameAndDescription(name, description) {
 }
 
 function capDescription(description) {
-  return description.substring(0, 50) + '...';
+  const firstSentence = description.split('.')[0];
+  return firstSentence.substring(0, 50);
 }
 
 module.exports = {

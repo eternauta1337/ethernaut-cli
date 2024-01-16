@@ -1,4 +1,3 @@
-const chalk = require('chalk');
 const { jumpBack } = require('./jump-back');
 const { prompt } = require('./prompt');
 const { nameAndDescription } = require('./messages');
