@@ -17,6 +17,10 @@ async function pickOptions(opts, command) {
 
     const result = await prompt({
       type: opt.argChoices ? 'autocomplete' : 'text',
+      initial:
+        opt.argChoices && opt.preferred
+          ? opt.argChoices.indexOf(opt.preferred)
+          : undefined,
       message: nameAndDescription(opt.name(), opt.description),
       choices: opt.argChoices,
     });

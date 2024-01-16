@@ -1,4 +1,7 @@
 const { Command, Option } = require('commander');
+const {
+  InteractiveOption,
+} = require('../../internal/interactive-commands/interactive-option');
 const ethers = require('ethers');
 const logger = require('../../internal/logger');
 
@@ -11,9 +14,15 @@ command
   .description('Converts between different units of Ether')
   .argument('<value>', 'Value to convert')
   .addOption(
-    new Option('-s, --from <from>', 'Convert from this unit').choices(units)
+    new InteractiveOption('-f, --from <from>', 'Convert from this unit')
+      .choices(units)
+      .preferred('ether')
   )
-  .addOption(new Option('-d, --to <to>', 'Convert to this unit').choices(units))
+  .addOption(
+    new InteractiveOption('-d, --to <to>', 'Convert to this unit')
+      .choices(units)
+      .preferred('wei')
+  )
   .action(async (value, options) => {
     const valueWei = ethers.utils.parseUnits(value, options.from);
     let result = ethers.utils.formatUnits(valueWei, options.to);
