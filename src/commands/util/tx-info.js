@@ -1,8 +1,7 @@
 const { Command } = require('commander');
-const ethers = require('ethers');
-const logger = require('../../internal/logger');
-const { getProvider } = require('../../internal/get-provider');
-const { validateBytes32 } = require('../../internal/validate');
+const logger = require('@src/internal/logger');
+const { getProvider } = require('@src/internal/get-provider');
+const { validateBytes32 } = require('@src/internal/validate');
 
 const command = new Command();
 

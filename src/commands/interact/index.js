@@ -1,5 +1,5 @@
 const { Command, Option } = require('commander');
-const logger = require('../../internal/logger');
+const logger = require('@src/internal/logger');
 
 const command = new Command();
 

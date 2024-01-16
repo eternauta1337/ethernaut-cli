@@ -1,7 +1,10 @@
+require('module-alias/register');
 const { Command } = require('commander');
-const { makeInteractive } = require('./internal/interactive/make-interactive');
-const { addCommands } = require('./internal/add-commands');
-const { parseArgv } = require('./internal/interactive/parse-argv');
+const {
+  makeInteractive,
+} = require('@src/internal/interactive/make-interactive');
+const { addCommands } = require('@src/internal/add-commands');
+const { parseArgv } = require('@src/internal/interactive/parse-argv');
 
 const program = new Command();
 

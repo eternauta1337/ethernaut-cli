@@ -1,9 +1,9 @@
 const { Command, Option } = require('commander');
 const {
   InteractiveOption,
-} = require('../../internal/interactive/interactive-option');
+} = require('@src/internal/interactive/interactive-option');
 const ethers = require('ethers');
-const logger = require('../../internal/logger');
+const logger = require('@src/internal/logger');
 
 const command = new Command();
 
