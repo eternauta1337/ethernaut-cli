@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const { prompt } = require('./prompt');
+const { nameAndDescription } = require('./messages');
 
 async function pickArguments(args, command) {
   const newArgs = [];
@@ -21,7 +22,7 @@ async function pickArguments(args, command) {
 
     const result = await prompt({
       type: arg.argChoices ? 'select' : 'text',
-      message: `${arg._name}${chalk.gray(' ' + arg.description)}`,
+      message: nameAndDescription(arg._name, arg.description),
       choices: arg.argChoices,
     });
 

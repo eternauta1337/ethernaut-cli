@@ -1,5 +1,6 @@
 const chalk = require('chalk');
 const { prompt } = require('./prompt');
+const { nameAndDescription } = require('./messages');
 
 async function pickOptions(opts, command) {
   const newOpts = { interactive: true };
@@ -16,7 +17,7 @@ async function pickOptions(opts, command) {
 
     const result = await prompt({
       type: opt.argChoices ? 'autocomplete' : 'text',
-      message: `${opt._name}${chalk.gray(' ' + opt.description)}`,
+      message: nameAndDescription(opt.name(), opt.description),
       choices: opt.argChoices,
     });
 

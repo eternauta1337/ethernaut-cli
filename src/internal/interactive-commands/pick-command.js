@@ -1,12 +1,18 @@
 const chalk = require('chalk');
 const { jumpBack } = require('./jump-back');
 const { prompt } = require('./prompt');
+const { nameAndDescription } = require('./messages');
 
 async function pickCommand(command) {
-  const choices = command.commands.map((c) => ({
-    title: `${c.name()}${chalk.gray(' ' + c.description())}`,
-    value: c.name(),
-  }));
+  const choices = command.commands.map((c) => {
+    const hasSubcommands = c.commands.length > 0;
+    const name = hasSubcommands ? `${c.name()} [+]` : c.name();
+
+    return {
+      title: nameAndDescription(name, c.description()),
+      value: c.name(),
+    };
+  });
 
   const backTitle = '↩ back';
   if (command.parent) {

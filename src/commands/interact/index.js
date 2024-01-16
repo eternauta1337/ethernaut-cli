@@ -8,8 +8,8 @@ command
   .description(
     'Interacts with a contract. If an address is provided, the abi will be looked up on Etherscan and remmebered for future use. If a name is provided, the address will be looked up locally from previous usages.'
   )
-  .option('-a, --address [address]', 'The address of the contract', '')
-  .option('-n, --name [name]', 'The name of the contract', '')
+  .option('-a, --address [address]', 'The address of the contract')
+  .option('-n, --name [name]', 'The name of the contract')
   .action(async (options) => {
     const { name, address } = options;
 

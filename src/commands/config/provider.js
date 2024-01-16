@@ -2,7 +2,6 @@ const { Command, Argument } = require('commander');
 const storage = require('../../internal/storage');
 const { validateURL } = require('../../internal/validate');
 const logger = require('../../internal/logger');
-const { prompt } = require('../../internal/interactive-commands/prompt');
 
 const command = new Command();
 
@@ -15,12 +14,6 @@ command
     )
   )
   .action(async (provider, options) => {
-    // Suggest if empty
-    if (provider === undefined && options.interactive) {
-      provider = await pickProviderFromList();
-    }
-    // console.log('Picked:', provider);
-
     // Validate URL
     if (provider === undefined || !validateURL(provider)) {
       console.log(`${provider} is not a valid URL`);
@@ -42,27 +35,5 @@ command
       }`
     );
   });
-
-async function pickProviderFromList() {
-  // const choices = storage.config.provider.list.map((provider) => ({
-  //   title: provider,
-  // }));
-  // let userInput = '';
-  // result = await prompts([
-  //   {
-  //     type: 'autocomplete',
-  //     name: 'selected',
-  //     message: 'Pick or enter a provider',
-  //     fallback: 'No matches found - Press enter to add as new provider',
-  //     suggest: async (text) => {
-  //       if (!text) return choices;
-  //       userInput = text;
-  //       return choices.filter((choice) => choice.title.includes(text));
-  //     },
-  //     choices,
-  //   },
-  // ]);
-  // return result.selected || userInput;
-}
 
 module.exports = command;
