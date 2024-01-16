@@ -13,7 +13,7 @@ const command = new Command();
 
 command
   .name('remove-provider')
-  .description('Add an Ethereum provider')
+  .description('Remove an Ethereum provider')
   .addArgument(
     new Argument('[provider]', 'Provider to add').choices(
       storage.config.provider.list
