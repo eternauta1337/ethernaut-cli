@@ -1,15 +1,21 @@
 const chalk = require('chalk');
 const prompts = require('prompts');
 
-async function pickArguments(command) {
-  const args = [];
+async function pickArguments(args, command) {
+  const newArgs = [];
 
-  for (const arg of command._args) {
-    // console.log(arg);
+  for (let i = 0; i < command._args.length; i++) {
+    const arg = command._args[i];
+    const value = args[i];
+
+    if (value !== undefined) {
+      newArgs.push(value);
+      continue;
+    }
 
     // Skip optional arguments
     if (arg.skip) {
-      args.push(undefined);
+      newArgs.push(undefined);
       continue;
     }
 
@@ -23,7 +29,7 @@ async function pickArguments(command) {
         },
       ]);
 
-      args.push(result.selected);
+      newArgs.push(result.selected);
     } else {
       result = await prompts([
         {
@@ -37,7 +43,7 @@ async function pickArguments(command) {
         },
       ]);
 
-      args.push(arg.argChoices[result.selected]);
+      newArgs.push(arg.argChoices[result.selected]);
     }
 
     if (result.selected === undefined) {
@@ -45,7 +51,7 @@ async function pickArguments(command) {
     }
   }
 
-  return args;
+  return newArgs;
 }
 
 module.exports = {

@@ -11,25 +11,17 @@ command
   .description('Converts between different units of Ether')
   .argument('<value>', 'Value to convert')
   .addOption(
-    new Option('-s, --source <sourceUnit>', 'Convert from this unit')
-      .default('ether')
-      .choices(units)
+    new Option('-s, --from <from>', 'Convert from this unit').choices(units)
   )
-  .addOption(
-    new Option('-d, --dest <destUnit>', 'Convert to this unit')
-      .default('wei')
-      .choices(units)
-  )
+  .addOption(new Option('-d, --to <to>', 'Convert to this unit').choices(units))
   .action(async (value, options) => {
-    const valueWei = ethers.utils.parseUnits(value, options.source);
-    let result = ethers.utils.formatUnits(valueWei, options.dest);
+    const valueWei = ethers.utils.parseUnits(value, options.from);
+    let result = ethers.utils.formatUnits(valueWei, options.to);
 
     const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
     result = result.match(removeTrailingZeroes)[1];
 
-    logger.output(
-      `${value} ${options.source} to ${options.dest} is <${result}>`
-    );
+    logger.output(`${value} ${options.from} to ${options.to} is <${result}>`);
   });
 
 module.exports = command;

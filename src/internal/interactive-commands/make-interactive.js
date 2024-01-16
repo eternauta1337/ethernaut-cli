@@ -5,16 +5,23 @@ const { jumpBack } = require('./jump-back');
 
 /**
  * Makes a command interactive by:
- * - If the command has subcommands, it will prompt the user to select one
- * - If the command has arguments or options, it will prompt the user to enter them
- *
- * Making a command interactive will also make all subcommands interactive recursively.
- *
- * To skip an argument in interactive mode, add a * to the end of its name.
+ * - If the command has subcommands, prompting the user to pick one
+ * - If the command has arguments or options, prompting the user to enter them
  *
  * Interactivity is implemented by wrapping the command's action handler with a function
  * that first collects the arguments and options using prompts,
  * and then executes the original action handler.
+ *
+ * Note: There is no interactive option. Any command with subcommands will trigger navigation,
+ * and any command with incomplete arguments or options which can't be skipped will trigger prompts.
+ *
+ * Note: Required arguments or options will not be handled by interactive mode,
+ * since commander throws when parsing, way before the action handler is called.
+ *
+ * Note: Interactivity is applied recursively to all subcommands.
+ *
+ * Special nomenclature:
+ * '[myArg*]' - An argument that will be skipped in interactive mode
  */
 function makeInteractive(command) {
   const originalActionHandler = command._actionHandler;
@@ -22,52 +29,33 @@ function makeInteractive(command) {
   const expectedArgsCount = command.registeredArguments.length;
   const hasSubCommands = command.commands.length > 0;
 
-  command.action(async (...args) => {
-    // args is [...actionArgs, options, command]
+  command.action(async (...combinedArgs) => {
+    // Note: combinedArgs is [...args, options, command]
 
-    const actionArgs = args.slice(0, expectedArgsCount);
-    const options = args.slice(-2)[0];
-
-    if (!options.interactive && !hasSubCommands) {
-      // Run the action handler with the original args and options
-      await originalActionHandler.apply(command, [actionArgs]);
-
-      // And exit
-      return;
-    }
+    const args = combinedArgs.slice(0, expectedArgsCount);
+    const opts = combinedArgs.slice(-2)[0];
 
     if (hasSubCommands) {
-      // Note that this doesn't care if -i was passed or not
       // Run the action handler with the original args and options
-      await originalActionHandler.apply(command, [actionArgs]);
+      await originalActionHandler.apply(command, [args]);
 
       // And pick a sub command interactively
       await pickCommand(command);
+
+      return;
     }
 
-    if (options.interactive) {
-      // Collect args and options
-      const newArgs = await pickArguments(command);
-      const newOpts = await pickOptions(command);
+    // Collect args and options
+    const newArgs = await pickArguments(args, command);
+    const newOpts = await pickOptions(opts, command);
 
-      // Run the action handler with the modified args and options
-      command._optionValues = newOpts;
-      await originalActionHandler.apply(command, [newArgs]);
-
-      // Jump back to the parent command
-      await jumpBack(command);
-    }
+    // Run the action handler with the modified args and options
+    command._optionValues = newOpts;
+    await originalActionHandler.apply(command, [newArgs]);
   });
-
-  // Make sure subcommands have an interactive option too
-  command.option('-i, --interactive', 'Enter interactive mode');
-
-  // This is needed if we want an '-i' flag to apply to all subcommands
-  command.enablePositionalOptions();
 
   // We can't have required arguments or else parsing will fail.
   // So, set all required arguments as optional
-  // TODO: Introduce a way to skip arguments in interactive mode, except for those that were originally required
   command.registeredArguments.forEach((arg) => {
     // console.log(arg);
     arg.required = false;

@@ -1,14 +1,13 @@
 const chalk = require('chalk');
 const prompts = require('prompts');
 
-async function pickOptions(command) {
-  const opts = { interactive: true };
+async function pickOptions(opts, command) {
+  const newOpts = { interactive: true };
 
   for (const opt of command.options) {
     // console.log(opt);
 
     const name = opt.long.split('--')[1];
-    if (name === 'interactive') continue;
 
     let type = 'toggle';
     if (opt.argChoices) type = 'select';
@@ -18,6 +17,7 @@ async function pickOptions(command) {
         else type = 'text';
       }
     }
+    console.log(type);
 
     let result;
 
@@ -33,7 +33,7 @@ async function pickOptions(command) {
         },
       ]);
 
-      opts[name] = result.selected;
+      newOpts[name] = result.selected;
     } else if (type === 'text') {
       result = await prompts([
         {
@@ -43,19 +43,20 @@ async function pickOptions(command) {
         },
       ]);
 
-      opts[name] = result.selected;
+      newOpts[name] = result.selected;
     } else if (type === 'select') {
       result = await prompts([
         {
           type: 'select',
-          initial: opt.argChoices.indexOf(opt.defaultValue),
+          // initial: opt.argChoices.indexOf(opt.defaultValue),
           name: 'selected',
           message: `${name}${chalk.gray(' ' + opt.description)}`,
           choices: opt.argChoices,
         },
       ]);
+      console.log(result);
 
-      opts[name] = opt.argChoices[result.selected];
+      newOpts[name] = opt.argChoices[result.selected];
     }
 
     if (result.selected === undefined) {
@@ -63,7 +64,7 @@ async function pickOptions(command) {
     }
   }
 
-  return opts;
+  return newOpts;
 }
 
 module.exports = {

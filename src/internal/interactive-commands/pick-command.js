@@ -30,7 +30,7 @@ async function pickCommand(command) {
     await jumpBack(command);
   } else {
     const selectedCommand = command.commands.find((c) => c.name() === selected);
-    selectedCommand.parseAsync(['node', selected, '-i']);
+    selectedCommand.parseAsync(['node', selected]);
   }
 }
 
