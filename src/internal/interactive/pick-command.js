@@ -1,4 +1,3 @@
-const { jumpBack } = require('./jump-back');
 const { prompt } = require('./prompt');
 const { nameAndDescription } = require('./messages');
 const { flattenCommands } = require('./flatten-commands');
@@ -33,7 +32,9 @@ async function pickCommand(command) {
   });
 
   if (response === backTitle) {
-    await jumpBack(command);
+    if (command.parent) {
+      await command.parent.parseAsync(['node', command.parent.name()]);
+    }
   } else {
     const selectedCommand = flattenedCommands.find(
       (c) => c.name() === response

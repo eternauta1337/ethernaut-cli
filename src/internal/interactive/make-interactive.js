@@ -1,7 +1,8 @@
 const { pickCommand } = require('./pick-command');
 const { pickArguments } = require('./pick-arguments');
 const { pickOptions } = require('./pick-options');
-const { jumpBack } = require('./jump-back');
+
+let interacted = false;
 
 /**
  * Makes a command interactive by:
@@ -36,6 +37,8 @@ function makeInteractive(command) {
     const opts = combinedArgs.slice(-2)[0];
 
     if (hasSubCommands) {
+      interacted = true;
+
       // And pick a sub command interactively
       await pickCommand(command);
 
@@ -46,9 +49,16 @@ function makeInteractive(command) {
     const newArgs = await pickArguments(args, command);
     const newOpts = await pickOptions(opts, command);
 
+    if (JSON.stringify(args) !== JSON.stringify(newArgs)) interacted = true;
+    if (JSON.stringify(opts) !== JSON.stringify(newOpts)) interacted = true;
+
     // Run the action handler with the modified args and options
     command._optionValues = newOpts;
     await originalActionHandler.apply(command, [newArgs]);
+
+    if (interacted && command.parent) {
+      await command.parseAsync(['node', command.name()]);
+    }
   });
 
   // We can't have required arguments or else parsing will fail.
