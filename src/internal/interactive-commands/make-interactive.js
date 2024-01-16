@@ -36,9 +36,6 @@ function makeInteractive(command) {
     const opts = combinedArgs.slice(-2)[0];
 
     if (hasSubCommands) {
-      // Run the action handler with the original args and options
-      await originalActionHandler.apply(command, [args]);
-
       // And pick a sub command interactively
       await pickCommand(command);
 
