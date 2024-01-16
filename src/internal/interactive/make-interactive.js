@@ -57,7 +57,7 @@ function makeInteractive(command) {
     await originalActionHandler.apply(command, [newArgs]);
 
     if (interacted && command.parent) {
-      await command.parseAsync(['node', command.name()]);
+      await command.parent.parseAsync(['node', command.parent.name()]);
     }
   });
 

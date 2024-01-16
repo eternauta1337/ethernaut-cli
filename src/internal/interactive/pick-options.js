@@ -3,7 +3,7 @@ const { prompt } = require('./prompt');
 const { nameAndDescription } = require('./messages');
 
 async function pickOptions(opts, command) {
-  const newOpts = { interactive: true };
+  const newOpts = {};
 
   for (const opt of command.options) {
     // console.log(opt);
