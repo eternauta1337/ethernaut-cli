@@ -9,7 +9,11 @@ const command = new Command();
 command
   .name('provider')
   .description('Set an Ethereum provider')
-  .argument('<provider*>', 'Provider to set (and remember)')
+  .addArgument(
+    new Argument('[provider]', 'Provider to set (and remembered)').choices(
+      storage.config.provider.list
+    )
+  )
   .action(async (provider, options) => {
     // Suggest if empty
     if (provider === undefined && options.interactive) {

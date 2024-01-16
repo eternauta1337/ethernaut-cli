@@ -1,7 +1,9 @@
 {
   "config": {
     "provider": {
-      "list": ["https://mainnet.optimism.io"],
+      "list": [
+        "https://mainnet.optimism.io"
+      ],
       "current": "https://mainnet.optimism.io"
     }
   }
