@@ -20,9 +20,9 @@ async function pickCommand(command) {
       (a, b) => b.title.includes(folderChar) - a.title.includes(folderChar)
     );
 
-  const backTitle = '↩ back';
+  const parentTitle = '↩ up';
   if (command.parent) {
-    choices.unshift({ title: backTitle, value: undefined });
+    choices.unshift({ title: parentTitle, value: undefined });
   }
 
   const response = await prompt({
@@ -31,7 +31,7 @@ async function pickCommand(command) {
     choices,
   });
 
-  if (response === backTitle) {
+  if (response === parentTitle) {
     if (command.parent) {
       await command.parent.parseAsync(['node', command.parent.name()]);
     }
