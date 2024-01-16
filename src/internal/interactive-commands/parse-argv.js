@@ -1,4 +1,5 @@
-const logger = require('./logger');
+const logger = require('../logger');
+const { flattenCommands } = require('./flatten-commands');
 
 /**
  * Enhances argv parsing so that a sub command can be called directly.
@@ -43,16 +44,6 @@ function parseArgv(program) {
 
   // And finally process the args
   program.parse(processedArgs);
-}
-
-function flattenCommands(commands) {
-  return commands.reduce((acc, command) => {
-    if (command.commands.length > 0) {
-      return [...acc, command, ...flattenCommands(command.commands)];
-    } else {
-      return [...acc, command];
-    }
-  }, []);
 }
 
 function getCommandCallPath(command) {

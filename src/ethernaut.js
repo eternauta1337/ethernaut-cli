@@ -3,7 +3,7 @@ const {
   makeInteractive,
 } = require('./internal/interactive-commands/make-interactive');
 const { addCommands } = require('./internal/add-commands');
-const { parseArgv } = require('./internal/parse-argv');
+const { parseArgv } = require('./internal/interactive-commands/parse-argv');
 
 const program = new Command();
 
