@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const storageFilePath = path.join(__dirname, 'storage.json');
+const storageFilePath = path.join(__dirname, '../../', 'storage.json');
 
 let storage;
 

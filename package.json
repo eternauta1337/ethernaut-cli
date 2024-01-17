@@ -27,6 +27,7 @@
     "chalk": "^2.4.2",
     "commander": "^11.1.0",
     "copy-paste": "^1.5.3",
+    "dotenv": "^16.3.1",
     "enquirer": "^2.4.1",
     "ethers": "^5.7.2",
     "module-alias": "^2.2.3"
