@@ -29,7 +29,7 @@ async function deduceNameAndAddress(nameOrAddress) {
   // const provider = await getProvider();
   // const network = await provider.getNetwork();
   const network = { name: 'sepolia' };
-  console.log(network);
+  // console.log(network);
 
   let name, address;
   if (isAddress(nameOrAddress)) {

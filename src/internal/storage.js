@@ -5,13 +5,57 @@ const storageFilePath = path.join(__dirname, '../../', 'storage.json');
 
 let storage;
 
-// Load storage from file
-if (fs.existsSync(storageFilePath)) {
-  const fileContent = fs.readFileSync(storageFilePath, 'utf8');
-  storage = JSON.parse(fileContent);
+const schema = {
+  config: {
+    provider: {
+      list: [],
+      current: undefined,
+    },
+  },
+  addresses: {
+    sepolia: {},
+  },
+};
+
+// Create the file if it doesn't exist
+if (!fs.existsSync(storageFilePath)) {
+  fs.writeFileSync(storageFilePath, JSON.stringify(schema, null, 2));
 }
 
-// Create a recursive function to apply the Proxy to all nested objects
+// Load the file
+const fileContent = fs.readFileSync(storageFilePath, 'utf8');
+storage = JSON.parse(fileContent);
+
+// Wrap the storage object in a Proxy,
+// so that changes are persisted to disk whenever a change occurs
+
+// This handler will be called whenever a property is accessed
+const proxyHandler = {
+  get(target, property) {
+    // If a property that doesn't exist is accessed,
+    // check if the schema has it, and if so create it.
+    if (!target.hasOwnProperty(property) && schema.hasOwnProperty(property)) {
+      target[property] = schema[property];
+      this.saveToDisk();
+    }
+
+    return target[property];
+  },
+
+  set(target, property, value) {
+    target[property] = value;
+    this.saveToDisk();
+
+    return true;
+  },
+
+  saveToDisk() {
+    fs.writeFileSync(storageFilePath, JSON.stringify(storage, null, 2));
+  },
+};
+
+// The handler is actually recursively applied to all the properties
+// of the storage object that are also an object
 function createDeepProxy(obj, handler) {
   for (let prop in obj) {
     if (typeof obj[prop] === 'object' && obj[prop] !== null) {
@@ -21,18 +65,6 @@ function createDeepProxy(obj, handler) {
   return new Proxy(obj, handler);
 }
 
-// Create a proxy to handle changes to the object
-// Writes to disk when a change occurs
-const handler = {
-  set(target, property, value) {
-    target[property] = value;
-    fs.writeFileSync(storageFilePath, JSON.stringify(storage, null, 2));
-    return true;
-  },
-};
-const proxyStorage = createDeepProxy(storage, handler);
+const storageProxy = createDeepProxy(storage, proxyHandler);
 
-// Prevent extensions
-// Object.preventExtensions(proxyStorage);
-
-module.exports = proxyStorage;
+module.exports = storageProxy;
