@@ -1,12 +1,5 @@
-// // Add to list if new
-// const isNew = !storage.config.provider.list.includes(provider);
-// if (isNew) {
-//   storage.config.provider.list.push(provider);
-// }
-
 const { Command, Argument } = require('commander');
-const storage = require('@src/internal/storage');
-const { validateURL } = require('@src/internal/validate');
+const { storage, onStorageChange } = require('@src/internal/storage');
 const logger = require('@src/internal/logger');
 
 const command = new Command();
@@ -15,27 +8,18 @@ command
   .name('remove-provider')
   .description('Remove an Ethereum provider')
   .addArgument(
-    new Argument('[provider]', 'Provider to add').choices(
+    new Argument('[provider]', 'Provider to remove').choices(
       storage.config.provider.list
     )
   )
   .action(async (provider) => {
-    // Validate URL
-    if (provider === undefined || !validateURL(provider)) {
-      logger.error(`${provider} is not a valid URL`);
-      return;
-    }
-
     if (!storage.config.provider.list.includes(provider)) {
       logger.error(`${provider} is not a known provider`);
     }
 
-    const current = storage.config.provider.current;
-
     // Remove
-    storage.config.provider.list = storage.config.provider.list.filter(
-      (item) => item !== provider
-    );
+    const index = storage.config.provider.list.indexOf(provider);
+    storage.config.provider.list.splice(index, 1);
 
     // Try to set current if removed
     if (storage.config.provider.current === provider) {
@@ -48,5 +32,13 @@ command
 
     logger.output(`<${provider}> removed from list of known providers`);
   });
+
+// If anything else changes the list of providers,
+// update the choices for this command
+onStorageChange(storage.config.provider.list, () => {
+  command.registeredArguments
+    .find((arg) => arg._name === 'provider')
+    .choices(storage.config.provider.list);
+});
 
 module.exports = command;

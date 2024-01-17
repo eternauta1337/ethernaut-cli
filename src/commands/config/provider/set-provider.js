@@ -1,5 +1,5 @@
 const { Command, Argument } = require('commander');
-const storage = require('@src/internal/storage');
+const { storage, onStorageChange } = require('@src/internal/storage');
 const { validateURL } = require('@src/internal/validate');
 const logger = require('@src/internal/logger');
 
@@ -29,5 +29,13 @@ command
 
     logger.output(`<${provider}> set as the current provider`);
   });
+
+// If anything else changes the list of providers,
+// update the choices for this command
+onStorageChange(storage.config.provider.list, () => {
+  command.registeredArguments
+    .find((arg) => arg._name === 'provider')
+    .choices(storage.config.provider.list);
+});
 
 module.exports = command;

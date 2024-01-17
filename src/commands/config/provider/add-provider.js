@@ -1,11 +1,5 @@
-// // Add to list if new
-// const isNew = !storage.config.provider.list.includes(provider);
-// if (isNew) {
-//   storage.config.provider.list.push(provider);
-// }
-
 const { Command, Argument } = require('commander');
-const storage = require('@src/internal/storage');
+const { storage } = require('@src/internal/storage');
 const { validateURL } = require('@src/internal/validate');
 const logger = require('@src/internal/logger');
 
