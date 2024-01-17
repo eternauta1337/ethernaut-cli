@@ -4,7 +4,7 @@ const { Command } = require('commander');
 const logger = require('@src/internal/logger');
 const { getProvider } = require('@src/internal/get-provider');
 const isAddress = require('@src/internal/is-address');
-const storage = require('@src/internal/storage');
+const { storage } = require('@src/internal/storage');
 
 const command = new Command();
 

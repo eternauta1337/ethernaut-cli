@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const EventEmitter = require('events');
 
 const storageFilePath = path.join(__dirname, '../../', 'storage.json');
 
@@ -26,6 +27,8 @@ if (!fs.existsSync(storageFilePath)) {
 const fileContent = fs.readFileSync(storageFilePath, 'utf8');
 storage = JSON.parse(fileContent);
 
+const emitter = new EventEmitter();
+
 // Wrap the storage object in a Proxy,
 // so that changes are persisted to disk whenever a change occurs
 
@@ -45,6 +48,8 @@ const proxyHandler = {
   set(target, property, value) {
     target[property] = value;
     this.saveToDisk();
+
+    emitter.emit('propertySet', { target, property, value });
 
     return true;
   },
@@ -67,4 +72,15 @@ function createDeepProxy(obj, handler) {
 
 const storageProxy = createDeepProxy(storage, proxyHandler);
 
-module.exports = storageProxy;
+function onStorageChange(property, callback) {
+  emitter.on('propertySet', ({ target }) => {
+    if (JSON.stringify(property) === JSON.stringify(target)) {
+      callback();
+    }
+  });
+}
+
+module.exports = {
+  storage: storageProxy,
+  onStorageChange,
+};

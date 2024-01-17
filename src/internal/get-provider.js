@@ -1,5 +1,5 @@
 const { ethers } = require('ethers');
-const storage = require('./storage');
+const { storage } = require('./storage');
 const logger = require('./logger');
 
 function getProvider() {
