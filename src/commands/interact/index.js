@@ -202,10 +202,8 @@ function _printEventsInReceipt(receipt, abi) {
 async function pickParameters(abiFn) {
   const params = [];
 
-  let parameterIndex = 0;
-  // Using a while loop so that the user can retry failed inputs
-  while (parameterIndex < abiFn.inputs.length) {
-    const parameter = abiFn.inputs[parameterIndex];
+  for (let i = 0; i < abiFn.inputs.length; i++) {
+    const parameter = abiFn.inputs[i];
 
     const response = await prompt({
       type: 'text',
@@ -215,7 +213,6 @@ async function pickParameters(abiFn) {
 
     try {
       params.push(await _parseInput(response, parameter.type));
-      parameterIndex++;
     } catch (error) {
       logger.warn(error);
     }
