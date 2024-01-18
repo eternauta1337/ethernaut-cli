@@ -6,7 +6,7 @@ const { getCommandCallPath } = require('./call-path');
 async function pickCommand(command) {
   const flattenedCommands = flattenCommands(command.commands);
 
-  const folderChar = '📁';
+  const folderChar = '[+]';
   const choices = flattenedCommands
     .map((c) => {
       const hasSubcommands = c.commands.length > 0;
