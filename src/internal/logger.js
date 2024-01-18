@@ -16,7 +16,15 @@ function output(msg) {
 }
 
 function debug(...msgs) {
-  const msg = `[${_getCallerFile()}] ${msgs.join(' ')}`;
+  const msg = `[${_getCallerFile()}] ${msgs
+    .map((m) => {
+      if (typeof m === 'object') {
+        return JSON.stringify(m, null, 2);
+      } else {
+        return m.toString();
+      }
+    })
+    .join(' ')}`;
   console.log(chalk.dim(msg));
 }
 

@@ -12,6 +12,7 @@ const {
 const { prompt } = require('@src/internal/interactive/prompt');
 const ethers = require('ethers');
 const spinner = require('@src/internal/spinner');
+const { getNetworkNameFromChainId } = require('../../internal/chains');
 
 const command = new Command();
 
@@ -30,12 +31,13 @@ command
     // Get network name
     const provider = await getProvider();
     const network = await provider.getNetwork();
-    logger.debug('Network:', network.name);
+    const networkName = getNetworkNameFromChainId(network.chainId);
+    logger.info('Network:', networkName);
 
     // Get contract abi
     let contractInfo;
     try {
-      contractInfo = await findContract(nameOrAddress, network);
+      contractInfo = await findContract(nameOrAddress, networkName);
     } catch (error) {
       logger.error(
         `Unable to find contract abi with the information provided: ${nameOrAddress} - ${error.message}`
@@ -43,7 +45,13 @@ command
       return;
     }
 
-    await interact(contractInfo, provider);
+    try {
+      await interact(contractInfo, provider);
+    } catch (err) {
+      logger.warn(
+        `Unable to interact with contract ${contractInfo.name}: ${err.message}`
+      );
+    }
   });
 
 async function interact(contractInfo, provider) {
@@ -263,6 +271,10 @@ async function pickFunction(abi) {
   const abiFns = abi.filter(
     (abiItem) => abiItem.name && abiItem.type === 'function'
   );
+
+  if (abiFns.length === 0) {
+    throw new Error('No functions found in abi');
+  }
 
   const selectors = await getSelectors(abi);
 

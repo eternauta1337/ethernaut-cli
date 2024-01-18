@@ -5,10 +5,11 @@ const { storage } = require('@src/internal/storage');
 const spinner = require('@src/internal/spinner');
 const { prompt } = require('@src/internal/interactive/prompt');
 const EtherscanApi = require('@src/internal/etherscan');
+const logger = require('@src/internal/logger');
 
 const ABIS_FOLDER_PATH = path.join(__dirname, '../../', 'storage', 'abis');
 
-async function findContract(nameOrAddress, network) {
+async function findContract(nameOrAddress, networkName) {
   let name, address;
   if (isAddress(nameOrAddress)) {
     address = nameOrAddress;
@@ -17,12 +18,12 @@ async function findContract(nameOrAddress, network) {
   }
 
   if (name) {
-    address = await findAddressFromName(name, network.name);
+    address = await findAddressFromName(name, networkName);
     if (!address) return;
   } else {
-    name = await findNameFromAddress(address, network.name);
+    name = await findNameFromAddress(address, networkName);
     if (!name) {
-      ({ name } = await findContractOnEtherscan(address, network.name));
+      ({ name } = await findContractOnEtherscan(address, networkName));
     }
     if (!name) return;
   }
@@ -32,7 +33,7 @@ async function findContract(nameOrAddress, network) {
 
   let abi = readAbi(name);
   if (abi === undefined) {
-    ({ abi } = await findContractOnEtherscan(address, network.name));
+    ({ abi } = await findContractOnEtherscan(address, networkName));
   }
 
   return {
@@ -60,14 +61,14 @@ async function findContractOnEtherscan(address, networkName) {
   );
 
   // Fetch the contract info
-  await spinner.show('Finding contract on Etherscan...');
+  await spinner.show(`Finding contract on Etherscan for address ${address}...`);
   const contractInfo = await etherscan.getContractCode(address);
   if (contractInfo === undefined) {
     await spinner.stop('Contract not found on Etherscan', false);
     return;
   }
   await spinner.stop('Contract found on Etherscan');
-  // console.log(contractInfo);
+  logger.debug(contractInfo);
 
   // Remember the address and name
   const name = contractInfo.ContractName;
@@ -77,6 +78,17 @@ async function findContractOnEtherscan(address, networkName) {
   // Remember the abi
   const abi = contractInfo.ABI;
   saveAbi(name, abi);
+
+  // Proxy?
+  if (
+    contractInfo.Implementation !== undefined &&
+    contractInfo.Implementation !== ''
+  ) {
+    return await findContractOnEtherscan(
+      contractInfo.Implementation,
+      networkName
+    );
+  }
 
   return {
     name,
@@ -108,7 +120,8 @@ function readAbi(name) {
 
   // Check if file exists
   if (!fs.existsSync(filePath)) {
-    throw new Error('Abi file not found');
+    logger.warn(`Abi file not found for ${name}`);
+    return;
   }
 
   // Read file
