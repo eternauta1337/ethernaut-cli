@@ -1,15 +1,30 @@
 const cliSpinners = require('cli-spinners');
 
-async function showSpinner() {
+let spinner;
+
+async function show(text) {
   const module = await import('ora');
   const ora = module.default;
 
-  ora({
-    text: 'Fetching abi...',
+  spinner = ora({
+    text,
     spinner: cliSpinners.random,
   }).start();
 }
 
+async function stop(text) {
+  spinner.stopAndPersist({
+    prefixText: '✔',
+    text,
+  });
+}
+
+async function hide() {
+  spinner.stop();
+}
+
 module.exports = {
-  showSpinner,
+  show,
+  hide,
+  stop,
 };
