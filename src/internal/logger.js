@@ -12,7 +12,7 @@ function output(msg) {
     msg = msg.replace(regex, chalk.green.bold(specialMsg));
   }
 
-  console.log('✔✔', msg);
+  console.log('»', msg);
 }
 
 function info(...msgs) {

@@ -2,6 +2,7 @@ const { prompt } = require('./prompt');
 const { nameAndDescription } = require('./messages');
 const { flattenCommands } = require('./flatten-commands');
 const { getCommandCallPath } = require('./call-path');
+const chalk = require('chalk');
 
 async function pickCommand(command) {
   const flattenedCommands = flattenCommands(command.commands);
@@ -11,9 +12,14 @@ async function pickCommand(command) {
     .map((c) => {
       const hasSubcommands = c.commands.length > 0;
       const name = hasSubcommands ? `${folderChar} ${c.name()}` : c.name();
+      const path = getCommandCallPath(c).slice(0, -1);
+      const pathStr =
+        path.length > 0
+          ? chalk.dim(` (${getCommandCallPath(c).slice(0, -1).join('/')})`)
+          : '';
 
       return {
-        title: nameAndDescription(name, c.description()),
+        title: nameAndDescription(name + pathStr, c.description()),
         value: c.name(),
       };
     })

@@ -1,9 +1,7 @@
 const chalk = require('chalk');
 
 function nameAndDescription(name, description) {
-  return `${chalk.green(name)} - ${chalk.dim(
-    ' ' + capDescription(description)
-  )}`;
+  return `${chalk.green(name)} ${chalk.dim(capDescription(description))}`;
 }
 
 function capDescription(description) {
