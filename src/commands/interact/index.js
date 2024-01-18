@@ -47,10 +47,16 @@ command
   });
 
 async function interact(contractInfo, provider) {
-  // Select function to call and collect parameters
   logger.info(`Interacting with contract "${contractInfo.name}"`);
+
+  // Pick a function to call
   const abiFn = await pickFunction(contractInfo.abi);
+  const functionSignature = getFunctionSignature(abiFn);
+
+  // Collect parameters for call
   const params = await pickParameters(abiFn);
+  const fullFunctionSignature = getFullFunctionSignature(abiFn, params);
+  logger.info(fullFunctionSignature);
 
   // Set up contract
   const contract = new ethers.Contract(
@@ -59,13 +65,11 @@ async function interact(contractInfo, provider) {
     provider
   );
 
-  // Present the user with the function signature and calldata
-  const functionSignature = getFunctionSignature(abiFn);
-  const fullFunctionSignature = getFullFunctionSignature(abiFn, params);
+  // Display calldata
   const tx = await contract.populateTransaction[functionSignature](...params);
-  logger.info(`Calling \`${fullFunctionSignature}\` - Calldata: ${tx.data}`);
+  logger.info(`Calldata: ${tx.data}`);
 
-  // Execute call (read or write)
+  // Execute the call (can be read or write)
   const readOnly =
     abiFn.stateMutability === 'view' || abiFn.stateMutability === 'pure';
   if (readOnly) {
@@ -79,6 +83,7 @@ async function interact(contractInfo, provider) {
     );
   }
 
+  // Interact again?
   const shouldContinue = await prompt({
     type: 'confirm',
     message: 'Continue interacting?',
@@ -265,15 +270,16 @@ async function pickFunction(abi) {
   const selectors = await getSelectors(abi);
 
   const choices = abiFns.map((abiFn) => {
-    const fullSignature = getFullFunctionSignature(abiFn);
+    const functionSignature = getFunctionSignature(abiFn);
+    const fullFunctionSignature = getFullFunctionSignature(abiFn);
 
     const selector = selectors.find(
       (selector) => selector.name === abiFn.name
     ).selector;
 
     return {
-      title: `${fullSignature}${chalk.gray(` ${selector}`)}`,
-      value: abiFn,
+      title: `${fullFunctionSignature}${chalk.gray(` ${selector}`)}`,
+      value: functionSignature,
     };
   });
 
@@ -283,7 +289,12 @@ async function pickFunction(abi) {
     choices,
   });
 
-  return response;
+  const abiFn = abiFns.find((abiFn) => {
+    const functionSignature = getFunctionSignature(abiFn);
+    return functionSignature === response;
+  });
+
+  return abiFn;
 }
 
 module.exports = command;
