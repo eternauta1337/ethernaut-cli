@@ -32,6 +32,7 @@
     "enquirer": "^2.4.1",
     "ethers": "^5.7.2",
     "module-alias": "^2.2.3",
+    "axios": "^1.6.5",
     "ora": "^8.0.1"
   },
   "_moduleAliases": {

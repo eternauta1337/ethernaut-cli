@@ -15,12 +15,18 @@ function output(msg) {
   console.log('»', msg);
 }
 
-function info(...msgs) {
-  console.log(chalk.gray(`i> [${_getCallerFile()}] ${msgs.join(' ')}`));
+function debug(...msgs) {
+  const msg = `[${_getCallerFile()}] ${msgs.join(' ')}`;
+  console.log(chalk.dim(msg));
 }
 
 function error(error) {
   console.error(chalk.red(error));
+}
+
+function warn(...msgs) {
+  const msg = `! ${msgs.join(' ')}`;
+  console.warn(chalk.yellow(msg));
 }
 
 const _getCallerFile = () => {
@@ -51,6 +57,7 @@ const _getCallerFile = () => {
 
 module.exports = {
   output,
-  info,
+  debug,
   error,
+  warn,
 };

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const EventEmitter = require('events');
 
-const storageFilePath = path.join(__dirname, '../../', 'storage.json');
+const storageFilePath = path.join(__dirname, '../../storage/', 'storage.json');
 
 let storage;
 

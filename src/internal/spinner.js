@@ -12,9 +12,9 @@ async function show(text) {
   }).start();
 }
 
-async function stop(text) {
+async function stop(text, success = true) {
   spinner.stopAndPersist({
-    prefixText: '✔',
+    prefixText: success ? '✔' : '✖',
     text,
   });
 }

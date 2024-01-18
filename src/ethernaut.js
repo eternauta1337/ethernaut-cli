@@ -1,4 +1,6 @@
+require('dotenv').config();
 require('module-alias/register');
+
 const { Command } = require('commander');
 const {
   makeInteractive,
