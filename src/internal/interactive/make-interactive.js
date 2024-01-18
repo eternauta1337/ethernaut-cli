@@ -47,7 +47,15 @@ function makeInteractive(command) {
 
     // Collect args and options
     const newArgs = await pickArguments(args, command);
+    if (newArgs.some((a) => a === undefined)) {
+      await jumpToParent(command);
+      return;
+    }
     const newOpts = await pickOptions(opts, command);
+    if (Object.values(newOpts).some((o) => o === undefined)) {
+      await jumpToParent(command);
+      return;
+    }
 
     if (JSON.stringify(args) !== JSON.stringify(newArgs)) interacted = true;
     if (JSON.stringify(opts) !== JSON.stringify(newOpts)) interacted = true;
@@ -57,7 +65,7 @@ function makeInteractive(command) {
     await originalActionHandler.apply(command, [newArgs]);
 
     if (interacted && command.parent) {
-      await command.parent.parseAsync(['node', command.parent.name()]);
+      await jumpToParent(command);
     }
   });
 
@@ -79,6 +87,12 @@ function makeInteractive(command) {
   command.commands.forEach((c) => makeInteractive(c));
 
   return command;
+}
+
+async function jumpToParent(command) {
+  if (command.parent) {
+    await command.parent.parseAsync(['node', command.parent.name()]);
+  }
 }
 
 module.exports = {

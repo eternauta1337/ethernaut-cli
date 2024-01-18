@@ -26,6 +26,8 @@ async function pickOptions(opts, command) {
     });
 
     newOpts[name] = result;
+
+    if (result === undefined) break;
   }
 
   return newOpts;

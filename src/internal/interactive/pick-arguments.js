@@ -27,6 +27,8 @@ async function pickArguments(args, command) {
     });
 
     newArgs.push(result);
+
+    if (result === undefined) break;
   }
 
   return newArgs;

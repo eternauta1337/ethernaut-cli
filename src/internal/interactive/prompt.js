@@ -7,13 +7,9 @@ async function prompt({ type, message, choices, initial }) {
     name: 'value',
     message,
     choices,
-  }).catch(() => process.exit(0));
+  }).catch(() => {});
 
-  if (response.value === undefined) {
-    process.exit(0);
-  }
-
-  return response.value;
+  return response ? response.value : undefined;
 }
 
 module.exports = { prompt };
