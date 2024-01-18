@@ -62,13 +62,29 @@ async function findContractOnEtherscan(address, networkName) {
 
   // Fetch the contract info
   await spinner.show(`Finding contract on Etherscan for address ${address}...`);
-  const contractInfo = await etherscan.getContractCode(address);
+  let contractInfo = await etherscan.getContractCode(address);
   if (contractInfo === undefined) {
     await spinner.stop('Contract not found on Etherscan', false);
     return;
   }
   await spinner.stop('Contract found on Etherscan');
-  logger.debug(contractInfo);
+  // logger.debug(contractInfo);
+
+  // Proxy?
+  if (
+    contractInfo.Implementation !== undefined &&
+    contractInfo.Implementation !== ''
+  ) {
+    await spinner.show(
+      `Finding implementation on address ${contractInfo.Implementation}...`
+    );
+    contractInfo = await etherscan.getContractCode(contractInfo.Implementation);
+    if (contractInfo === undefined) {
+      throw new Error('Implementation not found');
+    }
+    await spinner.stop('Implementation found');
+  }
+  // logger.debug(contractInfo);
 
   // Remember the address and name
   const name = contractInfo.ContractName;
@@ -78,17 +94,6 @@ async function findContractOnEtherscan(address, networkName) {
   // Remember the abi
   const abi = contractInfo.ABI;
   saveAbi(name, abi);
-
-  // Proxy?
-  if (
-    contractInfo.Implementation !== undefined &&
-    contractInfo.Implementation !== ''
-  ) {
-    return await findContractOnEtherscan(
-      contractInfo.Implementation,
-      networkName
-    );
-  }
 
   return {
     name,

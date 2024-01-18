@@ -7,6 +7,7 @@ async function prompt({ type, message, choices, initial }) {
     name: 'value',
     message,
     choices,
+    limit: 10,
   }).catch(() => {});
 
   return response ? response.value : undefined;
