@@ -20,6 +20,11 @@ function debug(...msgs) {
   console.log(chalk.dim(msg));
 }
 
+function info(...msgs) {
+  const msg = `${msgs.join(' ')}`;
+  console.warn(chalk.blue(msg));
+}
+
 function error(error) {
   console.error(chalk.red(error));
 }
@@ -57,6 +62,7 @@ const _getCallerFile = () => {
 
 module.exports = {
   output,
+  info,
   debug,
   error,
   warn,

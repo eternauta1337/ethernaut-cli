@@ -8,7 +8,7 @@ const EtherscanApi = require('@src/internal/etherscan');
 
 const ABIS_FOLDER_PATH = path.join(__dirname, '../../', 'storage', 'abis');
 
-async function findAbi(nameOrAddress, network) {
+async function findContract(nameOrAddress, network) {
   let name, address;
   if (isAddress(nameOrAddress)) {
     address = nameOrAddress;
@@ -35,7 +35,11 @@ async function findAbi(nameOrAddress, network) {
     ({ abi } = await findContractOnEtherscan(address, network.name));
   }
 
-  return abi;
+  return {
+    name,
+    abi,
+    address,
+  };
 }
 
 async function findContractOnEtherscan(address, networkName) {
@@ -168,4 +172,4 @@ function getAddressesForNetwork(networkName) {
   return networkAddresses;
 }
 
-module.exports = findAbi;
+module.exports = findContract;
