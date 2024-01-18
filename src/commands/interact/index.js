@@ -5,6 +5,7 @@ const logger = require('@src/internal/logger');
 const { getProvider } = require('@src/internal/get-provider');
 const isAddress = require('@src/internal/is-address');
 const { storage } = require('@src/internal/storage');
+const { showSpinner } = require('@src/internal/spinner');
 
 const command = new Command();
 
@@ -23,6 +24,9 @@ command
     // TODO: Get abi
 
     // TODO: Start interaction
+    await showSpinner();
+
+    await new Promise((resolve) => setTimeout(resolve, 10000));
   });
 
 async function deduceNameAndAddress(nameOrAddress) {
