@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext"],
+    "noImplicitAny": false,
+    "baseUrl": "./",
+    "types": ["@withfig/autocomplete-types", "node"],
+  },
+  "include": ["./src/**/*"],
+}

@@ -1,0 +1,18 @@
+{
+  "name": "advanced-interactivity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^9.2.12",
+    "picocolors": "^1.0.0",
+    "zeromq": "^6.0.0-beta.19"
+  }
+}

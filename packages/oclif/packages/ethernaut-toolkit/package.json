@@ -1,0 +1,72 @@
+{
+  "author": "Alejandro @theethernaut",
+  "bin": {
+    "ethernaut-toolkit": "./bin/run.js"
+  },
+  "dependencies": {
+    "@oclif/core": "^3",
+    "@oclif/plugin-plugins": "^4"
+  },
+  "description": "Toolkit for ethernauts",
+  "devDependencies": {
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^3",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^18",
+    "chai": "^4",
+    "eslint": "^8.56.0",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9.1.0",
+    "mocha": "^10",
+    "oclif": "^4",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "/bin",
+    "/dist",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/theethernaut/ethernaut-toolkit",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "name": "ethernaut-toolkit",
+  "oclif": {
+    "bin": "ethernaut-toolkit",
+    "dirname": "ethernaut-toolkit",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-plugins",
+      "ethernaut-interactive"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "tools": {
+        "description": "Tools for ethernauts"
+      }
+    }
+  },
+  "repository": "theethernaut/ethernaut-cli",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "prepare": "npm run build",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/theethernaut/ethernaut-toolkit/issues",
+  "keywords": [
+    "oclif"
+  ],
+  "types": "dist/index.d.ts"
+}
