@@ -1,1 +1,0 @@
-var e=["ethernaut"],diffVersionedCompletions=[];export{e as default,diffVersionedCompletions};

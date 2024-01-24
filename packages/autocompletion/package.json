@@ -1,5 +1,5 @@
 {
-  "name": "advanced-interactivity",
+  "name": "ethernaut-cli-completion",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@inquirer/core": "^3.1.2",
     "commander": "^11.1.0",
     "inquirer": "^9.2.12",
     "picocolors": "^1.0.0",

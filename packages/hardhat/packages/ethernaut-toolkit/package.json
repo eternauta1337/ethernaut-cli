@@ -1,5 +1,5 @@
 {
-  "name": "@ethernaut-cli/ethernaut-toolkit",
+  "name": "@ethernaut-cli-hardhat/ethernaut-toolkit",
   "version": "0.0.1",
   "description": "Toolkit for Ethernauts",
   "main": "dist/src/index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "@ethernaut-cli/ethernaut-interactive",
+  "name": "@ethernaut-cli-hardhat/ethernaut-interactive",
   "version": "0.0.1",
   "description": "Enquirer based interactive prompts for Hardhat tasks",
   "author": "Ethernaut",

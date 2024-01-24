@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-const isAddress = require('@src/internal/is-address');
-const { storage } = require('@src/internal/storage');
-const spinner = require('@src/internal/spinner');
-const { prompt } = require('@src/internal/interactive/prompt');
-const EtherscanApi = require('@src/internal/etherscan');
-const logger = require('@src/internal/logger');
+const isAddress = require('./is-address');
+const { storage } = require('./storage');
+const spinner = require('./spinner');
+const { prompt } = require('./interactive/prompt');
+const EtherscanApi = require('./etherscan');
+const logger = require('./logger');
 
 const ABIS_FOLDER_PATH = path.join(__dirname, '../../', 'storage', 'abis');
 

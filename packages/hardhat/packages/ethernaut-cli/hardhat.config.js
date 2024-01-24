@@ -8,16 +8,20 @@ dotenv_1.default.config();
 require("@ethernaut-cli/ethernaut-interactive");
 require("@ethernaut-cli/ethernaut-toolkit");
 require("@ethernaut-cli/ethernaut-play");
+require("@ethernaut-cli/ethernaut-interact");
 const config = {
     solidity: '0.8.19',
     defaultNetwork: 'hardhat',
     networks: {
         hardhat: {
+            chainId: 11155111,
             forking: {
-                url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
-                blockNumber: 13000000,
+                url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
             },
         },
+    },
+    interact: {
+        etherscanApiKey: process.env.ETHERSCAN_API_KEY,
     },
 };
 exports.default = config;

@@ -1,5 +1,5 @@
 {
-  "name": "ethernaut-cli",
+  "name": "ethernaut-cli-commander",
   "version": "1.0.0",
   "description": "Ethereum swiss army knife/game/tool/superweapon",
   "main": "src/ethernaut.js",

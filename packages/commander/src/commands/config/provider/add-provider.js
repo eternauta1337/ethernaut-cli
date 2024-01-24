@@ -1,7 +1,7 @@
 const { Command, Argument } = require('commander');
-const { storage } = require('@src/internal/storage');
-const { validateURL } = require('@src/internal/validate');
-const logger = require('@src/internal/logger');
+const { storage } = require('../../../internal/storage');
+const { validateURL } = require('../../../internal/validate');
+const logger = require('../../../internal/logger');
 
 const command = new Command();
 

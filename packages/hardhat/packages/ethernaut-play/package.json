@@ -1,5 +1,5 @@
 {
-  "name": "@ethernaut-cli/ethernaut-play",
+  "name": "@ethernaut-cli-hardhat/ethernaut-play",
   "version": "0.0.1",
   "description": "Play the Ethernaut game on the CLI",
   "main": "dist/src/index.js",

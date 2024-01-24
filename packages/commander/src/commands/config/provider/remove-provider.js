@@ -1,6 +1,6 @@
 const { Command, Argument } = require('commander');
-const { storage, onStorageChange } = require('@src/internal/storage');
-const logger = require('@src/internal/logger');
+const { storage, onStorageChange } = require('../../../internal/storage');
+const logger = require('../../../internal/logger');
 
 const command = new Command();
 

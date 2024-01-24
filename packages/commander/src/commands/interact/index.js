@@ -1,17 +1,17 @@
 const chalk = require('chalk');
 const { Command } = require('commander');
-const logger = require('@src/internal/logger');
-const { getProvider } = require('@src/internal/get-provider');
-const findContract = require('@src/internal/find-contract');
-const getSelectors = require('@src/internal/selectors');
+const logger = require('../../internal/logger');
+const { getProvider } = require('../../internal/get-provider');
+const findContract = require('../../internal/find-contract');
+const getSelectors = require('../../internal/selectors');
 const {
   getFunctionSignature,
   getFullFunctionSignature,
   getFullEventSignature,
-} = require('@src/internal/signatures');
-const { prompt } = require('@src/internal/interactive/prompt');
+} = require('../../internal/signatures');
+const { prompt } = require('../../internal/interactive/prompt');
 const ethers = require('ethers');
-const spinner = require('@src/internal/spinner');
+const spinner = require('../../internal/spinner');
 const { getNetworkNameFromChainId } = require('../../internal/chains');
 
 const command = new Command();
@@ -282,9 +282,8 @@ async function pickFunction(abi) {
     const functionSignature = getFunctionSignature(abiFn);
     const fullFunctionSignature = getFullFunctionSignature(abiFn);
 
-    const selector = selectors.find(
-      (selector) => selector.name === abiFn.name
-    ).selector;
+    const selector = selectors.find((selector) => selector.name === abiFn.name)
+      .selector;
 
     return {
       title: `${fullFunctionSignature}${chalk.gray(` ${selector}`)}`,

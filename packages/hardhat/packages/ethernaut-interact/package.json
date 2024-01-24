@@ -1,5 +1,5 @@
 {
-  "name": "@ethernaut-cli/ethernaut-interact",
+  "name": "@ethernaut-cli-hardhat/ethernaut-interact",
   "version": "0.0.1",
   "description": "Interact with deployed contracts",
   "main": "dist/src/index.js",
