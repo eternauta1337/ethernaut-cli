@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import '@ethernaut-cli/ethernaut-interactive';
-import '@ethernaut-cli/ethernaut-toolkit';
-import '@ethernaut-cli/ethernaut-play';
-import '@ethernaut-cli/ethernaut-interact';
+import '@ethernaut-cli-hardhat/ethernaut-interactive';
+import '@ethernaut-cli-hardhat/ethernaut-toolkit';
+import '@ethernaut-cli-hardhat/ethernaut-play';
+import '@ethernaut-cli-hardhat/ethernaut-interact';
 
 import { HardhatUserConfig } from 'hardhat/config';
 

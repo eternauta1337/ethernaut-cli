@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-require("@ethernaut-cli/ethernaut-interactive");
-require("@ethernaut-cli/ethernaut-toolkit");
-require("@ethernaut-cli/ethernaut-play");
-require("@ethernaut-cli/ethernaut-interact");
+require("@ethernaut-cli-hardhat/ethernaut-interactive");
+require("@ethernaut-cli-hardhat/ethernaut-toolkit");
+require("@ethernaut-cli-hardhat/ethernaut-play");
+require("@ethernaut-cli-hardhat/ethernaut-interact");
 const config = {
     solidity: '0.8.19',
     defaultNetwork: 'hardhat',

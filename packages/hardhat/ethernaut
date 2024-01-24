@@ -1,0 +1,3 @@
+#!/bin/bash
+cd packages/ethernaut-cli
+/usr/bin/env npx hardhat navigate "$@"
