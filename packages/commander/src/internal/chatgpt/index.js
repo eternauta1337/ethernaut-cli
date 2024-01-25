@@ -1,6 +1,6 @@
 const { getAssistantId } = require('./assistant.js');
 const { getThreadId } = require('./threads.js');
-// import { runThread, stopThread } from './runner.js';
+const { runThread, stopThread } = require('./runner.js');
 const logger = require('../logger.js');
 const OpenAi = require('openai');
 
@@ -20,11 +20,10 @@ async function ask(message) {
     content: message,
   });
 
-  // const response = await runThread(assistantId, threadId);
-  // logger.log(`Responding with: "${response}"`);
+  const response = await runThread(assistantId, threadId);
+  logger.debug(`Responding with: "${response}"`);
 
-  // return response;
-  return `echo ${message}`;
+  return response;
 }
 
 function init() {
