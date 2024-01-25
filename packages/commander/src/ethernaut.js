@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('module-alias/register');
-
+const { addCompletionSpecCommand } = require('@fig/complete-commander');
 const { Command } = require('commander');
 const { makeInteractive } = require('./internal/interactive/make-interactive');
 const { addCommands } = require('./internal/add-commands');
@@ -15,5 +15,6 @@ program
 
 addCommands('commands', program);
 makeInteractive(program);
+addCompletionSpecCommand(program);
 
 parseArgv(program);

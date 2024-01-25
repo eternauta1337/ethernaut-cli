@@ -1,0 +1,66 @@
+{
+  "name": "boilerplate-fig-autocomplete",
+  "version": "1.0.0",
+  "description": "Boilerplate Fig autocomplete spec package",
+  "scripts": {
+    "dev": "npx @withfig/autocomplete-tools dev",
+    "create-spec": "npx @withfig/autocomplete-tools create-spec",
+    "publish-spec": "npx @fig/publish-spec -i",
+    "test": "tsc --noEmit && echo 'All specs passed validation.'",
+    "build": "npx @withfig/autocomplete-tools compile",
+    "lint": "eslint '**/*.ts' && npx prettier --check '**/*.ts'",
+    "lint:fix": "eslint '**/*.ts' --fix && npx prettier --write '**/*.ts'"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "fig": {
+    "dev": {
+      "description": "Watching and compile .ts files in ./src",
+      "icon": "fig://template?badge=🛠",
+      "priority": 100
+    },
+    "create-spec": {
+      "description": "Create a new spec with the provided name in ./src"
+    },
+    "publish-spec": {
+      "description": "Publish a spec to Fig teams"
+    },
+    "test": {
+      "description": "Typecheck all .ts files in ./src"
+    },
+    "build": {
+      "description": "Compile all files in ./src"
+    },
+    "lint": {
+      "description": "Check for linting issues"
+    },
+    "lint:fix": {
+      "description": "Fix linting issues"
+    }
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "printWidth": 80
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "pretty-quick --staged"
+    ]
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@fig/eslint-config-autocomplete": "latest",
+    "@fig/publish-spec": "^1.2.0",
+    "@types/node": "^16.11.33",
+    "@withfig/autocomplete-tools": "^2.7.2",
+    "@withfig/autocomplete-types": "latest",
+    "eslint": "^8.15.0",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2",
+    "pretty-quick": "^3.1.3",
+    "typescript": "^4.6.4"
+  }
+}

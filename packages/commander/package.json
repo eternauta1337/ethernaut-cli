@@ -35,6 +35,9 @@
     "axios": "^1.6.5",
     "ora": "^8.0.1"
   },
+  "devDependencies": {
+    "@fig/complete-commander": "^3.0.0"
+  },
   "_moduleAliases": {
     "@src": "./src"
   }
