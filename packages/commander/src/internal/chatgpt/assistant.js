@@ -20,13 +20,13 @@ async function getAssistantId() {
 
   // Try to retrieve assistant id from storage
   if (storage.chatgpt.assistant.id !== '') {
-    logger.debug('Assistant id retrieved from storage');
+    await logger.debug('Assistant id retrieved from storage');
     assistantId = storage.chatgpt.assistant.id;
   } else {
     // Or create it if needed
-    logger.debug('Creating assistant...');
+    await logger.debug('Creating assistant...');
     const assistant = await global.openai.beta.assistants.create(config);
-    logger.debug('Assistant created:', assistant.id);
+    await logger.debug('Assistant created:', assistant.id);
 
     storage.chatgpt.assistant.id = assistant.id;
   }

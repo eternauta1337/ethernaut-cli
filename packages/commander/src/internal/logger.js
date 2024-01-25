@@ -1,13 +1,13 @@
 const chalk = require('chalk');
 const path = require('path');
-// const zmq = require('zeromq');
+const zmq = require('zeromq');
 const { copyToClipboard } = require('./copy-to-clipboard');
 
 let socket;
 
 async function initSocket() {
   socket = new zmq.Push();
-  await socket.bind('tcp://127.0.0.1:3000');
+  await socket.bind('tcp://127.0.0.1:8214');
 }
 
 function output(msg) {
@@ -24,7 +24,7 @@ function output(msg) {
 }
 
 async function debug(...msgs) {
-  // if (!socket) await initSocket();
+  if (!socket) await initSocket();
 
   const msg = `[${_getCallerFile()}] ${msgs
     .map((m) => {
@@ -36,8 +36,7 @@ async function debug(...msgs) {
     })
     .join(' ')}`;
 
-  // await socket.send(msg);
-  console.log(msg);
+  await socket.send(msg);
 }
 
 function info(...msgs) {

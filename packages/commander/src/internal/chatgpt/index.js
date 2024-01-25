@@ -8,10 +8,10 @@ async function ask(message) {
   init();
 
   const assistantId = await getAssistantId();
-  logger.debug('Assistant id:', assistantId);
+  await logger.debug('Assistant id:', assistantId);
 
   const threadId = await getThreadId();
-  logger.debug('Thread id:', threadId);
+  await logger.debug('Thread id:', threadId);
 
   // await stopThread(threadId);
 
@@ -21,7 +21,7 @@ async function ask(message) {
   });
 
   const response = await runThread(assistantId, threadId);
-  logger.debug(`Responding with: "${response}"`);
+  await logger.debug(`Responding with: "${response}"`);
 
   return response;
 }

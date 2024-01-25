@@ -5,7 +5,7 @@ async function runThread(assistantId, threadId) {
   const run = await global.openai.beta.threads.runs.create(threadId, {
     assistant_id: assistantId,
   });
-  logger.debug('Creating run:', run.id);
+  await logger.debug('Creating run:', run.id);
 
   const completed = await processRun(run, threadId);
 
@@ -16,7 +16,7 @@ async function runThread(assistantId, threadId) {
 //   const runs = await global.openai.beta.threads.runs.list(threadId);
 //   if (!runs) return;
 //   for (const run of runs.body.data) {
-//     logger.debug(`Run ${run.id} status: ${run.status}`);
+//     await logger.debug(`Run ${run.id} status: ${run.status}`);
 //   }
 
 //   const activeRuns = runs.body.data.filter(
@@ -28,10 +28,10 @@ async function runThread(assistantId, threadId) {
 //   if (!activeRuns) return;
 //   if (activeRuns.length === 0) return;
 
-//   logger.debug(`Stopping active runs: ${activeRuns.length}`);
+//   await logger.debug(`Stopping active runs: ${activeRuns.length}`);
 
 //   for (const run of activeRuns) {
-//     logger.debug(`Stopping ${run.id}`);
+//     await logger.debug(`Stopping ${run.id}`);
 //     await global.openai.beta.threads.runs.cancel(threadId, run.id);
 //   }
 // };

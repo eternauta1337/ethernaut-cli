@@ -11,16 +11,16 @@ async function getThreadId() {
 
   // Try to retrieve thread id from storage
   if (storage.chatgpt.thread) {
-    logger.debug(
+    await logger.debug(
       'Thread id retrieved from storage:',
       storage.chatgpt.thread.id
     );
     threadId = storage.chatgpt.thread.id;
   } else {
     // Or create it if needed
-    logger.debug('Creating thread...');
+    await logger.debug('Creating thread...');
     const thread = await global.openai.beta.threads.create();
-    logger.debug('Thread created:', thread.id);
+    await logger.debug('Thread created:', thread.id);
 
     storage.chatgpt.thread = {
       id: thread.id,
