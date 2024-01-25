@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const path = require('path');
-const zmq = require('zeromq');
+// const zmq = require('zeromq');
 const { copyToClipboard } = require('./copy-to-clipboard');
 
 let socket;
@@ -24,7 +24,7 @@ function output(msg) {
 }
 
 async function debug(...msgs) {
-  if (!socket) await initSocket();
+  // if (!socket) await initSocket();
 
   const msg = `[${_getCallerFile()}] ${msgs
     .map((m) => {
@@ -36,7 +36,8 @@ async function debug(...msgs) {
     })
     .join(' ')}`;
 
-  await socket.send(msg);
+  // await socket.send(msg);
+  console.log(msg);
 }
 
 function info(...msgs) {

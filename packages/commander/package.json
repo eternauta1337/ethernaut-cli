@@ -33,6 +33,7 @@
     "enquirer": "^2.4.1",
     "ethers": "^5.7.2",
     "module-alias": "^2.2.3",
+    "openai": "^4.25.0",
     "ora": "^8.0.1",
     "zeromq": "^6.0.0-beta.19"
   },

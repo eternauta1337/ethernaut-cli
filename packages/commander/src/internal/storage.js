@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const EventEmitter = require('events');
+const logger = require('./logger.js');
 
 const storageFilePath = path.join(__dirname, '../../storage/', 'storage.json');
 
@@ -15,6 +16,14 @@ const schema = {
   },
   addresses: {
     sepolia: {},
+  },
+  chatgpt: {
+    assistant: {
+      id: '',
+    },
+    thread: {
+      id: '',
+    },
   },
 };
 
