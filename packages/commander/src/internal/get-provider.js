@@ -4,7 +4,7 @@ const logger = require('./logger');
 
 function getProvider() {
   const providerURL = storage.config.provider.current;
-  logger.debug('Using provider URL:', providerURL);
+  // logger.debug('Using provider URL:', providerURL);
 
   if (providerURL === undefined) {
     throw new Error(

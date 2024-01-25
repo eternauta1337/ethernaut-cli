@@ -1,6 +1,14 @@
 const chalk = require('chalk');
 const path = require('path');
+const zmq = require('zeromq');
 const { copyToClipboard } = require('./copy-to-clipboard');
+
+let socket;
+
+async function initSocket() {
+  socket = new zmq.Push();
+  await socket.bind('tcp://127.0.0.1:3000');
+}
 
 function output(msg) {
   const regex = /<(.+?)>/;
@@ -15,7 +23,9 @@ function output(msg) {
   console.log('»', msg);
 }
 
-function debug(...msgs) {
+async function debug(...msgs) {
+  if (!socket) await initSocket();
+
   const msg = `[${_getCallerFile()}] ${msgs
     .map((m) => {
       if (typeof m === 'object') {
@@ -25,7 +35,8 @@ function debug(...msgs) {
       }
     })
     .join(' ')}`;
-  console.log(chalk.dim(msg));
+
+  await socket.send(msg);
 }
 
 function info(...msgs) {
