@@ -73,6 +73,7 @@ function makeInteractive(command) {
   // So, set all required arguments as optional
   command.registeredArguments.forEach((arg) => {
     // console.log(arg);
+    arg.originallyRequired = arg.required;
     arg.required = false;
 
     // Mark arguments that should be skipped in interactive mode with *

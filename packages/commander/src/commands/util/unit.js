@@ -11,19 +11,29 @@ const units = ['wei', 'ether', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 
 command
   .name('unit')
-  .description('Converts between different units of Ether')
+  .description(
+    'Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei'
+  )
   .argument('<value>', 'Value to convert')
   .addOption(
-    new InteractiveOption('-f, --from <from>', 'Convert from this unit')
+    new InteractiveOption(
+      '-f, --from <from>',
+      `Convert from this unit. Can be ${units.join(', ')}`
+    )
       .choices(units)
       .preferred('ether')
   )
   .addOption(
-    new InteractiveOption('-d, --to <to>', 'Convert to this unit')
+    new InteractiveOption(
+      '-d, --to <to>',
+      `Convert to this unit. Can be ${units.join(', ')}`
+    )
       .choices(units)
       .preferred('wei')
   )
   .action(async (value, options) => {
+    // console.log(command);
+
     const valueWei = ethers.utils.parseUnits(value, options.from);
     let result = ethers.utils.formatUnits(valueWei, options.to);
 
