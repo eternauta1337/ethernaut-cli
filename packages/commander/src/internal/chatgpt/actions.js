@@ -3,6 +3,7 @@ const { runCommand } = require('../commander/run-command.js');
 
 async function processAction(run, threadId, required_action) {
   const toolCalls = required_action.submit_tool_outputs.tool_calls;
+
   const toolOutputs = [];
 
   for (const toolCall of toolCalls) {
@@ -32,11 +33,11 @@ async function processAction(run, threadId, required_action) {
       tool_call_id: toolCall.id,
       output: output,
     });
-
-    await openai.beta.threads.runs.submitToolOutputs(threadId, run.id, {
-      tool_outputs: toolOutputs,
-    });
   }
+
+  await openai.beta.threads.runs.submitToolOutputs(threadId, run.id, {
+    tool_outputs: toolOutputs,
+  });
 }
 
 module.exports = {

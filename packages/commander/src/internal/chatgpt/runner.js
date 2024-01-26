@@ -57,6 +57,10 @@ async function processRun(run, threadId) {
   const { status, required_action } = runInfo;
   logger.debug(status);
 
+  if (required_action) {
+    logger.debug(JSON.stringify(required_action, null, 2));
+  }
+
   if (status === 'in_progress') {
     // Keep waiting and checking...
   } else if (status === 'requires_action') {
