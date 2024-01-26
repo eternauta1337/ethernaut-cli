@@ -1,13 +1,15 @@
-const { getAssistantId } = require('./assistant.js');
 const { getThreadId } = require('./threads.js');
 const { runThread, stopThread } = require('./runner.js');
 const logger = require('../logger.js');
-const OpenAi = require('openai');
+const { initOpenAi } = require('./init.js');
 
 async function ask(message) {
-  init();
+  initOpenAi();
 
-  const assistantId = await getAssistantId();
+  const assistantId = storage.chatgpt.assistant.id;
+  if (!assistantId) {
+    throw new Error('Assistant not created');
+  }
   await logger.debug('Assistant id:', assistantId);
 
   const threadId = await getThreadId();
@@ -24,14 +26,6 @@ async function ask(message) {
   await logger.debug(`Responding with: "${response}"`);
 
   return response;
-}
-
-function init() {
-  if (global.openai) return;
-
-  global.openai = new OpenAi({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
 }
 
 module.exports = {

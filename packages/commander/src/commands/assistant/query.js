@@ -5,8 +5,8 @@ const logger = require('../../internal/logger');
 const command = new Command();
 
 command
-  .name('assist')
-  .description('Ai helper')
+  .name('query')
+  .description('Ask a question to the assistant')
   .argument('<query...>', 'Query to ask')
   .action(async (args) => {
     const query = args.join(' ');
