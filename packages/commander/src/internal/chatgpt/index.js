@@ -2,6 +2,7 @@ const { getThreadId } = require('./threads.js');
 const { runThread, stopThread } = require('./runner.js');
 const logger = require('../logger.js');
 const { initOpenAi } = require('./init.js');
+const { storage } = require('../storage.js');
 
 async function ask(message) {
   initOpenAi();
@@ -15,7 +16,7 @@ async function ask(message) {
   const threadId = await getThreadId();
   await logger.debug('Thread id:', threadId);
 
-  // await stopThread(threadId);
+  await stopThread(threadId);
 
   await global.openai.beta.threads.messages.create(threadId, {
     role: 'user',
