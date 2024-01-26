@@ -17,4 +17,6 @@ addCommands('commands', program);
 makeInteractive(program);
 addCompletionSpecCommand(program);
 
+// program._defaultCommandName = 'query';
+
 parseArgv(program);

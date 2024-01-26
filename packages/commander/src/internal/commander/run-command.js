@@ -1,7 +1,8 @@
 const { spawn } = require('child_process');
+const chalk = require('chalk');
 
 async function runCommand(name, args, opts) {
-  console.log('Running command:', name, args, opts);
+  // console.log('Running command:', name, args, opts);
 
   let optStrings = [];
   Object.keys(opts).forEach((key) => {
@@ -14,7 +15,7 @@ async function runCommand(name, args, opts) {
     const str = data.toString();
 
     // Show the output to the user
-    console.log(str);
+    process.stdout.write(chalk.italic.dim(str));
 
     // Keep track of the total output
     output += str;
@@ -22,7 +23,10 @@ async function runCommand(name, args, opts) {
 
   return new Promise((resolve) => {
     const tokens = ['./ethernaut', [name, ...args, ...optStrings]];
-    console.log('Tokens:', tokens);
+    // console.log('Tokens:', tokens);
+    console.log(
+      chalk.bgMagenta.italic('Running command:', `"${tokens[1].join(' ')}"`)
+    );
 
     const child = spawn(...tokens);
 
