@@ -8,7 +8,7 @@ import "./tasks/navigate";
 extendEnvironment((hre) => {
   // An interactive task queries for parameters,
   // and allows to be ran without required parameters
-  // makeAllTasksInteractive(hre);
+  makeAllTasksInteractive(hre);
 
   bundleHardhatTasksInScope(hre);
 });
