@@ -1,14 +1,19 @@
 const { spawn } = require('child_process');
 const chalk = require('chalk');
 
-async function runCommand(name, args, opts) {
-  // console.log('Running command:', name, args, opts);
-
+function parseCommand(name, args, opts) {
   let optStrings = [];
+
   Object.keys(opts).forEach((key) => {
     optStrings.push(`--${key}`);
     optStrings.push(opts[key]);
   });
+
+  return [name, ...args, ...optStrings];
+}
+
+async function runCommand(tokens) {
+  const allTokens = ['./ethernaut', tokens];
 
   let output = '';
   function processOutput(data) {
@@ -22,13 +27,7 @@ async function runCommand(name, args, opts) {
   }
 
   return new Promise((resolve) => {
-    const tokens = ['./ethernaut', [name, ...args, ...optStrings]];
-    // console.log('Tokens:', tokens);
-    console.log(
-      chalk.bgMagenta.italic('Running command:', `"${tokens[1].join(' ')}"`)
-    );
-
-    const child = spawn(...tokens);
+    const child = spawn(...allTokens);
 
     child.stdout.on('data', (data) => {
       processOutput(data);
@@ -45,5 +44,6 @@ async function runCommand(name, args, opts) {
 }
 
 module.exports = {
+  parseCommand,
   runCommand,
 };

@@ -64,8 +64,12 @@ async function processRun(run, threadId) {
   if (status === 'in_progress') {
     // Keep waiting and checking...
   } else if (status === 'requires_action') {
-    await processAction(run, threadId, required_action);
-    logger.debug('Action required:', required_action);
+    const cancelled = await processAction(run, threadId, required_action);
+
+    if (cancelled) {
+      await stopThread(threadId);
+      return;
+    }
   } else if (status === 'completed') {
     return true;
   } else if (status === 'cancelled') {
