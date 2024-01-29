@@ -1,0 +1,7 @@
+{
+  "name": "ethernaut-cli-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

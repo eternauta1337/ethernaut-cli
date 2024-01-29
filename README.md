@@ -1,4 +1,3 @@
 # ethernaut-cli
 
-Ongoing experimentation on a cool cli
-(See the experimentation branch)
+AI powered interactive cli for Ethereum hackers

@@ -1,0 +1,25 @@
+{
+  "name": "ethernaut-cli",
+  "version": "1.0.0",
+  "description": "AI powered interactive cli for Ethereum hackers",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theethernaut/ethernaut-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theethernaut/ethernaut-cli/issues"
+  },
+  "homepage": "https://github.com/theethernaut/ethernaut-cli#readme",
+  "keywords": [
+    "ethereum",
+    "cli",
+    "ethernaut",
+    "interactive",
+    "ai"
+  ],
+  "dependencies": {
+    "hardhat": "^2.19.4",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0"
+  }
+}
