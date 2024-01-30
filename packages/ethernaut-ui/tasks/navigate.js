@@ -18,14 +18,11 @@ task('navigate', 'Navigates tasks with enquirer')
   });
 
 async function navigateFrom(location) {
-  // console.log(location);
-
   const nodes = [
     // Merge tasks and scopes
     ...Object.values(location.tasks),
     ...Object.values(location.scopes || {}),
   ];
-  // console.log(nodes);
 
   const choices = nodes
     .filter((c) => {
@@ -49,6 +46,8 @@ async function navigateFrom(location) {
     limit: 15,
     choices,
     suggest: (input, choices) => {
+      // Suggest fn needs to be defined because
+      // of a bug in the default implementation
       return choices.filter((choice) => {
         return choice.value.includes(input);
       });
