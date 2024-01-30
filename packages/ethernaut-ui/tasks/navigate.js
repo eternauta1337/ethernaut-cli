@@ -41,6 +41,13 @@ async function navigateFrom(location) {
       }
     );
 
+  // If on scope, show an option
+  // to go to the hre scope
+  const upTitle = '↩ up';
+  if (location.tasks && location !== hre) {
+    choices.unshift({ title: upTitle, value: undefined });
+  }
+
   const prompt = new AutoComplete({
     message: 'Pick a task or scope',
     limit: 15,
@@ -54,12 +61,22 @@ async function navigateFrom(location) {
     },
   });
 
-  const response = await prompt.run();
+  const response = await prompt.run().catch(() => {
+    // Gracefully exit if user cancels the prompt
+    process.exit(0);
+  });
+
+  if (response === upTitle) {
+    await navigateFrom(hre);
+  }
+
   const nextLocation = nodes.find((n) => response.includes(n.name));
 
   if (nextLocation.tasks) {
+    // Navigate into the selected scope
     await navigateFrom(nextLocation);
   } else {
+    // Execute the selected task
     await hre.run({ task: nextLocation.name, scope: nextLocation.scope });
   }
 }
