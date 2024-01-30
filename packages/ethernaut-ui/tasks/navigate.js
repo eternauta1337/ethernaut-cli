@@ -58,5 +58,9 @@ async function navigateFrom(node) {
     await navigateFrom(nextLocation);
   } else {
     await hre.run({ task: nextLocation.name, scope: nextLocation.scope });
+
+    // When running a task from navigation
+    // return to navigation after the task is done
+    await navigateFrom(node);
   }
 }
