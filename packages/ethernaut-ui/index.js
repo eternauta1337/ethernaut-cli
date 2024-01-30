@@ -6,7 +6,27 @@ requireAll(__dirname, 'scopes');
 requireAll(__dirname, 'tasks');
 
 extendEnvironment((hre) => {
-  // Bundle all built in tasks in the hardhat scope
+  makeTasksInteractive(hre);
+  bundleLooseTasks(hre);
+});
+
+function makeTasksInteractive(node) {
+  const children = [
+    ...Object.values(node.tasks),
+    ...Object.values(node.scopes || {}),
+  ];
+
+  children.forEach((c) => {
+    if (c.tasks) {
+      makeTasksInteractive(c);
+    } else if (!c.isSubtask) {
+      console.log('Making interactive:', c.name);
+    }
+  });
+}
+
+function bundleLooseTasks(hre) {
+  // Bundle loose tasks in the hardhat scope
   Object.values(hre.tasks).forEach((task) => {
     if (task.isSubtask) return;
     if (task.scope) return;
@@ -18,4 +38,4 @@ extendEnvironment((hre) => {
 
     hh.task(task.name, task.description, task.action);
   });
-});
+}
