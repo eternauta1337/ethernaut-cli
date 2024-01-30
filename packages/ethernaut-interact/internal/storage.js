@@ -67,4 +67,5 @@ function initStorage() {
 module.exports = {
   storeAbi,
   rememberAbiAndAddress,
+  readAddresses,
 };
