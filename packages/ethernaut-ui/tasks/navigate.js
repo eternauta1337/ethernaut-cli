@@ -34,14 +34,25 @@ async function navigateFrom(location) {
     })
     .map(
       // Text to display with enquirer
-      (c) => `${c.tasks ? `[${c.name}]` : c.name} ${chalk.dim(c.description)}`
+      (c) => {
+        return {
+          title: `${c.tasks ? `[${c.name}]` : c.name} ${chalk.dim(
+            c.description
+          )}`,
+          value: c.name, // Required for fuzzy search
+        };
+      }
     );
 
   const prompt = new AutoComplete({
-    name: 'value',
     message: 'Pick a task or scope',
     limit: 15,
     choices,
+    suggest: (input, choices) => {
+      return choices.filter((choice) => {
+        return choice.value.includes(input);
+      });
+    },
   });
 
   const response = await prompt.run();
