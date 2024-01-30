@@ -1,16 +1,11 @@
 const { types } = require('hardhat/config');
-const { AutoComplete, Input, Confirm } = require('enquirer');
-const EtherscanApi = require('../internal/etherscan');
-const suggest = require('utilities/enquirer-suggest');
-const {
-  getFunctionSignature,
-  getPopulatedFunctionSignature,
-} = require('../internal/signatures');
+const { Confirm } = require('enquirer');
+const { getPopulatedFunctionSignature } = require('../internal/signatures');
 const interact = require('../scopes/interact');
-const fs = require('fs');
-const storage = require('../internal/storage');
-
-let abi;
+const loadAbi = require('./call/load-abi');
+const fnPrompt = require('./call/fn-prompt');
+const paramsPrompt = require('./call/params-prompt');
+const abiPathPrompt = require('./call/abi-path-prompt');
 
 const call = interact
   .task('call', 'Calls a contract function')
@@ -40,18 +35,21 @@ const call = interact
     types.json
   )
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
-    loadAbi(abiPath);
+    const abi = loadAbi(abiPath);
 
-    // Prepare params
+    // Incoming params is a string
+    // Make it an object
     params = JSON.parse(params);
 
     // Display call signature
+    // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
     const abiFn = abi.find((abiFn) => abiFn.name === fn.split('(')[0]);
     console.log('Calling', getPopulatedFunctionSignature(abiFn, params));
 
     // TODO: Estimate gas
 
-    // Confirm call (if not view/pure)
+    // Prompt the user for confirmation,
+    // if the function is mutative
     if (abiFn.stateMutability !== 'view' && abiFn.stateMutability !== 'pure') {
       const prompt = new Confirm({
         message: 'Do you want to proceed with the call?',
@@ -65,74 +63,7 @@ const call = interact
     console.log('...result');
   });
 
-function loadAbi(abiPath) {
-  if (!abiPath) return;
-  if (abi) return;
-
-  // TODO: Validate path
-  abi = JSON.parse(fs.readFileSync(abiPath, 'utf8'));
-}
-
-call.paramDefinitions['abiPath'].prompt = async ({ address }) => {
-  async function getAbiFromEtherscan(address, network) {
-    const networkComp = network === 'mainnet' ? '' : `-${network}`;
-
-    const etherscan = new EtherscanApi(
-      process.env.ETHERSCAN_API_KEY,
-      `https://api${networkComp}.etherscan.io`
-    );
-
-    const info = await etherscan.getContractCode(address);
-
-    abi = info.ABI;
-
-    storage.storeAbi(info.ContractName, abi);
-    storage.rememberAbiAndAddress(info.ContractName, address, network);
-  }
-
-  // TODO: Decide strategy to get abi from provided params
-  // - DONE Get abi from Etherscan
-  // - Deduce ABI from previous interaction
-  // Might need to ask the user
-  loadAbi(await getAbiFromEtherscan(address, 'sepolia'));
-};
-
-call.paramDefinitions['fn'].prompt = async ({ abiPath }) => {
-  loadAbi(abiPath);
-
-  const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
-
-  const choices = abiFns.map((fn) => getFunctionSignature(fn));
-
-  const prompt = new AutoComplete({
-    type: 'autocomplete',
-    message: 'Pick a function',
-    limit: 15,
-    suggest,
-    choices,
-  });
-
-  const response = await prompt.run().catch(() => process.exit(0));
-  console.log(response);
-
-  return response;
-};
-
-call.paramDefinitions['params'].prompt = async ({ abiPath, fn }) => {
-  loadAbi(abiPath);
-
-  const abiFn = abi.find((abiFn) => abiFn.name === fn.split('(')[0]);
-
-  let params = [];
-  for (const input of abiFn.inputs) {
-    const prompt = new Input({
-      message: `Enter ${input.name} (${input.type})`,
-    });
-
-    const response = await prompt.run().catch(() => process.exit(0));
-
-    params.push(response);
-  }
-
-  return JSON.stringify(params);
-};
+// Specialized prompts for each param
+call.paramDefinitions['abiPath'].prompt = abiPathPrompt;
+call.paramDefinitions['fn'].prompt = fnPrompt;
+call.paramDefinitions['params'].prompt = paramsPrompt;

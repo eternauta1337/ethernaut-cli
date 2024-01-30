@@ -48,6 +48,8 @@ function storeAbi(name, abi) {
   );
 
   fs.writeFileSync(filePath, JSON.stringify(abi, null, 2));
+
+  return filePath;
 }
 
 function initStorage() {
