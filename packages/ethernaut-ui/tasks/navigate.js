@@ -2,6 +2,7 @@ const { task } = require('hardhat/config');
 const { AutoComplete } = require('enquirer');
 const getNodes = require('../internal/get-nodes');
 const chalk = require('chalk');
+const suggest = require('utilities/enquirer-suggest');
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
@@ -39,11 +40,7 @@ async function navigateFrom(node) {
     message: 'Pick a task or scope',
     limit: 15,
     choices,
-    suggest: (input, choices) => {
-      return choices.filter((choice) => {
-        return choice.value.includes(input);
-      });
-    },
+    suggest,
   });
 
   const response = await prompt.run().catch(() => process.exit(0));

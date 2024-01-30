@@ -58,6 +58,12 @@ async function collectParameters(args, task) {
     const arg = args[param.name];
     if (arg !== undefined) continue;
 
+    // Does the parameter provide its own prompt?
+    if (param.prompt) {
+      newArgs[param.name] = await param.prompt({ ...args, ...newArgs });
+      continue;
+    }
+
     const prompt = new Input({
       message: `Enter ${param.name}`,
       initial: param.defaultValue,
