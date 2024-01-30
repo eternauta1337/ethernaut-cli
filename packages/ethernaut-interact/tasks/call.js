@@ -1,6 +1,10 @@
 const { types } = require('hardhat/config');
-const { AutoComplete, Input } = require('enquirer');
+const { AutoComplete, Input, Confirm } = require('enquirer');
 const suggest = require('utilities/enquirer-suggest');
+const {
+  getFunctionSignature,
+  getPopulatedFunctionSignature,
+} = require('../internal/signatures');
 const interact = require('../scopes/interact');
 const fs = require('fs');
 
@@ -36,6 +40,25 @@ const call = interact
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
     loadAbi(abiPath);
 
+    // Prepare params
+    params = JSON.parse(params);
+
+    // Display call signature
+    const abiFn = abi.find((abiFn) => abiFn.name === fn.split('(')[0]);
+    console.log('Calling', getPopulatedFunctionSignature(abiFn, params));
+
+    // TODO: Estimate gas
+
+    // Confirm call (if not view/pure)
+    if (abiFn.stateMutability !== 'view' && abiFn.stateMutability !== 'pure') {
+      const prompt = new Confirm({
+        message: 'Do you want to proceed with the call?',
+      });
+
+      const response = await prompt.run().catch(() => process.exit(0));
+      if (!response) return;
+    }
+
     // TODO: Make call
   });
 
@@ -52,9 +75,7 @@ call.paramDefinitions['fn'].prompt = async ({ abiPath }) => {
 
   const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
 
-  const choices = abiFns.map(
-    (fn) => `${fn.name}(${fn.inputs.map((input) => input.type).join(',')})`
-  );
+  const choices = abiFns.map((fn) => getFunctionSignature(fn));
 
   const prompt = new AutoComplete({
     type: 'autocomplete',
