@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config');
 const { AutoComplete, Input, Confirm } = require('enquirer');
+const EtherscanApi = require('../internal/etherscan');
 const suggest = require('utilities/enquirer-suggest');
 const {
   getFunctionSignature,
@@ -7,6 +8,7 @@ const {
 } = require('../internal/signatures');
 const interact = require('../scopes/interact');
 const fs = require('fs');
+const storage = require('../internal/storage');
 
 let abi;
 
@@ -60,6 +62,7 @@ const call = interact
     }
 
     // TODO: Make call
+    console.log('...result');
   });
 
 function loadAbi(abiPath) {
@@ -69,6 +72,30 @@ function loadAbi(abiPath) {
   // TODO: Validate path
   abi = JSON.parse(fs.readFileSync(abiPath, 'utf8'));
 }
+
+call.paramDefinitions['abiPath'].prompt = async ({ address }) => {
+  async function getAbiFromEtherscan(address, network) {
+    const networkComp = network === 'mainnet' ? '' : `-${network}`;
+
+    const etherscan = new EtherscanApi(
+      process.env.ETHERSCAN_API_KEY,
+      `https://api${networkComp}.etherscan.io`
+    );
+
+    const info = await etherscan.getContractCode(address);
+
+    abi = info.ABI;
+
+    storage.storeAbi(info.ContractName, abi);
+    storage.rememberAbiAndAddress(info.ContractName, address, network);
+  }
+
+  // TODO: Decide strategy to get abi from provided params
+  // - DONE Get abi from Etherscan
+  // - Deduce ABI from previous interaction
+  // Might need to ask the user
+  loadAbi(await getAbiFromEtherscan(address, 'sepolia'));
+};
 
 call.paramDefinitions['fn'].prompt = async ({ abiPath }) => {
   loadAbi(abiPath);

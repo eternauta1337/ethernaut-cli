@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 require('@nomicfoundation/hardhat-toolbox');
 
 require('ethernaut-ui');

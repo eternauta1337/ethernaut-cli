@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.4.1",
     "hardhat": "^2.19.4"
   }
 }
