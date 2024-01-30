@@ -27,6 +27,7 @@ async function navigateFrom(location) {
   const choices = nodes
     .filter((c) => {
       if (c.tasks) return true; // Scope? All scopes are shown
+      if (!c.name) return false; // Null task? Ngmi
       return !c.isSubtask; // Task? Subtasks are not shown
     })
     .map(
