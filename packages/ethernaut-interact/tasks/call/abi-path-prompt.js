@@ -1,16 +1,13 @@
 const storage = require('../../internal/storage');
 const EtherscanApi = require('../../internal/etherscan');
 
-module.exports = async function prompt({ address }) {
+module.exports = async function prompt({ hre, address }) {
   let abiPath;
 
-  // TODO: This needs to be dynamic
-  const network = 'sepolia';
-
-  abiPath = deduceAbiFromStorage(address, network);
+  abiPath = deduceAbiFromStorage(address, hre.network.name);
 
   if (!abiPath) {
-    abiPath = await getAbiFromEtherscan(address, network);
+    abiPath = await getAbiFromEtherscan(address, hre.network.name);
   }
 
   return abiPath;

@@ -62,7 +62,11 @@ async function collectParameters(args, task) {
 
     // Does the parameter provide its own prompt?
     if (param.prompt) {
-      newArgs[param.name] = await param.prompt({ ...args, ...newArgs });
+      newArgs[param.name] = await param.prompt({
+        hre: _hre,
+        ...args,
+        ...newArgs,
+      });
       continue;
     }
 
