@@ -11,7 +11,15 @@ const path = require('path');
  * }
  */
 
-function rememberAbiAndAddress(name, address, network) {
+function readAddresses() {
+  return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
+}
+
+function storeAddresses(data) {
+  fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2));
+}
+
+function rememberAbiAndAddress(abiPath, address, network) {
   initStorage();
 
   const addresses = readAddresses();
@@ -20,17 +28,9 @@ function rememberAbiAndAddress(name, address, network) {
     addresses[network] = {};
   }
 
-  addresses[network][address] = name;
+  addresses[network][address] = abiPath;
 
   storeAddresses(addresses);
-}
-
-function readAddresses() {
-  return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
-}
-
-function storeAddresses(data) {
-  fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2));
 }
 
 function getAddressesFilePath() {
@@ -59,7 +59,7 @@ function initStorage() {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 
-  // Crreate addresses.json if it doesn't exist
+  // Create addresses.json if it doesn't exist
   const addressesPath = path.join(process.cwd(), 'artifacts', 'addresses.json');
   fs.writeFileSync(addressesPath, JSON.stringify({}, null, 2));
 }

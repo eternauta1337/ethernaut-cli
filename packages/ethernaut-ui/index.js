@@ -13,7 +13,9 @@ extendEnvironment((hre) => {
   _hre = hre;
 
   makeTasksInteractive(hre);
-  bundleLooseTasks();
+
+  // TODO: Hack further, or seek support from Nomic
+  // bundleLooseTasks(); // This is too hacky, need mods to hardhat
 });
 
 function makeInteractive(task) {

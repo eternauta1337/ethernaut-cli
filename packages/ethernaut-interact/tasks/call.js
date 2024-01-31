@@ -60,7 +60,9 @@ const call = interact
     }
 
     // TODO: Make call
-    console.log('...result');
+    console.log(
+      'Feature not available: Cannot make calls yet until providers and signers are introduced'
+    );
   });
 
 // Specialized prompts for each param
