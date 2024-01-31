@@ -1,3 +1,3 @@
-const requireAll = require('utilities/require-all');
+const requireAll = require('common/require-all');
 
 requireAll(__dirname, 'tasks');

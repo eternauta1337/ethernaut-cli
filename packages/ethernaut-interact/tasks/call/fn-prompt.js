@@ -1,6 +1,6 @@
 const loadAbi = require('./load-abi');
 const { getFunctionSignature } = require('../../internal/signatures');
-const suggest = require('utilities/enquirer-suggest');
+const suggest = require('common/enquirer-suggest');
 const { AutoComplete } = require('enquirer');
 
 module.exports = async function prompt({ abiPath }) {

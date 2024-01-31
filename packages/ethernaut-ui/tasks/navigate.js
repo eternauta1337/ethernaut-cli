@@ -2,7 +2,7 @@ const { task } = require('hardhat/config');
 const { AutoComplete } = require('enquirer');
 const getNodes = require('../internal/get-nodes');
 const chalk = require('chalk');
-const suggest = require('utilities/enquirer-suggest');
+const suggest = require('common/enquirer-suggest');
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
