@@ -43,26 +43,50 @@ const call = interact
 
     // Display call signature
     // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
-    const abiFn = abi.find((abiFn) => abiFn.name === fn.split('(')[0]);
+    const fnName = fn.split('(')[0];
+    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
     console.log('Calling', getPopulatedFunctionSignature(abiFn, params));
 
-    // TODO: Estimate gas
+    // Instantiate the contract
+    let contract = await hre.ethers.getContractAt(abi, address);
+    console.log('Instantiated contract:', contract.target);
 
-    // Prompt the user for confirmation,
-    // if the function is mutative
-    if (abiFn.stateMutability !== 'view' && abiFn.stateMutability !== 'pure') {
+    // Make the call
+    const isReadOnly =
+      abiFn.stateMutability === 'view' || abiFn.stateMutability === 'pure';
+    if (isReadOnly) {
+      const result = await contract[fnName](...params);
+      console.log('Result:', result);
+    } else {
+      // Connect signer
+      const signer = (await hre.ethers.getSigners())[0];
+      contract = contract.connect(signer);
+      console.log('Connected signer:', signer.address);
+
+      // Estimate gas
+      const estimateGas = await contract[fn].estimateGas(...params);
+      console.log('Estimated gas:', estimateGas.toString());
+
+      // Prompt the user for confirmation
       const prompt = new Confirm({
         message: 'Do you want to proceed with the call?',
       });
-
       const response = await prompt.run().catch(() => process.exit(0));
       if (!response) return;
-    }
 
-    // TODO: Make call
-    console.log(
-      'Feature not available: Cannot make calls yet until providers and signers are introduced'
-    );
+      const tx = await contract[fn](...params);
+      console.log('Sending transaction:', tx.hash);
+
+      // Wait for the transaction to be mined
+      const receipt = await tx.wait();
+      console.log('Transaction mined. Gas used:', receipt.gasUsed.toString());
+      if (receipt.status === 0) {
+        console.error('Transaction mined but execution reverted:', receipt);
+      } else {
+        console.log('Transaction mined and execution completed.');
+        // TODO: Parse receipt and display logs
+      }
+    }
   });
 
 // Specialized prompts for each param

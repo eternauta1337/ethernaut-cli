@@ -4,10 +4,12 @@ const EtherscanApi = require('../../internal/etherscan');
 module.exports = async function prompt({ hre, address }) {
   let abiPath;
 
-  abiPath = deduceAbiFromStorage(address, hre.network.name);
+  const network = hre.network.config.name || hre.network.name;
+
+  abiPath = deduceAbiFromStorage(address, network);
 
   if (!abiPath) {
-    abiPath = await getAbiFromEtherscan(address, hre.network.name);
+    abiPath = await getAbiFromEtherscan(address, network);
   }
 
   return abiPath;

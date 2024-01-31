@@ -8,10 +8,17 @@ require('ethernaut-interact');
 
 module.exports = {
   solidity: '0.8.19',
-  defaultNetwork: 'sepolia',
+  defaultNetwork: 'hardhat',
   networks: {
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+    },
+    hardhat: {
+      name: 'sepolia',
+      chainId: 11155111,
+      forking: {
+        url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      },
     },
   },
 };
