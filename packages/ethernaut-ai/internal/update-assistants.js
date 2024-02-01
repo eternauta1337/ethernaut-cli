@@ -16,10 +16,6 @@ async function updateAssistants(hre) {
 }
 
 async function updateAssistant(name, ids) {
-  if (!assistantNeedsUpdate(name, ids)) return;
-
-  console.log('Updating assistant:', name);
-
   const common = require('../assistants/common.json');
 
   let config;
@@ -27,6 +23,9 @@ async function updateAssistant(name, ids) {
   else if (name === 'explainer') config = buildExplainerConfig(common);
   else if (name === 'namer') config = buildNamerConfig(common);
   else throw new Error('Unknown assistant type:' + name);
+
+  if (!assistantNeedsUpdate(name, ids, config)) return;
+  console.log('Updating assistant:', name);
 
   // Update the assistant record
   const assistant = (ids.assistants[name] = {});
@@ -165,7 +164,7 @@ function injectCliExplanation(config, common) {
   );
 }
 
-function assistantNeedsUpdate(name, ids) {
+function assistantNeedsUpdate(name, ids, config) {
   // Inject empty props if mising
   if (!ids.assistants) ids.assistants = {};
 
@@ -181,8 +180,7 @@ function assistantNeedsUpdate(name, ids) {
   if (!storage.assistantExists(assistant.id)) return true;
 
   // Is the assistant file outdated?
-  const data = storage.readAssistant(assistant.id);
-  const hash = hashStr(JSON.stringify(data));
+  const hash = hashStr(JSON.stringify(config));
   return hash !== assistant.hash;
 }
 
