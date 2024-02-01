@@ -52,18 +52,18 @@ function getAssistantsPath() {
 }
 
 function assistantExists(id) {
-  return fs.existsSync(path.join(getAssistantsPath(), id, '.json'));
+  return fs.existsSync(path.join(getAssistantsPath(), `${id}.json`));
 }
 
 function readAssistant(id) {
   return JSON.parse(
-    fs.readFileSync(path.join(getAssistantsPath(), id, '.json'))
+    fs.readFileSync(path.join(getAssistantsPath(), `${id}.json`))
   );
 }
 
 function storeAssistant(id, data) {
   createFolderIfMissing(getAssistantsPath());
-  createFileIfMissing(path.join(getAssistantsPath(), id), data);
+  createFileIfMissing(path.join(getAssistantsPath(), `${id}.json`), data);
 }
 
 function initStorage() {
