@@ -2,6 +2,7 @@ const requireAll = require('common/require-all');
 const { extendEnvironment } = require('hardhat/config');
 const storage = require('./internal/storage');
 const getNodes = require('common/get-nodes');
+const crypto = require('crypto');
 
 requireAll(__dirname, 'tasks');
 
@@ -24,8 +25,6 @@ function updateAssistants() {
 function updateAssistant(name, ids) {
   if (!assistantNeedsUpdate(name, ids)) return;
 
-  const assistant = ids.assistants[name];
-
   const common = require('./assistants/common.json');
 
   let config;
@@ -34,10 +33,15 @@ function updateAssistant(name, ids) {
   else if (name === 'namer') config = buildNamerConfig(common);
   else throw new Error('Unknown assistant type:' + name);
 
-  console.log(JSON.stringify(config, null, 2));
+  const assistant = (ids.assistants[name] = {});
+  assistant.hash = hashStr(JSON.stringify(config));
+
+  // TODO: Create assistant in openai
 
   // TODO: Store assistant
-  // TODO: Store hash
+  storage.storeIds(ids);
+  // TODO: Use openai id instead of hash for file name
+  storage.storeAssistant(assistant.hash, config);
 }
 
 function buildInterpreterConfig(common) {
@@ -69,7 +73,6 @@ function buildNamerConfig(common) {
 
 function injectToolsSpec(config) {
   const tasks = flattenTasks(getNodes(_hre));
-  console.log(tasks.map((t) => t.name));
 
   config.tools = [];
 
@@ -86,8 +89,6 @@ function injectToolsSpec(config) {
 }
 
 function collectParameterSpecs(task) {
-  console.log(task);
-
   const properties = {};
   const required = [];
 
@@ -153,6 +154,10 @@ function assistantNeedsUpdate(name, ids) {
 
   // Is the assistant file outdated?
   const data = storage.readAssistant(id);
-  const hash = JSON.stringify(data);
+  const hash = hashStr(JSON.stringify(data));
   return hash !== assistant.hash;
+}
+
+function hashStr(str) {
+  return crypto.createHash('sha256').update(str).digest('hex');
 }

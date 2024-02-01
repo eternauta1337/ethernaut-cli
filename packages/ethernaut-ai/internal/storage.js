@@ -61,6 +61,11 @@ function readAssistant(id) {
   );
 }
 
+function storeAssistant(id, data) {
+  createFolderIfMissing(getAssistantsPath());
+  createFileIfMissing(path.join(getAssistantsPath(), id), data);
+}
+
 function initStorage() {
   createFolderIfMissing(getAssistantsPath());
   createFolderIfMissing(path.join(process.cwd(), 'artifacts', 'ai', 'threads'));
@@ -70,7 +75,9 @@ function initStorage() {
 
 module.exports = {
   readIds,
+  storeIds,
   getAssistantsPath,
   assistantExists,
   readAssistant,
+  storeAssistant,
 };
