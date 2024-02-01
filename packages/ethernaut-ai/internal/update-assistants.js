@@ -29,7 +29,6 @@ async function updateAssistant(name, ids) {
 
   // Update the assistant record
   const assistant = (ids.assistants[name] = {});
-  assistant.hash = hashStr(JSON.stringify(config));
   assistant.id = await openai.createAssistant(config);
 
   storage.storeIds(ids);
@@ -174,14 +173,14 @@ function assistantNeedsUpdate(name, ids, config) {
   // Or any of its properties missing?
   const assistant = ids.assistants[name];
   if (!assistant.id) return true;
-  if (!assistant.hash) return true;
 
   // Is the assistant file missing?
   if (!storage.assistantExists(assistant.id)) return true;
 
   // Is the assistant file outdated?
-  const hash = hashStr(JSON.stringify(config));
-  return hash !== assistant.hash;
+  const oldHash = hashStr(JSON.stringify(storage.readAssistant(assistant.id)));
+  const newHash = hashStr(JSON.stringify(config));
+  return newHash !== oldHash;
 }
 
 function hashStr(str) {

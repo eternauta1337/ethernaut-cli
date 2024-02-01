@@ -11,15 +11,12 @@ const {
  *   "assistants": {
  *     "interpreter": {
  *       "id": "<openai-id>",
- *       "hash": "<hash>",
  *     },
  *    "explainer": {
  *       "id": "<openai-id>",
- *       "hash": "<hash>",
  *     }
  *    "namer": {
  *       "id": "<openai-id>",
- *       "hash": "<hash>",
  *     }
  *   }
      "threads": [
