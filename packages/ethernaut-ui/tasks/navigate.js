@@ -1,6 +1,6 @@
 const { task } = require('hardhat/config');
 const { AutoComplete } = require('enquirer');
-const getNodes = require('../internal/get-nodes');
+const getNodes = require('common/get-nodes');
 const chalk = require('chalk');
 const suggest = require('common/enquirer-suggest');
 

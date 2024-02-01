@@ -1,6 +1,7 @@
 const requireAll = require('common/require-all');
 const { extendEnvironment } = require('hardhat/config');
 const storage = require('./internal/storage');
+const getNodes = require('common/get-nodes');
 
 requireAll(__dirname, 'tasks');
 
@@ -33,7 +34,7 @@ function updateAssistant(name, ids) {
   else if (name === 'namer') config = buildNamerConfig(common);
   else throw new Error('Unknown assistant type:' + name);
 
-  console.log(config);
+  console.log(JSON.stringify(config, null, 2));
 
   // TODO: Store assistant
   // TODO: Store hash
@@ -66,8 +67,66 @@ function buildNamerConfig(common) {
   return config;
 }
 
-function injectToolsSpec() {
-  console.log(_hre.tasks);
+function injectToolsSpec(config) {
+  const tasks = flattenTasks(getNodes(_hre));
+  console.log(tasks.map((t) => t.name));
+
+  config.tools = [];
+
+  tasks.forEach((t) => {
+    config.tools.push({
+      type: 'function',
+      function: {
+        name: t.name,
+        description: t._description,
+        parameters: collectParameterSpecs(t),
+      },
+    });
+  });
+}
+
+function collectParameterSpecs(task) {
+  console.log(task);
+
+  const properties = {};
+  const required = [];
+
+  for (const param of task.positionalParamDefinitions) {
+    properties[param.name] = {
+      type: 'string',
+      description: param.description,
+    };
+    if (!param.isOptional) {
+      required.push(param.name);
+    }
+  }
+
+  for (const param of Object.values(task.paramDefinitions)) {
+    const name = `_${param.name}`;
+    properties[name] = {
+      type: 'string',
+      description: param._description,
+    };
+    if (!param.isOptional) {
+      required.push(name);
+    }
+  }
+
+  return {
+    type: 'object',
+    properties,
+    required,
+  };
+}
+
+function flattenTasks(nodes) {
+  return nodes.reduce((flatTasks, node) => {
+    if (node.isScope) {
+      return [...flatTasks, ...flattenTasks(Object.values(node.tasks))];
+    } else {
+      return [...flatTasks, node];
+    }
+  }, []);
 }
 
 function injectCliExplanation(config, common) {

@@ -1,6 +1,6 @@
 const { task: hreTask, extendEnvironment } = require('hardhat/config');
 const { Input } = require('enquirer');
-const getNodes = require('./internal/get-nodes');
+const getNodes = require('common/get-nodes');
 const requireAll = require('common/require-all');
 const hh = require('./scopes/hh');
 
