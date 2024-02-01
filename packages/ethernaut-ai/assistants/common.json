@@ -1,0 +1,3 @@
+{
+  "cli-explanation": "The ethernaut-cli is a command line application for Ethereum hackers and builders. It contains commands for simple every day tasks, for interacting with contracts, for playing games like the Open Zeppelin Ethernaut CTF, and much more. It focuses on making these tasks fun, on a fast, intuitive, and powerful command line interface. Multiple AI assistants are incorporated into the CLI to help hackers automate commands, learn the CLI, but most importantly learn about Ethereum technology."
+}

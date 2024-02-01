@@ -1,5 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const {
+  createFolderIfMissing,
+  createFileIfMissing,
+} = require('common/create-file');
 
 /**
  * addresses.json schema:
@@ -12,10 +16,14 @@ const path = require('path');
  */
 
 function readAddresses() {
+  initStorage();
+
   return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
 }
 
 function storeAddresses(data) {
+  initStorage();
+
   fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2));
 }
 
@@ -53,15 +61,9 @@ function storeAbi(name, abi) {
 }
 
 function initStorage() {
-  // Create folders if they don't exist
-  const dirPath = path.join(process.cwd(), 'artifacts', 'abis');
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+  createFolderIfMissing(path.join(process.cwd(), 'artifacts'));
 
-  // Create addresses.json if it doesn't exist
-  const addressesPath = path.join(process.cwd(), 'artifacts', 'addresses.json');
-  fs.writeFileSync(addressesPath, JSON.stringify({}, null, 2));
+  createFileIfMissing(getAddressesFilePath(), {});
 }
 
 module.exports = {
