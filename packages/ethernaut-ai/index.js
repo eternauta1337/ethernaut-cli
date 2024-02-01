@@ -57,10 +57,45 @@ function buildExplainerConfig(common) {
   const config = require('./assistants/explainer.json');
 
   injectCliExplanation(config, common);
-
-  // TODO: Inject docs
+  injectDocs(config);
 
   return config;
+}
+
+function injectDocs(config) {
+  const tasks = flattenTasks(getNodes(_hre));
+
+  const docs = [];
+  tasks.forEach((t) => {
+    let str = '';
+    str += `task: "${t.name}"\n`;
+    str += `  description: ${t._description}\n`;
+    str += `  parameters: ${injectParameterDocs(t)}\n`;
+    docs.push(str);
+  });
+
+  config.instructions = config.instructions.replace(
+    '[task-docs]',
+    docs.join('\n')
+  );
+}
+
+function injectParameterDocs(task) {
+  let str = '\n';
+
+  for (const param of task.positionalParamDefinitions) {
+    str += `    "${param.name}"${param.isOptional ? ' (optional)' : ''} ${
+      param.description
+    }\n`;
+  }
+
+  for (const param of Object.values(task.paramDefinitions)) {
+    str += `    "--${param.name}"${param.isOptional ? ' (optional)' : ''} ${
+      param.description
+    }\n`;
+  }
+
+  return str;
 }
 
 function buildNamerConfig(common) {
@@ -138,6 +173,9 @@ function injectCliExplanation(config, common) {
 }
 
 function assistantNeedsUpdate(name, ids) {
+  // TODO: remove force
+  return true;
+
   // Inject empty props if mising
   if (!ids.assistants) ids.assistants = {};
 
