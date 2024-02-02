@@ -1,3 +1,5 @@
 # ethernaut-cli
 
-AI powered interactive cli for Ethereum hackers
+WIP
+
+AI powered interactive cli for hacking and learning Ethereum.
