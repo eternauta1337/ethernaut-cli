@@ -27,8 +27,12 @@ async function updateAssistant(name, ids) {
   if (!assistantNeedsUpdate(name, ids, config)) return;
   console.log('Updating assistant:', name);
 
+  // Delete the previous assistant
+  let assistant = ids.assistants[name];
+  if (assistant.id) storage.deleteAssistant(assistant.id);
+
   // Update the assistant record
-  const assistant = (ids.assistants[name] = {});
+  assistant = ids.assistants[name] = {};
   assistant.id = await openai.createAssistant(config);
 
   storage.storeIds(ids);

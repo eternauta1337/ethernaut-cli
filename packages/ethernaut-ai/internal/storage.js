@@ -48,19 +48,28 @@ function getAssistantsPath() {
   return path.join(process.cwd(), 'artifacts', 'ai', 'assistants');
 }
 
+function getAssistantPath(id) {
+  return path.join(getAssistantsPath(), `${id}.json`);
+}
+
 function assistantExists(id) {
-  return fs.existsSync(path.join(getAssistantsPath(), `${id}.json`));
+  return fs.existsSync(getAssistantPath(id));
 }
 
 function readAssistant(id) {
-  return JSON.parse(
-    fs.readFileSync(path.join(getAssistantsPath(), `${id}.json`))
-  );
+  return JSON.parse(fs.readFileSync(getAssistantPath(id)));
 }
 
 function storeAssistant(id, data) {
   createFolderIfMissing(getAssistantsPath());
-  createFileIfMissing(path.join(getAssistantsPath(), `${id}.json`), data);
+  createFileIfMissing(getAssistantPath(id), data);
+}
+
+function deleteAssistant(id) {
+  const filePath = getAssistantPath(id);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
 }
 
 function initStorage() {
@@ -77,4 +86,5 @@ module.exports = {
   assistantExists,
   readAssistant,
   storeAssistant,
+  deleteAssistant,
 };
