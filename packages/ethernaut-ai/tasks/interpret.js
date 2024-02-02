@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config');
 const ai = require('../scopes/ai');
 const Interpreter = require('../internal/assistants/Interpreter');
+const Thread = require('../internal/threads/Thread');
 
 ai.task('interpret', 'Interprets natural language into CLI commands')
   // TODO: Remove optionality once I can extend environment before parsing tasks
@@ -12,15 +13,13 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
   )
   .setAction(async ({ query }, hre) => {
     const interpreter = new Interpreter(hre);
-
-    // const { thread } = await updateThread();
+    const thread = new Thread();
 
     // Post the query in the thread
-    // await thread.post(query);
+    await thread.post(query);
 
     // Let the interpreter convert it to cli commands
     // const { action, response } = await interpreter.process(thread);
-    await interpreter.process({});
 
     // Only a text response?
     // Show it and exit
