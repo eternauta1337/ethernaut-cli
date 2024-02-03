@@ -11,7 +11,6 @@ module.exports = async function prompt({ abiPath }) {
   const choices = abiFns.map((fn) => getFunctionSignature(fn));
 
   const prompt = new AutoComplete({
-    type: 'autocomplete',
     message: 'Pick a function',
     limit: 15,
     suggest,
