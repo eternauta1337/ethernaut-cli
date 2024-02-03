@@ -71,8 +71,9 @@ function readThreadInfo(name) {
 // -------------------
 
 function readAssistantConfig(id) {
-  const data = fs.readFileSync(getAssistantConfigPath(id), 'utf8');
-  return data ? JSON.parse(data) : null;
+  const filePath = getAssistantConfigPath(id);
+  if (!fs.existsSync(filePath)) return null;
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
 function readAssistantInfo(name) {
@@ -99,6 +100,8 @@ function storeAssistantConfig(id, data) {
 }
 
 function deleteAssistantConfig(id) {
+  const filePath = getAssistantConfigPath(id);
+  if (!fs.existsSync(filePath)) return;
   fs.unlinkSync(getAssistantConfigPath(id));
 }
 

@@ -34,7 +34,7 @@ class Assistant {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return await this.processRun(thread, run);
     } else if (status === 'requires_action') {
-      return { action: this.prepareAction(required_action) };
+      return { actions: this.prepareActions(required_action) };
     } else if (status === 'completed') {
       return {
         response: await thread.getLastAssistantResponse(run.id),
@@ -44,17 +44,19 @@ class Assistant {
     }
   }
 
-  prepareAction(action) {
-    switch (action.type) {
+  prepareActions(required_action) {
+    switch (required_action.type) {
       case 'submit_tool_outputs':
-        return action.submit_tool_outputs.tool_calls.map((toolCall) => {
-          if (toolCall.type !== 'function') {
-            throw new Error(`Unknown tool call type: ${toolCall.type}`);
+        return required_action.submit_tool_outputs.tool_calls.map(
+          (toolCall) => {
+            if (toolCall.type !== 'function') {
+              throw new Error(`Unknown tool call type: ${toolCall.type}`);
+            }
+            return toolCall.function;
           }
-          return toolCall.function;
-        });
+        );
       default:
-        throw new Error(`Unknown action request type: ${action.type}`);
+        throw new Error(`Unknown action request type: ${required_action.type}`);
     }
   }
 

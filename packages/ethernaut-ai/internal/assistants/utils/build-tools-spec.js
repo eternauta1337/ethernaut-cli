@@ -38,7 +38,7 @@ function collectParameterSpecs(task) {
     const name = `_${param.name}`;
     properties[name] = {
       type: 'string',
-      description: param._description,
+      description: param.description,
     };
     if (!param.isOptional) {
       required.push(name);
