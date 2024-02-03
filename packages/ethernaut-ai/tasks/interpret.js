@@ -33,7 +33,9 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
   });
 
 async function processActions(actions, thread) {
-  console.log('Assistant wants to run:', JSON.stringify(actions, null, 2));
+  console.log('The assistant wants to run the following actions:');
+  actions.forEach((a) => console.log(a.join(' ')));
+
   // Let the user decide wether
   // to run it, skip it, or explain it
   // let response = await promptUserForAction(action);
