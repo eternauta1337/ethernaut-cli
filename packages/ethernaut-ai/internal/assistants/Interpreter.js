@@ -9,6 +9,17 @@ class Interpreter extends Assistant {
     super('interpreter', config);
   }
 
+  async process(thread) {
+    const { action, response } = await super.process(thread);
+
+    // TODO: Parse actions here
+    // if (action) {
+
+    // }
+
+    return { action, response };
+  }
+
   async postProcess(output) {
     // Implement your logic here
   }

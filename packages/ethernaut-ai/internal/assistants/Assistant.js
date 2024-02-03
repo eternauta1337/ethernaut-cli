@@ -51,11 +51,7 @@ class Assistant {
           if (toolCall.type !== 'function') {
             throw new Error(`Unknown tool call type: ${toolCall.type}`);
           }
-
-          return {
-            task: toolCall.function.name,
-            args: toolCall.function.arguments,
-          };
+          return toolCall.function;
         });
       default:
         throw new Error(`Unknown action request type: ${action.type}`);
