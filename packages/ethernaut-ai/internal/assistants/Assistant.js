@@ -1,6 +1,6 @@
 const hashStr = require('common/hash-str');
-const OpenAI = require('openai');
-const Storage = require('../Storage');
+const storage = require('../storage');
+const openai = require('../openai');
 
 class Assistant {
   constructor(name, config) {
@@ -9,32 +9,96 @@ class Assistant {
 
     this.injectCommonInstructions();
 
-    this.storage = new Storage('assistants');
+    storage.init();
+  }
 
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+  async process(thread) {
+    await this.invalidateId();
+
+    const run = await openai.beta.threads.runs.create(thread.id, {
+      assistant_id: this.id,
     });
+
+    return await this.processRun(thread, run);
+  }
+
+  async processRun(thread, run) {
+    const { status, required_action } = await openai.beta.threads.runs.retrieve(
+      thread.id,
+      run.id
+    );
+    console.log('Running thread... status:', status);
+
+    if (status === 'in_progress') {
+      // Keep waiting and checking...
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return await this.processRun(thread, run);
+    } else if (status === 'requires_action') {
+      return { action: this.prepareAction(required_action) };
+    } else if (status === 'completed') {
+      return {
+        response: await thread.getLastAssistantResponse(run.id),
+      };
+    } else if (status === 'cancelled') {
+      return {};
+    }
+  }
+
+  prepareAction(action) {
+    switch (action.type) {
+      case 'submit_tool_outputs':
+        return action.submit_tool_outputs.tool_calls.map((toolCall) => {
+          if (toolCall.type !== 'function') {
+            throw new Error(`Unknown tool call type: ${toolCall.type}`);
+          }
+
+          return {
+            task: toolCall.function.name,
+            args: toolCall.function.arguments,
+          };
+        });
+      default:
+        throw new Error(`Unknown action request type: ${action.type}`);
+    }
   }
 
   async invalidateId() {
-    if (!this.needsUpdate()) return;
+    if (this.needsUpdate()) {
+      console.log('Updating assistant:', this.name);
 
-    console.log('Updating assistant:', this.name);
+      // Get the current id and delete the config file.
+      const oldId = storage.getAssistantId(this.name);
+      if (oldId) storage.deleteAssistantConfig(oldId);
 
-    const oldId = this.storage.getId();
-    if (oldId) this.storage.deleteFile();
+      // Get a new id and store the new config file.
+      const { id } = await openai.beta.assistants.create(this.config);
+      storage.storeAssistantConfig(id, this.config);
+      console.log('Created assistant:', id);
 
-    const { id } = await this.openai.beta.assistants.create(this.config);
-    this.storage.storeFile(this.name, id, this.config);
+      // Store the info as well.
+      storage.storeAssistantInfo(this.name, id);
+
+      this.id = id;
+    } else {
+      this.id = storage.getAssistantId(this.name);
+    }
   }
 
   needsUpdate() {
-    // Is there a file for this assistant?
-    const file = this.storage.getFilename();
-    if (!file) return true;
+    const info = storage.readAssistantInfo(this.name);
 
-    // Compare the hash of the current config with the hash of the file
-    const oldHash = hashStr(JSON.stringify(this.storage.readFile()));
+    // No info for this name?
+    if (!info) return true;
+
+    // Or not enough info?
+    if (!info.id) return true;
+
+    // Is there a config file for this assistant?
+    const oldConfig = storage.readAssistantConfig(info.id);
+    if (!oldConfig) return true;
+
+    // Compare the hash of the current config with the hash of the stored config
+    const oldHash = hashStr(JSON.stringify(oldConfig));
     const newHash = hashStr(JSON.stringify(this.config));
     return newHash !== oldHash;
   }

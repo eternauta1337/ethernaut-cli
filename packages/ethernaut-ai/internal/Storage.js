@@ -1,66 +1,162 @@
 const fs = require('fs');
 const path = require('path');
-const { createFolderIfMissing } = require('common/create-file');
+const {
+  createFolderIfMissing,
+  createFileIfMissing,
+} = require('common/create-file');
 
 /**
  * Stores data like this:
- * - hardhat project
- *   - artifacts
- *     - ai
- *       - <folder-name>
- *           <file-name>.<openai-id>.json
- *           <file-name>.<openai-id>.json
- *           <file-name>.<openai-id>.json
+ * <hardhat-project>/
+ *   artifacts/
+ *     ai/
+ *       assistants/
+ *         <openai-assistant-id>.json
+ *       info.json
+ *
+ * info.json schema:
+ * {
+ *   assistants: [
+ *     {
+ *       name: "<assistant-name>",
+ *       id: "<openai-assistant-id>"
+ *     }
+ *   ],
+ *   threads: [
+ *     {
+ *       name: "<thread-name>",
+ *       id: "<openai-thread-id>"
+ *     }
+ *   ]
+ * }
+ *
+ * <assistant-name> schema:
+ * {
+ *   name: "...",
+ *   description: "...",
+ *   instructions: "...",
+ *   tools: [...]
+ * }
  */
 
-class Storage {
-  constructor(folderName) {
-    this.folderName = folderName;
+// -------------------
+// Threads
+// -------------------
+
+function storeThreadInfo(name, id) {
+  const info = readInfo();
+
+  const thread = info.threads.find((e) => e.name === name);
+
+  if (thread) {
+    thread.id = id;
+  } else {
+    info.threads.push({ name, id });
   }
 
-  getFilename() {
-    const folderPath = this.getFolderPath();
-    createFolderIfMissing(folderPath);
-
-    const filenames = fs
-      .readdirSync(folderPath)
-      .filter((file) => fs.lstatSync(path.join(folderPath, file)).isFile());
-
-    return filenames.find((f) => f.includes(this.name));
-  }
-
-  getId() {
-    const file = this.getFilename();
-    if (!file) return;
-
-    const comps = file.split('.');
-    const id = comps[1];
-
-    return id;
-  }
-
-  readFile() {
-    const file = this.getFilename();
-    const data = fs.readFileSync(path.join(this.getFolderPath(), file), 'utf8');
-    return JSON.parse(data);
-  }
-
-  storeFile(name, id, data) {
-    const filePath = path.join(this.getFolderPath(), `${name}.${id}.json`);
-
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-  }
-
-  deleteFile() {
-    const file = this.getFilename();
-    if (file) {
-      fs.unlinkSync(path.join(this.getFolderPath(), file));
-    }
-  }
-
-  getFolderPath() {
-    return path.join(process.cwd(), 'artifacts', 'ai', this.folderName);
-  }
+  storeInfo(info);
 }
 
-module.exports = Storage;
+function getThreadId(name) {
+  return readThreadInfo(name)?.id;
+}
+
+function readThreadInfo(name) {
+  const threads = readInfo().threads;
+  return threads.find((e) => e.name === name);
+}
+
+// -------------------
+// Assistants
+// -------------------
+
+function readAssistantConfig(id) {
+  const data = fs.readFileSync(getAssistantConfigPath(id), 'utf8');
+  return data ? JSON.parse(data) : null;
+}
+
+function readAssistantInfo(name) {
+  const assistants = readInfo().assistants;
+  return assistants.find((e) => e.name === name);
+}
+
+function storeAssistantInfo(name, id) {
+  const info = readInfo();
+
+  const assistant = info.assistants.find((e) => e.name === name);
+
+  if (assistant) {
+    assistant.id = id;
+  } else {
+    info.assistants.push({ name, id });
+  }
+
+  storeInfo(info);
+}
+
+function storeAssistantConfig(id, data) {
+  fs.writeFileSync(getAssistantConfigPath(id), JSON.stringify(data, null, 2));
+}
+
+function deleteAssistantConfig(id) {
+  fs.unlinkSync(getAssistantConfigPath(id));
+}
+
+function getAssistantConfigPath(id) {
+  return path.join(getAssistantsFolderPath(), `${id}.json`);
+}
+
+function getAssistantsFolderPath() {
+  return path.join(getAiFolderPath(), 'assistants');
+}
+
+function getAssistantId(name) {
+  return readAssistantInfo(name)?.id;
+}
+
+// -------------------
+// General
+// -------------------
+
+function init() {
+  createFolderIfMissing(getAiFolderPath());
+  createFolderIfMissing(getAssistantsFolderPath());
+  createFileIfMissing(getInfoFilePath(), {
+    assistants: [],
+    threads: [],
+  });
+}
+
+function readInfo() {
+  return JSON.parse(fs.readFileSync(getInfoFilePath(), 'utf8'));
+}
+
+function storeInfo(data) {
+  fs.writeFileSync(getInfoFilePath(), JSON.stringify(data, null, 2));
+}
+
+function getAiFolderPath() {
+  return path.join(process.cwd(), 'artifacts', 'ai');
+}
+
+function getInfoFilePath() {
+  return path.join(getAiFolderPath(), 'info.json');
+}
+
+module.exports = {
+  // General
+  init,
+  readInfo,
+  storeInfo,
+  // Threads
+  readThreadInfo,
+  storeThreadInfo,
+  getThreadId,
+  // Assistants
+  readAssistantConfig,
+  storeAssistantConfig,
+  storeAssistantInfo,
+  deleteAssistantConfig,
+  readAssistantInfo,
+  getAssistantId,
+};

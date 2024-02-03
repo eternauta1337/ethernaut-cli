@@ -1,34 +1,74 @@
-const OpenAI = require('openai');
-const Storage = require('../Storage');
+const storage = require('../storage');
+const openai = require('../openai');
 
 class Thread {
   constructor() {
     this.name = 'default';
 
-    this.storage = new Storage('threads');
-
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
+    storage.init();
   }
 
   async post(message) {
     await this.invalidateId();
+
+    await this.stop();
+
+    await openai.beta.threads.messages.create(this.id, {
+      role: 'user',
+      content: message,
+    });
+  }
+
+  async stop() {
+    const runs = await openai.beta.threads.runs.list(this.id);
+    if (!runs) return;
+
+    const activeRuns = runs.body.data.filter(
+      (run) =>
+        run.status === 'in_progress' ||
+        run.status === 'queued' ||
+        run.status === 'requires_action'
+    );
+    if (!activeRuns || activeRuns.length === 0) return;
+
+    console.log(`Stopping active runs: ${activeRuns.length}`);
+
+    for (const run of activeRuns) {
+      console.log(`Stopping ${run.id}`);
+      await openai.beta.threads.runs.cancel(this.id, run.id);
+    }
+  }
+
+  async getMessages() {
+    return await openai.beta.threads.messages.list(this.id);
+  }
+
+  async getLastAssistantResponse(runId) {
+    const messages = await this.getMessages();
+
+    return messages.data
+      .filter(
+        (message) => message.run_id === runId && message.role === 'assistant'
+      )
+      .pop().content[0].text.value;
   }
 
   async invalidateId() {
-    if (!this.needsUpdate()) return;
+    if (this.needsUpdate()) {
+      console.log('Creating thread:', this.name);
 
-    console.log('Creating thread:', this.name);
+      const { id } = await openai.beta.threads.create();
+      storage.storeThreadInfo(this.name, id);
 
-    const { id } = await global.openai.beta.threads.create();
-    this.storage.storeFile(this.name, id, {});
+      this.id = id;
+    } else {
+      this.id = storage.getThreadId(this.name);
+    }
   }
 
   needsUpdate() {
-    // Is there a file for this thread?
-    const file = this.storage.getFilename();
-    if (!file) return true;
+    // There is no "default" thread
+    return storage.readThreadInfo(this.name) === undefined;
   }
 }
 

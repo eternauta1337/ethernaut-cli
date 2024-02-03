@@ -19,20 +19,22 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     await thread.post(query);
 
     // Let the interpreter convert it to cli commands
-    // const { action, response } = await interpreter.process(thread);
+    const { action, response } = await interpreter.process(thread);
 
     // Only a text response?
     // Show it and exit
-    // if (response) {
-    //   console.log(response);
-    //   return;
-    // }
+    if (response) {
+      console.log(response);
+      return;
+    }
 
     // Ai wants to run some commands...
-    // await processAction(action, thread);
+    await processAction(action, thread);
   });
 
 async function processAction(action, thread) {
+  console.log('Assistant wants to run:', action);
+
   // Let the user decide wether
   // to run it, skip it, or explain it
   // let response = await promptUserForAction(action);

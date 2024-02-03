@@ -9,12 +9,6 @@ class Interpreter extends Assistant {
     super('interpreter', config);
   }
 
-  async process(thread) {
-    await this.invalidateId();
-
-    // Implement your logic here
-  }
-
   async postProcess(output) {
     // Implement your logic here
   }
