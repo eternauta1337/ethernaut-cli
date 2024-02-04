@@ -10,7 +10,7 @@ module.exports = function buildToolsSpec(hre) {
     tools.push({
       type: 'function',
       function: {
-        name: t.scope ? `${t.scope}:${t.name}` : t.name,
+        name: t.scope ? `${t.scope}.${t.name}` : t.name,
         description: t._description,
         parameters: collectParameterSpecs(t),
       },

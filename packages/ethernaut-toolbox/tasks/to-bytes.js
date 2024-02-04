@@ -6,7 +6,7 @@ tools
   // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
     'value',
-    'The value to convert',
+    'The value to convert. Must be a bytes32 string',
     undefined,
     types.string
   )

@@ -19,25 +19,23 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     // Post the query in the thread
     await thread.post(query);
 
+    // Listen for action requests from the interpreter
+    interpreter.on('tool_calls_required', async (actions, submitOutputs) => {
+      await processActions(actions, thread, hre, submitOutputs);
+    });
+
     // Let the interpreter convert it to cli commands
-    const { actions, response } = await interpreter.process(thread);
+    const response = await interpreter.process(thread);
+    console.log(response);
 
-    // Only a text response?
-    // Show it and exit
-    if (response) {
-      console.log(response);
-      return;
-    }
-
-    // Ai wants to run some commands...
-    await processActions(actions, thread, hre);
+    interpreter.removeAllListeners('tool_calls_required');
   });
 
-async function processActions(actions, thread, hre) {
+async function processActions(actions, thread, hre, submitOutputs) {
   console.log('The assistant wants to run the following actions:');
   for (let i = 0; i < actions.length; i++) {
     const action = actions[i];
-    console.log(`${i + 1}. \`${action.toString()}\``);
+    console.log(`${i + 1}. \`${action.toCliSyntax()}\``);
   }
 
   const prompt = new Select({
@@ -45,7 +43,8 @@ async function processActions(actions, thread, hre) {
     choices: ['execute', 'explain', 'skip'],
   });
 
-  const response = await prompt.run().catch(() => process.exit(0));
+  let response = await prompt.run().catch(() => process.exit(0));
+  console.log('You chose:', response);
 
   // Let the user decide wether
   // to run it, skip it, or explain it
@@ -56,11 +55,10 @@ async function processActions(actions, thread, hre) {
       for (const action of actions) {
         outputs.push(await action.execute(hre));
       }
-      console.log(outputs);
+
       // Let the interpreter have a look at the output
       // to produce a final interpretation
-      // response = await interpreter.postProcess(outputs);
-      // console.log(response);
+      await submitOutputs(outputs);
       break;
     case 'explain':
       // // Post the commands in the thread
@@ -73,7 +71,7 @@ async function processActions(actions, thread, hre) {
       // await processAction(action);
       break;
     default:
-      // Just skip
+      await thread.stop();
       break;
   }
 }

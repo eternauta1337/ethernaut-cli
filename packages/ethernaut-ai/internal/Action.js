@@ -1,18 +1,63 @@
 class Action {
-  constructor(action) {
-    this.parse(action);
+  /**
+   * Incoming toolCall is an object with the following structure:
+   * {
+   *   id: '...',
+   *   function: {
+   *     name: '...',
+   *     arguments: '{"value":"...", "_fix":"..."}'
+   *   }
+   * }
+   *
+   * Optional arguments are prefixed with an underscore.
+   */
+  constructor(toolCall) {
+    this.id = toolCall.id;
+    this.function = toolCall.function;
   }
 
-  // Converts an openai function call to a shell call.
-  // E.g.
-  // from: { name: 'to-bytes', arguments: '{"value":"poop", "_fix":"true"}' }
-  // to: [ "to-bytes", "poop", "--fix", "true" ]
-  parse(action) {
-    this.tokens = [action.name];
+  async execute(hre) {
+    // Hijack console.log so that it can be collected.
+    let output = '';
+    const originalLog = console.log;
+    function log(...args) {
+      output += args.join(' ');
+      originalLog(...args);
+    }
+    console.log = log;
+
+    // Prepare args
+    let args = JSON.parse(this.function.arguments);
+    Object.entries(args).forEach(([name, value]) => {
+      value = value.replace('_', '');
+    });
+
+    // Execute
+    const nameComponents = this.function.name.split('.');
+    if (nameComponents.length === 1) {
+      const task = nameComponents[0];
+      await hre.run(task, args);
+    } else {
+      const scope = nameComponents[0];
+      const task = nameComponents[1];
+      await hre.run({ scope, task }, args);
+    }
+
+    // Release console.log
+    console.log = originalLog;
+
+    return {
+      tool_call_id: this.id,
+      output,
+    };
+  }
+
+  toCliSyntax() {
+    const tokens = [this.function.name.replace('.', ' ')];
 
     // Arguments and options are mixed,
     // but option names start with underscore.
-    const argsAndOpts = JSON.parse(action.arguments);
+    const argsAndOpts = JSON.parse(this.function.arguments);
     Object.entries(argsAndOpts).forEach(([name, value]) => {
       const isOption = name.includes('_');
 
@@ -21,40 +66,10 @@ class Action {
         this.tokens.push(`--${name}`);
       }
 
-      this.tokens.push(`${value}`);
+      tokens.push(`${value}`);
     });
-  }
 
-  async execute(hre) {
-    let output = '';
-
-    const originalLog = console.log;
-    function log(...args) {
-      output += args.join(' ');
-      originalLog(...args);
-    }
-
-    console.log = log;
-
-    const comps = this.tokens[0].split(':');
-    if (comps.length === 1) {
-      const task = comps[0];
-      await hre.run(task, { value: 'SNX' });
-    } else {
-      const scope = comps[0];
-      const task = comps[1];
-      await hre.run({ scope, task }, { value: 'SNX' });
-    }
-
-    console.log = originalLog;
-
-    return output;
-  }
-
-  toString() {
-    const ts = this.tokens.concat();
-    ts[0] = ts[0].replace(':', ' ');
-    return ts.join(' ');
+    return tokens.join(' ');
   }
 }
 

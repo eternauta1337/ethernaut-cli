@@ -10,21 +10,10 @@ class Interpreter extends Assistant {
     super('interpreter', config);
   }
 
-  async process(thread) {
-    let actions, response;
+  async requireToolCalls(toolCalls, thread, run) {
+    const actions = toolCalls.map((tc) => new Action(tc));
 
-    // ({ actions, response } = await super.process(thread));
-    actions = [{ name: 'tools:to-bytes', arguments: '{"value":"SNX"}' }];
-
-    if (actions) {
-      actions = actions.map((a) => new Action(a));
-    }
-
-    return { actions, response };
-  }
-
-  async postProcess(output) {
-    // Implement your logic here
+    return await super.requireToolCalls(actions, thread, run);
   }
 }
 
