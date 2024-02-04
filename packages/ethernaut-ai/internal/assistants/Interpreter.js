@@ -1,6 +1,7 @@
 const buildToolsSpec = require('./utils/build-tools-spec');
 const Assistant = require('./Assistant');
-const Action = require('../Action');
+const TaskCall = require('../TaskCall');
+const { Select } = require('enquirer');
 
 class Interpreter extends Assistant {
   constructor(hre) {
@@ -10,10 +11,47 @@ class Interpreter extends Assistant {
     super('interpreter', config);
   }
 
-  async requireToolCalls(toolCalls, thread, run) {
-    const actions = toolCalls.map((tc) => new Action(tc));
+  async processToolCalls(toolCalls) {
+    const calls = toolCalls.map((tc) => new TaskCall(tc));
 
-    return await super.requireToolCalls(actions, thread, run);
+    this.printCalls(calls);
+
+    switch (await this.promptUser()) {
+      case 'execute':
+        return this.executeCalls(calls, hre);
+      case 'explain':
+        // TODO: Implement secondary assistant
+        return undefined;
+      case 'skip':
+        return undefined;
+    }
+  }
+
+  async executeCalls(calls, hre) {
+    let outputs = [];
+
+    for (const call of calls) {
+      outputs.push(await call.execute(hre));
+    }
+
+    return outputs;
+  }
+
+  promptUser() {
+    const prompt = new Select({
+      message: 'How would you like to proceed?',
+      choices: ['execute', 'explain', 'skip'],
+    });
+
+    return prompt.run().catch(() => process.exit(0));
+  }
+
+  printCalls(calls) {
+    console.log('The assistant wants to run the following tasks:');
+    for (let i = 0; i < calls.length; i++) {
+      const call = calls[i];
+      console.log(`${i + 1}. \`${call.toCliSyntax()}\``);
+    }
   }
 }
 

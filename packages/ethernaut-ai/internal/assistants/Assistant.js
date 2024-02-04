@@ -1,12 +1,9 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const EventEmitter = require('events');
 
-class Assistant extends EventEmitter {
+class Assistant {
   constructor(name, config) {
-    super();
-
     this.name = name;
     this.config = config;
 
@@ -32,20 +29,29 @@ class Assistant extends EventEmitter {
     );
     console.log('Running thread... status:', status);
 
-    if (status === 'in_progress') {
-      // Keep waiting and checking...
+    if (status === 'in_progress' || status === 'queued') {
+      // Keep waiting and checking status...
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return await this.processRun(thread, run);
     } else if (status === 'requires_action') {
       switch (required_action.type) {
         case 'submit_tool_outputs':
           // Hold execution until the required action is fulfilled.
-          await this.requireToolCalls(
-            required_action.submit_tool_outputs.tool_calls,
-            thread,
-            run
+          const outputs = await this.processToolCalls(
+            required_action.submit_tool_outputs.tool_calls
           );
-          // Continue checking...
+          if (!outputs) {
+            await openai.beta.threads.runs.cancel(thread.id, run.id);
+          } else {
+            await openai.beta.threads.runs.submitToolOutputs(
+              thread.id,
+              run.id,
+              {
+                tool_outputs: outputs,
+              }
+            );
+          }
+          // Continue checking status...
           return await this.processRun(thread, run);
         default:
           console.log('Unknown action request type:', required_action.type);
@@ -53,23 +59,14 @@ class Assistant extends EventEmitter {
     } else if (status === 'completed') {
       return await thread.getLastAssistantResponse(run.id);
     } else if (status === 'cancelled') {
-      return;
+      return undefined;
     }
   }
 
-  async requireToolCalls(toolCalls, thread, run) {
-    // Emit an event with the tools that need to be called,
-    // with a callback function that needs to be called to continue execution.
-    // The callback requires the outputs of the tools,
-    // so they can be submitted to the assistant for analysis.
-    return new Promise((resolve) => {
-      this.emit('tool_calls_required', toolCalls, async (outputs) => {
-        await openai.beta.threads.runs.submitToolOutputs(thread.id, run.id, {
-          tool_outputs: outputs,
-        });
-        resolve();
-      });
-    });
+  async processToolCalls(toolCalls) {
+    throw new Error(
+      'Not implemented. This method should be overridden by an assistant that knows how to handle tool calls.'
+    );
   }
 
   async invalidateId() {

@@ -1,4 +1,4 @@
-class Action {
+class TaskCall {
   /**
    * Incoming toolCall is an object with the following structure:
    * {
@@ -73,4 +73,4 @@ class Action {
   }
 }
 
-module.exports = Action;
+module.exports = TaskCall;
