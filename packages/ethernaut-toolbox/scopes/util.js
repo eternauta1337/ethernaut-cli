@@ -1,6 +1,6 @@
 const { scope } = require('hardhat/config');
 const { description } = require('../package.json');
 
-const tools = scope('tools', description);
+const util = scope('util', description);
 
-module.exports = tools;
+module.exports = util;

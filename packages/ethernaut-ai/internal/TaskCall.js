@@ -63,7 +63,7 @@ class TaskCall {
 
       if (isOption) {
         name = name.substring(1); // Remove underscore
-        this.tokens.push(`--${name}`);
+        tokens.push(`--${name}`);
       }
 
       tokens.push(`${value}`);
