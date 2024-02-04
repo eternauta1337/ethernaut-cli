@@ -15,6 +15,7 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     const interpreter = new Interpreter(hre);
     const thread = new Thread();
 
+    await thread.stop();
     await thread.post(query);
 
     const response = await interpreter.process(thread);

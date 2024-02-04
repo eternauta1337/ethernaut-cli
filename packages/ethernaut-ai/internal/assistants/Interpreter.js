@@ -2,6 +2,8 @@ const buildToolsSpec = require('./utils/build-tools-spec');
 const Assistant = require('./Assistant');
 const TaskCall = require('../TaskCall');
 const { Select } = require('enquirer');
+const Explainer = require('./Explainer');
+const Thread = require('../threads/Thread');
 
 class Interpreter extends Assistant {
   constructor(hre) {
@@ -9,22 +11,37 @@ class Interpreter extends Assistant {
     config.tools = buildToolsSpec(hre);
 
     super('interpreter', config);
+
+    this.explainer = new Explainer(hre);
   }
 
   async processToolCalls(toolCalls) {
     const calls = toolCalls.map((tc) => new TaskCall(tc));
 
-    this.printCalls(calls);
+    const callsStrings = this.printCalls(calls);
 
     switch (await this.promptUser()) {
       case 'execute':
         return this.executeCalls(calls, hre);
       case 'explain':
-        // TODO: Implement secondary assistant
-        return undefined;
+        await this.explain(callsStrings);
+        return await this.processToolCalls(toolCalls);
       case 'skip':
         return undefined;
     }
+  }
+
+  async explain(callStrings) {
+    const query = `Explain how the last query would be resolved with the following calls:\n${callStrings.join(
+      '\n'
+    )}`;
+    console.log('Posting query:', query);
+
+    const secondaryThread = new Thread('explanation');
+    await secondaryThread.post(query);
+
+    const response = await this.explainer.process(secondaryThread);
+    console.log(response);
   }
 
   async executeCalls(calls, hre) {
@@ -48,10 +65,16 @@ class Interpreter extends Assistant {
 
   printCalls(calls) {
     console.log('The assistant wants to run the following tasks:');
+
+    const strings = [];
     for (let i = 0; i < calls.length; i++) {
       const call = calls[i];
-      console.log(`${i + 1}. \`${call.toCliSyntax()}\``);
+      const msg = `${i + 1}. \`${call.toCliSyntax()}\``;
+      console.log(msg);
+      strings.push(msg);
     }
+
+    return strings;
   }
 }
 

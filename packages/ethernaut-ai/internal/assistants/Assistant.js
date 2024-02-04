@@ -15,24 +15,27 @@ class Assistant {
   async process(thread) {
     await this.invalidateId();
 
-    const run = await openai.beta.threads.runs.create(thread.id, {
+    this.thread = thread;
+
+    this.run = await openai.beta.threads.runs.create(thread.id, {
       assistant_id: this.id,
     });
 
-    return await this.processRun(thread, run);
+    return await this.processRun();
   }
 
-  async processRun(thread, run) {
-    const { status, required_action } = await openai.beta.threads.runs.retrieve(
-      thread.id,
-      run.id
+  async processRun() {
+    const runInfo = await openai.beta.threads.runs.retrieve(
+      this.thread.id,
+      this.run.id
     );
-    console.log('Running thread... status:', status);
+    const { status, required_action } = runInfo;
+    console.log(`Running thread ${this.id}... status: ${status}`);
 
     if (status === 'in_progress' || status === 'queued') {
       // Keep waiting and checking status...
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      return await this.processRun(thread, run);
+      return await this.processRun();
     } else if (status === 'requires_action') {
       switch (required_action.type) {
         case 'submit_tool_outputs':
@@ -41,24 +44,25 @@ class Assistant {
             required_action.submit_tool_outputs.tool_calls
           );
           if (!outputs) {
-            await openai.beta.threads.runs.cancel(thread.id, run.id);
+            await openai.beta.threads.runs.cancel(this.thread.id, this.run.id);
           } else {
             await openai.beta.threads.runs.submitToolOutputs(
-              thread.id,
-              run.id,
+              this.thread.id,
+              this.run.id,
               {
                 tool_outputs: outputs,
               }
             );
           }
           // Continue checking status...
-          return await this.processRun(thread, run);
+          return await this.processRun();
         default:
           console.log('Unknown action request type:', required_action.type);
       }
     } else if (status === 'completed') {
-      return await thread.getLastAssistantResponse(run.id);
-    } else if (status === 'cancelled') {
+      return await this.thread.getLastMessage(this.run.id);
+    } else if (status === 'cancelled' || status === 'failed') {
+      if (status === 'failed') console.log(runInfo);
       return undefined;
     }
   }

@@ -2,16 +2,14 @@ const storage = require('../storage');
 const openai = require('../openai');
 
 class Thread {
-  constructor() {
-    this.name = 'default';
+  constructor(name = 'default') {
+    this.name = name;
 
     storage.init();
   }
 
   async post(message) {
     await this.invalidateId();
-
-    await this.stop();
 
     await openai.beta.threads.messages.create(this.id, {
       role: 'user',
@@ -20,6 +18,8 @@ class Thread {
   }
 
   async stop() {
+    await this.invalidateId();
+
     const runs = await openai.beta.threads.runs.list(this.id);
     if (!runs) return;
 
@@ -43,13 +43,11 @@ class Thread {
     return await openai.beta.threads.messages.list(this.id);
   }
 
-  async getLastAssistantResponse(runId) {
+  async getLastMessage(runId, role = 'assistant') {
     const messages = await this.getMessages();
 
     return messages.data
-      .filter(
-        (message) => message.run_id === runId && message.role === 'assistant'
-      )
+      .filter((message) => message.run_id === runId && message.role === role)
       .pop().content[0].text.value;
   }
 
