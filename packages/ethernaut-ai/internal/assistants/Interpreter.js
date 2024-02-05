@@ -24,20 +24,24 @@ class Interpreter extends Assistant {
       case 'execute':
         return this.executeCalls(calls, hre);
       case 'explain':
-        await this.explain(callsStrings);
+        const userQuery = await this.thread.getLastMessage();
+        await this.explain(userQuery, callsStrings);
         return await this.processToolCalls(toolCalls);
       case 'skip':
         return undefined;
     }
   }
 
-  async explain(callStrings) {
-    const query = `Explain how the last query would be resolved with the following calls:\n${callStrings.join(
+  async explain(userQuery, callStrings) {
+    const query = `Explain how the last user query would be resolved with the following calls:\n${callStrings.join(
       '\n'
     )}`;
-    console.log('Posting query:', query);
+
+    console.log('User query:', userQuery);
+    console.log('Assistant query:', query);
 
     const secondaryThread = new Thread('explanation');
+    await secondaryThread.post(userQuery);
     await secondaryThread.post(query);
 
     const response = await this.explainer.process(secondaryThread);

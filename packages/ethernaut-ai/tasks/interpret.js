@@ -22,7 +22,5 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
 
     if (response) {
       console.log(response);
-    } else {
-      process.exit(0);
     }
   });

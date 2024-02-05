@@ -66,6 +66,10 @@ class TaskCall {
         tokens.push(`--${name}`);
       }
 
+      if (value.includes(' ')) {
+        value = `"${value}"`;
+      }
+
       tokens.push(`${value}`);
     });
 

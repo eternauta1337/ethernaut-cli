@@ -46,9 +46,21 @@ class Thread {
   async getLastMessage(runId, role = 'assistant') {
     const messages = await this.getMessages();
 
-    return messages.data
-      .filter((message) => message.run_id === runId && message.role === role)
-      .pop().content[0].text.value;
+    let msgs = messages.data;
+
+    if (runId && role === 'assistant') {
+      msgs = msgs.filter(
+        (message) => message.run_id === runId && message.role === 'assistant'
+      );
+    }
+
+    if (msgs.length === 0) {
+      throw new Error('No message found');
+    }
+
+    const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0];
+
+    return msg.content[0].text.value;
   }
 
   async invalidateId() {
@@ -65,7 +77,6 @@ class Thread {
   }
 
   needsUpdate() {
-    // There is no "default" thread
     return storage.readThreadInfo(this.name) === undefined;
   }
 }

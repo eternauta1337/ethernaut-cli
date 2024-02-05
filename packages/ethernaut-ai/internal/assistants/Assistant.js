@@ -33,7 +33,7 @@ class Assistant {
     console.log(`Running thread ${this.id}... status: ${status}`);
 
     if (status === 'in_progress' || status === 'queued') {
-      // Keep waiting and checking status...
+      // Wait and keep checking status...
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return await this.processRun();
     } else if (status === 'requires_action') {
