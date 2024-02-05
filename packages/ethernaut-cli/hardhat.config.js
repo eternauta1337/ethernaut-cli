@@ -10,10 +10,14 @@ require('ethernaut-oz-challenges');
 
 module.exports = {
   solidity: '0.8.19',
-  defaultNetwork: 'hardhat',
+  defaultNetwork: 'local',
   networks: {
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+    },
+    local: {
+      name: 'sepolia',
+      url: 'http://localhost:8545',
     },
     hardhat: {
       name: 'sepolia',

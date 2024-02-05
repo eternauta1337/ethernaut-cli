@@ -12,9 +12,10 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     undefined,
     types.string
   )
-  .setAction(async ({ query }, hre) => {
+  .addOptionalParam('newThread', 'Start a new thread', false, types.boolean)
+  .setAction(async ({ query, newThread }, hre) => {
     const interpreter = new Interpreter(hre);
-    const thread = new Thread();
+    const thread = new Thread('default', newThread);
 
     await thread.stop();
     await thread.post(query);

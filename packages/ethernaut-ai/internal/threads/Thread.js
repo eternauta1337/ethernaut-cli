@@ -3,8 +3,16 @@ const openai = require('../openai');
 const chalk = require('chalk');
 
 class Thread {
-  constructor(name = 'default') {
+  constructor(name = 'default', newThread) {
     this.name = name;
+
+    if (newThread) {
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(chalk.dim(`Starting a new thread...`));
+
+      storage.clearThreadInfo(name);
+    }
 
     storage.init();
   }
@@ -75,7 +83,7 @@ class Thread {
     if (this.needsUpdate()) {
       process.stdout.clearLine();
       process.stdout.cursorTo(0);
-      process.stdout.write('Creating thread:', this.name);
+      process.stdout.write(chalk.dim(`Creating thread: ${this.name}`));
 
       const { id } = await openai.beta.threads.create();
       storage.storeThreadInfo(this.name, id);

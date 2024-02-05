@@ -1,6 +1,9 @@
 const { types } = require('hardhat/config');
 const { Confirm } = require('enquirer');
-const { getPopulatedFunctionSignature } = require('../internal/signatures');
+const {
+  getPopulatedFunctionSignature,
+  getFunctionSignature,
+} = require('../internal/signatures');
 const interact = require('../scopes/interact');
 const loadAbi = require('./call/load-abi');
 const fnPrompt = require('./call/fn-prompt');
@@ -30,22 +33,26 @@ const call = interact
   )
   .addOptionalParam(
     'params',
-    'The parameters to use in the function call',
+    'The parameters to use in the function call. Important: The parameters need to be a string in JSON format. Example: \'["0x123", 42]\'',
     undefined,
     types.json
   )
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
     const abi = loadAbi(abiPath);
+    // console.log(abi);
 
     // Incoming params is a string
     // Make it an object
-    params = JSON.parse(params);
+    params = JSON.parse(params || '[]');
 
     // Display call signature
     // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
     const fnName = fn.split('(')[0];
-    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
+    const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
     console.log('Calling', getPopulatedFunctionSignature(abiFn, params));
+
+    // Get the signature
+    const sig = getFunctionSignature(abiFn);
 
     // Instantiate the contract
     let contract = await hre.ethers.getContractAt(abi, address);
@@ -55,7 +62,12 @@ const call = interact
     const isReadOnly =
       abiFn.stateMutability === 'view' || abiFn.stateMutability === 'pure';
     if (isReadOnly) {
-      const result = await contract[fnName](...params);
+      let result;
+      if (params.length > 0) {
+        result = await contract[sig](...params);
+      } else {
+        result = await contract[sig]();
+      }
       console.log('Result:', result);
     } else {
       // Connect signer
@@ -85,6 +97,7 @@ const call = interact
       } else {
         console.log('Transaction mined and execution completed.');
         // TODO: Parse receipt and display logs
+        // console.log(JSON.stringify(receipt, null, 2));
       }
     }
   });

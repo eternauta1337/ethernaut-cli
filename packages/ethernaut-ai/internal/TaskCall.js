@@ -29,17 +29,21 @@ class TaskCall {
     // Prepare args
     let args = JSON.parse(this.function.arguments);
     Object.entries(args).forEach(([name, value]) => {
-      value = value.replace('_', '');
+      if (name.includes('_')) {
+        args[name.replace('_', '')] = value;
+      }
     });
 
     // Execute
     const nameComponents = this.function.name.split('.');
     if (nameComponents.length === 1) {
       const task = nameComponents[0];
+      // console.log('Calling:', task, args);
       await hre.run(task, args);
     } else {
       const scope = nameComponents[0];
       const task = nameComponents[1];
+      // console.log('Calling:', scope, task, args);
       await hre.run({ scope, task }, args);
     }
 
@@ -66,7 +70,8 @@ class TaskCall {
         tokens.push(`--${name}`);
       }
 
-      tokens.push(`"${value}"`);
+      // tokens.push(`"${value}"`);
+      tokens.push(`${value}`);
     });
 
     return tokens.join(' ');

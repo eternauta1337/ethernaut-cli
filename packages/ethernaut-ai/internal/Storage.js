@@ -66,6 +66,12 @@ function readThreadInfo(name) {
   return threads.find((e) => e.name === name);
 }
 
+function clearThreadInfo(name) {
+  const info = readInfo();
+  info.threads = info.threads.filter((e) => e.name !== name);
+  storeInfo(info);
+}
+
 // -------------------
 // Assistants
 // -------------------
@@ -154,6 +160,7 @@ module.exports = {
   // Threads
   readThreadInfo,
   storeThreadInfo,
+  clearThreadInfo,
   getThreadId,
   // Assistants
   readAssistantConfig,
