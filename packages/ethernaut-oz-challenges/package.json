@@ -1,0 +1,11 @@
+{
+  "name": "ethernaut-oz-challenges",
+  "version": "1.0.0",
+  "description": "Play the Open Zeppelin Ethernaut challenges in the ethernaut-cli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
