@@ -42,27 +42,29 @@ function rememberAbiAndAddress(abiPath, address, network) {
 }
 
 function getAddressesFilePath() {
-  return path.join(process.cwd(), 'artifacts', 'addresses.json');
+  return path.join(getInteractFilePath(), 'addresses.json');
 }
 
 function storeAbi(name, abi) {
   initStorage();
 
-  const filePath = path.join(
-    process.cwd(),
-    'artifacts',
-    'abis',
-    `${name}.json`
-  );
+  const filePath = path.join(getAbisFilePath(), `${name}.json`);
 
   fs.writeFileSync(filePath, JSON.stringify(abi, null, 2));
 
   return filePath;
 }
 
-function initStorage() {
-  createFolderIfMissing(path.join(process.cwd(), 'artifacts'));
+function getAbisFilePath() {
+  return path.join(getInteractFilePath(), 'abis');
+}
 
+function getInteractFilePath() {
+  return path.join(process.cwd(), 'artifacts', 'interact');
+}
+
+function initStorage() {
+  createFolderIfMissing(getAbisFilePath());
   createFileIfMissing(getAddressesFilePath(), {});
 }
 
