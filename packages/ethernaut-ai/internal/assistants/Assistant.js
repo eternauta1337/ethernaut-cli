@@ -1,6 +1,7 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
+const chalk = require('chalk');
 
 class Assistant {
   constructor(name, config) {
@@ -30,7 +31,12 @@ class Assistant {
       this.run.id
     );
     const { status, required_action } = runInfo;
-    console.log(`Running thread ${this.id}... status: ${status}`);
+
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(
+      chalk.dim(`Running thread ${this.id}... status: ${status}`)
+    );
 
     if (status === 'in_progress' || status === 'queued') {
       // Wait and keep checking status...
@@ -75,7 +81,9 @@ class Assistant {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      console.log('Updating assistant:', this.name);
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(chalk.dim(`Updating assistant: ${this.name}`));
 
       // Get the current id and delete the config file.
       const oldId = storage.getAssistantId(this.name);
@@ -84,7 +92,10 @@ class Assistant {
       // Get a new id and store the new config file.
       const { id } = await openai.beta.assistants.create(this.config);
       storage.storeAssistantConfig(id, this.config);
-      console.log('Created assistant:', id);
+
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(chalk.dim(`Created assistant: ${id}`));
 
       // Store the info as well.
       storage.storeAssistantInfo(this.name, id);

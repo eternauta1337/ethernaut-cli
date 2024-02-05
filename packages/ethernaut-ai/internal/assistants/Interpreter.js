@@ -4,6 +4,7 @@ const TaskCall = require('../TaskCall');
 const { Select } = require('enquirer');
 const Explainer = require('./Explainer');
 const Thread = require('../threads/Thread');
+const chalk = require('chalk');
 
 class Interpreter extends Assistant {
   constructor(hre) {
@@ -37,15 +38,17 @@ class Interpreter extends Assistant {
       '\n'
     )}`;
 
-    console.log('User query:', userQuery);
-    console.log('Assistant query:', query);
-
     const secondaryThread = new Thread('explanation');
     await secondaryThread.post(userQuery);
     await secondaryThread.post(query);
 
     const response = await this.explainer.process(secondaryThread);
-    console.log(response);
+
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    console.log('--------------------------------------');
+    console.log(chalk.blue(response));
+    console.log('--------------------------------------');
   }
 
   async executeCalls(calls, hre) {
@@ -68,7 +71,12 @@ class Interpreter extends Assistant {
   }
 
   printCalls(calls) {
-    console.log('The assistant wants to run the following tasks:');
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    console.log('--------------------------------------');
+    console.log(
+      chalk.blue.bold('The assistant wants to run the following commands:')
+    );
 
     const strings = [];
     for (let i = 0; i < calls.length; i++) {
@@ -77,6 +85,7 @@ class Interpreter extends Assistant {
       console.log(msg);
       strings.push(msg);
     }
+    console.log('--------------------------------------');
 
     return strings;
   }

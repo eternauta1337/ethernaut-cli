@@ -1,5 +1,6 @@
 const storage = require('../storage');
 const openai = require('../openai');
+const chalk = require('chalk');
 
 class Thread {
   constructor(name = 'default') {
@@ -31,10 +32,17 @@ class Thread {
     );
     if (!activeRuns || activeRuns.length === 0) return;
 
-    console.log(`Stopping active runs: ${activeRuns.length}`);
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(
+      chalk.dim(`Stopping active runs: ${activeRuns.length}`)
+    );
 
     for (const run of activeRuns) {
-      console.log(`Stopping ${run.id}`);
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write(chalk.dim(`Stopping ${run.id}`));
+
       await openai.beta.threads.runs.cancel(this.id, run.id);
     }
   }
@@ -65,7 +73,9 @@ class Thread {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      console.log('Creating thread:', this.name);
+      process.stdout.clearLine();
+      process.stdout.cursorTo(0);
+      process.stdout.write('Creating thread:', this.name);
 
       const { id } = await openai.beta.threads.create();
       storage.storeThreadInfo(this.name, id);
