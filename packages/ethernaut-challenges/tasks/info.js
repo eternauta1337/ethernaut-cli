@@ -20,6 +20,7 @@ require('../scopes/oz')
 
     const idx = parseInt(level) - 1;
     const levelInfo = gamedata.levels[idx];
+    // console.log('Level info:', levelInfo);
 
     const name = levelInfo.name;
     const contractName = levelInfo.instanceContract.split('.')[0];
@@ -48,10 +49,12 @@ require('../scopes/oz')
     console.log('Contract name:', contractName);
     console.log('ABI path:', abiPath);
     console.log('Address:', levelAddress);
-    console.log('---------------------------------------');
-    console.log('Source:');
-    console.log('---------------------------------------');
-    console.log(source);
+    if (levelInfo.revealCode) {
+      console.log('---------------------------------------');
+      console.log('Source:');
+      console.log('---------------------------------------');
+      console.log(source);
+    }
     console.log('---------------------------------------');
     console.log('Description:');
     console.log('---------------------------------------');
