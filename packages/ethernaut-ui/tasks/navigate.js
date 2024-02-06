@@ -22,12 +22,17 @@ task('navigate', 'Navigates tasks with enquirer')
 async function navigateFrom(node) {
   const children = getNodes(node);
 
-  const choices = children.map((node) => ({
-    title: `${node.tasks ? `[${node.name}]` : node.name} ${chalk.dim(
-      node.description
-    )}`,
-    value: node.name, // Autocomplete search hits this
-  }));
+  const choices = children.map((node) => {
+    // Cap desciption to 1 sentence and 150 characters
+    const description = node.description?.split('.')[0].substring(0, 150) || '';
+
+    return {
+      title: `${node.tasks ? `[${node.name}]` : node.name} ${chalk.dim(
+        description
+      )}`,
+      value: node.name, // Autocomplete search hits this
+    };
+  });
 
   // If on scope, show an option
   // to go to the root scope
