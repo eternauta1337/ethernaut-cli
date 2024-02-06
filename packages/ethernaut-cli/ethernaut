@@ -1,0 +1,6 @@
+#!/bin/bash
+execDir=$(pwd)
+fileDir=$(dirname $0)
+cd $fileDir
+/usr/bin/env npx "hardhat" "$@"
+cd $execDir
