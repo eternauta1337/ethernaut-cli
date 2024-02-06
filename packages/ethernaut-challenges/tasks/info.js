@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config');
-const helper = require('../internal/oz');
+const helper = require('../internal/helper');
+const fs = require('fs');
 const path = require('path');
 
 require('../scopes/oz')
@@ -26,6 +27,18 @@ require('../scopes/oz')
     const abisPath = path.join(process.cwd(), 'artifacts', 'interact', 'abis');
     const abiPath = path.join(abisPath, `${contractName}.json`);
 
+    const sourcesPath = path.join(
+      '..',
+      '..',
+      'node_modules',
+      'ethernaut',
+      'contracts',
+      'contracts',
+      'levels'
+    );
+    const sourcePath = path.join(sourcesPath, `${contractName}.sol`);
+    const source = fs.readFileSync(sourcePath, 'utf8');
+
     const description = helper.getLevelDescription(levelInfo.description);
 
     const deploymentInfo = helper.getDeploymentInfo();
@@ -35,8 +48,12 @@ require('../scopes/oz')
     console.log('Contract name:', contractName);
     console.log('ABI path:', abiPath);
     console.log('Address:', levelAddress);
+    console.log('---------------------------------------');
+    console.log('Source:');
+    console.log('---------------------------------------');
+    console.log(source);
+    console.log('---------------------------------------');
     console.log('Description:');
     console.log('---------------------------------------');
     console.log(description);
-    console.log('---------------------------------------');
   });

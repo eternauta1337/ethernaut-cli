@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config');
-const helper = require('../internal/oz');
+const helper = require('../internal/helper');
 
 require('../scopes/oz')
   .task(
