@@ -56,26 +56,38 @@ class TaskCall {
     };
   }
 
+  /**
+   * Converts the tool call to cli syntax like '<scope> <task> --option1 "value1" --option2 "value2"'
+   */
   toCliSyntax() {
-    const tokens = [this.function.name.replace('.', ' ')];
+    // Function name can be '<scope>.<task>' or just '<task>
+    // For print out, replace '.' with ' '.
+    const name = this.function.name.replace('.', ' ');
 
-    // Arguments and options are mixed,
-    // but option names start with underscore.
+    // The first token is task name (with scope if present)
+    const tokens = ['ethernaut', name];
+
+    // Arguments and options are mixed in the tool call definition,
+    // but option names are marked starting with an underscore.
     const argsAndOpts = JSON.parse(this.function.arguments);
     Object.entries(argsAndOpts).forEach(([name, value]) => {
       const isOption = name.includes('_');
 
       if (isOption) {
         name = name.substring(1); // Remove underscore
-        tokens.push(`--${name}`);
+        name = `--${camelToKebabCase(name)}`;
+        tokens.push(name);
       }
 
-      // tokens.push(`"${value}"`);
       tokens.push(`${value}`);
     });
 
     return tokens.join(' ');
   }
+}
+
+function camelToKebabCase(str) {
+  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 }
 
 module.exports = TaskCall;
