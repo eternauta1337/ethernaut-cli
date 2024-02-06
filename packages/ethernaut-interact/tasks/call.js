@@ -9,6 +9,7 @@ const loadAbi = require('./call/load-abi');
 const fnPrompt = require('./call/fn-prompt');
 const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
+const storage = require('../internal/storage');
 
 const call = interact
   .task('call', 'Calls a contract function')
@@ -40,6 +41,9 @@ const call = interact
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
     const abi = loadAbi(abiPath);
     // console.log(abi);
+
+    const network = hre.network.config.name || hre.network.name;
+    storage.rememberAbiAndAddress(abiPath, address, network);
 
     // Incoming params is a string
     // Make it an object

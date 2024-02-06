@@ -21,6 +21,7 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     await thread.post(query);
 
     const response = await interpreter.process(thread);
+    if (!response) return;
 
     process.stdout.clearLine();
     process.stdout.cursorTo(0);

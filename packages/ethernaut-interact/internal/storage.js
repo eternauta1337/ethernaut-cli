@@ -68,8 +68,22 @@ function initStorage() {
   createFileIfMissing(getAddressesFilePath(), {});
 }
 
+function readAbiFiles() {
+  initStorage();
+
+  const abisPath = getAbisFilePath();
+
+  return fs.readdirSync(abisPath).map((abiFile) => {
+    return {
+      name: abiFile.split('.json')[0],
+      path: path.join(abisPath, abiFile),
+    };
+  });
+}
+
 module.exports = {
   storeAbi,
   rememberAbiAndAddress,
   readAddresses,
+  readAbiFiles,
 };

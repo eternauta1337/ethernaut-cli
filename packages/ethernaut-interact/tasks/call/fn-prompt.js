@@ -5,6 +5,7 @@ const { AutoComplete } = require('enquirer');
 
 module.exports = async function prompt({ abiPath }) {
   const abi = loadAbi(abiPath);
+  if (!abi) return;
 
   const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
 
