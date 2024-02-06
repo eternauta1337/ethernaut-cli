@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
-const util = require('../scopes/util');
 
-util
+require('../scopes/util')
   .task('to-string', 'Converts bytes32 to string')
   .addPositionalParam('value', 'The value to convert', undefined, types.string)
   .setAction(async ({ value }, hre) => {

@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
-const util = require('../scopes/util');
 
-util
+require('../scopes/util')
   .task(
     'unit',
     'Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be wei, ether, kwei, mwei, gwei, szabo, finney, etc'

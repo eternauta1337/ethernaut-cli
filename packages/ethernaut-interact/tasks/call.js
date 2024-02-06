@@ -4,14 +4,13 @@ const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
 } = require('../internal/signatures');
-const interact = require('../scopes/interact');
 const loadAbi = require('./call/load-abi');
 const fnPrompt = require('./call/fn-prompt');
 const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
 const storage = require('../internal/storage');
 
-const call = interact
+const call = require('../scopes/interact')
   .task('call', 'Calls a contract function')
   // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalParam(

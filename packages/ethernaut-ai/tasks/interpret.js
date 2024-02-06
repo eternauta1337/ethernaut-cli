@@ -1,10 +1,10 @@
 const { types } = require('hardhat/config');
-const ai = require('../scopes/ai');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Thread = require('../internal/threads/Thread');
 const chalk = require('chalk');
 
-ai.task('interpret', 'Interprets natural language into CLI commands')
+require('../scopes/ai')
+  .task('interpret', 'Interprets natural language into CLI commands')
   // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
     'query',

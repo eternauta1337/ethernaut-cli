@@ -1,12 +1,12 @@
 const { types } = require('hardhat/config');
-const oz = require('../scopes/oz');
 const helper = require('../internal/oz');
 const path = require('path');
 
-oz.task(
-  'info',
-  'Shows information about an open zeppelin challenges level. The info includes the level name, contract name, ABI path, address, and description. The ABI path can be used with the interact package call task to interact with the contract.'
-)
+require('../scopes/oz')
+  .task(
+    'info',
+    'Shows information about an open zeppelin challenges level. The info includes the level name, contract name, ABI path, address, and description. The ABI path can be used with the interact package call task to interact with the contract.'
+  )
   // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
     'level',

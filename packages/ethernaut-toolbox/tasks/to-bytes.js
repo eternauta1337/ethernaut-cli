@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
-const util = require('../scopes/util');
 
-util
+require('../scopes/util')
   .task('to-bytes', 'Converts strings to bytes32')
   // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
