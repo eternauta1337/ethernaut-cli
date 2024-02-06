@@ -12,9 +12,10 @@ ai.task('interpret', 'Interprets natural language into CLI commands')
     undefined,
     types.string
   )
-  .addOptionalParam('newThread', 'Start a new thread', false, types.boolean)
-  .setAction(async ({ query, newThread }, hre) => {
-    const interpreter = new Interpreter(hre);
+  .addFlag('noPrompt', 'Always execute the command without prompting')
+  .addFlag('newThread', 'Start a new thread')
+  .setAction(async ({ query, newThread, noPrompt }, hre) => {
+    const interpreter = new Interpreter(hre, noPrompt);
     const thread = new Thread('default', newThread);
 
     await thread.stop();

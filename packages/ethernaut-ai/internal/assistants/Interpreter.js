@@ -7,12 +7,13 @@ const Thread = require('../threads/Thread');
 const chalk = require('chalk');
 
 class Interpreter extends Assistant {
-  constructor(hre) {
+  constructor(hre, noPrompt = false) {
     const config = require('./configs/interpreter.json');
     config.tools = buildToolsSpec(hre);
 
     super('interpreter', config);
 
+    this.noPrompt = noPrompt;
     this.explainer = new Explainer(hre);
   }
 
@@ -61,13 +62,15 @@ class Interpreter extends Assistant {
     return outputs;
   }
 
-  promptUser() {
+  async promptUser() {
+    if (this.noPrompt) return 'execute';
+
     const prompt = new Select({
       message: 'How would you like to proceed?',
       choices: ['execute', 'explain', 'skip'],
     });
 
-    return prompt.run().catch(() => process.exit(0));
+    return await prompt.run().catch(() => process.exit(0));
   }
 
   printCalls(calls) {
