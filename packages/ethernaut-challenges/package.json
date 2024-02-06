@@ -1,7 +1,7 @@
 {
-  "name": "ethernaut-oz-challenges",
+  "name": "ethernaut-challenges",
   "version": "1.0.0",
-  "description": "Play the Open Zeppelin Ethernaut challenges in the cli",
+  "description": "Play the Open Zeppelin ethernaut challenges in the cli",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
