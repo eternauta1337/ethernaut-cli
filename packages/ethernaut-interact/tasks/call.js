@@ -8,6 +8,7 @@ const loadAbi = require('./call/load-abi');
 const fnPrompt = require('./call/fn-prompt');
 const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
+const addressPrompt = require('./call/address-prompt');
 const storage = require('../internal/storage');
 
 const call = require('../scopes/interact')
@@ -109,3 +110,4 @@ const call = require('../scopes/interact')
 call.paramDefinitions['abiPath'].prompt = abiPathPrompt;
 call.paramDefinitions['fn'].prompt = fnPrompt;
 call.paramDefinitions['params'].prompt = paramsPrompt;
+call.paramDefinitions['address'].prompt = addressPrompt;
