@@ -17,12 +17,14 @@ class TaskCall {
   }
 
   async execute(hre) {
+    console.log('> Executing:', `\`${this.toCliSyntax()}\``);
+
     // Hijack console.log so that it can be collected.
     let output = '';
     const originalLog = console.log;
     function log(...args) {
       output += args.join(' ');
-      originalLog(...args);
+      originalLog('>', ...args);
     }
     console.log = log;
 
