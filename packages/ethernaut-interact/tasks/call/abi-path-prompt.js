@@ -11,23 +11,42 @@ module.exports = async function prompt({ hre, address }) {
   abiPath = deduceAbiFromStorage(address, network);
   if (abiPath) return abiPath;
 
-  // Let the user choose how to get the abi
-  const choices = ['Fetch from Etherscan', 'Browse local ABIs'];
-  const prompt = new Select({
-    message: 'How would you like to specify an ABI?',
-    choices: choices.concat(),
-  });
-  const response = await prompt.run().catch(() => process.exit(0));
-
-  switch (response) {
-    case choices[0]:
-      return await getAbiFromEtherscan(address, network);
-    case choices[1]:
+  const choice = await promptUser(address);
+  switch (choice) {
+    case 0:
       return await browseKnwonAbis();
+    case 1:
+      return await getAbiFromEtherscan(address, network);
     default:
       throw new Error('Unknown ABI source');
   }
 };
+
+async function promptUser(address) {
+  // Let the user choose how to get the abi
+  const choices = [
+    {
+      message: 'Browse known ABIs',
+      value: 0,
+    },
+  ];
+
+  if (address) {
+    choices.push({
+      message: 'Fetch from Etherscan',
+      value: 1,
+    });
+  }
+
+  if (choices.length === 1) return choices[0].value;
+
+  const prompt = new Select({
+    message: 'How would you like to specify an ABI?',
+    choices,
+  });
+
+  return await prompt.run().catch(() => process.exit(0));
+}
 
 async function browseKnwonAbis() {
   const choices = storage.readAbiFiles().map((file) => ({
