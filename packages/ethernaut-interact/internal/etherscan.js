@@ -1,4 +1,5 @@
 const axios = require('axios');
+const logger = require('common/logger');
 
 class EtherscanApi {
   constructor(apiKey, baseUrl) {
@@ -26,7 +27,7 @@ class EtherscanApi {
     const data = result[0];
 
     if (data.ABI === 'Contract source code not verified') {
-      throw new Error('Contract source code not verified');
+      logger.error('Contract source code not verified');
     }
 
     data.ABI = JSON.parse(data.ABI);
@@ -62,7 +63,7 @@ class EtherscanApi {
     const response = await axios(config);
 
     if (response.status !== 200) {
-      throw new Error('Error fetching data from Etherscan');
+      logger.error('Error fetching data from Etherscan');
     }
 
     return response.data.result;
