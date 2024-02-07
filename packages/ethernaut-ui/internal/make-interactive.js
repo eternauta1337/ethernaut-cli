@@ -75,7 +75,9 @@ async function collectParameters(args, task) {
         ...args,
         ...newArgs,
       });
-      continue;
+
+      console.log('Custom collect:', param.name, newArgs[param.name]);
+      if (newArgs[param.name] !== undefined) continue;
     }
 
     const description = param.description

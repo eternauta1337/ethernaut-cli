@@ -1,16 +1,9 @@
-const loadAbi = require('./load-abi');
 const storage = require('../../internal/storage');
 
 module.exports = async function prompt({ abiPath, hre }) {
-  const abi = loadAbi(abiPath);
-  if (!abi) return;
+  if (!abiPath) return;
 
+  // Try to deduce the address from the abi
   const network = hre.network.config.name || hre.network.name;
-  const addresses = storage.readAddresses()[network];
-
-  Object.entries(addresses).forEach(([address, addressAbiPath]) => {
-    if (addressAbiPath === addressAbiPath) {
-      return address;
-    }
-  });
+  return storage.findAddressWithAbi(abiPath, network);
 };

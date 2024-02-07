@@ -21,6 +21,15 @@ function readAddresses() {
   return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
 }
 
+function findAddressWithAbi(abiPath, network) {
+  const networkAddresses = readAddresses()[network];
+  if (!networkAddresses) return undefined;
+
+  return Object.entries(networkAddresses).find(
+    ([address, addressAbiPath]) => addressAbiPath === abiPath
+  )[0];
+}
+
 function storeAddresses(data) {
   initStorage();
 
@@ -86,4 +95,5 @@ module.exports = {
   rememberAbiAndAddress,
   readAddresses,
   readAbiFiles,
+  findAddressWithAbi,
 };

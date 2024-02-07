@@ -8,29 +8,27 @@ module.exports = async function prompt({ hre, address }) {
 
   const network = hre.network.config.name || hre.network.name;
 
-  abiPath = deduceAbiFromStorage(address, network);
-  if (abiPath) return abiPath;
-
-  const choice = await promptUser(address);
-  switch (choice) {
-    case 0:
-      return await browseKnwonAbis();
-    case 1:
-      return await getAbiFromEtherscan(address, network);
-    default:
-      throw new Error('Unknown ABI source');
+  // Try to deduce the abi from previous interactions
+  // in the current network
+  if (address) {
+    abiPath = deduceAbiFromAddress(address, network);
+    if (abiPath) return abiPath;
   }
-};
 
-async function promptUser(address) {
-  // Let the user choose how to get the abi
-  const choices = [
-    {
+  // Start collecting the available strategies for the user to pick
+  const choices = [];
+  let choice;
+
+  // Pick one one from known abis?
+  const knownAbiFiles = storage.readAbiFiles();
+  if (knownAbiFiles.length > 0) {
+    choices.push({
       message: 'Browse known ABIs',
       value: 0,
-    },
-  ];
+    });
+  }
 
+  // Fetch from Etherscan?
   if (address) {
     choices.push({
       message: 'Fetch from Etherscan',
@@ -38,18 +36,35 @@ async function promptUser(address) {
     });
   }
 
-  if (choices.length === 1) return choices[0].value;
+  // Show prompt
+  if (choices.length > 1) {
+    const prompt = new Select({
+      message: 'How would you like to specify an ABI?',
+      choices,
+    });
 
-  const prompt = new Select({
-    message: 'How would you like to specify an ABI?',
-    choices,
-  });
+    choice = await prompt.run().catch(() => process.exit(0));
+  }
+  // Or pick the only available option
+  else if (choices.length === 1) {
+    choice = choices[0].value;
+  }
+  // Or exit quietly if no options are available
+  else if (choices.length === 0) {
+    return;
+  }
 
-  return await prompt.run().catch(() => process.exit(0));
-}
+  // Execute the chosen strategy
+  switch (choice) {
+    case 0:
+      return await browseKnwonAbis(knownAbiFiles);
+    case 1:
+      return await getAbiFromEtherscan(address, network);
+  }
+};
 
-async function browseKnwonAbis() {
-  const choices = storage.readAbiFiles().map((file) => ({
+async function browseKnwonAbis(abiFiles) {
+  const choices = abiFiles.map((file) => ({
     message: file.name,
     value: file.path,
   }));
@@ -64,7 +79,7 @@ async function browseKnwonAbis() {
   return await prompt.run().catch(() => process.exit(0));
 }
 
-function deduceAbiFromStorage(address, network) {
+function deduceAbiFromAddress(address, network) {
   const addresses = storage.readAddresses()[network];
   if (!addresses) return undefined;
   return addresses[address];

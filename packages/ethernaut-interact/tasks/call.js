@@ -39,6 +39,11 @@ const call = require('../scopes/interact')
     types.json
   )
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
+    // TODO: Also validate
+    if (!address) throw new Error('Address is required');
+    if (!abiPath) throw new Error('abiPath is required');
+    if (!fn) throw new Error('fn is required');
+
     const abi = loadAbi(abiPath);
     // console.log(abi);
 
@@ -108,6 +113,6 @@ const call = require('../scopes/interact')
 
 // Specialized prompts for each param
 call.paramDefinitions['abiPath'].prompt = abiPathPrompt;
+call.paramDefinitions['address'].prompt = addressPrompt;
 call.paramDefinitions['fn'].prompt = fnPrompt;
 call.paramDefinitions['params'].prompt = paramsPrompt;
-call.paramDefinitions['address'].prompt = addressPrompt;
