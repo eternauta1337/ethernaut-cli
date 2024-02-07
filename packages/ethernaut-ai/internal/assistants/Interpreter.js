@@ -21,6 +21,8 @@ class Interpreter extends Assistant {
   async processToolCalls(toolCalls) {
     const calls = toolCalls.map((tc) => new TaskCall(tc));
 
+    logger.progressSuccess('Yey! Assistant knows what to do', 'ai');
+
     const callsStrings = this.printCalls(calls);
 
     switch (await this.promptUser()) {
@@ -80,7 +82,6 @@ class Interpreter extends Assistant {
       logger.output(msg);
       strings.push(msg);
     }
-    logger.output('--------------------------------------');
 
     return strings;
   }

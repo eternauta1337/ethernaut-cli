@@ -86,7 +86,7 @@ function deduceAbiFromAddress(address, network) {
 }
 
 async function getAbiFromEtherscan(address, network) {
-  logger.progressStart('Fetching ABI from Etherscan...', 'etherscan');
+  logger.progress('Fetching ABI from Etherscan...', 'etherscan');
 
   const networkComp = network === 'mainnet' ? '' : `-${network}`;
 

@@ -33,11 +33,7 @@ class Assistant {
     );
     const { status, required_action } = runInfo;
 
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(
-      chalk.dim(`Running thread ${this.id}... status: ${status}`)
-    );
+    logger.progress(`Thinking... ${status}`, 'ai');
 
     if (status === 'in_progress' || status === 'queued') {
       // Wait and keep checking status...
@@ -64,14 +60,14 @@ class Assistant {
           // Continue checking status...
           return await this.processRun();
         default:
-          logger.error(
-            new Error(`Unknown action request type: ${required_action.type}`)
+          logger.progressError(
+            `Unknown action request type: ${required_action.type}`
           );
       }
     } else if (status === 'completed') {
       return await this.thread.getLastMessage(this.run.id);
     } else if (status === 'cancelled' || status === 'failed') {
-      if (status === 'failed') logger.error(new Error(runInfo));
+      if (status === 'failed') logger.progressError(runInfo);
       return undefined;
     }
   }
@@ -84,9 +80,7 @@ class Assistant {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
-      process.stdout.write(chalk.dim(`Updating assistant: ${this.name}`));
+      logger.progress(`Updating assistant: ${this.name}`, 'ai');
 
       // Get the current id and delete the config file.
       const oldId = storage.getAssistantId(this.name);
@@ -96,9 +90,7 @@ class Assistant {
       const { id } = await openai.beta.assistants.create(this.config);
       storage.storeAssistantConfig(id, this.config);
 
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
-      process.stdout.write(chalk.dim(`Created assistant: ${id}`));
+      logger.progress(`Created assistant: ${id}`, 'ai');
 
       // Store the info as well.
       storage.storeAssistantInfo(this.name, id);

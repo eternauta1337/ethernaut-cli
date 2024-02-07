@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Thread = require('../internal/threads/Thread');
-const chalk = require('chalk');
 const logger = require('common/logger');
 
 require('../scopes/ai')
@@ -19,11 +18,18 @@ require('../scopes/ai')
     const interpreter = new Interpreter(hre, noPrompt);
     const thread = new Thread('default', newThread);
 
+    logger.progress('Thinking...', 'ai');
+
     await thread.stop();
     await thread.post(query);
 
     const response = await interpreter.process(thread);
-    if (!response) return;
 
-    logger.output(response);
+    if (response) {
+      logger.progressRemove('ai');
+    } else {
+      logger.progressFail('Interpretation failed', 'ai');
+    }
+
+    if (response) logger.output(response);
   });

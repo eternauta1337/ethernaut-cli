@@ -19,7 +19,7 @@ class TaskCall {
   }
 
   async execute(hre) {
-    logger.output('> Executing:', `\`${this.toCliSyntax()}\``);
+    logger.progress(`Executing \`${this.toCliSyntax()}\``, 'ai-execute');
 
     logger.startCollectingOutput();
 
@@ -45,6 +45,8 @@ class TaskCall {
     }
 
     const output = logger.stopCollectingOutput();
+
+    logger.progressSuccess(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 
     return {
       tool_call_id: this.id,

@@ -8,9 +8,7 @@ class Thread {
     this.name = name;
 
     if (newThread) {
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
-      process.stdout.write(chalk.dim(`Starting a new thread...`));
+      logger.progress(`Starting a new thread...`, 'ai');
 
       storage.clearThreadInfo(name);
     }
@@ -41,16 +39,10 @@ class Thread {
     );
     if (!activeRuns || activeRuns.length === 0) return;
 
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    process.stdout.write(
-      chalk.dim(`Stopping active runs: ${activeRuns.length}`)
-    );
+    logger.progress(`Stopping active runs: ${activeRuns.length}`, 'ai');
 
     for (const run of activeRuns) {
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
-      process.stdout.write(chalk.dim(`Stopping ${run.id}`));
+      logger.progress(`Stopping run ${run.id}...`, 'ai');
 
       await openai.beta.threads.runs.cancel(this.id, run.id);
     }
@@ -82,9 +74,7 @@ class Thread {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      process.stdout.clearLine();
-      process.stdout.cursorTo(0);
-      process.stdout.write(chalk.dim(`Creating thread: ${this.name}`));
+      logger.progress(`Creating thread: ${this.name}`, 'ai');
 
       const { id } = await openai.beta.threads.create();
       storage.storeThreadInfo(this.name, id);

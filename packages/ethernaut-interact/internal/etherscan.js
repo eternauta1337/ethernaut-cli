@@ -19,7 +19,7 @@ class EtherscanApi {
     const data = result[0];
 
     if (data.ABI === 'Contract source code not verified') {
-      logger.progressErrors('Contract source code not verified', 'etherscan');
+      logger.progressError('Contract source code not verified', 'etherscan');
       return undefined;
     }
 
@@ -60,14 +60,14 @@ class EtherscanApi {
       // Not stringifying here because something very weird
       // in the returned object causes the process to exit silently xP
       if (logger.getVerbose()) console.log(response);
-      logger.progressErrors(`Http status: ${response.status}`, 'etherscan');
+      logger.progressError(`Http status: ${response.status}`, 'etherscan');
       return undefined;
     }
 
     // Api error
     if (response.data.status !== '1') {
       logger.debug(response.data);
-      logger.progressErrors(`${response.data.result}`, 'etherscan');
+      logger.progressError(`${response.data.result}`, 'etherscan');
       return undefined;
     }
 

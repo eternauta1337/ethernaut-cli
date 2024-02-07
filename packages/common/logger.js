@@ -8,7 +8,7 @@ let _verbose = false;
 let _collectingOutput = false;
 let _output;
 let _channelErrors = {};
-const _spinnies = new Spinnies({ spinner: cliSpinners.dots });
+const _spinnies = new Spinnies({ spinner: cliSpinners.random });
 
 function output(...msgs) {
   _out(chalk.blue(_join(msgs)));
@@ -18,15 +18,24 @@ function info(...msgs) {
   _out(chalk.dim(_join(msgs)));
 }
 
-function progressStart(msg, channel = 'default') {
+function _ensureSpinnie(channel) {
+  if (!_spinnies.pick(channel)) {
+    _spinnies.add(channel, { text: '' });
+  }
+}
+
+function progress(msg, channel = 'default') {
   if (_verbose) {
     _out(msg);
     return;
   }
 
-  let spinnie = _spinnies.pick(channel);
-  if (!spinnie) spinnie = _spinnies.add(channel, { text: msg });
-  else spinnie.update({ text: msg });
+  _ensureSpinnie(channel);
+  _spinnies.update(channel, { text: msg });
+}
+
+function progressRemove(channel = 'default') {
+  _spinnies.remove(channel);
 }
 
 function progressSuccess(msg = 'Done', channel = 'default') {
@@ -35,6 +44,7 @@ function progressSuccess(msg = 'Done', channel = 'default') {
     return;
   }
 
+  _ensureSpinnie(channel);
   _spinnies.succeed(channel, { text: msg });
 }
 
@@ -48,17 +58,23 @@ function progressFail(msg = 'Fail', channel = 'default') {
     error(text);
   }
 
+  _ensureSpinnie(channel);
   _spinnies.fail(channel, { text });
+
   process.exit(1);
 }
 
-function progressErrors(err, channel = 'default') {
+function progressError(err, channel = 'default') {
   if (_verbose) {
     error(err);
   }
 
   if (!_channelErrors[channel]) _channelErrors[channel] = [];
   _channelErrors[channel].push(err);
+}
+
+function progressStopAll() {
+  _spinnies.stopAll();
 }
 
 function debug(...msgs) {
@@ -148,10 +164,12 @@ module.exports = {
   debug,
   error,
   info,
-  progressStart,
+  progress,
   progressSuccess,
   progressFail,
-  progressErrors,
+  progressError,
+  progressRemove,
+  progressStopAll,
   setVerbose,
   getVerbose,
   startCollectingOutput,
