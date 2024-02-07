@@ -2,8 +2,10 @@ const chalk = require('chalk');
 const path = require('path');
 const Spinnies = require('spinnies');
 const cliSpinners = require('cli-spinners');
-const { type } = require('os');
+const debugLib = require('debug');
 
+const PREFIX = 'hardhat:ethernaut';
+const _debug = debugLib(PREFIX);
 let _verbose = false;
 let _collectingOutput = false;
 let _output;
@@ -101,8 +103,14 @@ function _join(msgs) {
 
 function _out(...msgs) {
   const msg = _join(msgs);
-  console.log(msg);
+
   _output += msg + '\n';
+
+  if (_verbose) {
+    _debug(msg);
+  } else {
+    console.log(msg);
+  }
 }
 
 function setVerbose(value) {

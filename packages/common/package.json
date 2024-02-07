@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "cli-spinners": "^2.9.2",
+    "debug": "^4.3.4",
     "spinnies": "^0.5.1"
   }
 }
