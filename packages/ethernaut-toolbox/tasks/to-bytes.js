@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config');
-const logger = require('common/logger');
+const output = require('common/output');
 
 require('../scopes/util')
   .task('to-bytes', 'Converts strings to bytes32')
@@ -13,5 +13,5 @@ require('../scopes/util')
   .setAction(async ({ value }, hre) => {
     const result = hre.ethers.encodeBytes32String(value);
 
-    logger.output(result);
+    output.result(result);
   });

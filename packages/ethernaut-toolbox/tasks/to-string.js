@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config');
-const logger = require('common/logger');
+const output = require('common/output');
 
 require('../scopes/util')
   .task('to-string', 'Converts bytes32 to string')
@@ -15,8 +15,8 @@ require('../scopes/util')
     try {
       result = hre.ethers.toUtf8String(value);
     } catch (err) {
-      logger.error(err);
+      debug.error(err);
     }
 
-    logger.output(result);
+    output.result(result);
   });

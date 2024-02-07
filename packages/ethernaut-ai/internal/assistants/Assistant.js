@@ -1,7 +1,7 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const logger = require('common/logger');
+const output = require('common/output');
 const spinner = require('common/spinner');
 
 class Assistant {
@@ -71,7 +71,7 @@ class Assistant {
   }
 
   async processToolCalls(toolCalls) {
-    logger.error(
+    debug.error(
       'Not implemented. This method should be overridden by an assistant that knows how to handle tool calls.'
     );
   }

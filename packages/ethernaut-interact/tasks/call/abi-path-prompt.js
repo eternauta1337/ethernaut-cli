@@ -2,8 +2,8 @@ const storage = require('../../internal/storage');
 const EtherscanApi = require('../../internal/etherscan');
 const { Select, AutoComplete } = require('enquirer');
 const suggest = require('common/enquirer-suggest');
-const logger = require('common/logger');
 const spinner = require('common/spinner');
+const debug = require('common/debugger');
 
 module.exports = async function prompt({ hre, address }) {
   let abiPath;
@@ -27,7 +27,7 @@ module.exports = async function prompt({ hre, address }) {
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles();
-  logger.debug('Known ABI files:', knownAbiFiles.length);
+  debug.log('Known ABI files:', knownAbiFiles.length);
   if (knownAbiFiles.length > 0) {
     choices.push(options.BROWSE);
   }
@@ -52,12 +52,12 @@ module.exports = async function prompt({ hre, address }) {
   }
   // Or exit quietly if no options are available
   else if (choices.length === 0) {
-    logger.debug('No ABI strategies available');
+    debug.log('No ABI strategies available');
     return;
   }
 
   // Execute the chosen strategy
-  logger.debug('choice', choice);
+  debug.log('choice', choice);
   switch (choice) {
     case options.BROWSE:
       return await browseKnwonAbis(knownAbiFiles);

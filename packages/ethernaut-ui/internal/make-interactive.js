@@ -1,7 +1,7 @@
 const { task: hreTask } = require('hardhat/config');
 const { Input } = require('enquirer');
 const getNodes = require('common/get-nodes');
-const logger = require('common/logger');
+const debug = require('common/debugger');
 
 let _hre;
 
@@ -69,7 +69,7 @@ async function collectParameters(args, task) {
 
     // Does the parameter provide its own prompt?
     if (param.prompt) {
-      logger.debug(`Running custom prompt for "${param.name}"`);
+      debug.log(`Running custom prompt for "${param.name}"`);
 
       newArgs[param.name] = await param.prompt({
         hre: _hre,
@@ -79,7 +79,7 @@ async function collectParameters(args, task) {
         ...newArgs,
       });
 
-      logger.debug(
+      debug.log(
         `Custom prompt for "${param.name}" collected "${newArgs[param.name]}"`
       );
 

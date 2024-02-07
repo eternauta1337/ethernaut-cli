@@ -5,6 +5,10 @@ let _enabled = true;
 let _channelErrors = {};
 const _spinnies = new Spinnies({ spinner: cliSpinners.random });
 
+function enable(value) {
+  _enabled = value;
+}
+
 function progress(msg, channel = 'default') {
   if (!_enabled) {
     console.log(msg);
@@ -35,8 +39,6 @@ function fail(msg = 'Fail', channel = 'default') {
 
   _ensureSpinnie(channel);
   _spinnies.fail(channel, { text });
-
-  process.exit(1);
 }
 
 function error(err, channel = 'default') {
@@ -55,10 +57,6 @@ function remove(channel = 'default') {
 
 function stop() {
   _spinnies.stopAll();
-}
-
-function enable(value) {
-  _enabled = value;
 }
 
 function _appendChannelErrors(msg, channel) {

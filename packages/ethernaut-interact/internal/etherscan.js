@@ -1,6 +1,6 @@
 const axios = require('axios');
-const logger = require('common/logger');
 const spinner = require('common/spinner');
+const debug = require('common/debugger');
 
 class EtherscanApi {
   constructor(apiKey, baseUrl) {
@@ -58,16 +58,13 @@ class EtherscanApi {
 
     // Http error
     if (response.status !== 200) {
-      // Not stringifying here because something very weird
-      // in the returned object causes the process to exit silently xP
-      if (logger.getVerbose()) console.log(response);
       spinner.error(`Http status: ${response.status}`, 'etherscan');
       return undefined;
     }
 
     // Api error
     if (response.data.status !== '1') {
-      logger.debug(response.data);
+      debug.log(response.data);
       spinner.error(`${response.data.result}`, 'etherscan');
       return undefined;
     }

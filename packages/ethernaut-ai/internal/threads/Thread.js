@@ -1,6 +1,6 @@
 const storage = require('../storage');
 const openai = require('../openai');
-const logger = require('common/logger');
+const output = require('common/output');
 const spinner = require('common/spinner');
 
 class Thread {
@@ -64,7 +64,7 @@ class Thread {
     }
 
     if (msgs.length === 0) {
-      logger.error('No message found');
+      debug.error('No message found');
     }
 
     const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0];

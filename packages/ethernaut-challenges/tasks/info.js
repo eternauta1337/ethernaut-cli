@@ -2,7 +2,8 @@ const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const fs = require('fs');
 const path = require('path');
-const logger = require('common/logger');
+const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/oz')
   .task(
@@ -21,7 +22,7 @@ require('../scopes/oz')
 
     const idx = parseInt(level) - 1;
     const levelInfo = gamedata.levels[idx];
-    logger.debug('Level info:', levelInfo);
+    debug.log('Level info:', levelInfo);
 
     const name = levelInfo.name;
     const contractName = levelInfo.instanceContract.split('.')[0];
@@ -46,18 +47,18 @@ require('../scopes/oz')
     const deploymentInfo = helper.getDeploymentInfo();
     const levelAddress = deploymentInfo[level];
 
-    logger.output('Name:', name);
-    logger.output('Contract name:', contractName);
-    logger.output('ABI path:', abiPath);
-    logger.output('Address:', levelAddress);
+    output.result('Name:', name);
+    output.result('Contract name:', contractName);
+    output.result('ABI path:', abiPath);
+    output.result('Address:', levelAddress);
     if (levelInfo.revealCode) {
-      logger.output('---------------------------------------');
-      logger.output('Source:');
-      logger.output('---------------------------------------');
-      logger.output(source);
+      output.result('---------------------------------------');
+      output.result('Source:');
+      output.result('---------------------------------------');
+      output.result(source);
     }
-    logger.output('---------------------------------------');
-    logger.output('Description:');
-    logger.output('---------------------------------------');
-    logger.output(description);
+    output.result('---------------------------------------');
+    output.result('Description:');
+    output.result('---------------------------------------');
+    output.result(description);
   });

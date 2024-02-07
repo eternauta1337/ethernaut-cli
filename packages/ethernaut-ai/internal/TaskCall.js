@@ -1,5 +1,6 @@
-const logger = require('common/logger');
+const debug = require('common/debugger');
 const spinner = require('common/spinner');
+const output = require('common/output');
 
 class TaskCall {
   /**
@@ -22,7 +23,7 @@ class TaskCall {
   async execute(hre) {
     spinner.progress(`Executing \`${this.toCliSyntax()}\``, 'ai-execute');
 
-    logger.startCollectingOutput();
+    output.startCollectingOutput();
 
     // Prepare args
     let args = JSON.parse(this.function.arguments);
@@ -36,16 +37,16 @@ class TaskCall {
     const nameComponents = this.function.name.split('.');
     if (nameComponents.length === 1) {
       const task = nameComponents[0];
-      logger.debug('Calling:', task, args);
+      debug.log('Calling:', task, args);
       await hre.run(task, args);
     } else {
       const scope = nameComponents[0];
       const task = nameComponents[1];
-      logger.debug('Calling:', scope, task, args);
+      debug.log('Calling:', scope, task, args);
       await hre.run({ scope, task }, args);
     }
 
-    const output = logger.stopCollectingOutput();
+    const output = output.stopCollectingOutput();
 
     spinner.success(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 

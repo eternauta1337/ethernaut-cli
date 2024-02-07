@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Thread = require('../internal/threads/Thread');
-const logger = require('common/logger');
+const output = require('common/output');
 const spinner = require('common/spinner');
 
 require('../scopes/ai')
@@ -32,5 +32,5 @@ require('../scopes/ai')
       spinner.fail('Interpretation failed', 'ai');
     }
 
-    if (response) logger.output(response);
+    output.result(response);
   });

@@ -4,7 +4,7 @@ const TaskCall = require('../TaskCall');
 const { Select } = require('enquirer');
 const Explainer = require('./Explainer');
 const Thread = require('../threads/Thread');
-const logger = require('common/logger');
+const output = require('common/output');
 const spinner = require('common/spinner');
 
 class Interpreter extends Assistant {
@@ -48,7 +48,7 @@ class Interpreter extends Assistant {
 
     const response = await this.explainer.process(secondaryThread);
 
-    logger.output(response);
+    output.result(response);
   }
 
   async executeCalls(calls, hre) {
@@ -73,13 +73,13 @@ class Interpreter extends Assistant {
   }
 
   printCalls(calls) {
-    logger.output('The assistant wants to run the following commands:');
+    output.info('The assistant wants to run the following commands:');
 
     const strings = [];
     for (let i = 0; i < calls.length; i++) {
       const call = calls[i];
       const msg = `${i + 1}. \`${call.toCliSyntax()}\``;
-      logger.output(msg);
+      output.info(msg);
       strings.push(msg);
     }
 

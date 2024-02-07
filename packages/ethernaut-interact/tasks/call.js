@@ -10,8 +10,9 @@ const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
 const addressPrompt = require('./call/address-prompt');
 const storage = require('../internal/storage');
-const logger = require('common/logger');
+const output = require('common/output');
 const spinner = require('common/spinner');
+const debug = require('common/debugger');
 
 const call = require('../scopes/interact')
   .task('call', 'Calls a contract function')
@@ -42,12 +43,12 @@ const call = require('../scopes/interact')
   )
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
     // TODO: Also validate
-    if (!address) logger.error(new Error('Address is required'));
-    if (!abiPath) logger.error(new Error('abiPath is required'));
-    if (!fn) logger.error(new Error('fn is required'));
+    if (!address) debug.error(new Error('Address is required'));
+    if (!abiPath) debug.error(new Error('abiPath is required'));
+    if (!fn) debug.error(new Error('fn is required'));
 
     const abi = loadAbi(abiPath);
-    logger.debug(abi);
+    debug.log(abi);
 
     const network = hre.network.config.name || hre.network.name;
     storage.rememberAbiAndAddress(abiPath, address, network);
@@ -60,14 +61,14 @@ const call = require('../scopes/interact')
     // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
     const fnName = fn.split('(')[0];
     const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
-    logger.output('Calling', getPopulatedFunctionSignature(abiFn, params));
+    output.info('Calling', getPopulatedFunctionSignature(abiFn, params));
 
     // Get the signature
     const sig = getFunctionSignature(abiFn);
 
     // Instantiate the contract
     let contract = await hre.ethers.getContractAt(abi, address);
-    logger.debug('Instantiated contract:', contract.target);
+    debug.log('Instantiated contract:', contract.target);
 
     // Make the call
     const isReadOnly =
@@ -79,16 +80,16 @@ const call = require('../scopes/interact')
       } else {
         result = await contract[sig]();
       }
-      logger.output('Result:', result);
+      output.result('Result:', result);
     } else {
       // Connect signer
       const signer = (await hre.ethers.getSigners())[0];
       contract = contract.connect(signer);
-      logger.output('Connected signer:', signer.address);
+      output.info('Connected signer:', signer.address);
 
       // Estimate gas
       const estimateGas = await contract[fn].estimateGas(...params);
-      logger.output('Estimated gas:', estimateGas.toString());
+      output.info('Estimated gas:', estimateGas.toString());
 
       // Prompt the user for confirmation
       spinner.stop();
@@ -99,18 +100,18 @@ const call = require('../scopes/interact')
       if (!response) return;
 
       const tx = await contract[fn](...params);
-      logger.output('Sending transaction:', tx.hash);
+      output.info('Sending transaction:', tx.hash);
 
       // Wait for the transaction to be mined
       const receipt = await tx.wait();
-      logger.output('Transaction mined. Gas used:', receipt.gasUsed.toString());
+      output.info('Transaction mined. Gas used:', receipt.gasUsed.toString());
       if (receipt.status === 0) {
-        logger.error(
+        debug.error(
           new Error(`Transaction mined but execution reverted: ${receipt}`)
         );
       } else {
         // TODO: Parse receipt and display logs
-        logger.debug(JSON.stringify(receipt, null, 2));
+        debug.log(JSON.stringify(receipt, null, 2));
       }
     }
   });

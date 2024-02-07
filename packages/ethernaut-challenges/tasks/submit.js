@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
-const logger = require('common/logger');
+const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/oz')
   .task(
@@ -29,20 +30,20 @@ require('../scopes/oz')
       const events = receipt.logs.map((log) =>
         ethernaut.interface.parseLog(log)
       );
-      logger.debug(receipt, events);
+      debug.log(receipt, events);
 
       // Check completion
       if (events.length === 0) {
-        logger.output('Level not completed');
+        output.problem('Level not completed');
       } else {
         const completedEvent = events[0];
         const instanceAddress = completedEvent.args[1];
         const levelAddress = completedEvent.args[2];
-        logger.output(
+        output.result(
           `Level completed ${levelAddress} with instance ${instanceAddress}`
         );
       }
     } catch (err) {
-      logger.error(err.message);
+      debug.error(err.message);
     }
   });
