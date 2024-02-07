@@ -100,9 +100,9 @@ async function getAbiFromEtherscan(address, network) {
 
   const info = await etherscan.getContractCode(address).catch((e) => {});
   if (info) {
-    spinner.progressSuccess('Abi fetched from Etherscan', 'etherscan');
+    spinner.success('Abi fetched from Etherscan', 'etherscan');
   } else {
-    spinner.progressFail('Unable to fetch ABI from Etherscan', 'etherscan');
+    spinner.fail('Unable to fetch ABI from Etherscan', 'etherscan');
     return;
   }
 

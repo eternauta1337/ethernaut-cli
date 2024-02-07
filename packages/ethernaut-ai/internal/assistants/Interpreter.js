@@ -21,7 +21,7 @@ class Interpreter extends Assistant {
   async processToolCalls(toolCalls) {
     const calls = toolCalls.map((tc) => new TaskCall(tc));
 
-    spinner.progressSuccess('Yey! Assistant knows what to do', 'ai');
+    spinner.success('Yey! Assistant knows what to do', 'ai');
 
     const callsStrings = this.printCalls(calls);
 

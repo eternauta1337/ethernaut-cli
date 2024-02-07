@@ -27,9 +27,9 @@ require('../scopes/ai')
     const response = await interpreter.process(thread);
 
     if (response) {
-      spinner.progressRemove('ai');
+      spinner.remove('ai');
     } else {
-      spinner.progressFail('Interpretation failed', 'ai');
+      spinner.fail('Interpretation failed', 'ai');
     }
 
     if (response) logger.output(response);

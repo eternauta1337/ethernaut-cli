@@ -60,14 +60,12 @@ class Assistant {
           // Continue checking status...
           return await this.processRun();
         default:
-          spinner.progressError(
-            `Unknown action request type: ${required_action.type}`
-          );
+          spinner.error(`Unknown action request type: ${required_action.type}`);
       }
     } else if (status === 'completed') {
       return await this.thread.getLastMessage(this.run.id);
     } else if (status === 'cancelled' || status === 'failed') {
-      if (status === 'failed') spinner.progressError(runInfo);
+      if (status === 'failed') spinner.error(runInfo);
       return undefined;
     }
   }

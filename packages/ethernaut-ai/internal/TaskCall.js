@@ -47,7 +47,7 @@ class TaskCall {
 
     const output = logger.stopCollectingOutput();
 
-    spinner.progressSuccess(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
+    spinner.success(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 
     return {
       tool_call_id: this.id,

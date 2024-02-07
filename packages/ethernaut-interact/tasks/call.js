@@ -91,7 +91,7 @@ const call = require('../scopes/interact')
       logger.output('Estimated gas:', estimateGas.toString());
 
       // Prompt the user for confirmation
-      spinner.progressStopAll();
+      spinner.stop();
       const prompt = new Confirm({
         message: 'Do you want to proceed with the call?',
       });

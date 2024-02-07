@@ -15,7 +15,7 @@ function progress(msg, channel = 'default') {
   _spinnies.update(channel, { text: msg });
 }
 
-function progressSuccess(msg = 'Done', channel = 'default') {
+function success(msg = 'Done', channel = 'default') {
   if (!_enabled) {
     console.log(msg);
     return;
@@ -25,7 +25,7 @@ function progressSuccess(msg = 'Done', channel = 'default') {
   _spinnies.succeed(channel, { text: msg });
 }
 
-function progressFail(msg = 'Fail', channel = 'default') {
+function fail(msg = 'Fail', channel = 'default') {
   const text = _appendChannelErrors(msg, channel);
 
   if (!_enabled) {
@@ -39,7 +39,7 @@ function progressFail(msg = 'Fail', channel = 'default') {
   process.exit(1);
 }
 
-function progressError(err, channel = 'default') {
+function error(err, channel = 'default') {
   if (!_enabled) {
     console.log(err);
     return;
@@ -49,11 +49,11 @@ function progressError(err, channel = 'default') {
   _channelErrors[channel].push(err);
 }
 
-function progressRemove(channel = 'default') {
+function remove(channel = 'default') {
   _spinnies.remove(channel);
 }
 
-function progressStopAll() {
+function stop() {
   _spinnies.stopAll();
 }
 
@@ -77,9 +77,9 @@ function _ensureSpinnie(channel) {
 module.exports = {
   enable,
   progress,
-  progressSuccess,
-  progressFail,
-  progressError,
-  progressRemove,
-  progressStopAll,
+  success,
+  fail,
+  error,
+  remove,
+  stop,
 };
