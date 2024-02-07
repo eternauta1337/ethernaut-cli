@@ -2,6 +2,7 @@ const storage = require('../../internal/storage');
 const EtherscanApi = require('../../internal/etherscan');
 const { Select, AutoComplete } = require('enquirer');
 const suggest = require('common/enquirer-suggest');
+const logger = require('common/logger');
 
 module.exports = async function prompt({ hre, address }) {
   let abiPath;
@@ -16,24 +17,22 @@ module.exports = async function prompt({ hre, address }) {
   }
 
   // Start collecting the available strategies for the user to pick
-  const choices = [];
   let choice;
+  const choices = [];
+  const options = {
+    ETHERSCAN: 'Fetch from Etherscan',
+    BROWSE: 'Browse known ABIs',
+  };
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles();
   if (knownAbiFiles.length > 0) {
-    choices.push({
-      message: 'Browse known ABIs',
-      value: 0,
-    });
+    choices.push(options.BROWSE);
   }
 
   // Fetch from Etherscan?
   if (address) {
-    choices.push({
-      message: 'Fetch from Etherscan',
-      value: 1,
-    });
+    choices.push(options.ETHERSCAN);
   }
 
   // Show prompt
@@ -57,9 +56,9 @@ module.exports = async function prompt({ hre, address }) {
 
   // Execute the chosen strategy
   switch (choice) {
-    case 0:
+    case options.BROWSE:
       return await browseKnwonAbis(knownAbiFiles);
-    case 1:
+    case options.ETHERSCAN:
       return await getAbiFromEtherscan(address, network);
   }
 };
@@ -87,7 +86,7 @@ function deduceAbiFromAddress(address, network) {
 }
 
 async function getAbiFromEtherscan(address, network) {
-  logger.info('Fetching ABI from Etherscan...');
+  logger.progressStart('Fetching ABI from Etherscan...', 'etherscan');
 
   const networkComp = network === 'mainnet' ? '' : `-${network}`;
 
@@ -96,7 +95,14 @@ async function getAbiFromEtherscan(address, network) {
     `https://api${networkComp}.etherscan.io`
   );
 
-  const info = await etherscan.getContractCode(address);
+  const info = await etherscan.getContractCode(address).catch((e) => {});
+  if (info) {
+    logger.progressSuccess('Abi fetched from Etherscan', 'etherscan');
+  } else {
+    logger.progressFail('Unable to fetch ABI from Etherscan', 'etherscan');
+    return;
+  }
+
   const abiPath = storage.storeAbi(info.ContractName, info.ABI);
 
   return abiPath;

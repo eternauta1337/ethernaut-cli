@@ -7,16 +7,6 @@ class EtherscanApi {
     this.baseUrl = baseUrl;
   }
 
-  async getContractAbi(address) {
-    const result = await this.createRequest({
-      module: 'contract',
-      action: 'getabi',
-      address,
-    });
-
-    return JSON.parse(result);
-  }
-
   async getContractCode(address) {
     const result = await this.createRequest({
       module: 'contract',
@@ -24,10 +14,13 @@ class EtherscanApi {
       address,
     });
 
+    if (!result) return undefined;
+
     const data = result[0];
 
     if (data.ABI === 'Contract source code not verified') {
-      logger.error('Contract source code not verified');
+      logger.progressErrors('Contract source code not verified', 'etherscan');
+      return undefined;
     }
 
     data.ABI = JSON.parse(data.ABI);
@@ -62,8 +55,20 @@ class EtherscanApi {
 
     const response = await axios(config);
 
+    // Http error
     if (response.status !== 200) {
-      logger.error('Error fetching data from Etherscan');
+      // Not stringifying here because something very weird
+      // in the returned object causes the process to exit silently xP
+      if (logger.getVerbose()) console.log(response);
+      logger.progressErrors(`Http status: ${response.status}`, 'etherscan');
+      return undefined;
+    }
+
+    // Api error
+    if (response.data.status !== '1') {
+      logger.debug(response.data);
+      logger.progressErrors(`${response.data.result}`, 'etherscan');
+      return undefined;
     }
 
     return response.data.result;

@@ -1,16 +1,64 @@
 const chalk = require('chalk');
 const path = require('path');
+const Spinnies = require('spinnies');
+const cliSpinners = require('cli-spinners');
+const { type } = require('os');
 
 let _verbose = false;
 let _collectingOutput = false;
 let _output;
+let _channelErrors = {};
+const _spinnies = new Spinnies({ spinner: cliSpinners.dots });
 
 function output(...msgs) {
   _out(chalk.blue(_join(msgs)));
 }
 
 function info(...msgs) {
-  _out(chalk.italic(_join(msgs)));
+  _out(chalk.dim(_join(msgs)));
+}
+
+function progressStart(msg, channel = 'default') {
+  if (_verbose) {
+    _out(msg);
+    return;
+  }
+
+  let spinnie = _spinnies.pick(channel);
+  if (!spinnie) spinnie = _spinnies.add(channel, { text: msg });
+  else spinnie.update({ text: msg });
+}
+
+function progressSuccess(msg = 'Done', channel = 'default') {
+  if (_verbose) {
+    _out(msg);
+    return;
+  }
+
+  _spinnies.succeed(channel, { text: msg });
+}
+
+function progressFail(msg = 'Fail', channel = 'default') {
+  const text = `${msg}${
+    _channelErrors[channel] ? `\n${_channelErrors[channel].join('\n')}` : ''
+  }`;
+  _channelErrors[channel] = [];
+
+  if (_verbose) {
+    error(text);
+  }
+
+  _spinnies.fail(channel, { text });
+  process.exit(1);
+}
+
+function progressErrors(err, channel = 'default') {
+  if (_verbose) {
+    error(err);
+  }
+
+  if (!_channelErrors[channel]) _channelErrors[channel] = [];
+  _channelErrors[channel].push(err);
 }
 
 function debug(...msgs) {
@@ -21,7 +69,7 @@ function debug(...msgs) {
 
 function error(error) {
   if (_verbose) {
-    _out(error);
+    _out(`[${_getCallerFile()}]`, error);
   } else {
     _out(chalk.red(error.message));
   }
@@ -31,7 +79,7 @@ function error(error) {
 
 function _join(msgs) {
   return msgs
-    .map((m) => (typeof m === 'string' ? m : JSON.stringify(m)))
+    .map((m) => (typeof m === 'object' ? JSON.stringify(m, null, 2) : m))
     .join(' ');
 }
 
@@ -43,6 +91,10 @@ function _out(...msgs) {
 
 function setVerbose(value) {
   _verbose = value;
+}
+
+function getVerbose() {
+  return _verbose;
 }
 
 function startCollectingOutput() {
@@ -96,7 +148,12 @@ module.exports = {
   debug,
   error,
   info,
+  progressStart,
+  progressSuccess,
+  progressFail,
+  progressErrors,
   setVerbose,
+  getVerbose,
   startCollectingOutput,
   stopCollectingOutput,
 };

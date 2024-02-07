@@ -1,4 +1,8 @@
 {
   "name": "common",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "cli-spinners": "^2.9.2",
+    "spinnies": "^0.5.1"
+  }
 }
