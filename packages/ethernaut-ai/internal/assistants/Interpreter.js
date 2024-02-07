@@ -4,8 +4,8 @@ const TaskCall = require('../TaskCall');
 const { Select } = require('enquirer');
 const Explainer = require('./Explainer');
 const Thread = require('../threads/Thread');
-const chalk = require('chalk');
 const logger = require('common/logger');
+const spinner = require('common/spinner');
 
 class Interpreter extends Assistant {
   constructor(hre, noPrompt = false) {
@@ -21,7 +21,7 @@ class Interpreter extends Assistant {
   async processToolCalls(toolCalls) {
     const calls = toolCalls.map((tc) => new TaskCall(tc));
 
-    logger.progressSuccess('Yey! Assistant knows what to do', 'ai');
+    spinner.progressSuccess('Yey! Assistant knows what to do', 'ai');
 
     const callsStrings = this.printCalls(calls);
 

@@ -11,6 +11,7 @@ const abiPathPrompt = require('./call/abi-path-prompt');
 const addressPrompt = require('./call/address-prompt');
 const storage = require('../internal/storage');
 const logger = require('common/logger');
+const spinner = require('common/spinner');
 
 const call = require('../scopes/interact')
   .task('call', 'Calls a contract function')
@@ -90,7 +91,7 @@ const call = require('../scopes/interact')
       logger.output('Estimated gas:', estimateGas.toString());
 
       // Prompt the user for confirmation
-      logger.progressStopAll();
+      spinner.progressStopAll();
       const prompt = new Confirm({
         message: 'Do you want to proceed with the call?',
       });

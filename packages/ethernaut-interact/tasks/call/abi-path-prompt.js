@@ -3,6 +3,7 @@ const EtherscanApi = require('../../internal/etherscan');
 const { Select, AutoComplete } = require('enquirer');
 const suggest = require('common/enquirer-suggest');
 const logger = require('common/logger');
+const spinner = require('common/spinner');
 
 module.exports = async function prompt({ hre, address }) {
   let abiPath;
@@ -26,6 +27,7 @@ module.exports = async function prompt({ hre, address }) {
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles();
+  logger.debug('Known ABI files:', knownAbiFiles.length);
   if (knownAbiFiles.length > 0) {
     choices.push(options.BROWSE);
   }
@@ -46,7 +48,7 @@ module.exports = async function prompt({ hre, address }) {
   }
   // Or pick the only available option
   else if (choices.length === 1) {
-    choice = choices[0].value;
+    choice = choices[0];
   }
   // Or exit quietly if no options are available
   else if (choices.length === 0) {
@@ -55,6 +57,7 @@ module.exports = async function prompt({ hre, address }) {
   }
 
   // Execute the chosen strategy
+  logger.debug('choice', choice);
   switch (choice) {
     case options.BROWSE:
       return await browseKnwonAbis(knownAbiFiles);
@@ -86,7 +89,7 @@ function deduceAbiFromAddress(address, network) {
 }
 
 async function getAbiFromEtherscan(address, network) {
-  logger.progress('Fetching ABI from Etherscan...', 'etherscan');
+  spinner.progress('Fetching ABI from Etherscan...', 'etherscan');
 
   const networkComp = network === 'mainnet' ? '' : `-${network}`;
 
@@ -97,9 +100,9 @@ async function getAbiFromEtherscan(address, network) {
 
   const info = await etherscan.getContractCode(address).catch((e) => {});
   if (info) {
-    logger.progressSuccess('Abi fetched from Etherscan', 'etherscan');
+    spinner.progressSuccess('Abi fetched from Etherscan', 'etherscan');
   } else {
-    logger.progressFail('Unable to fetch ABI from Etherscan', 'etherscan');
+    spinner.progressFail('Unable to fetch ABI from Etherscan', 'etherscan');
     return;
   }
 

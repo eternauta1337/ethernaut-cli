@@ -1,8 +1,8 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const chalk = require('chalk');
 const logger = require('common/logger');
+const spinner = require('common/spinner');
 
 class Assistant {
   constructor(name, config) {
@@ -33,7 +33,7 @@ class Assistant {
     );
     const { status, required_action } = runInfo;
 
-    logger.progress(`Thinking... ${status}`, 'ai');
+    spinner.progress(`Thinking... ${status}`, 'ai');
 
     if (status === 'in_progress' || status === 'queued') {
       // Wait and keep checking status...
@@ -60,14 +60,14 @@ class Assistant {
           // Continue checking status...
           return await this.processRun();
         default:
-          logger.progressError(
+          spinner.progressError(
             `Unknown action request type: ${required_action.type}`
           );
       }
     } else if (status === 'completed') {
       return await this.thread.getLastMessage(this.run.id);
     } else if (status === 'cancelled' || status === 'failed') {
-      if (status === 'failed') logger.progressError(runInfo);
+      if (status === 'failed') spinner.progressError(runInfo);
       return undefined;
     }
   }
@@ -80,7 +80,7 @@ class Assistant {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      logger.progress(`Updating assistant: ${this.name}`, 'ai');
+      spinner.progress(`Updating assistant: ${this.name}`, 'ai');
 
       // Get the current id and delete the config file.
       const oldId = storage.getAssistantId(this.name);
@@ -90,7 +90,7 @@ class Assistant {
       const { id } = await openai.beta.assistants.create(this.config);
       storage.storeAssistantConfig(id, this.config);
 
-      logger.progress(`Created assistant: ${id}`, 'ai');
+      spinner.progress(`Created assistant: ${id}`, 'ai');
 
       // Store the info as well.
       storage.storeAssistantInfo(this.name, id);

@@ -1,4 +1,5 @@
 const logger = require('common/logger');
+const spinner = require('common/spinner');
 
 class TaskCall {
   /**
@@ -19,7 +20,7 @@ class TaskCall {
   }
 
   async execute(hre) {
-    logger.progress(`Executing \`${this.toCliSyntax()}\``, 'ai-execute');
+    spinner.progress(`Executing \`${this.toCliSyntax()}\``, 'ai-execute');
 
     logger.startCollectingOutput();
 
@@ -46,7 +47,7 @@ class TaskCall {
 
     const output = logger.stopCollectingOutput();
 
-    logger.progressSuccess(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
+    spinner.progressSuccess(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 
     return {
       tool_call_id: this.id,
