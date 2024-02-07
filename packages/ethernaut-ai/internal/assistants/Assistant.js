@@ -2,6 +2,7 @@ const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
 const chalk = require('chalk');
+const logger = require('common/logger');
 
 class Assistant {
   constructor(name, config) {
@@ -63,12 +64,14 @@ class Assistant {
           // Continue checking status...
           return await this.processRun();
         default:
-          console.log('Unknown action request type:', required_action.type);
+          logger.error(
+            new Error(`Unknown action request type: ${required_action.type}`)
+          );
       }
     } else if (status === 'completed') {
       return await this.thread.getLastMessage(this.run.id);
     } else if (status === 'cancelled' || status === 'failed') {
-      if (status === 'failed') console.log(runInfo);
+      if (status === 'failed') logger.error(new Error(runInfo));
       return undefined;
     }
   }

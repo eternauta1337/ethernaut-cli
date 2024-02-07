@@ -5,6 +5,7 @@ const { Select } = require('enquirer');
 const Explainer = require('./Explainer');
 const Thread = require('../threads/Thread');
 const chalk = require('chalk');
+const logger = require('common/logger');
 
 class Interpreter extends Assistant {
   constructor(hre, noPrompt = false) {
@@ -45,11 +46,7 @@ class Interpreter extends Assistant {
 
     const response = await this.explainer.process(secondaryThread);
 
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    console.log('--------------------------------------');
-    console.log(chalk.blue(response));
-    console.log('--------------------------------------');
+    logger.output(response);
   }
 
   async executeCalls(calls, hre) {
@@ -74,21 +71,16 @@ class Interpreter extends Assistant {
   }
 
   printCalls(calls) {
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    console.log('--------------------------------------');
-    console.log(
-      chalk.blue.bold('The assistant wants to run the following commands:')
-    );
+    logger.output('The assistant wants to run the following commands:');
 
     const strings = [];
     for (let i = 0; i < calls.length; i++) {
       const call = calls[i];
       const msg = `${i + 1}. \`${call.toCliSyntax()}\``;
-      console.log(msg);
+      logger.output(msg);
       strings.push(msg);
     }
-    console.log('--------------------------------------');
+    logger.output('--------------------------------------');
 
     return strings;
   }

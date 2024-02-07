@@ -2,6 +2,7 @@ const { types } = require('hardhat/config');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Thread = require('../internal/threads/Thread');
 const chalk = require('chalk');
+const logger = require('common/logger');
 
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
@@ -24,9 +25,5 @@ require('../scopes/ai')
     const response = await interpreter.process(thread);
     if (!response) return;
 
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
-    console.log('--------------------------------------');
-    console.log(chalk.blue(response));
-    console.log('--------------------------------------');
+    logger.output(response);
   });

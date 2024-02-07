@@ -1,3 +1,5 @@
+const logger = require('common/logger');
+
 class TaskCall {
   /**
    * Incoming toolCall is an object with the following structure:
@@ -17,16 +19,9 @@ class TaskCall {
   }
 
   async execute(hre) {
-    console.log('> Executing:', `\`${this.toCliSyntax()}\``);
+    logger.output('> Executing:', `\`${this.toCliSyntax()}\``);
 
-    // Hijack console.log so that it can be collected.
-    let output = '';
-    const originalLog = console.log;
-    function log(...args) {
-      output += args.join(' ');
-      originalLog('>', ...args);
-    }
-    console.log = log;
+    logger.startCollectingOutput();
 
     // Prepare args
     let args = JSON.parse(this.function.arguments);
@@ -40,17 +35,16 @@ class TaskCall {
     const nameComponents = this.function.name.split('.');
     if (nameComponents.length === 1) {
       const task = nameComponents[0];
-      // console.log('Calling:', task, args);
+      logger.debug('Calling:', task, args);
       await hre.run(task, args);
     } else {
       const scope = nameComponents[0];
       const task = nameComponents[1];
-      // console.log('Calling:', scope, task, args);
+      logger.debug('Calling:', scope, task, args);
       await hre.run({ scope, task }, args);
     }
 
-    // Release console.log
-    console.log = originalLog;
+    const output = logger.stopCollectingOutput();
 
     return {
       tool_call_id: this.id,

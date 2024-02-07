@@ -51,6 +51,7 @@ module.exports = async function prompt({ hre, address }) {
   }
   // Or exit quietly if no options are available
   else if (choices.length === 0) {
+    logger.debug('No ABI strategies available');
     return;
   }
 
@@ -86,7 +87,7 @@ function deduceAbiFromAddress(address, network) {
 }
 
 async function getAbiFromEtherscan(address, network) {
-  console.log('Fetching ABI from Etherscan...');
+  logger.info('Fetching ABI from Etherscan...');
 
   const networkComp = network === 'mainnet' ? '' : `-${network}`;
 

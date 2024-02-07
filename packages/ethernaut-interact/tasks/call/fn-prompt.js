@@ -19,7 +19,6 @@ module.exports = async function prompt({ abiPath }) {
   });
 
   const response = await prompt.run().catch(() => process.exit(0));
-  console.log(response);
 
   return response;
 };

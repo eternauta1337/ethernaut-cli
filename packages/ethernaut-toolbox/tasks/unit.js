@@ -1,4 +1,6 @@
 const { types } = require('hardhat/config');
+const { Select } = require('enquirer');
+const logger = require('common/logger');
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 
@@ -24,10 +26,9 @@ const unit = require('../scopes/util')
     const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
     result = result.match(removeTrailingZeroes)[1];
 
-    console.log(result);
+    logger.output(result);
   });
 
-const { Select } = require('enquirer');
 async function pickUnit({ name, description, from, to }) {
   let choices = units.concat();
   if (name === 'from' && to) choices = units.filter((unit) => unit !== to);

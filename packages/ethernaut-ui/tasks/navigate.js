@@ -1,5 +1,6 @@
 const { task } = require('hardhat/config');
 const navigateFrom = require('../internal/navigate-from');
+const logger = require('common/logger');
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
@@ -9,7 +10,7 @@ task('navigate', 'Navigates tasks with enquirer')
     if (scope) {
       node = hre.scopes[scope];
       if (node === undefined) {
-        throw new Error(`Unknown scope: ${scope}`);
+        logger.error(new Error(`Unknown scope: ${scope}`));
       }
     }
 
