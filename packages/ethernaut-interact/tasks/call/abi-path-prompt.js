@@ -8,6 +8,7 @@ const debug = require('common/debugger');
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
   BROWSE: 'Browse known ABIs',
+  MANUAL: 'Enter path manually',
 };
 
 module.exports = async function prompt({ hre, address }) {
@@ -35,6 +36,8 @@ module.exports = async function prompt({ hre, address }) {
         abiPath = await browseKnwonAbis();
       case strategies.ETHERSCAN:
         abiPath = await getAbiFromEtherscan(address, network);
+      case strategies.MANUAL:
+      // Do nothing
     }
 
     // Remember anything?
@@ -52,7 +55,7 @@ module.exports = async function prompt({ hre, address }) {
 async function selectStrategy({ address, network }) {
   // Collect available choices since
   // not all strategies might be available
-  const choices = [];
+  const choices = [strategies.MANUAL];
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles();

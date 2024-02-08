@@ -4,21 +4,23 @@ const suggest = require('common/enquirer-suggest');
 const { AutoComplete } = require('enquirer');
 
 module.exports = async function prompt({ abiPath }) {
-  const abi = loadAbi(abiPath);
-  if (!abi) return;
+  if (!abiPath) return;
 
-  const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
+  try {
+    const abi = loadAbi(abiPath);
+    const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
 
-  const choices = abiFns.map((fn) => getFunctionSignature(fn));
+    const choices = abiFns.map((fn) => getFunctionSignature(fn));
 
-  const prompt = new AutoComplete({
-    message: 'Pick a function',
-    limit: 15,
-    suggest,
-    choices,
-  });
+    const prompt = new AutoComplete({
+      message: 'Pick a function',
+      limit: 15,
+      suggest,
+      choices,
+    });
 
-  const response = await prompt.run().catch(() => process.exit(0));
-
-  return response;
+    return await prompt.run().catch(() => process.exit(0));
+  } catch (err) {
+    debug.log(err);
+  }
 };
