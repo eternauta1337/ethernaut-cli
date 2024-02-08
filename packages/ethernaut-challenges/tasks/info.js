@@ -47,10 +47,10 @@ require('../scopes/oz')
     const deploymentInfo = helper.getDeploymentInfo();
     const levelAddress = deploymentInfo[level];
 
-    output.result('Name:', name);
-    output.result('Contract name:', contractName);
-    output.result('ABI path:', abiPath);
-    output.result('Address:', levelAddress);
+    output.result(`Name: ${name}`);
+    output.result(`Contract name: ${contractName}`);
+    output.result(`ABI path: ${abiPath}`);
+    output.result(`Address: ${levelAddress}`);
     if (levelInfo.revealCode) {
       output.result('---------------------------------------');
       output.result('Source:');

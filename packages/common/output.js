@@ -3,28 +3,19 @@ const chalk = require('chalk');
 let _collectingOutput = false;
 let _output;
 
-function result(...msgs) {
-  _out(chalk.blue(_join(msgs)));
+function result(msg) {
+  _out(chalk.blue(msg));
 }
 
-function info(...msgs) {
-  _out(chalk.dim(_join(msgs)));
+function info(msg) {
+  _out(chalk.dim(msg));
 }
 
 function problem(msg) {
   _out(chalk.red(msg));
 }
 
-function _join(msgs) {
-  if (msgs === undefined) return;
-
-  return msgs
-    .map((m) => (typeof m === 'object' ? JSON.stringify(m, null, 2) : m))
-    .join(' ');
-}
-
-function _out(...msgs) {
-  const msg = _join(msgs);
+function _out(msg) {
   if (msg === undefined) return;
 
   _output += msg + '\n';

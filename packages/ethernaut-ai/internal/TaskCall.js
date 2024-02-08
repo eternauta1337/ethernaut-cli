@@ -46,13 +46,11 @@ class TaskCall {
       await hre.run({ scope, task }, args);
     }
 
-    const output = output.stopCollectingOutput();
-
     spinner.success(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 
     return {
       tool_call_id: this.id,
-      output,
+      output: output.stopCollectingOutput(),
     };
   }
 

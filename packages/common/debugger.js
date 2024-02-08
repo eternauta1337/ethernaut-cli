@@ -14,6 +14,12 @@ function error(err) {
   throw err;
 }
 
+function _join(msgs) {
+  return msgs
+    .map((msg) => (typeof msg === 'string' ? msg : JSON.stringify(msg)))
+    .join(' ');
+}
+
 const _getCallerFile = () => {
   const originalFunc = Error.prepareStackTrace;
 
