@@ -5,14 +5,9 @@ const output = require('common/output');
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
   .setAction(async ({ scope }) => {
-    let node = hre;
-
-    if (scope) {
-      node = hre.scopes[scope];
-      if (node === undefined) {
-        debug.error(new Error(`Unknown scope: ${scope}`));
-      }
+    try {
+      await navigateFrom(hre.scopes[scope] || hre);
+    } catch (err) {
+      output.problem(err.message);
     }
-
-    await navigateFrom(node);
   });

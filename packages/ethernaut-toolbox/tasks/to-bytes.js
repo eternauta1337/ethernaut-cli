@@ -11,7 +11,9 @@ require('../scopes/util')
     types.string
   )
   .setAction(async ({ value }, hre) => {
-    const result = hre.ethers.encodeBytes32String(value);
-
-    output.result(result);
+    try {
+      output.result(hre.ethers.encodeBytes32String(value));
+    } catch (err) {
+      output.problem(err.message);
+    }
   });

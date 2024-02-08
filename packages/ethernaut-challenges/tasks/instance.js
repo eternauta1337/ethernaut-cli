@@ -15,21 +15,30 @@ require('../scopes/oz')
     types.string
   )
   .setAction(async ({ level }, hre) => {
-    const deploymentInfo = helper.getDeploymentInfo();
-
-    // Prepare the main game contract
-    const gameAddress = deploymentInfo.ethernaut;
-    const abi = helper.getEthernautAbi();
-    const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
-
-    // Create the level instance
-    const idx = parseInt(level) - 1;
-    const levelAddress = deploymentInfo[idx];
-    const tx = await ethernaut.createLevelInstance(levelAddress);
-    const receipt = await tx.wait();
-    const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
-    const createdEvent = events[0];
-    const instanceAddress = createdEvent.args[1];
-
-    output.result(`Instance created ${instanceAddress}`);
+    try {
+      const instanceAddress = await createInstance(level, hre);
+      output.result(`Instance created ${instanceAddress}`);
+    } catch (err) {
+      output.problem(err.message);
+    }
   });
+
+async function createInstance(level, hre) {
+  const deploymentInfo = helper.getDeploymentInfo();
+
+  // Prepare the main game contract
+  const gameAddress = deploymentInfo.ethernaut;
+  const abi = helper.getEthernautAbi();
+  const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
+
+  // Create the level instance
+  const idx = parseInt(level) - 1;
+  const levelAddress = deploymentInfo[idx];
+  const tx = await ethernaut.createLevelInstance(levelAddress);
+  const receipt = await tx.wait();
+  const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
+  const createdEvent = events[0];
+  const instanceAddress = createdEvent.args[1];
+
+  return instanceAddress;
+}

@@ -64,7 +64,7 @@ class Thread {
     }
 
     if (msgs.length === 0) {
-      debug.error('No message found');
+      throw new Error('No message found');
     }
 
     const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0];

@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
-const debug = require('common/debugger');
 
 require('../scopes/oz')
   .task(
@@ -16,35 +15,38 @@ require('../scopes/oz')
     types.string
   )
   .setAction(async ({ address }, hre) => {
-    const deploymentInfo = helper.getDeploymentInfo();
-
-    // Prepare the main game contract
-    const gameAddress = deploymentInfo.ethernaut;
-    const abi = helper.getEthernautAbi();
-    const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
-
-    // Submit the instance
     try {
-      const tx = await ethernaut.submitLevelInstance(address);
-      const receipt = await tx.wait();
-      const events = receipt.logs.map((log) =>
-        ethernaut.interface.parseLog(log)
-      );
-      debug.log(receipt);
-      debug.log(events);
-
-      // Check completion
-      if (events.length === 0) {
-        output.problem('Level not completed');
-      } else {
-        const completedEvent = events[0];
-        const instanceAddress = completedEvent.args[1];
-        const levelAddress = completedEvent.args[2];
-        output.result(
-          `Level completed ${levelAddress} with instance ${instanceAddress}`
-        );
-      }
+      output.result(await submitInstance(address, hre));
     } catch (err) {
-      debug.error(err.message);
+      output.problem(err.message);
     }
   });
+
+async function submitInstance(address, hre) {
+  const deploymentInfo = helper.getDeploymentInfo();
+
+  // Prepare the main game contract
+  // TODO: This could be a package util
+  const gameAddress = deploymentInfo.ethernaut;
+  const abi = helper.getEthernautAbi();
+  const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
+
+  // Submit the instance
+  const tx = await ethernaut.submitLevelInstance(address);
+  const receipt = await tx.wait();
+
+  if (receipt.status === 0) {
+    throw new Error('Transaction failed');
+  }
+  if (receipt.logs.length === 0) {
+    throw new Error('No events emitted');
+  }
+
+  const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
+
+  const completedEvent = events[0];
+  const instanceAddress = completedEvent.args[1];
+  const levelAddress = completedEvent.args[2];
+
+  return `Level completed ${levelAddress} with instance ${instanceAddress}`;
+}

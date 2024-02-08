@@ -20,13 +20,17 @@ const unit = require('../scopes/util')
   .addOptionalParam('from', `The unit to convert from`, undefined, types.string)
   .addOptionalParam('to', `The unit to convert to`, undefined, types.string)
   .setAction(async ({ value, from, to }, hre) => {
-    const valueWei = ethers.parseUnits(value, from);
-    let result = ethers.formatUnits(valueWei, to);
+    try {
+      const valueWei = ethers.parseUnits(value, from);
+      let result = ethers.formatUnits(valueWei, to);
 
-    const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
-    result = result.match(removeTrailingZeroes)[1];
+      const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
+      result = result.match(removeTrailingZeroes)[1];
 
-    output.result(result);
+      output.result(result);
+    } catch (err) {
+      output.problem(err.message);
+    }
   });
 
 async function pickUnit({ name, description, from, to }) {

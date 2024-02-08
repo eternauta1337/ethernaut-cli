@@ -1,6 +1,5 @@
 const path = require('path');
 const debugLib = require('debug');
-const output = require('./output');
 
 const PREFIX = 'hardhat:ethernaut';
 const _debugs = {};
@@ -10,12 +9,6 @@ function log(msg, channel = PREFIX) {
     _debugs[channel] || (_debugs[channel] = debugLib(`${PREFIX}:${channel}`));
 
   debug(`[${_getCallerFile()}]`, msg);
-}
-
-// TODO: Remove - just throw errors
-function error(err) {
-  output.problem(err.message);
-  throw err;
 }
 
 const _getCallerFile = () => {
@@ -46,5 +39,4 @@ const _getCallerFile = () => {
 
 module.exports = {
   log,
-  error,
 };

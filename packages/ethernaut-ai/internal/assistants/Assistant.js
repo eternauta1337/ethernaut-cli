@@ -71,7 +71,7 @@ class Assistant {
   }
 
   async processToolCalls(toolCalls) {
-    debug.error(
+    throw new Error(
       'Not implemented. This method should be overridden by an assistant that knows how to handle tool calls.'
     );
   }

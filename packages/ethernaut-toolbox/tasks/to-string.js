@@ -10,13 +10,9 @@ require('../scopes/util')
     types.string
   )
   .setAction(async ({ value }, hre) => {
-    let result;
-
     try {
-      result = hre.ethers.toUtf8String(value);
+      output.result(hre.ethers.toUtf8String(value));
     } catch (err) {
-      debug.error(err);
+      output.problem(err.message);
     }
-
-    output.result(result);
   });
