@@ -1,7 +1,6 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const output = require('common/output');
 const spinner = require('common/spinner');
 
 class Assistant {
@@ -33,7 +32,7 @@ class Assistant {
     );
     const { status, required_action } = runInfo;
 
-    spinner.progress(`Thinking... ${status}`, 'ai');
+    spinner.progress(`Status ${status}`, 'ai');
 
     if (status === 'in_progress' || status === 'queued') {
       // Wait and keep checking status...

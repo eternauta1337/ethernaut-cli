@@ -21,7 +21,7 @@ class Interpreter extends Assistant {
   async processToolCalls(toolCalls) {
     const calls = toolCalls.map((tc) => new TaskCall(tc));
 
-    spinner.success('Yey! Assistant knows what to do', 'ai');
+    spinner.success('The assistant wants to run some actions', 'ai');
 
     const callsStrings = this.printCalls(calls);
 
@@ -73,8 +73,6 @@ class Interpreter extends Assistant {
   }
 
   printCalls(calls) {
-    output.info('The assistant wants to run the following commands:');
-
     const strings = [];
     for (let i = 0; i < calls.length; i++) {
       const call = calls[i];

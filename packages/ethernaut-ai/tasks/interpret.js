@@ -2,6 +2,7 @@ const { types } = require('hardhat/config');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Thread = require('../internal/threads/Thread');
 const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
@@ -16,20 +17,17 @@ require('../scopes/ai')
   .addFlag('newThread', 'Start a new thread')
   .setAction(async ({ query, newThread, noPrompt }, hre) => {
     try {
-      output.result(await interpret({ query, newThread, noPrompt }));
+      const thread = new Thread('default', newThread);
+      await thread.post(query);
+
+      const interpreter = new Interpreter(hre, noPrompt);
+      interpreter.on('action_required', async () => {});
+
+      const response = await interpreter.process(thread);
+
+      output.result(response);
     } catch (err) {
+      debug.log(err, 'ai');
       output.problem(err.message);
     }
   });
-
-async function interpret({ query, newThread, noPrompt }) {
-  const interpreter = new Interpreter(hre, noPrompt);
-  const thread = new Thread('default', newThread);
-
-  spinner.progress('Thinking...', 'ai');
-
-  await thread.stop();
-  await thread.post(query);
-
-  return await interpreter.process(thread);
-}
