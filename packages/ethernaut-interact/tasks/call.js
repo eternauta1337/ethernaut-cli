@@ -60,6 +60,7 @@ async function interact({ abiPath, address, fn, params }) {
   debug.log(abi, 'interact');
 
   const network = hre.network.config.name || hre.network.name;
+
   storage.rememberAbiAndAddress(abiPath, address, network);
 
   // Incoming params is a string
@@ -102,11 +103,12 @@ async function interact({ abiPath, address, fn, params }) {
 
     // Prompt the user for confirmation
     spinner.stop();
-    const prompt = new Confirm({
-      message: 'Do you want to proceed with the call?',
-    });
-    const response = await prompt.run().catch(() => process.exit(0));
-    if (!response) return;
+    // TODO: Re-enable prompt at a higher level in the ui
+    // const prompt = new Confirm({
+    //   message: 'Do you want to proceed with the call?',
+    // });
+    // const response = await prompt.run().catch(() => process.exit(0));
+    // if (!response) return;
 
     const tx = await contract[fn](...params);
     output.info(`Sending transaction: ${tx.hash}`);
@@ -124,7 +126,7 @@ async function interact({ abiPath, address, fn, params }) {
 }
 
 // Specialized prompts for each param
-call.paramDefinitions['abiPath'].prompt = abiPathPrompt;
-call.paramDefinitions['address'].prompt = addressPrompt;
-call.paramDefinitions['fn'].prompt = fnPrompt;
-call.paramDefinitions['params'].prompt = paramsPrompt;
+call.paramDefinitions.abiPath.prompt = abiPathPrompt;
+call.paramDefinitions.address.prompt = addressPrompt;
+call.paramDefinitions.fn.prompt = fnPrompt;
+call.paramDefinitions.params.prompt = paramsPrompt;

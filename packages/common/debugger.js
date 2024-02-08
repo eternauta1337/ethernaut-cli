@@ -14,27 +14,33 @@ function log(msg, channel = PREFIX) {
 const _getCallerFile = () => {
   const originalFunc = Error.prepareStackTrace;
 
-  let callerfile;
+  let caller;
   try {
     const err = new Error();
-    let currentfile;
+    let current;
 
     Error.prepareStackTrace = function (err, stack) {
       return stack;
     };
 
-    currentfile = err.stack.shift().getFileName();
+    current = err.stack.shift();
 
     while (err.stack.length) {
-      callerfile = err.stack.shift().getFileName();
+      caller = err.stack.shift();
 
-      if (currentfile !== callerfile) break;
+      if (current.getFileName() !== caller.getFileName()) break;
     }
   } catch (e) {}
 
   Error.prepareStackTrace = originalFunc;
 
-  return callerfile ? path.basename(callerfile) : undefined;
+  if (caller) {
+    const filename = path.basename(caller.getFileName());
+    const linenum = caller.getLineNumber();
+    return `${filename}:${linenum}`;
+  } else {
+    return undefined;
+  }
 };
 
 module.exports = {

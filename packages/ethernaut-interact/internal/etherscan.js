@@ -1,5 +1,4 @@
 const axios = require('axios');
-const spinner = require('common/spinner');
 const debug = require('common/debugger');
 
 class EtherscanApi {
@@ -20,8 +19,7 @@ class EtherscanApi {
     const data = result[0];
 
     if (data.ABI === 'Contract source code not verified') {
-      spinner.error('Contract source code not verified', 'etherscan');
-      return undefined;
+      throw new Error('Contract source code not verified');
     }
 
     data.ABI = JSON.parse(data.ABI);
@@ -58,15 +56,13 @@ class EtherscanApi {
 
     // Http error
     if (response.status !== 200) {
-      spinner.error(`Http status: ${response.status}`, 'etherscan');
-      return undefined;
+      throw new Error(`Http status error: ${response.status}`);
     }
 
     // Api error
     if (response.data.status !== '1') {
       debug.log(response.data, 'interact');
-      spinner.error(`${response.data.result}`, 'etherscan');
-      return undefined;
+      throw new Error(`Etherscan api error: ${response.data.result}`);
     }
 
     return response.data.result;
