@@ -21,7 +21,7 @@ module.exports = async function prompt({ abiPath, fn }) {
       params.push(response);
     }
 
-    return JSON.stringify(params);
+    return params;
   } catch (err) {
     debug.log(err);
   }

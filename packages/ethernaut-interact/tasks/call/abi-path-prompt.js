@@ -34,8 +34,10 @@ module.exports = async function prompt({ hre, address }) {
     switch (choice) {
       case strategies.BROWSE:
         abiPath = await browseKnwonAbis();
+        break;
       case strategies.ETHERSCAN:
         abiPath = await getAbiFromEtherscan(address, network);
+        break;
       case strategies.MANUAL:
       // Do nothing
     }

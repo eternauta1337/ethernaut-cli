@@ -47,7 +47,25 @@ function getPopulatedFunctionSignature(fnAbi, params) {
   return isWriteCall ? chalk.yellowBright.bold(str) : str;
 }
 
+function getFullEventSignature(eventAbi, event) {
+  let i = 0;
+
+  const namedArgs = event.args.map((arg) => {
+    const input = eventAbi.inputs[i];
+    i++;
+
+    return `${input.type} ${input.name} = ${arg}`;
+  });
+
+  let str = `${event.name}(\n`;
+  str += `  ${namedArgs.join(',\n  ')}`;
+  str += '\n)';
+
+  return str;
+}
+
 module.exports = {
   getFunctionSignature,
   getPopulatedFunctionSignature,
+  getFullEventSignature,
 };
