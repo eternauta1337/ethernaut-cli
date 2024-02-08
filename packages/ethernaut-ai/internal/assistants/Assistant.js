@@ -2,11 +2,16 @@ const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
 const spinner = require('common/spinner');
+const debug = require('common/debugger');
+const EventEmitter = require('events');
 
-class Assistant {
+class Assistant extends EventEmitter {
   constructor(name, config) {
+    super();
+
     this.name = name;
     this.config = config;
+    this.prevStatus = undefined;
 
     this.injectCommonInstructions();
 
@@ -30,49 +35,67 @@ class Assistant {
       this.thread.id,
       this.run.id
     );
-    const { status, required_action } = runInfo;
 
-    spinner.progress(`Status ${status}`, 'ai');
+    const { status } = runInfo;
 
-    if (status === 'in_progress' || status === 'queued') {
-      // Wait and keep checking status...
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      return await this.processRun();
-    } else if (status === 'requires_action') {
-      switch (required_action.type) {
-        case 'submit_tool_outputs':
-          // Hold execution until the required action is fulfilled.
-          const outputs = await this.processToolCalls(
-            required_action.submit_tool_outputs.tool_calls
-          );
-          if (!outputs) {
-            await openai.beta.threads.runs.cancel(this.thread.id, this.run.id);
-          } else {
-            await openai.beta.threads.runs.submitToolOutputs(
-              this.thread.id,
-              this.run.id,
-              {
-                tool_outputs: outputs,
-              }
-            );
-          }
-          // Continue checking status...
-          return await this.processRun();
-        default:
-          spinner.error(`Unknown action request type: ${required_action.type}`);
-      }
-    } else if (status === 'completed') {
+    // spinner.progress(`Status ${status}`, 'ai');
+    debug.log(`Checking status: ${status} (prev ${this.prevStatus})`, 'ai');
+
+    // Successful exit
+    if (status === 'completed') {
       return await this.thread.getLastMessage(this.run.id);
-    } else if (status === 'cancelled' || status === 'failed') {
+    }
+
+    // Bad exit
+    if (status === 'cancelled' || status === 'failed') {
       if (status === 'failed') spinner.error(runInfo);
       return undefined;
     }
+
+    // Action
+    if (status === 'requires_action') {
+      const { required_action } = runInfo;
+
+      switch (required_action.type) {
+        case 'submit_tool_outputs':
+          if (this.prevStatus !== 'requires_action') {
+            debug.log(`Emitting tool_calls_required event`, 'ai');
+            this.emit(
+              'tool_calls_required',
+              required_action.submit_tool_outputs.tool_calls
+            );
+          }
+        default:
+          spinner.error(`Unknown action request type: ${required_action.type}`);
+      }
+    }
+
+    this.prevStatus = status;
+
+    // Wait and check in a bit...
+    return await this.waitAndProcessRun();
   }
 
-  async processToolCalls(toolCalls) {
-    throw new Error(
-      'Not implemented. This method should be overridden by an assistant that knows how to handle tool calls.'
-    );
+  async waitAndProcessRun() {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return await this.processRun();
+  }
+
+  async reportToolOutputs(outputs) {
+    debug.log(`Outputs reported: ${outputs.length}`, 'ai');
+    debug.log(outputs, 'ai-deep');
+
+    if (!outputs) {
+      await openai.beta.threads.runs.cancel(this.thread.id, this.run.id);
+    } else {
+      await openai.beta.threads.runs.submitToolOutputs(
+        this.thread.id,
+        this.run.id,
+        {
+          tool_outputs: outputs,
+        }
+      );
+    }
   }
 
   async invalidateId() {
