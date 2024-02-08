@@ -30,7 +30,8 @@ require('../scopes/oz')
       const events = receipt.logs.map((log) =>
         ethernaut.interface.parseLog(log)
       );
-      debug.log(receipt, events);
+      debug.log(receipt);
+      debug.log(events);
 
       // Check completion
       if (events.length === 0) {

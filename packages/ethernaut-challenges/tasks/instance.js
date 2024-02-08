@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
-const debug = require('common/debugger');
 
 require('../scopes/oz')
   .task(
@@ -28,10 +27,8 @@ require('../scopes/oz')
     const levelAddress = deploymentInfo[idx];
     const tx = await ethernaut.createLevelInstance(levelAddress);
     const receipt = await tx.wait();
-    debug.log(receipt);
     const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
     const createdEvent = events[0];
-    debug.log(events);
     const instanceAddress = createdEvent.args[1];
 
     output.result(`Instance created ${instanceAddress}`);

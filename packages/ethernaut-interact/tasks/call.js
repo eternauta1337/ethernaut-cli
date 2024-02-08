@@ -48,7 +48,7 @@ const call = require('../scopes/interact')
     if (!fn) debug.error(new Error('fn is required'));
 
     const abi = loadAbi(abiPath);
-    debug.log(abi);
+    debug.log(abi, 'interact');
 
     const network = hre.network.config.name || hre.network.name;
     storage.rememberAbiAndAddress(abiPath, address, network);
@@ -68,7 +68,7 @@ const call = require('../scopes/interact')
 
     // Instantiate the contract
     let contract = await hre.ethers.getContractAt(abi, address);
-    debug.log('Instantiated contract:', contract.target);
+    debug.log(`Instantiated contract: ${contract.target}`, 'interact');
 
     // Make the call
     const isReadOnly =
@@ -111,7 +111,7 @@ const call = require('../scopes/interact')
         );
       } else {
         // TODO: Parse receipt and display logs
-        debug.log(JSON.stringify(receipt, null, 2));
+        debug.log(JSON.stringify(receipt, null, 2), 'interact');
       }
     }
   });

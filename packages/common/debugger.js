@@ -3,21 +3,19 @@ const debugLib = require('debug');
 const output = require('./output');
 
 const PREFIX = 'hardhat:ethernaut';
-const _debug = debugLib(PREFIX);
+const _debugs = {};
 
-function log(...msgs) {
-  _debug(`[${_getCallerFile()}]`, _join(msgs));
+function log(msg, channel = PREFIX) {
+  const debug =
+    _debugs[channel] || (_debugs[channel] = debugLib(`${PREFIX}:${channel}`));
+
+  debug(`[${_getCallerFile()}]`, msg);
 }
 
+// TODO: Remove - just throw errors
 function error(err) {
   output.problem(err.message);
   throw err;
-}
-
-function _join(msgs) {
-  return msgs
-    .map((msg) => (typeof msg === 'string' ? msg : JSON.stringify(msg)))
-    .join(' ');
 }
 
 const _getCallerFile = () => {

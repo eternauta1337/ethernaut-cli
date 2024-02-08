@@ -33,6 +33,7 @@ function makeInteractive(task) {
   ) {
     return;
   }
+  debug.log(`Making task "${task.name}" interactive`, 'ui');
 
   // Override the action so that we can
   // collect parameters from the user before runnint it
@@ -63,13 +64,18 @@ async function collectParameters(args, task) {
   // that haven't been provided
   const newArgs = {};
   for (let param of paramDefinitions) {
+    debug.log(
+      `Collecting parameter "${param.name}" ${JSON.stringify(args)}"`,
+      'ui'
+    );
+
     // Skip if arg is already provided
     const arg = args[param.name];
     if (arg !== undefined) continue;
 
     // Does the parameter provide its own prompt?
     if (param.prompt) {
-      debug.log(`Running custom prompt for "${param.name}"`);
+      debug.log(`Running custom prompt for "${param.name}"`, 'ui');
 
       newArgs[param.name] = await param.prompt({
         hre: _hre,
@@ -80,7 +86,8 @@ async function collectParameters(args, task) {
       });
 
       debug.log(
-        `Custom prompt for "${param.name}" collected "${newArgs[param.name]}"`
+        `Custom prompt for "${param.name}" collected "${newArgs[param.name]}"`,
+        'ui'
       );
 
       if (newArgs[param.name] !== undefined) continue;

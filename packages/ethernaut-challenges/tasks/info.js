@@ -22,7 +22,7 @@ require('../scopes/oz')
 
     const idx = parseInt(level) - 1;
     const levelInfo = gamedata.levels[idx];
-    debug.log('Level info:', levelInfo);
+    debug.log(`Level info: ${levelInfo}`, 'challenges');
 
     const name = levelInfo.name;
     const contractName = levelInfo.instanceContract.split('.')[0];

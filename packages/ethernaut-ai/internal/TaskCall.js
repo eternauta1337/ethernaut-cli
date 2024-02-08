@@ -37,12 +37,12 @@ class TaskCall {
     const nameComponents = this.function.name.split('.');
     if (nameComponents.length === 1) {
       const task = nameComponents[0];
-      debug.log('Calling:', task, args);
+      debug.log(`Calling: ${task} ${args}`, 'ai');
       await hre.run(task, args);
     } else {
       const scope = nameComponents[0];
       const task = nameComponents[1];
-      debug.log('Calling:', scope, task, args);
+      debug.log(`Calling: ${scope} ${task} ${args}`, 'ai');
       await hre.run({ scope, task }, args);
     }
 

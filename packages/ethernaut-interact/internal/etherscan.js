@@ -64,7 +64,7 @@ class EtherscanApi {
 
     // Api error
     if (response.data.status !== '1') {
-      debug.log(response.data);
+      debug.log(response.data, 'interact');
       spinner.error(`${response.data.result}`, 'etherscan');
       return undefined;
     }

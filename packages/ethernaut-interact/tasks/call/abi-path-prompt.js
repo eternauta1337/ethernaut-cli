@@ -27,7 +27,7 @@ module.exports = async function prompt({ hre, address }) {
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles();
-  debug.log('Known ABI files:', knownAbiFiles.length);
+  debug.log(`Known ABI files: ${knownAbiFiles.length}`, 'interact');
   if (knownAbiFiles.length > 0) {
     choices.push(options.BROWSE);
   }
@@ -52,12 +52,11 @@ module.exports = async function prompt({ hre, address }) {
   }
   // Or exit quietly if no options are available
   else if (choices.length === 0) {
-    debug.log('No ABI strategies available');
+    debug.log('No ABI strategies available', 'interact');
     return;
   }
 
   // Execute the chosen strategy
-  debug.log('choice', choice);
   switch (choice) {
     case options.BROWSE:
       return await browseKnwonAbis(knownAbiFiles);
