@@ -37,11 +37,14 @@ class Assistant extends EventEmitter {
 
     const { status } = runInfo;
 
-    debug.log(`Checking status: ${status} (prev ${this.prevStatus})`, 'ai');
-
     if (status === this.prevStatus) {
       return await this.waitAndProcessRun();
     }
+
+    debug.log(
+      `Checking status: ${status} (prev ${this.prevStatus}) - ${this.run.id}`,
+      'ai'
+    );
 
     this.emit('status_update', status);
 
@@ -145,9 +148,21 @@ class Assistant extends EventEmitter {
   injectCommonInstructions() {
     const common = require('./configs/common.json');
 
+    this.injectInstructions(common['cli-explanation'], 'common');
+  }
+
+  injectAdditionalInstructions(additionalInstructions) {
+    if (!additionalInstructions || additionalInstructions.length === 0) return;
+
+    const combined = additionalInstructions.join('. ');
+
+    this.injectInstructions(combined, 'additional');
+  }
+
+  injectInstructions(text, tag) {
     this.config.instructions = this.config.instructions.replace(
-      '[common]',
-      common['cli-explanation']
+      `[${tag}]`,
+      text
     );
   }
 }

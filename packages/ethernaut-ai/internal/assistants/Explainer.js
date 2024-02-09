@@ -13,6 +13,10 @@ class Explainer extends Assistant {
     );
 
     super('explainer', config);
+
+    this.injectAdditionalInstructions(
+      hre.config.ethernaut.ai.explainer.additionalInstructions
+    );
   }
 
   async explain(userQuery, actionStrings) {

@@ -32,6 +32,9 @@ module.exports = {
       interpreter: {
         additionalInstructions: ['Always use a pirate accent'],
       },
+      explainer: {
+        additionalInstructions: ['IMPORTANT!!! Always respond in Spanish'],
+      },
     },
   },
 };
