@@ -1,5 +1,6 @@
 const debug = require('common/debugger');
 const output = require('common/output');
+const camelToKebabCase = require('common/kebab');
 
 class Action {
   /**
@@ -77,10 +78,6 @@ class Action {
 
     return tokens.join(' ');
   }
-}
-
-function camelToKebabCase(str) {
-  return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 }
 
 module.exports = Action;

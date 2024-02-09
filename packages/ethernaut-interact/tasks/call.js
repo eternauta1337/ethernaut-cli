@@ -38,9 +38,9 @@ const call = require('../scopes/interact')
   )
   .addOptionalParam(
     'params',
-    'The parameters to use in the function call. Important: The parameters need to be a string in JSON format. Example: \'["0x123", 42]\'',
+    'The parameters to use in the function call. If the call requires multiple parameters, separate them with a comma. E.g. "0x123,42"',
     undefined,
-    types.json
+    types.string
   )
   .setAction(async ({ abiPath, address, fn, params }, hre) => {
     try {
@@ -52,6 +52,9 @@ const call = require('../scopes/interact')
 
 async function interact({ abiPath, address, fn, params }) {
   // TODO: abiPath is not actually needed if fn is a signature
+
+  // Parse params (incoming as string)
+  params = params ? params.split(',') : [];
 
   // TODO: Also validate
   if (!address) throw new Error('Address is required');
@@ -83,6 +86,13 @@ async function interact({ abiPath, address, fn, params }) {
       params
     )}\``
   );
+
+  // Double check params
+  if (abiFn.inputs.length !== params.length) {
+    throw new Error(
+      `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`
+    );
+  }
 
   // Id signer
   spinner.progress('Connecting signer', 'interact');

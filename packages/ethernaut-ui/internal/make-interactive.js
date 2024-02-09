@@ -2,6 +2,8 @@ const { task: hreTask } = require('hardhat/config');
 const { Input } = require('enquirer');
 const getNodes = require('common/get-nodes');
 const debug = require('common/debugger');
+const output = require('common/output');
+const camelToKebabCase = require('common/kebab');
 
 let _hre;
 
@@ -47,7 +49,13 @@ function makeInteractive(task) {
 
     if (nonInteractive === false) {
       const newArgs = await collectParameters(args, task);
+
       args = { ...args, ...newArgs };
+
+      // If parameters were collected, print out the call
+      if (Object.values(newArgs).length > 0) {
+        output.info(`>>> ${toCliSyntax(args, task)}`);
+      }
     }
 
     await runSuper(args, hre, runSuper);
@@ -61,6 +69,33 @@ function makeInteractive(task) {
   } else {
     hreTask(task.name, task.description, action);
   }
+}
+
+function toCliSyntax(args, task) {
+  const name = task.scope ? `${task.scope} ${task.name}` : task.name;
+  const printArgs = Object.entries(args)
+    .map(([argName, value]) => {
+      const isPositional = task.positionalParamDefinitions.some(
+        (p) => p.name === argName
+      );
+
+      if (isPositional) {
+        return value;
+      } else {
+        const isFlag = task.paramDefinitions[argName]?.isFlag;
+        argName = camelToKebabCase(argName);
+        if (isFlag) {
+          if (value === true) return `--${argName}`;
+          else return '';
+        } else {
+          if (value !== undefined) return `--${argName} ${value}`;
+          else return '';
+        }
+      }
+    })
+    .join(' ');
+
+  return `ethernaut ${name} ${printArgs}`;
 }
 
 async function collectParameters(args, task) {
@@ -78,6 +113,9 @@ async function collectParameters(args, task) {
       `Collecting parameter "${param.name}" ${JSON.stringify(args)}"`,
       'ui'
     );
+
+    // TODO: Handle flags
+    if (param.isFlag) continue;
 
     // Skip if arg is already provided
     const arg = args[param.name];
@@ -106,6 +144,7 @@ async function collectParameters(args, task) {
     const description = param.description
       ? ` (${param.description.split('.')[0].substring(0, 150)})`
       : '';
+
     const prompt = new Input({
       message: `Enter ${param.name}${description}:`,
       initial: param.defaultValue,
