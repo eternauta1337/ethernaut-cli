@@ -7,7 +7,6 @@ require('../scopes/oz')
     'instance',
     'Creates an instance of a level, so that it can be played. The address of the instance is printed to the console. Use this address to interact with the contract using the ethernaut-cli call command. Make sure to use the info command to get instructions on how to complete the level.'
   )
-  // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
     'level',
     'The level number',

@@ -13,7 +13,6 @@ class Interpreter extends Assistant {
     this.on('tool_calls_required', this.processToolCalls);
   }
 
-  // TODO: Make this an override instead of an event
   async processToolCalls(toolCalls) {
     debug.log(`Tool calls required: ${toolCalls.length}`, 'ai');
     debug.log(toolCalls, 'ai-deep');

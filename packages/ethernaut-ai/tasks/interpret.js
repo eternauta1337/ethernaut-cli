@@ -15,7 +15,6 @@ let _query;
 
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
-  // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalPositionalParam(
     'query',
     'The natural language query to convert to CLI commands',

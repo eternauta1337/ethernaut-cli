@@ -18,7 +18,6 @@ const path = require('path');
 
 const call = require('../scopes/interact')
   .task('call', 'Calls a contract function')
-  // TODO: Remove optionality once I can extend environment before parsing tasks
   .addOptionalParam(
     'abiPath',
     'The path of a json file defining the abi of the contract',
