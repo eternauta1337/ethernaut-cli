@@ -1,5 +1,6 @@
 const buildDocs = require('./utils/build-docs');
 const Assistant = require('./Assistant');
+const Thread = require('../threads/Thread');
 
 class Explainer extends Assistant {
   constructor(hre) {
@@ -12,6 +13,17 @@ class Explainer extends Assistant {
     );
 
     super('explainer', config);
+  }
+
+  async explain(userQuery, callStrings) {
+    const query = `Explain how the query "${userQuery}" is addressed with the following actions:\n${callStrings.join(
+      '\n'
+    )}`;
+
+    const secondaryThread = new Thread('explanation');
+    await secondaryThread.post(query);
+
+    return await this.process(secondaryThread);
   }
 }
 
