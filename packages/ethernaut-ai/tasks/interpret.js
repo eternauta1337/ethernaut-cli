@@ -37,13 +37,17 @@ require('../scopes/ai')
 
       const statusUpdateListener = (status) =>
         spinner.progress(`Thinking... (${status})`, 'ai');
-
-      _explainer = new Explainer(hre);
-      _explainer.on('status_update', statusUpdateListener);
+      const buildingAssistantLIstener = () =>
+        spinner.progress('Building assistant...', 'ai');
 
       _interpreter = new Interpreter(hre);
       _interpreter.on('actions_required', processActions);
       _interpreter.on('status_update', statusUpdateListener);
+      _interpreter.on('building_assistant', buildingAssistantLIstener);
+
+      _explainer = new Explainer(hre);
+      _explainer.on('status_update', statusUpdateListener);
+      _explainer.on('building_assistant', buildingAssistantLIstener);
 
       spinner.progress('Thinking...', 'ai');
       const response = await _interpreter.process(_thread);

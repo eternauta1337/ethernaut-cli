@@ -109,6 +109,8 @@ class Assistant extends EventEmitter {
 
   async invalidateId() {
     if (this.needsUpdate()) {
+      this.emit('building_assistant');
+
       // Get the current id and delete the config file.
       const oldId = storage.getAssistantId(this.name);
       if (oldId) storage.deleteAssistantConfig(oldId);
