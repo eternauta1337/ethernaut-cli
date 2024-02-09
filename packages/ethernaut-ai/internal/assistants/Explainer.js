@@ -15,8 +15,8 @@ class Explainer extends Assistant {
     super('explainer', config);
   }
 
-  async explain(userQuery, callStrings) {
-    const query = `Explain how the query "${userQuery}" is addressed with the following actions:\n${callStrings.join(
+  async explain(userQuery, actionStrings) {
+    const query = `Explain how the query "${userQuery}" is addressed with the following actions:\n${actionStrings.join(
       '\n'
     )}`;
 

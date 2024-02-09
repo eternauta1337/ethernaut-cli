@@ -1,6 +1,6 @@
 const buildToolsSpec = require('./utils/build-tools-spec');
 const Assistant = require('./Assistant');
-const TaskCall = require('../TaskCall');
+const Action = require('../Action');
 const debug = require('common/debugger');
 
 class Interpreter extends Assistant {
@@ -18,13 +18,12 @@ class Interpreter extends Assistant {
     debug.log(`Tool calls required: ${toolCalls.length}`, 'ai');
     debug.log(toolCalls, 'ai-deep');
 
-    // TODO: Rename TaskCall to Action
-    const calls = toolCalls.map((tc) => new TaskCall(tc));
-    const callStrings = calls.map((call) => call.toCliSyntax());
+    const actions = toolCalls.map((tc) => new Action(tc));
+    const actionStrings = actions.map((a) => a.toCliSyntax());
 
     debug.log(`Emitting calls_required event`, 'ai');
 
-    this.emit('calls_required', calls, callStrings);
+    this.emit('actions_required', actions, actionStrings);
   }
 }
 

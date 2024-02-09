@@ -1,7 +1,7 @@
 const debug = require('common/debugger');
 const output = require('common/output');
 
-class TaskCall {
+class Action {
   /**
    * Incoming toolCall is an object with the following structure:
    * {
@@ -83,4 +83,4 @@ function camelToKebabCase(str) {
   return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-module.exports = TaskCall;
+module.exports = Action;

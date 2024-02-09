@@ -88,12 +88,12 @@ class Assistant extends EventEmitter {
   }
 
   async reportToolOutputs(outputs) {
-    debug.log(`Outputs reported: ${outputs.length}`, 'ai');
     debug.log(outputs, 'ai-deep');
 
     if (!outputs) {
       await openai.beta.threads.runs.cancel(this.thread.id, this.run.id);
     } else {
+      debug.log(`Outputs reported: ${outputs.length}`, 'ai');
       await openai.beta.threads.runs.submitToolOutputs(
         this.thread.id,
         this.run.id,

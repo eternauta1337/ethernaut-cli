@@ -43,12 +43,13 @@ require('../scopes/ai')
       _explainer.on('status_update', statusUpdateListener);
 
       _interpreter = new Interpreter(hre);
-      _interpreter.on('calls_required', processCalls);
+      _interpreter.on('actions_required', processActions);
       _interpreter.on('status_update', statusUpdateListener);
 
       spinner.progress('Thinking...', 'ai');
       const response = await _interpreter.process(_thread);
 
+      spinner.success('Assistant response:', 'ai');
       output.result(response);
     } catch (err) {
       debug.log(err, 'ai');
@@ -56,27 +57,26 @@ require('../scopes/ai')
     }
   });
 
-// TODO: Rename to processActions
-async function processCalls(calls, callStrings) {
-  debug.log(`Calls required: ${callStrings}`, 'ai');
+async function processActions(actions, actionStrings) {
+  debug.log(`Calls required: ${actionStrings}`, 'ai');
 
   spinner.success('The assistant wants to run some actions', 'ai');
-  callStrings.forEach(output.info);
+  actionStrings.forEach(output.info);
 
   switch (await promptUser()) {
     case 'execute':
       spinner.progress('Executing...', 'ai');
       const outputs = [];
-      for (let call of calls) {
-        outputs.push(await call.execute(hre));
+      for (let action of actions) {
+        outputs.push(await action.execute(hre));
       }
       spinner.progress('Analyzing...', 'ai');
       await _interpreter.reportToolOutputs(outputs);
       break;
     case 'explain':
       spinner.progress('Analyzing...', 'ai');
-      output.info(await _explainer.explain(_query, callStrings));
-      processCalls(calls, callStrings);
+      output.info(await _explainer.explain(_query, actionStrings));
+      processActions(actions, actionStrings);
       break;
     case 'skip':
       spinner.progress('Exiting...', 'ai');
