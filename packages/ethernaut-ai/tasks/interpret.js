@@ -4,6 +4,7 @@ const Explainer = require('../internal/assistants/Explainer');
 const Thread = require('../internal/threads/Thread');
 const output = require('common/output');
 const debug = require('common/debugger');
+const spinner = require('common/spinner');
 const { Select } = require('enquirer');
 
 let _noPrompt;
@@ -28,14 +29,24 @@ require('../scopes/ai')
       _noPrompt = noPrompt;
       _query = query;
 
+      spinner.progress('Preparing thread...', 'ai');
       _thread = new Thread('default', newThread);
+      await _thread.stop();
+
+      spinner.progress('Posting query...', 'ai');
       await _thread.post(query);
 
+      const statusUpdateListener = (status) =>
+        spinner.progress(`Thinking... (${status})`, 'ai');
+
       _explainer = new Explainer(hre);
+      _explainer.on('status_update', statusUpdateListener);
 
       _interpreter = new Interpreter(hre);
       _interpreter.on('calls_required', processCalls);
+      _interpreter.on('status_update', statusUpdateListener);
 
+      spinner.progress('Thinking...', 'ai');
       const response = await _interpreter.process(_thread);
 
       output.result(response);
@@ -48,26 +59,28 @@ require('../scopes/ai')
 // TODO: Rename to processActions
 async function processCalls(calls, callStrings) {
   debug.log(`Calls required: ${callStrings}`, 'ai');
-  // spinner.success('The assistant wants to run some actions', 'ai');
 
-  output.info('The assistant wants to run some actions:');
+  spinner.success('The assistant wants to run some actions', 'ai');
   callStrings.forEach(output.info);
 
   switch (await promptUser()) {
     case 'execute':
+      spinner.progress('Executing...', 'ai');
       const outputs = [];
       for (let call of calls) {
         outputs.push(await call.execute(hre));
       }
+      spinner.progress('Analyzing...', 'ai');
       await _interpreter.reportToolOutputs(outputs);
       break;
     case 'explain':
-      const response = await _explainer.explain(_query, callStrings);
-      output.info(response);
+      spinner.progress('Analyzing...', 'ai');
+      output.info(await _explainer.explain(_query, callStrings));
       processCalls(calls, callStrings);
       break;
     case 'skip':
-      await _interpreter.reportToolCalls(undefined);
+      spinner.progress('Exiting...', 'ai');
+      await _interpreter.reportToolOutputs(undefined);
       break;
   }
 }

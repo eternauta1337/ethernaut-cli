@@ -21,6 +21,7 @@ class Explainer extends Assistant {
     )}`;
 
     const secondaryThread = new Thread('explanation');
+    await secondaryThread.stop();
     await secondaryThread.post(query);
 
     return await this.process(secondaryThread);

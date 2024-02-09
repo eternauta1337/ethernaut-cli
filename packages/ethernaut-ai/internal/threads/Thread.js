@@ -1,6 +1,5 @@
 const storage = require('../storage');
 const openai = require('../openai');
-const spinner = require('common/spinner');
 
 class Thread {
   constructor(name = 'default', newThread) {
@@ -14,8 +13,6 @@ class Thread {
   }
 
   async post(message) {
-    await this.stop();
-
     await this.invalidateId();
 
     await openai.beta.threads.messages.create(this.id, {
@@ -39,9 +36,7 @@ class Thread {
     if (!activeRuns || activeRuns.length === 0) return;
 
     for (const run of activeRuns) {
-      spinner.progress(`Cancelling ${run.id}`, 'thread');
       await openai.beta.threads.runs.cancel(this.id, run.id);
-      spinner.success('Cancelled previous runs', 'thread');
     }
   }
 
@@ -71,9 +66,8 @@ class Thread {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      spinner.progress(`Creating thread "${this.name}"`, 'thread');
-
       const { id } = await openai.beta.threads.create();
+
       storage.storeThreadInfo(this.name, id);
 
       this.id = id;

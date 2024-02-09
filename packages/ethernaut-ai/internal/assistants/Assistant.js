@@ -1,7 +1,6 @@
 const hashStr = require('common/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const spinner = require('common/spinner');
 const debug = require('common/debugger');
 const EventEmitter = require('events');
 
@@ -38,8 +37,13 @@ class Assistant extends EventEmitter {
 
     const { status } = runInfo;
 
-    // spinner.progress(`Status ${status}`, 'ai');
     debug.log(`Checking status: ${status} (prev ${this.prevStatus})`, 'ai');
+
+    if (status === this.prevStatus) {
+      return await this.waitAndProcessRun();
+    }
+
+    this.emit('status_update', status);
 
     // Successful exit
     if (status === 'completed') {
@@ -48,7 +52,6 @@ class Assistant extends EventEmitter {
 
     // Bad exit
     if (status === 'cancelled' || status === 'failed') {
-      if (status === 'failed') spinner.error(runInfo);
       return undefined;
     }
 
@@ -65,14 +68,17 @@ class Assistant extends EventEmitter {
               required_action.submit_tool_outputs.tool_calls
             );
           }
+          break;
         default:
-          spinner.error(`Unknown action request type: ${required_action.type}`);
+          throw new Error(
+            `Unknown action request type: ${required_action.type}`
+          );
+          break;
       }
     }
 
     this.prevStatus = status;
 
-    // Wait and check in a bit...
     return await this.waitAndProcessRun();
   }
 
@@ -100,8 +106,6 @@ class Assistant extends EventEmitter {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      spinner.progress(`Updating assistant: ${this.name}`, 'ai');
-
       // Get the current id and delete the config file.
       const oldId = storage.getAssistantId(this.name);
       if (oldId) storage.deleteAssistantConfig(oldId);
@@ -109,8 +113,6 @@ class Assistant extends EventEmitter {
       // Get a new id and store the new config file.
       const { id } = await openai.beta.assistants.create(this.config);
       storage.storeAssistantConfig(id, this.config);
-
-      spinner.progress(`Created assistant: ${id}`, 'ai');
 
       // Store the info as well.
       storage.storeAssistantInfo(this.name, id);

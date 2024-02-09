@@ -1,5 +1,4 @@
 const debug = require('common/debugger');
-const spinner = require('common/spinner');
 const output = require('common/output');
 
 class TaskCall {
@@ -21,8 +20,6 @@ class TaskCall {
   }
 
   async execute(hre) {
-    spinner.progress(`Executing \`${this.toCliSyntax()}\``, 'ai-execute');
-
     output.startCollectingOutput();
 
     // Prepare args
@@ -45,8 +42,6 @@ class TaskCall {
       debug.log(`Calling: ${scope} ${task} ${args}`, 'ai');
       await hre.run({ scope, task }, args);
     }
-
-    spinner.success(`Executed \`${this.toCliSyntax()}\``, 'ai-execute');
 
     return {
       tool_call_id: this.id,
