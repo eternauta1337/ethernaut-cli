@@ -35,11 +35,21 @@ function makeInteractive(task) {
   }
   debug.log(`Making task "${task.name}" interactive`, 'ui');
 
+  // TODO: This wont really work until I can parse args
+  // before extending the environment...
+  // Rn it will throw if this flag is used
+  task.addFlag('nonInteractive', 'Disable interactivity', false);
+
   // Override the action so that we can
   // collect parameters from the user before runnint it
   const action = async (args, hre, runSuper) => {
-    const newArgs = await collectParameters(args, task);
-    args = { ...args, ...newArgs };
+    const { nonInteractive } = args;
+
+    if (nonInteractive === false) {
+      const newArgs = await collectParameters(args, task);
+      args = { ...args, ...newArgs };
+    }
+
     await runSuper(args, hre, runSuper);
   };
 
