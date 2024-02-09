@@ -8,6 +8,14 @@ class Interpreter extends Assistant {
     const config = require('./configs/interpreter.json');
     config.tools = buildToolsSpec(hre);
 
+    debug.log(
+      `Additional instructions: ${hre.config.ethernaut.ai.interpreter.additionalInstructions.length}`,
+      'ai'
+    );
+    config.instructions = `${
+      config.instructions
+    } ${hre.config.ethernaut.ai.interpreter.additionalInstructions.join('. ')}`;
+
     super('interpreter', config);
 
     this.on('tool_calls_required', this.processToolCalls);

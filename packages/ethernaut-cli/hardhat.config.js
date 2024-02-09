@@ -27,4 +27,11 @@ module.exports = {
       },
     },
   },
+  ethernaut: {
+    ai: {
+      interpreter: {
+        additionalInstructions: ['Always use a pirate accent'],
+      },
+    },
+  },
 };
