@@ -37,21 +37,27 @@ const call = require('../scopes/interact')
     types.string
   )
   .addOptionalParam(
+    'value',
+    'The amount of ether to send with the transaction',
+    undefined,
+    types.string
+  )
+  .addOptionalParam(
     'params',
     'The parameters to use in the function call. If the call requires multiple parameters, separate them with a comma. E.g. "0x123,42"',
     undefined,
     types.string
   )
-  .setAction(async ({ abiPath, address, fn, params }, hre) => {
+  .setAction(async ({ abiPath, address, fn, params, value }, hre) => {
     try {
-      await interact({ abiPath, address, fn, params });
+      await interact({ abiPath, address, fn, params, value });
     } catch (err) {
       debug.log(err, 'interact');
       output.problem(err.message);
     }
   });
 
-async function interact({ abiPath, address, fn, params }) {
+async function interact({ abiPath, address, fn, params, value }) {
   // TODO: abiPath is not actually needed if fn is a signature
 
   // Parse params (incoming as string)
@@ -61,12 +67,14 @@ async function interact({ abiPath, address, fn, params }) {
   if (!address) throw new Error('Address is required');
   if (!abiPath) throw new Error('abiPath is required');
   if (!fn) throw new Error('fn is required');
+  if (!value) value = '0';
 
   debug.log('Interacting with', 'interact');
   debug.log(`abiPath: ${abiPath}`, 'interact');
   debug.log(`address: ${address}`, 'interact');
   debug.log(`fn: ${fn}`, 'interact');
   debug.log(`params: ${params}`, 'interact');
+  debug.log(`value: ${value}`, 'interact');
 
   const abi = loadAbi(abiPath);
   debug.log(abi, 'interact-deep');
@@ -132,15 +140,9 @@ async function interact({ abiPath, address, fn, params }) {
     output.result(`Result: ${result}`);
   } else {
     // Send value?
-    let valueETH = 0;
     const isPayable = abiFn.payable || abiFn.stateMutability === 'payable';
     if (isPayable) {
-      output.info('This function is payable...');
-      const prompt = new Input({
-        message: 'How much ETH do you want to send?',
-      });
-      valueETH = await prompt.run().catch(() => process.exit(0));
-      output.info(`Sending ${valueETH} ETH`);
+      output.info(`Sending ${value} ETH`);
     }
 
     // Estimate gas
@@ -167,7 +169,7 @@ async function interact({ abiPath, address, fn, params }) {
     spinner.progress('Sending transaction', 'interact');
 
     const txParams = {};
-    if (isPayable) txParams.value = hre.ethers.parseEther(valueETH);
+    if (isPayable) txParams.value = hre.ethers.parseEther(value);
 
     const tx = await contract[fn](...params, txParams);
     output.info(`Sending transaction: ${tx.hash}`);
