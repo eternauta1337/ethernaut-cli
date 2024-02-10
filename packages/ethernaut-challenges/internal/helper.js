@@ -30,7 +30,13 @@ function getGamedataFolderPath() {
 }
 
 function getEthernautAbi() {
-  const filePath = path.join(__dirname, '..', 'abis', 'Ethernaut.json');
+  const filePath = path.join(
+    __dirname,
+    '..',
+    'extracted',
+    'abis',
+    'Ethernaut.json'
+  );
 
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }

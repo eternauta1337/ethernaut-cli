@@ -1,9 +1,12 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config');
 const requireAll = require('common/require-all');
+const injectAbis = require('./internal/inject-abis');
 
 requireAll(__dirname, 'tasks');
 
-extendEnvironment((hre) => {});
+extendEnvironment((hre) => {
+  injectAbis();
+});
 
 extendConfig((config, userConfig) => {
   if (config.ethernaut.ai) {
