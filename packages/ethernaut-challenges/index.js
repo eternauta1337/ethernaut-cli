@@ -1,11 +1,14 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config');
 const requireAll = require('common/require-all');
-const injectAbis = require('./internal/inject-abis');
+const copyFiles = require('common/copy-files');
 
 requireAll(__dirname, 'tasks');
 
 extendEnvironment((hre) => {
-  injectAbis();
+  copyFiles(
+    'ethernaut-challenges/extracted/abis',
+    'ethernaut-cli/artifacts/interact/abis'
+  );
 });
 
 extendConfig((config, userConfig) => {
