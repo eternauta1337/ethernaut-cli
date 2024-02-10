@@ -9,8 +9,9 @@ module.exports = async function prompt({ abiPath }) {
 
   try {
     const abi = loadAbi(abiPath);
-    const abiFns = abi.filter((fn) => fn.name && fn.type === 'function');
-
+    const isFunction = (fn) =>
+      fn.type === 'function' || fn.type === 'fallback' || fn.type === 'receive';
+    const abiFns = abi.filter((el) => isFunction(el));
     const choices = abiFns.map((fn) => getFunctionSignature(fn));
 
     const prompt = new AutoComplete({
@@ -22,6 +23,6 @@ module.exports = async function prompt({ abiPath }) {
 
     return await prompt.run().catch(() => process.exit(0));
   } catch (err) {
-    debug.log(err);
+    debug.log(err, 'interact');
   }
 };

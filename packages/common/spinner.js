@@ -1,29 +1,36 @@
 const Spinnies = require('spinnies');
 const cliSpinners = require('cli-spinners');
+const debug = require('common/debugger');
 
+let _enabled = true;
 let _channelErrors = {};
 const _spinnies = new Spinnies({ spinner: cliSpinners.random });
 
+function enable(value) {
+  _enabled = value;
+}
+
 function progress(msg, channel = 'default') {
+  if (!_enabled) return debug.log(msg, 'spinner');
+
   _ensureSpinnie(channel);
   _spinnies.update(channel, { text: msg });
 }
 
 function success(msg = 'Done', channel = 'default') {
+  if (!_enabled) return debug.log(msg, 'spinner');
+
   _ensureSpinnie(channel);
   _spinnies.succeed(channel, { text: msg });
 }
 
 function fail(msg = 'Fail', channel = 'default') {
+  if (!_enabled) return debug.log(msg, 'spinner');
+
   const text = _appendChannelErrors(msg, channel);
 
   _ensureSpinnie(channel);
   _spinnies.fail(channel, { text });
-}
-
-function error(err, channel = 'default') {
-  if (!_channelErrors[channel]) _channelErrors[channel] = [];
-  _channelErrors[channel].push(err);
 }
 
 function remove(channel = 'default') {
@@ -48,10 +55,10 @@ function _ensureSpinnie(channel) {
 }
 
 module.exports = {
+  enable,
   progress,
   success,
   fail,
-  error,
   remove,
   stop,
 };

@@ -8,6 +8,10 @@ module.exports = async function prompt({ abiPath, hre }) {
   try {
     const network = hre.network.config.name || hre.network.name;
 
+    debug.log(
+      `Looking for addresses for ABI ${path.basename(abiPath)}`,
+      'interact'
+    );
     const addresses = storage.findAddressWithAbi(abiPath, network);
     debug.log(
       `Addresses used with ${path.basename(abiPath)}: ${addresses}`,

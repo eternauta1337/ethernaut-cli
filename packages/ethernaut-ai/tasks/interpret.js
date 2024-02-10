@@ -7,7 +7,7 @@ const debug = require('common/debugger');
 const spinner = require('common/spinner');
 const { Select } = require('enquirer');
 
-let _noPrompt;
+let _noConfirm;
 let _thread;
 let _interpreter;
 let _explainer;
@@ -21,11 +21,11 @@ require('../scopes/ai')
     undefined,
     types.string
   )
-  .addFlag('noPrompt', 'Always execute the command without prompting')
+  .addFlag('noConfirm', 'Always execute the command without prompting')
   .addFlag('newThread', 'Start a new thread')
-  .setAction(async ({ query, newThread, noPrompt }, hre) => {
+  .setAction(async ({ query, newThread, noConfirm }, hre) => {
     try {
-      _noPrompt = noPrompt;
+      _noConfirm = noConfirm;
       _query = query;
 
       spinner.progress('Preparing thread...', 'ai');
@@ -89,7 +89,7 @@ async function processActions(actions, actionStrings) {
 }
 
 async function promptUser() {
-  if (_noPrompt) return 'execute';
+  if (_noConfirm) return 'execute';
 
   const prompt = new Select({
     message: 'How would you like to proceed?',

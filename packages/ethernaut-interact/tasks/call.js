@@ -32,7 +32,7 @@ const call = require('../scopes/interact')
   )
   .addOptionalParam(
     'fn',
-    'The function of the contract to call',
+    'The function of the contract to call. Note: if the contract has "receive" and "fallback" functions, use these names to call them. E.g. "receive()" or "fallback()"',
     undefined,
     types.string
   )
@@ -48,16 +48,24 @@ const call = require('../scopes/interact')
     undefined,
     types.string
   )
-  .setAction(async ({ abiPath, address, fn, params, value }, hre) => {
-    try {
-      await interact({ abiPath, address, fn, params, value });
-    } catch (err) {
-      debug.log(err, 'interact');
-      output.problem(err.message);
+  .addOptionalParam(
+    'noConfirm',
+    'Skip confirmation prompts, avoiding any type of interactivity',
+    false,
+    types.string
+  )
+  .setAction(
+    async ({ abiPath, address, fn, params, value, noConfirm }, hre) => {
+      try {
+        await interact({ abiPath, address, fn, params, value, noConfirm });
+      } catch (err) {
+        debug.log(err, 'interact');
+        output.problem(err.message);
+      }
     }
-  });
+  );
 
-async function interact({ abiPath, address, fn, params, value }) {
+async function interact({ abiPath, address, fn, params, value, noConfirm }) {
   // TODO: abiPath is not actually needed if fn is a signature
 
   // Parse params (incoming as string)
@@ -89,7 +97,7 @@ async function interact({ abiPath, address, fn, params, value }) {
   const balance = await getBalance(signer.address);
   output.info(`Using signer: ${signer.address} (${balance} ETH)`);
   spinner.success('Connected signer', 'interact');
-  if (balance <= 0) {
+  if (balance <= 0 && !noConfirm) {
     await warnWithPrompt(
       'WARNING! Signer balance is 0. You may not be able to send transactions.'
     );
@@ -98,7 +106,9 @@ async function interact({ abiPath, address, fn, params, value }) {
   // Display call signature
   // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
   const fnName = fn.split('(')[0];
-  const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
+  const abiFn = abi.find((abiFn) =>
+    (abiFn.name || abiFn.type)?.includes(fnName)
+  );
   const contractName = path.parse(abiPath).name;
   const sig = getFunctionSignature(abiFn);
   output.info(
@@ -160,11 +170,13 @@ async function interact({ abiPath, address, fn, params, value }) {
 
     // Prompt the user for confirmation
     // TODO: Also calculate ETH cost for gas and warn loudly if high
-    const prompt = new Confirm({
-      message: 'Do you want to proceed with the call?',
-    });
-    const response = await prompt.run().catch(() => process.exit(0));
-    if (!response) return;
+    if (!noConfirm) {
+      const prompt = new Confirm({
+        message: 'Do you want to proceed with the call?',
+      });
+      const response = await prompt.run().catch(() => process.exit(0));
+      if (!response) return;
+    }
 
     spinner.progress('Sending transaction', 'interact');
 

@@ -1,5 +1,7 @@
 function getFunctionSignature(fnAbi) {
-  return `${fnAbi.name}(${fnAbi.inputs.map((input) => input.type).join(',')})`;
+  return `${fnAbi.name || fnAbi.type}(${
+    fnAbi.inputs || [].map((input) => input?.type).join(',')
+  })`;
 }
 
 function getPopulatedFunctionSignature(fnAbi, params) {
@@ -10,8 +12,9 @@ function getPopulatedFunctionSignature(fnAbi, params) {
 
   // Collect parameter list
   const parameterDescriptions = [];
-  for (let i = 0; i < fnAbi.inputs.length; i++) {
-    const input = fnAbi.inputs[i];
+  const inputs = fnAbi.inputs || [];
+  for (let i = 0; i < inputs.length; i++) {
+    const input = inputs[i];
 
     const valueDescription = params ? `${params[i]}` : '';
 
@@ -26,7 +29,7 @@ function getPopulatedFunctionSignature(fnAbi, params) {
   );
 
   // Function name
-  let str = `${fnAbi.name}${multiline ? '(\n' : '('}`;
+  let str = `${fnAbi.name || fnAbi.type}${multiline ? '(\n' : '('}`;
   str += `${multiline ? '  ' : ''}${parameterDescriptions.join(
     multiline ? ',\n  ' : ', '
   )}`;

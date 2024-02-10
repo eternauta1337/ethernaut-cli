@@ -38,25 +38,26 @@ function makeInteractive(task) {
   debug.log(`Making task "${task.name}" interactive`, 'ui');
 
   // TODO: This wont really work until I can parse args
+  // TODO: Ai doesn't know how to handle these
   // before extending the environment...
   // Rn it will throw if this flag is used
-  task.addFlag('nonInteractive', 'Disable interactivity', false);
+  // task.addFlag('nonInteractive', 'Disable interactivity', false);
 
   // Override the action so that we can
   // collect parameters from the user before runnint it
   const action = async (args, hre, runSuper) => {
-    const { nonInteractive } = args;
+    // const { nonInteractive } = args;
 
-    if (nonInteractive === false) {
-      const newArgs = await collectParameters(args, task);
+    // if (nonInteractive === false) {
+    const newArgs = await collectParameters(args, task);
 
-      args = { ...args, ...newArgs };
+    args = { ...args, ...newArgs };
 
-      // If parameters were collected, print out the call
-      if (Object.values(newArgs).length > 0) {
-        output.info(`>>> ${toCliSyntax(args, task)}`);
-      }
+    // If parameters were collected, print out the call
+    if (Object.values(newArgs).length > 0) {
+      output.info(`>>> ${toCliSyntax(args, task)}`);
     }
+    // }
 
     await runSuper(args, hre, runSuper);
   };

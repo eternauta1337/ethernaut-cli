@@ -1,5 +1,6 @@
 const loadAbi = require('./load-abi');
 const { Input } = require('enquirer');
+const debug = require('common/debugger');
 
 module.exports = async function prompt({ abiPath, fn }) {
   if (!abiPath) return;
@@ -8,10 +9,11 @@ module.exports = async function prompt({ abiPath, fn }) {
     const abi = loadAbi(abiPath);
 
     const fnName = fn.split('(')[0];
-    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
+    const abiFn = abi.find((abiFn) => (abiFn.name || abiFn.type) === fnName);
 
     let params = [];
-    for (const input of abiFn.inputs) {
+    const inputs = abiFn.inputs || [];
+    for (const input of inputs) {
       const prompt = new Input({
         message: `Enter ${input.name} (${input.type})`,
       });
@@ -23,6 +25,6 @@ module.exports = async function prompt({ abiPath, fn }) {
 
     return params.join(',');
   } catch (err) {
-    debug.log(err);
+    debug.log(err, 'interact');
   }
 };
