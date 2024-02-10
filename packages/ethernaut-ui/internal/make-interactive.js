@@ -88,7 +88,7 @@ function toCliSyntax(args, task) {
           if (value === true) return `--${argName}`;
           else return '';
         } else {
-          if (value !== undefined) return `--${argName} ${value}`;
+          if (value !== undefined) return `--${argName} '${value}'`;
           else return '';
         }
       }

@@ -1,5 +1,3 @@
-const chalk = require('chalk');
-
 function getFunctionSignature(fnAbi) {
   return `${fnAbi.name}(${fnAbi.inputs.map((input) => input.type).join(',')})`;
 }
@@ -35,7 +33,7 @@ function getPopulatedFunctionSignature(fnAbi, params) {
   str += `${multiline ? '\n)' : ')'}`;
 
   // Function decorators
-  if (!isWriteCall) {
+  if (isWriteCall) {
     str += ` ${fnAbi.stateMutability}`;
   }
 
@@ -44,7 +42,7 @@ function getPopulatedFunctionSignature(fnAbi, params) {
     str += ` returns (${outputDescriptions.join(', ')})`;
   }
 
-  return isWriteCall ? chalk.yellowBright.bold(str) : str;
+  return str;
 }
 
 function getFullEventSignature(eventAbi, event) {

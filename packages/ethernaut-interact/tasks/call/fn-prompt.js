@@ -2,6 +2,7 @@ const loadAbi = require('./load-abi');
 const { getFunctionSignature } = require('../../internal/signatures');
 const suggest = require('common/enquirer-suggest');
 const { AutoComplete } = require('enquirer');
+const debug = require('common/debugger');
 
 module.exports = async function prompt({ abiPath }) {
   if (!abiPath) return;

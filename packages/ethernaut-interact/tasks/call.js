@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config');
-const { Confirm } = require('enquirer');
+const { Confirm, Input } = require('enquirer');
 const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
@@ -46,6 +46,7 @@ const call = require('../scopes/interact')
     try {
       await interact({ abiPath, address, fn, params });
     } catch (err) {
+      debug.log(err, 'interact');
       output.problem(err.message);
     }
   });
@@ -74,6 +75,18 @@ async function interact({ abiPath, address, fn, params }) {
 
   storage.rememberAbiAndAddress(abiPath, address, network);
 
+  // Id signer
+  spinner.progress('Connecting signer', 'interact');
+  const signer = (await hre.ethers.getSigners())[0];
+  const balance = await getBalance(signer.address);
+  output.info(`Using signer: ${signer.address} (${balance} ETH)`);
+  spinner.success('Connected signer', 'interact');
+  if (balance <= 0) {
+    await warnWithPrompt(
+      'WARNING! Signer balance is 0. You may not be able to send transactions.'
+    );
+  }
+
   // Display call signature
   // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
   const fnName = fn.split('(')[0];
@@ -94,16 +107,11 @@ async function interact({ abiPath, address, fn, params }) {
     );
   }
 
-  // Id signer
-  spinner.progress('Connecting signer', 'interact');
-  const signer = (await hre.ethers.getSigners())[0];
-  output.info(`Using signer: ${signer.address}`);
-
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact');
   let contract = await hre.ethers.getContractAt(abi, address);
   contract = contract.connect(signer);
-
+  spinner.success('Contract instantiated', 'interact');
   debug.log(`Instantiated contract: ${contract.target}`, 'interact');
 
   // Make the call
@@ -123,6 +131,18 @@ async function interact({ abiPath, address, fn, params }) {
 
     output.result(`Result: ${result}`);
   } else {
+    // Send value?
+    let valueETH = 0;
+    const isPayable = abiFn.payable || abiFn.stateMutability === 'payable';
+    if (isPayable) {
+      output.info('This function is payable...');
+      const prompt = new Input({
+        message: 'How much ETH do you want to send?',
+      });
+      valueETH = await prompt.run().catch(() => process.exit(0));
+      output.info(`Sending ${valueETH} ETH`);
+    }
+
     // Estimate gas
     spinner.progress('Estimating gas', 'interact');
     let estimateGas;
@@ -137,6 +157,7 @@ async function interact({ abiPath, address, fn, params }) {
     }
 
     // Prompt the user for confirmation
+    // TODO: Also calculate ETH cost for gas and warn loudly if high
     const prompt = new Confirm({
       message: 'Do you want to proceed with the call?',
     });
@@ -145,7 +166,10 @@ async function interact({ abiPath, address, fn, params }) {
 
     spinner.progress('Sending transaction', 'interact');
 
-    const tx = await contract[fn](...params);
+    const txParams = {};
+    if (isPayable) txParams.value = hre.ethers.parseEther(valueETH);
+
+    const tx = await contract[fn](...params, txParams);
     output.info(`Sending transaction: ${tx.hash}`);
 
     spinner.progress('Mining transaction', 'interact');
@@ -159,6 +183,9 @@ async function interact({ abiPath, address, fn, params }) {
     output.info(`Gas used: ${receipt.gasUsed.toString()}`);
     output.info(`Gas price: ${receipt.gasPrice.toString()}`);
     output.info(`Block number: ${receipt.blockNumber}`);
+    output.info(
+      `Resulting signer balance: ${await getBalance(signer.address)}`
+    );
 
     if (receipt.status === 0) {
       spinner.fail('Transaction reverted', 'interact');
@@ -185,6 +212,19 @@ async function interact({ abiPath, address, fn, params }) {
       }
     }
   }
+}
+
+async function getBalance(address) {
+  return hre.ethers.formatEther(await hre.ethers.provider.getBalance(address));
+}
+
+async function warnWithPrompt(message) {
+  output.warn(message);
+  const prompt = new Confirm({
+    message: 'Continue anyway?',
+  });
+  const response = await prompt.run().catch(() => process.exit(0));
+  if (!response) process.exit(0);
 }
 
 // Specialized prompts for each param

@@ -11,6 +11,10 @@ function info(msg) {
   _out(chalk.dim(msg));
 }
 
+function warn(msg) {
+  _out(chalk.yellow.bold(msg));
+}
+
 function problem(msg) {
   _out(chalk.red(msg));
 }
@@ -45,6 +49,7 @@ function stopCollectingOutput() {
 module.exports = {
   result,
   info,
+  warn,
   problem,
   startCollectingOutput,
   stopCollectingOutput,
