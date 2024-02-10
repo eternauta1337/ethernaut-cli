@@ -10,7 +10,6 @@ module.exports = function injectAbis() {
   files.forEach((file) => {
     if (path.extname(file) === '.json') {
       fs.copySync(path.join(src, file), path.join(dst, file));
-      console.log(`${file} was copied to ${dst}`);
     }
   });
 };
