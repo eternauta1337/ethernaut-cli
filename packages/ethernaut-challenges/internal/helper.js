@@ -26,17 +26,7 @@ function getLevelDescription(descriptionFileName) {
 }
 
 function getGamedataFolderPath() {
-  return path.join(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    'node_modules',
-    'ethernaut',
-    'client',
-    'src',
-    'gamedata'
-  );
+  return path.join(__dirname, '..', 'extracted', 'gamedata');
 }
 
 function getEthernautAbi() {

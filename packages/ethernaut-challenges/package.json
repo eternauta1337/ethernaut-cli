@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "ethernaut": "github:OpenZeppelin/ethernaut"
+  "devDependencies": {
+    "ethernaut": "github:OpenZeppelin/ethernaut",
+    "fs-extra": "^11.2.0"
   },
   "author": "",
   "license": "ISC"

@@ -54,15 +54,7 @@ function getLevelInfo(level) {
   const abisPath = path.join(process.cwd(), 'artifacts', 'interact', 'abis');
   const abiPath = path.join(abisPath, `${contractName}.json`);
 
-  const sourcesPath = path.join(
-    '..',
-    '..',
-    'node_modules',
-    'ethernaut',
-    'contracts',
-    'contracts',
-    'levels'
-  );
+  const sourcesPath = path.join(__dirname, '..', 'extracted', 'contracts');
   const sourcePath = path.join(sourcesPath, `${contractName}.sol`);
   const source = fs.readFileSync(sourcePath, 'utf8');
 
