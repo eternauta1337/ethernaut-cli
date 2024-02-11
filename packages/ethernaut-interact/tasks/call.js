@@ -1,11 +1,11 @@
 const { types } = require('hardhat/config');
-const { Confirm, Input } = require('enquirer');
 const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
   getFullEventSignature,
 } = require('../internal/signatures');
 const loadAbi = require('./call/load-abi');
+const prompt = require('common/prompt');
 const fnPrompt = require('./call/fn-prompt');
 const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
@@ -171,10 +171,10 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
     // Prompt the user for confirmation
     // TODO: Also calculate ETH cost for gas and warn loudly if high
     if (!noConfirm) {
-      const prompt = new Confirm({
+      const response = await prompt({
+        type: 'confirm',
         message: 'Do you want to proceed with the call?',
       });
-      const response = await prompt.run().catch(() => process.exit(0));
       if (!response) return;
     }
 
@@ -234,10 +234,10 @@ async function getBalance(address) {
 
 async function warnWithPrompt(message) {
   output.warn(message);
-  const prompt = new Confirm({
+  const response = await prompt({
+    type: 'confirm',
     message: 'Continue anyway?',
   });
-  const response = await prompt.run().catch(() => process.exit(0));
   if (!response) process.exit(0);
 }
 

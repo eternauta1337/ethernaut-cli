@@ -1,7 +1,6 @@
 const storage = require('../../internal/storage');
 const EtherscanApi = require('../../internal/etherscan');
-const { Select, AutoComplete } = require('enquirer');
-const suggest = require('common/enquirer-suggest');
+const prompt = require('common/prompt');
 const spinner = require('common/spinner');
 const debug = require('common/debugger');
 
@@ -11,7 +10,7 @@ const strategies = {
   MANUAL: 'Enter path manually',
 };
 
-module.exports = async function prompt({ hre, address }) {
+module.exports = async function ({ hre, address }) {
   try {
     let abiPath;
 
@@ -92,12 +91,12 @@ async function selectStrategy({ address, network }) {
 
   // Show prompt
   debug.log(`Prompting for stragtegy - choices: ${choices}`, 'interact');
-  const prompt = new Select({
+
+  return await prompt({
+    type: 'select',
     message: 'How would you like to specify an ABI?',
     choices,
   });
-
-  return await prompt.run().catch(() => process.exit(0));
 }
 
 async function browseKnwonAbis() {
@@ -108,14 +107,12 @@ async function browseKnwonAbis() {
     value: file.path,
   }));
 
-  const prompt = new AutoComplete({
+  return await prompt({
+    type: 'autocomplete',
     message: 'Pick an ABI',
     limit: 15,
-    choices: choices,
-    suggest,
+    choices,
   });
-
-  return await prompt.run().catch(() => process.exit(0));
 }
 
 function deduceAbiFromAddress(address, network) {

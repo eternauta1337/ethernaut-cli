@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config');
-const { Select } = require('enquirer');
+const prompt = require('common/prompt');
 const output = require('common/output');
+const debug = require('common/debugger');
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 
@@ -29,6 +30,7 @@ const unit = require('../scopes/util')
 
       output.result(result);
     } catch (err) {
+      debug.log(err);
       output.problem(err.message);
     }
   });
@@ -38,12 +40,11 @@ async function pickUnit({ name, description, from, to }) {
   if (name === 'from' && to) choices = units.filter((unit) => unit !== to);
   if (name === 'to' && from) choices = units.filter((unit) => unit !== from);
 
-  const prompt = new Select({
+  return await prompt({
+    type: 'select',
     message: `Select ${name} (${description})`,
     choices,
   });
-
-  return await prompt.run().catch(() => process.exit(0));
 }
 
 unit.paramDefinitions['from'].prompt = pickUnit;

@@ -1,5 +1,5 @@
 const { task: hreTask } = require('hardhat/config');
-const { Input } = require('enquirer');
+const prompt = require('common/prompt');
 const getNodes = require('common/get-nodes');
 const debug = require('common/debugger');
 const output = require('common/output');
@@ -146,12 +146,11 @@ async function collectParameters(args, task) {
       ? ` (${param.description.split('.')[0].substring(0, 150)})`
       : '';
 
-    const prompt = new Input({
+    const response = await prompt({
+      type: 'input',
       message: `Enter ${param.name}${description}:`,
       initial: param.defaultValue,
     });
-
-    const response = await prompt.run().catch(() => process.exit(0));
 
     newArgs[param.name] = response;
   }

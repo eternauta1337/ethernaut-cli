@@ -1,7 +1,6 @@
-const { AutoComplete } = require('enquirer');
+const prompt = require('common/prompt');
 const getNodes = require('common/get-nodes');
 const chalk = require('chalk');
-const suggest = require('common/enquirer-suggest');
 
 module.exports = async function navigateFrom(node) {
   const children = getNodes(node).sort((a, b) => b.isScope - a.isScope);
@@ -25,14 +24,12 @@ module.exports = async function navigateFrom(node) {
     choices.unshift({ title: upTitle, value: undefined });
   }
 
-  const prompt = new AutoComplete({
+  const response = await prompt({
+    type: 'autocomplete',
     message: 'Pick a task or scope',
     limit: 15,
     choices,
-    suggest,
   });
-
-  const response = await prompt.run().catch(() => process.exit(0));
 
   if (response === upTitle) {
     await navigateFrom(hre);

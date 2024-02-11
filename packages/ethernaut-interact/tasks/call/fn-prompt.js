@@ -1,13 +1,9 @@
 const loadAbi = require('./load-abi');
-const {
-  getFunctionSignature,
-  getPopulatedFunctionSignature,
-} = require('../../internal/signatures');
-const suggest = require('common/enquirer-suggest');
-const { AutoComplete } = require('enquirer');
+const { getPopulatedFunctionSignature } = require('../../internal/signatures');
 const debug = require('common/debugger');
+const prompt = require('common/prompt');
 
-module.exports = async function prompt({ abiPath }) {
+module.exports = async function ({ abiPath }) {
   if (!abiPath) return;
 
   try {
@@ -18,14 +14,13 @@ module.exports = async function prompt({ abiPath }) {
     // const choices = abiFns.map((fn) => getFunctionSignature(fn));
     const choices = abiFns.map((fn) => getPopulatedFunctionSignature(fn));
 
-    const prompt = new AutoComplete({
+    return await prompt({
+      type: 'autocomplete',
       message: 'Pick a function',
       limit: 15,
       suggest,
       choices,
     });
-
-    return await prompt.run().catch(() => process.exit(0));
   } catch (err) {
     debug.log(err, 'interact');
   }

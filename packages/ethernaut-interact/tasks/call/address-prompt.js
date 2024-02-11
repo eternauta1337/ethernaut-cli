@@ -2,7 +2,7 @@ const storage = require('../../internal/storage');
 const debug = require('common/debugger');
 const path = require('path');
 
-module.exports = async function prompt({ abiPath, hre }) {
+module.exports = async function ({ abiPath, hre }) {
   if (!abiPath) return;
 
   try {

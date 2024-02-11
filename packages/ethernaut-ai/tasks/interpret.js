@@ -5,7 +5,7 @@ const Thread = require('../internal/threads/Thread');
 const output = require('common/output');
 const debug = require('common/debugger');
 const spinner = require('common/spinner');
-const { Select } = require('enquirer');
+const prompt = require('common/prompt');
 
 let _noConfirm;
 let _thread;
@@ -91,10 +91,9 @@ async function processActions(actions, actionStrings) {
 async function promptUser() {
   if (_noConfirm) return 'execute';
 
-  const prompt = new Select({
+  return await prompt({
+    type: 'select',
     message: 'How would you like to proceed?',
     choices: ['execute', 'explain', 'skip'],
   });
-
-  return await prompt.run().catch(() => process.exit(0));
 }

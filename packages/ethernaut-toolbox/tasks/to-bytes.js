@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config');
 const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/util')
   .task('to-bytes', 'Converts strings to bytes32')
@@ -13,6 +14,7 @@ require('../scopes/util')
     try {
       output.result(hre.ethers.encodeBytes32String(value));
     } catch (err) {
+      debug.log(err);
       output.problem(err.message);
     }
   });

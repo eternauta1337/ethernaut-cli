@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config');
 const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/util')
   .task('to-string', 'Converts bytes32 to string')
@@ -13,6 +14,7 @@ require('../scopes/util')
     try {
       output.result(hre.ethers.toUtf8String(value));
     } catch (err) {
+      debug.log(err);
       output.problem(err.message);
     }
   });

@@ -1,8 +1,8 @@
 const loadAbi = require('./load-abi');
-const { Input } = require('enquirer');
 const debug = require('common/debugger');
+const prompt = require('common/prompt');
 
-module.exports = async function prompt({ abiPath, fn }) {
+module.exports = async function ({ abiPath, fn }) {
   if (!abiPath) return;
 
   try {
@@ -14,11 +14,10 @@ module.exports = async function prompt({ abiPath, fn }) {
     let params = [];
     const inputs = abiFn.inputs || [];
     for (const input of inputs) {
-      const prompt = new Input({
+      const response = await prompt({
+        type: 'input',
         message: `Enter ${input.name} (${input.type})`,
       });
-
-      const response = await prompt.run().catch(() => process.exit(0));
 
       params.push(response);
     }
