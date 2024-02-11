@@ -52,7 +52,7 @@ const call = require('../scopes/interact')
     'noConfirm',
     'Skip confirmation prompts, avoiding any type of interactivity',
     false,
-    types.string
+    types.boolean
   )
   .setAction(
     async ({ abiPath, address, fn, params, value, noConfirm }, hre) => {

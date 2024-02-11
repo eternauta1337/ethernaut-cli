@@ -1,7 +1,7 @@
 function getFunctionSignature(fnAbi) {
-  return `${fnAbi.name || fnAbi.type}(${
-    fnAbi.inputs || [].map((input) => input?.type).join(',')
-  })`;
+  return `${fnAbi.name || fnAbi.type}(${(fnAbi.inputs || [])
+    .map((input) => input?.type)
+    .join(',')})`;
 }
 
 function getPopulatedFunctionSignature(fnAbi, params) {
@@ -19,12 +19,15 @@ function getPopulatedFunctionSignature(fnAbi, params) {
     const valueDescription = params ? `${params[i]}` : '';
 
     parameterDescriptions.push(
-      `${valueDescription} /*${input.type} ${input.name}*/`
+      `${valueDescription.length > 0 ? `${valueDescription} ` : ''}${
+        input.type
+      }${input.name ? ` ${input.name}` : ''}`
     );
   }
 
   // Collect return values
-  const outputDescriptions = fnAbi.outputs.map(
+  const outputs = fnAbi.outputs || [];
+  const outputDescriptions = outputs.map(
     (output) => `${output.type}${output.name ? ` ${output.name}` : ''}`
   );
 
