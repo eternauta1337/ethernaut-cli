@@ -18,7 +18,6 @@ module.exports = async function ({ abiPath }) {
       type: 'autocomplete',
       message: 'Pick a function',
       limit: 15,
-      suggest,
       choices,
     });
   } catch (err) {
