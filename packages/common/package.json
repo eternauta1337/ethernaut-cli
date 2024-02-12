@@ -2,7 +2,7 @@
   "name": "common",
   "private": true,
   "dependencies": {
-    "boxen": "^7.1.1",
+    "boxen": "^5.1.2",
     "cli-spinners": "^2.9.2",
     "debug": "^4.3.4",
     "spinnies": "^0.5.1"

@@ -2,7 +2,7 @@ const spinner = require('common/spinner');
 const debug = require('common/debug');
 const printTxReceipt = require('./print-tx-receipt');
 
-module.exports = async function mineTx(tx) {
+module.exports = async function mineTx(tx, contract) {
   spinner.progress('Sending transaction', 'interact');
 
   const receipt = await tx.wait();
@@ -17,5 +17,5 @@ module.exports = async function mineTx(tx) {
 
   spinner.success('Transaction mined successfully');
 
-  await printTxReceipt(receipt);
+  await printTxReceipt(receipt, contract);
 };

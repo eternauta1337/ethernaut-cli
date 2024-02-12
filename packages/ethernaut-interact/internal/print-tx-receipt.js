@@ -1,7 +1,8 @@
 const output = require('common/output');
+const debug = require('common/debug');
 const { getFullEventSignature } = require('./signatures');
 
-module.exports = async function printTxReceipt(receipt) {
+module.exports = async function printTxReceipt(receipt, contract) {
   // Tx info
   output.resultBox('Transaction Receipt', [
     `Tx hash: ${receipt.hash}`,
@@ -11,17 +12,26 @@ module.exports = async function printTxReceipt(receipt) {
   ]);
 
   // Display events
-  const events = receipt.logs.map((log) => contract.interface.parseLog(log));
-  if (events.length > 0) {
-    output.info(`Emitted ${events.length} events:`);
-    events.forEach((event) => {
-      debug.log(event, 'interact-deep');
+  if (contract) {
+    const events = receipt.logs.map((log) => contract.interface.parseLog(log));
+    if (events.length > 0) {
+      output.info(`Emitted ${events.length} events:`);
+      events.forEach((event, idx) => {
+        debug.log(event, 'interact-deep');
 
-      const eventAbi = abi.find((item) => item.name === event.name);
+        const eventAbi = contract.interface.fragments.find(
+          (item) => item.name === event.name
+        );
 
-      output.resultBox('event', getFullEventSignature(eventAbi, event));
-    });
-  } else {
-    output.info('Emitted no events');
+        output.resultBox(
+          `Event ${idx + 1}`,
+          [getFullEventSignature(eventAbi, event)],
+          'round',
+          'gray'
+        );
+      });
+    } else {
+      output.info('Emitted no events');
+    }
   }
 };

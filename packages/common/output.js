@@ -1,15 +1,15 @@
 const chalk = require('chalk');
+const boxen = require('boxen');
 
 let _collectingOutput = false;
 let _output;
-let _boxen;
 
 function result(msg) {
   _out(chalk.blue(`> ${msg}`));
 }
 
-function resultBox(title, msgs) {
-  _out(_boxen(msgs.join('\n'), { title, padding: 1, borderStyle: 'double' }));
+function resultBox(title, msgs, borderStyle = 'double', borderColor = 'black') {
+  _out(boxen(msgs.join('\n'), { title, padding: 1, borderStyle, borderColor }));
 }
 
 function info(msg) {
@@ -51,12 +51,7 @@ function stopCollectingOutput() {
   return _output;
 }
 
-async function init() {
-  _boxen = (await import('boxen')).default;
-}
-
 module.exports = {
-  init,
   result,
   resultBox,
   info,

@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config');
 const getBalance = require('../internal/get-balance');
 const mineTx = require('../internal/mine-tx');
-const warnWithPrompt = require('../internal/warn-prompt');
 const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
@@ -18,6 +17,8 @@ const output = require('common/output');
 const spinner = require('common/spinner');
 const debug = require('common/debug');
 const path = require('path');
+const connectSigner = require('../internal/connect-signer');
+const printTxSummary = require('../internal/print-tx-summary');
 
 const call = require('../scopes/interact')
   .task('call', 'Calls a contract function')
@@ -92,39 +93,7 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
 
   const network = hre.network.config.name || hre.network.name;
 
-  storage.rememberAbiAndAddress(abiPath, address, network);
-
-  // Id signer
-  spinner.progress('Connecting signer', 'interact');
-  const signer = (await hre.ethers.getSigners())[0];
-  const balance = await getBalance(signer.address);
-  output.info(`Using signer: ${signer.address} (${balance} ETH)`);
-  spinner.success('Connected signer', 'interact');
-  if (balance <= 0 && !noConfirm) {
-    await warnWithPrompt(
-      'WARNING! Signer balance is 0. You may not be able to send transactions.'
-    );
-  }
-
-  // Display call signature
-  // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
-  const fnName = fn.split('(')[0];
-  const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
-  const contractName = path.parse(abiPath).name;
-  const sig = getFunctionSignature(abiFn);
-  output.info(
-    `Calling \`${contractName}.${getPopulatedFunctionSignature(
-      abiFn,
-      params
-    )}\``
-  );
-
-  // Double check params
-  if (abiFn.inputs.length !== params.length) {
-    throw new Error(
-      `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`
-    );
-  }
+  const signer = await connectSigner(noConfirm);
 
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact');
@@ -133,64 +102,114 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
   spinner.success('Contract instantiated', 'interact');
   debug.log(`Instantiated contract: ${contract.target}`, 'interact');
 
-  // Make the call
+  // Id the function to call
+  const fnName = fn.split('(')[0];
+  const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
+  const sig = getFunctionSignature(abiFn);
+
+  // Double check params
+  if (abiFn.inputs.length !== params.length) {
+    throw new Error(
+      `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`
+    );
+  }
+
+  // Remember this interaction
+  // TODO: Only if successful?
+  storage.rememberAbiAndAddress(abiPath, address, network);
+
+  // Execute read or write
   const isReadOnly =
     abiFn.stateMutability === 'view' || abiFn.stateMutability === 'pure';
   if (isReadOnly) {
-    spinner.progress(`Reading contract`, 'interact');
-
-    let result;
-    if (params.length > 0) {
-      result = await contract[sig](...params);
-    } else {
-      result = await contract[sig]();
-    }
-
-    spinner.success('Contract read successful', 'interact');
-
-    output.result(`Result: ${result}`);
+    await executeRead(contract, sig, params);
   } else {
-    // Send value?
-    const isPayable = abiFn.payable || abiFn.stateMutability === 'payable';
-    if (isPayable) {
-      output.info(`Sending ${value} ETH`);
-    }
-
-    // Estimate gas
-    spinner.progress('Estimating gas', 'interact');
-    let estimateGas;
-    try {
-      estimateGas = await contract[fn].estimateGas(...params);
-      spinner.success(`Gas estimated: ${estimateGas}`, 'interact');
-    } catch (err) {
-      spinner.fail('Gas estimation failed', 'interact');
-      throw new Error(
-        `Execution reverted during gas estimation: ${err.message}`
-      );
-    }
-
-    // Prompt the user for confirmation
-    // TODO: Also calculate ETH cost for gas and warn loudly if high
-    if (!noConfirm) {
-      const response = await prompt({
-        type: 'confirm',
-        message: 'Do you want to proceed with the call?',
-      });
-      if (!response) return;
-    }
-
-    spinner.progress('Sending transaction', 'interact');
-
-    const txParams = {};
-    if (isPayable) txParams.value = hre.ethers.parseEther(value);
-
-    const tx = await contract[fn](...params, txParams);
-    output.info(`Sending transaction: ${tx.hash}`);
-
-    await mineTx(tx);
-
-    output.info(`Resulting balance: ${await getBalance(signer.address)}`);
+    await executeWrite(
+      signer,
+      contract,
+      abiFn,
+      sig,
+      params,
+      value,
+      noConfirm,
+      abiPath,
+      address
+    );
   }
+}
+
+async function executeRead(contract, sig, params) {
+  spinner.progress(`Reading contract`, 'interact');
+
+  let result;
+  if (params.length > 0) {
+    result = await contract[sig](...params);
+  } else {
+    result = await contract[sig]();
+  }
+
+  spinner.success('Contract read successful', 'interact');
+
+  output.resultBox('Read Contract', [`${sig} => ${result}`]);
+}
+
+async function executeWrite(
+  signer,
+  contract,
+  abiFn,
+  sig,
+  params,
+  value,
+  noConfirm,
+  abiPath,
+  address
+) {
+  // Build tx params
+  const isPayable = abiFn.payable || abiFn.stateMutability === 'payable';
+  const txParams = {};
+  if (isPayable) txParams.value = hre.ethers.parseEther(value);
+
+  // Estimate gas
+  spinner.progress('Estimating gas', 'interact');
+  let estimateGas;
+  try {
+    estimateGas = await contract[sig].estimateGas(...params, txParams);
+    spinner.success(`Gas estimated: ${estimateGas}`, 'interact');
+  } catch (err) {
+    spinner.fail('Gas estimation failed', 'interact');
+    throw new Error(`Execution reverted during gas estimation: ${err.message}`);
+  }
+
+  // Display tx summary
+  const contractName = path.parse(abiPath).name;
+  await printTxSummary({
+    signer,
+    to: address,
+    value: value,
+    description: `${contractName}.${getPopulatedFunctionSignature(
+      abiFn,
+      params
+    )}`,
+  });
+
+  // Prompt the user for confirmation
+  // TODO: Also calculate ETH cost for gas and warn loudly if high
+  if (!noConfirm) {
+    const response = await prompt({
+      type: 'confirm',
+      message: 'Do you want to proceed with the call?',
+    });
+    if (!response) return;
+  }
+
+  spinner.progress('Sending transaction', 'interact');
+
+  const tx = await contract[sig](...params, txParams);
+  output.info(`Sending transaction: ${tx.hash}`);
+
+  await mineTx(tx, contract);
+
+  output.info(`Resulting balance: ${await getBalance(signer.address)}`);
 }
 
 // Specialized prompts for each param

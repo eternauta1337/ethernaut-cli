@@ -1,10 +1,10 @@
 const output = require('common/output');
 const debug = require('common/debug');
-const spinner = require('common/spinner');
-const prompt = require('common/prompt');
+const confirm = require('common/confirm');
 const getBalance = require('../internal/get-balance');
-const warnWithPrompt = require('../internal/warn-prompt');
+const printTxSummary = require('../internal/print-tx-summary');
 const mineTx = require('../internal/mine-tx');
+const connectSigner = require('../internal/connect-signer');
 
 require('../scopes/interact')
   .task('send', 'Sends ether to a contract')
@@ -38,30 +38,20 @@ require('../scopes/interact')
 async function sendEther({ address, value, noConfirm, hre }) {
   if (!value) value = '0';
 
-  // Value wei to ether
   const valueWei = hre.ethers.parseEther(value);
 
-  // Id signer
-  spinner.progress('Connecting signer', 'interact');
-  const signer = (await hre.ethers.getSigners())[0];
-  const balance = await getBalance(signer.address);
-  output.info(`Using signer: ${signer.address} (${balance} ETH)`);
-  spinner.success('Connected signer', 'interact');
-  if (balance <= 0 && !noConfirm) {
-    await warnWithPrompt(
-      'WARNING! Signer balance is 0. You may not be able to send transactions.'
-    );
-  }
+  const signer = await connectSigner(noConfirm);
+
+  // Show a summary of the transaction
+  await printTxSummary({
+    signer,
+    to: address,
+    value,
+    description: `Sending ${value} ETH (${valueWei} wei) to ${address}`,
+  });
 
   // Prompt the user for confirmation
-  output.info(`Sending ${value} ETH (${valueWei} wei) to ${address}`);
-  if (!noConfirm) {
-    const response = await prompt({
-      type: 'confirm',
-      message: 'Do you want to proceed with the call?',
-    });
-    if (!response) return;
-  }
+  await confirm('Do you want to proceed with the call?', noConfirm);
 
   // Prepare the tx
   const tx = await signer.sendTransaction({
