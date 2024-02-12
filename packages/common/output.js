@@ -8,7 +8,7 @@ function result(msg) {
   _out(chalk.blue(`> ${msg}`));
 }
 
-function resultBox(title, msgs, borderStyle = 'double', borderColor = 'black') {
+function resultBox(title, msgs, borderStyle = 'double', borderColor = 'green') {
   _out(boxen(msgs.join('\n'), { title, padding: 1, borderStyle, borderColor }));
 }
 

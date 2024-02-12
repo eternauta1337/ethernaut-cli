@@ -3,7 +3,7 @@ const debug = require('common/debug');
 const printTxReceipt = require('./print-tx-receipt');
 
 module.exports = async function mineTx(tx, contract) {
-  spinner.progress('Sending transaction', 'interact');
+  spinner.progress('Mining transaction', 'interact');
 
   const receipt = await tx.wait();
   // TODO: Catch wait failure here
@@ -15,7 +15,7 @@ module.exports = async function mineTx(tx, contract) {
     throw new Error(`Transaction mined but execution reverted: ${receipt}`);
   }
 
-  spinner.success('Transaction mined successfully');
+  spinner.success('Transaction mined successfully', 'interact');
 
   await printTxReceipt(receipt, contract);
 };

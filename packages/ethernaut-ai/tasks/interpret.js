@@ -41,9 +41,9 @@ require('../scopes/ai')
         spinner.progress('Building assistant...', 'ai');
 
       _interpreter = new Interpreter(hre);
-      _interpreter.on('actions_required', processActions);
       _interpreter.on('status_update', statusUpdateListener);
       _interpreter.on('building_assistant', buildingAssistantLIstener);
+      _interpreter.on('actions_required', processActions);
 
       _explainer = new Explainer(hre);
       _explainer.on('status_update', statusUpdateListener);
@@ -54,7 +54,7 @@ require('../scopes/ai')
 
       spinner.success('Assistant response:', 'ai');
 
-      if (output) output.result(response);
+      if (response) output.result(response);
     } catch (err) {
       debug.log(err, 'ai');
       output.problem(err.message);
@@ -64,8 +64,7 @@ require('../scopes/ai')
 async function processActions(actions, actionStrings) {
   debug.log(`Calls required: ${actionStrings}`, 'ai');
 
-  spinner.success('The assistant wants to run some actions', 'ai');
-  actionStrings.forEach(output.info);
+  output.resultBox('Suggested Actions', actionStrings, 'double', 'yellow');
 
   switch (await promptUser()) {
     case 'execute':
@@ -88,6 +87,7 @@ async function processActions(actions, actionStrings) {
     case 'skip':
       spinner.progress('Exiting...', 'ai');
       await _interpreter.reportToolOutputs(undefined);
+      spinner.success('Done', 'ai');
       break;
   }
 }

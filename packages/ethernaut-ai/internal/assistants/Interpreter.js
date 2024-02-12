@@ -22,7 +22,7 @@ class Interpreter extends Assistant {
     debug.log(toolCalls, 'ai-deep');
 
     const actions = toolCalls.map((tc) => new Action(tc));
-    const actionStrings = actions.map((a) => a.toCliSyntax());
+    const actionStrings = actions.map((a) => `${a.toCliSyntax()}`);
 
     debug.log(`Emitting calls_required event`, 'ai');
 

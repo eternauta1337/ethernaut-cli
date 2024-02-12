@@ -205,7 +205,8 @@ async function executeWrite(
   spinner.progress('Sending transaction', 'interact');
 
   const tx = await contract[sig](...params, txParams);
-  output.info(`Sending transaction: ${tx.hash}`);
+
+  spinner.success('Transaction sent', 'interact');
 
   await mineTx(tx, contract);
 
