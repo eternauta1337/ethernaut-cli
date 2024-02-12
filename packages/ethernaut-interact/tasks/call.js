@@ -150,7 +150,7 @@ async function executeRead(contract, sig, params) {
 
   spinner.success('Contract read successful', 'interact');
 
-  output.resultBox('Read Contract', [`${sig} => ${result}`]);
+  output.resultBox({ title: 'Read Contract', msgs: [`${sig} => ${result}`] });
 }
 
 async function executeWrite(

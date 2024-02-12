@@ -55,11 +55,23 @@ function makeInteractive(task) {
 
     // If parameters were collected, print out the call
     if (Object.values(newArgs).length > 0) {
-      output.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-      output.info(`${toCliSyntax(args, task)}`);
-      output.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // output.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+      // output.info(`${toCliSyntax(args, task)}`);
+      // output.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       // TODO: This looks really nice but is hard to copy
-      // output.resultBox('Completed task', [toCliSyntax(args, task)], 'classic');
+      output.resultBox({
+        title: 'Autocomplete',
+        msgs: [toCliSyntax(args, task)],
+        borderStyle: {
+          topLeft: '+',
+          topRight: '+',
+          bottomLeft: '+',
+          bottomRight: '+',
+          vertical: ' ',
+          horizontal: '~',
+        },
+        borderColor: 'gray',
+      });
     }
     // }
 

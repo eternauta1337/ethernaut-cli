@@ -55,7 +55,12 @@ require('../scopes/ai')
       spinner.success('Assistant done', 'ai');
 
       if (response) {
-        output.resultBox('Assistant response', [response], 'round', 'red');
+        output.resultBox({
+          title: 'Assistant response',
+          msgs: [response],
+          borderStyle: 'round',
+          borderColor: 'blue',
+        });
       }
     } catch (err) {
       debug.log(err, 'ai');
@@ -66,7 +71,12 @@ require('../scopes/ai')
 async function processActions(actions, actionStrings) {
   debug.log(`Calls required: ${actionStrings}`, 'ai');
 
-  output.resultBox('Suggested Actions', actionStrings, 'double', 'yellow');
+  output.resultBox({
+    title: 'Suggested Actions',
+    msgs: actionStrings,
+    borderStyle: 'round',
+    borderColor: 'yellow',
+  });
 
   switch (await promptUser()) {
     case 'execute':

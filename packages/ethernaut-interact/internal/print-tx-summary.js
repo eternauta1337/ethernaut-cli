@@ -7,15 +7,16 @@ module.exports = async function printTxSummary({
   value,
   description,
 }) {
-  output.resultBox(
-    'Transaction Summary',
-    [
+  output.resultBox({
+    title: 'Transaction Summary',
+    msgs: [
       `${description}\n`,
       `Signer: ${signer.address}`,
       `Balance: ${await getBalance(signer.address)} ETH`,
       `To: ${to}`,
       `Value: ${value} ETH`,
     ],
-    (borderStyle = 'single')
-  );
+    borderStyle: 'round',
+    borderColor: 'gray',
+  });
 };

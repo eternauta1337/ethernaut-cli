@@ -20,14 +20,17 @@ require('../scopes/oz')
     try {
       const info = getLevelInfo(level);
 
-      output.resultBox(`Ethernaut Challenge #${level}`, [
-        `Level name: ${info.name}`,
-        `Contract name: ${info.contractName}`,
-        `ABI path: ${info.abiPath}`,
-        `Address: ${info.levelAddress}`,
-      ]);
-      output.resultBox('Description', [info.description]);
-      output.resultBox('Source', [info.source]);
+      output.resultBox({
+        title: `Ethernaut Challenge #${level}`,
+        msgs: [
+          `Level name: ${info.name}`,
+          `Contract name: ${info.contractName}`,
+          `ABI path: ${info.abiPath}`,
+          `Address: ${info.levelAddress}`,
+        ],
+      });
+      output.resultBox({ title: 'Description', msgs: [info.description] });
+      output.resultBox({ title: 'Source', msgs: [info.source] });
     } catch (err) {
       output.problem(err.message);
     }
