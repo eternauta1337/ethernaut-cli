@@ -52,9 +52,11 @@ require('../scopes/ai')
       spinner.progress('Thinking...', 'ai');
       const response = await _interpreter.process(_thread);
 
-      spinner.success('Assistant response:', 'ai');
+      spinner.success('Assistant done', 'ai');
 
-      if (response) output.result(response);
+      if (response) {
+        output.resultBox('Assistant response', [response], 'round', 'red');
+      }
     } catch (err) {
       debug.log(err, 'ai');
       output.problem(err.message);
@@ -87,7 +89,6 @@ async function processActions(actions, actionStrings) {
     case 'skip':
       spinner.progress('Exiting...', 'ai');
       await _interpreter.reportToolOutputs(undefined);
-      spinner.success('Done', 'ai');
       break;
   }
 }
