@@ -33,7 +33,7 @@ const call = require('../scopes/interact')
   )
   .addOptionalParam(
     'fn',
-    'The function of the contract to call. Note: if the contract has "receive" and "fallback" functions, use these names to call them. E.g. "receive()" or "fallback()"',
+    'The function of the contract to call',
     undefined,
     types.string
   )
@@ -107,9 +107,7 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
   // Display call signature
   // E.g. "transfer(0x123 /*address _to*/, 42 /*uint256 _amount*/"
   const fnName = fn.split('(')[0];
-  const abiFn = abi.find((abiFn) =>
-    (abiFn.name || abiFn.type)?.includes(fnName)
-  );
+  const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
   const contractName = path.parse(abiPath).name;
   const sig = getFunctionSignature(abiFn);
   output.info(
@@ -120,10 +118,9 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
   );
 
   // Double check params
-  const inputs = abiFn.inputs || [];
-  if (inputs.length !== params.length) {
+  if (abiFn.inputs.length !== params.length) {
     throw new Error(
-      `Invalid number of parameters. Expected ${inputs.length}, got ${params.length}`
+      `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`
     );
   }
 

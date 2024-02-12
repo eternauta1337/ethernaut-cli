@@ -11,8 +11,7 @@ module.exports = async function ({ abiPath }) {
 
   try {
     const abi = loadAbi(abiPath);
-    const isFunction = (fn) =>
-      fn.type === 'function' || fn.type === 'fallback' || fn.type === 'receive';
+    const isFunction = (fn) => fn.type === 'function';
     const abiFns = abi.filter((el) => isFunction(el));
     const choices = abiFns.map((fn) => ({
       title: getPopulatedFunctionSignature(fn),

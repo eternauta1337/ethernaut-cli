@@ -9,7 +9,7 @@ module.exports = async function ({ abiPath, fn }) {
     const abi = loadAbi(abiPath);
 
     const fnName = fn.split('(')[0];
-    const abiFn = abi.find((abiFn) => (abiFn.name || abiFn.type) === fnName);
+    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
 
     // If the active function is not payable, set value to 0
     // to skip the input prompt

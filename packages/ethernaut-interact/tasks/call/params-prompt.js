@@ -9,11 +9,10 @@ module.exports = async function ({ abiPath, fn }) {
     const abi = loadAbi(abiPath);
 
     const fnName = fn.split('(')[0];
-    const abiFn = abi.find((abiFn) => (abiFn.name || abiFn.type) === fnName);
+    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
 
     let params = [];
-    const inputs = abiFn.inputs || [];
-    for (const input of inputs) {
+    for (const input of abiFn.inputs) {
       const response = await prompt({
         type: 'input',
         message: `Enter ${input.name} (${input.type})`,

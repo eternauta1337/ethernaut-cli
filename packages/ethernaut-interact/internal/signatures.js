@@ -12,9 +12,8 @@ function getPopulatedFunctionSignature(fnAbi, params) {
 
   // Collect parameter list
   const parameterDescriptions = [];
-  const inputs = fnAbi.inputs || [];
-  for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i];
+  for (let i = 0; i < fnAbi.inputs.length; i++) {
+    const input = fnAbi.inputs[i];
 
     const valueDescription = params ? `${params[i]}` : '';
 
@@ -26,8 +25,7 @@ function getPopulatedFunctionSignature(fnAbi, params) {
   }
 
   // Collect return values
-  const outputs = fnAbi.outputs || [];
-  const outputDescriptions = outputs.map(
+  const outputDescriptions = fnAbi.outputs.map(
     (output) => `${output.type}${output.name ? ` ${output.name}` : ''}`
   );
 
