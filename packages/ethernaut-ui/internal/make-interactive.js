@@ -55,7 +55,7 @@ function makeInteractive(task) {
 
     // If parameters were collected, print out the call
     if (Object.values(newArgs).length > 0) {
-      output.info(`>>> ${toCliSyntax(args, task)}`);
+      output.info(`${toCliSyntax(args, task)}`);
     }
     // }
 

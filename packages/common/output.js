@@ -4,15 +4,15 @@ let _collectingOutput = false;
 let _output;
 
 function result(msg) {
-  _out(chalk.blue(msg));
+  _out(chalk.blue(`> ${msg}`));
 }
 
 function info(msg) {
-  _out(chalk.dim(msg));
+  _out(chalk.black(`i ${msg}`));
 }
 
 function warn(msg) {
-  _out(chalk.yellow.bold(msg));
+  _out(chalk.yellow.bold(`! ${msg}`));
 }
 
 function problem(msg) {

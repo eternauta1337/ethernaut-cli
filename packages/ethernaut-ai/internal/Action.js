@@ -27,6 +27,8 @@ class Action {
     let args = JSON.parse(this.function.arguments);
     Object.entries(args).forEach(([name, value]) => {
       if (name.includes('_')) {
+        value = value === 'true' ? true : value;
+        value = value === 'false' ? false : value;
         args[name.replace('_', '')] = value;
       }
     });
@@ -35,12 +37,15 @@ class Action {
     const nameComponents = this.function.name.split('.');
     if (nameComponents.length === 1) {
       const task = nameComponents[0];
-      debug.log(`Calling: ${task} ${args}`, 'ai');
+      debug.log(`Calling: ${task} ${JSON.stringify(args, null, 2)}`, 'ai');
       await hre.run(task, args);
     } else {
       const scope = nameComponents[0];
       const task = nameComponents[1];
-      debug.log(`Calling: ${scope} ${task} ${args}`, 'ai');
+      debug.log(
+        `Calling: ${scope} ${task} ${JSON.stringify(args, null, 2)}`,
+        'ai'
+      );
       await hre.run({ scope, task }, args);
     }
 

@@ -1,5 +1,8 @@
 const loadAbi = require('./load-abi');
-const { getPopulatedFunctionSignature } = require('../../internal/signatures');
+const {
+  getFunctionSignature,
+  getPopulatedFunctionSignature,
+} = require('../../internal/signatures');
 const debug = require('common/debugger');
 const prompt = require('common/prompt');
 
@@ -11,8 +14,10 @@ module.exports = async function ({ abiPath }) {
     const isFunction = (fn) =>
       fn.type === 'function' || fn.type === 'fallback' || fn.type === 'receive';
     const abiFns = abi.filter((el) => isFunction(el));
-    // const choices = abiFns.map((fn) => getFunctionSignature(fn));
-    const choices = abiFns.map((fn) => getPopulatedFunctionSignature(fn));
+    const choices = abiFns.map((fn) => ({
+      title: getPopulatedFunctionSignature(fn),
+      value: getFunctionSignature(fn),
+    }));
 
     return await prompt({
       type: 'autocomplete',

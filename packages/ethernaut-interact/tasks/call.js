@@ -10,6 +10,7 @@ const fnPrompt = require('./call/fn-prompt');
 const paramsPrompt = require('./call/params-prompt');
 const abiPathPrompt = require('./call/abi-path-prompt');
 const addressPrompt = require('./call/address-prompt');
+const valuePrompt = require('./call/value-prompt');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
@@ -119,9 +120,10 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
   );
 
   // Double check params
-  if (abiFn.inputs.length !== params.length) {
+  const inputs = abiFn.inputs || [];
+  if (inputs.length !== params.length) {
     throw new Error(
-      `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`
+      `Invalid number of parameters. Expected ${inputs.length}, got ${params.length}`
     );
   }
 
@@ -246,3 +248,4 @@ call.paramDefinitions.abiPath.prompt = abiPathPrompt;
 call.paramDefinitions.address.prompt = addressPrompt;
 call.paramDefinitions.fn.prompt = fnPrompt;
 call.paramDefinitions.params.prompt = paramsPrompt;
+call.paramDefinitions.value.prompt = valuePrompt;
