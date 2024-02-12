@@ -5,8 +5,8 @@ const debug = require('common/debugger');
 let _enabled = true;
 let _channelErrors = {};
 const _spinnies = new Spinnies({
-  color: 'black',
-  succeedColor: 'black',
+  color: 'white',
+  succeedColor: 'white',
   spinner: cliSpinners.random,
 });
 

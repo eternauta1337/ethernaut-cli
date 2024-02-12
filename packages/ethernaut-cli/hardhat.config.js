@@ -30,14 +30,10 @@ module.exports = {
   ethernaut: {
     ai: {
       interpreter: {
-        additionalInstructions: [
-          'Always respond in english, but with a German accent.',
-        ],
+        additionalInstructions: [''],
       },
       explainer: {
-        additionalInstructions: [
-          'IMPORTANT!!! Always respond in Spanish, and singing.',
-        ],
+        additionalInstructions: [''],
       },
     },
   },

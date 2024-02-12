@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
+const debug = require('common/debugger');
 
 require('../scopes/oz')
   .task(
@@ -17,6 +18,7 @@ require('../scopes/oz')
     try {
       output.result(await submitInstance(address, hre));
     } catch (err) {
+      debug.log(err, 'interact');
       output.problem(err.message);
     }
   });
@@ -33,6 +35,7 @@ async function submitInstance(address, hre) {
   // Submit the instance
   const tx = await ethernaut.submitLevelInstance(address);
   const receipt = await tx.wait();
+  debug.log(JSON.stringify(receipt, null, 2), 'interact');
 
   if (receipt.status === 0) {
     throw new Error('Transaction failed');

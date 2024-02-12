@@ -20,7 +20,7 @@ require('../scopes/oz')
     try {
       const info = getLevelInfo(level);
 
-      output.result(`Name: ${info.name}`);
+      output.result(`Level name: ${info.name}`);
       output.result(`Contract name: ${info.contractName}`);
       output.result(`ABI path: ${info.abiPath}`);
       output.result(`Address: ${info.levelAddress}`);

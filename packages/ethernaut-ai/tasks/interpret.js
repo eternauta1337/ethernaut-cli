@@ -53,7 +53,8 @@ require('../scopes/ai')
       const response = await _interpreter.process(_thread);
 
       spinner.success('Assistant response:', 'ai');
-      output.result(response);
+
+      if (output) output.result(response);
     } catch (err) {
       debug.log(err, 'ai');
       output.problem(err.message);
@@ -71,6 +72,9 @@ async function processActions(actions, actionStrings) {
       spinner.progress('Executing...', 'ai');
       const outputs = [];
       for (let action of actions) {
+        // TODO: Not sure why this might be needed...
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
         outputs.push(await action.execute(hre));
       }
       spinner.progress('Analyzing...', 'ai');

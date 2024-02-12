@@ -8,7 +8,7 @@ function result(msg) {
 }
 
 function info(msg) {
-  _out(chalk.black(`i ${msg}`));
+  _out(chalk.white(`i ${msg}`));
 }
 
 function warn(msg) {
