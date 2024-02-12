@@ -1,8 +1,10 @@
 const { types } = require('hardhat/config');
+const getBalance = require('../internal/get-balance');
+const mineTx = require('../internal/mine-tx');
+const warnWithPrompt = require('../internal/warn-prompt');
 const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
-  getFullEventSignature,
 } = require('../internal/signatures');
 const loadAbi = require('./call/load-abi');
 const prompt = require('common/prompt');
@@ -185,59 +187,8 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
     const tx = await contract[fn](...params, txParams);
     output.info(`Sending transaction: ${tx.hash}`);
 
-    spinner.progress('Mining transaction', 'interact');
-
-    // Wait for the transaction to be mined
-    const receipt = await tx.wait();
-
-    // Present tx receipggt
-    debug.log(JSON.stringify(receipt, null, 2), 'interact-deep');
-    output.info(`Transaction mined!`);
-    output.info(`Gas used: ${receipt.gasUsed.toString()}`);
-    output.info(`Gas price: ${receipt.gasPrice.toString()}`);
-    output.info(`Block number: ${receipt.blockNumber}`);
-    output.info(
-      `Resulting signer balance: ${await getBalance(signer.address)}`
-    );
-
-    if (receipt.status === 0) {
-      spinner.fail('Transaction reverted', 'interact');
-
-      throw new Error(`Transaction mined but execution reverted: ${receipt}`);
-    } else {
-      spinner.success('Transaction mined successfully');
-
-      // Display events
-      const events = receipt.logs.map((log) =>
-        contract.interface.parseLog(log)
-      );
-      if (events.length > 0) {
-        output.info(`Emitted ${events.length} events:`);
-        events.forEach((event) => {
-          debug.log(event, 'interact-deep');
-
-          const eventAbi = abi.find((item) => item.name === event.name);
-
-          output.info(`${getFullEventSignature(eventAbi, event)}`);
-        });
-      } else {
-        output.info('Emitted no events');
-      }
-    }
+    await mineTx(tx, signer);
   }
-}
-
-async function getBalance(address) {
-  return hre.ethers.formatEther(await hre.ethers.provider.getBalance(address));
-}
-
-async function warnWithPrompt(message) {
-  output.warn(message);
-  const response = await prompt({
-    type: 'confirm',
-    message: 'Continue anyway?',
-  });
-  if (!response) process.exit(0);
 }
 
 // Specialized prompts for each param
