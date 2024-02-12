@@ -1,10 +1,12 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config');
 const requireAll = require('common/require-all');
 const spinner = require('common/spinner');
+const output = require('common/output');
 
 requireAll(__dirname, 'tasks');
 
-extendEnvironment((hre) => {
+extendEnvironment(async (hre) => {
+  await output.init();
   spinner.enable(!hre.hardhatArguments.verbose);
 });
 

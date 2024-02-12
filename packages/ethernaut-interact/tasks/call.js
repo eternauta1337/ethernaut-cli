@@ -187,7 +187,9 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
     const tx = await contract[fn](...params, txParams);
     output.info(`Sending transaction: ${tx.hash}`);
 
-    await mineTx(tx, signer);
+    await mineTx(tx);
+
+    output.info(`Resulting balance: ${await getBalance(signer.address)}`);
   }
 }
 
