@@ -1,7 +1,7 @@
 const buildToolsSpec = require('./utils/build-tools-spec');
 const Assistant = require('./Assistant');
 const Action = require('../Action');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 
 class Interpreter extends Assistant {
   constructor(hre) {

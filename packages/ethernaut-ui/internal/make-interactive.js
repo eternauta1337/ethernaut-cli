@@ -1,7 +1,7 @@
 const { task: hreTask } = require('hardhat/config');
 const prompt = require('common/prompt');
 const getNodes = require('common/get-nodes');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const output = require('common/output');
 const camelToKebabCase = require('common/kebab');
 

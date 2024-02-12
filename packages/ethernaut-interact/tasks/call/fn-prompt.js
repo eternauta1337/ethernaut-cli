@@ -3,7 +3,7 @@ const {
   getFunctionSignature,
   getPopulatedFunctionSignature,
 } = require('../../internal/signatures');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const prompt = require('common/prompt');
 
 module.exports = async function ({ abiPath }) {

@@ -1,4 +1,4 @@
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const output = require('common/output');
 const camelToKebabCase = require('common/kebab');
 

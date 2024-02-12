@@ -16,7 +16,7 @@ const valuePrompt = require('./call/value-prompt');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const path = require('path');
 
 const call = require('../scopes/interact')

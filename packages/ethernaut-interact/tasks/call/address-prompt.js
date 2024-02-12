@@ -1,5 +1,5 @@
 const storage = require('../../internal/storage');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const path = require('path');
 
 module.exports = async function ({ abiPath, hre }) {

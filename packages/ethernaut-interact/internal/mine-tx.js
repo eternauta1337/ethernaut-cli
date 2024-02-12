@@ -1,5 +1,5 @@
 const spinner = require('common/spinner');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const output = require('common/output');
 const getBalance = require('./get-balance');
 const { getFullEventSignature } = require('../internal/signatures');

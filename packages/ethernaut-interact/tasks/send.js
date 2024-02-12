@@ -1,5 +1,5 @@
 const output = require('common/output');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const spinner = require('common/spinner');
 const prompt = require('common/prompt');
 const getBalance = require('../internal/get-balance');

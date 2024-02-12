@@ -1,5 +1,5 @@
 const loadAbi = require('./load-abi');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 const prompt = require('common/prompt');
 
 module.exports = async function ({ abiPath, fn }) {

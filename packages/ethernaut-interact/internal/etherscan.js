@@ -1,5 +1,5 @@
 const axios = require('axios');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 
 class EtherscanApi {
   constructor(apiKey, baseUrl) {

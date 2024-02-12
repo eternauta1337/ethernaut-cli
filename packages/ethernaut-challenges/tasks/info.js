@@ -3,7 +3,7 @@ const helper = require('../internal/helper');
 const fs = require('fs');
 const path = require('path');
 const output = require('common/output');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 
 require('../scopes/oz')
   .task(

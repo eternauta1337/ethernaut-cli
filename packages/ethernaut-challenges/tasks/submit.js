@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 
 require('../scopes/oz')
   .task(

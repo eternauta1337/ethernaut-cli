@@ -2,7 +2,7 @@ const storage = require('../../internal/storage');
 const EtherscanApi = require('../../internal/etherscan');
 const prompt = require('common/prompt');
 const spinner = require('common/spinner');
-const debug = require('common/debugger');
+const debug = require('common/debug');
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
