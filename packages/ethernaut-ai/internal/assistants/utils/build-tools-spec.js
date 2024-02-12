@@ -7,6 +7,8 @@ module.exports = function buildToolsSpec(hre) {
   const tools = [];
 
   tasks.forEach((t) => {
+    if (t.scope && t.scope === 'vars') return;
+
     tools.push({
       type: 'function',
       function: {
