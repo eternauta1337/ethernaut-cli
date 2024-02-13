@@ -1,6 +1,7 @@
 const debug = require('common/debug');
 const output = require('common/output');
 const camelToKebabCase = require('common/kebab');
+const chalk = require('chalk');
 
 class Action {
   /**
@@ -15,44 +16,77 @@ class Action {
    *
    * Optional arguments are prefixed with an underscore.
    */
-  constructor(toolCall) {
+  constructor(toolCall, hre) {
+    this.hre = hre;
     this.id = toolCall.id;
     this.function = toolCall.function;
+    this.parseTask();
+    this.parseArgs();
+  }
+
+  parseTask() {
+    const nameComponents = this.function.name.split('.');
+
+    if (nameComponents.length === 1) {
+      this.taskName = nameComponents[0];
+    } else {
+      this.scopeName = nameComponents[0];
+      this.taskName = nameComponents[1];
+    }
+
+    if (this.scopeName) {
+      this.scope = this.hre.scopes[this.scopeName];
+      this.task = this.scope.tasks[this.taskName];
+    } else {
+      this.task = this.hre.tasks[this.taskName];
+    }
+  }
+
+  parseArgs() {
+    this.args = JSON.parse(this.function.arguments);
+    Object.entries(this.args).forEach(([name, value]) => {
+      if (name.includes('_')) {
+        value = value === 'true' ? true : value;
+        value = value === 'false' ? false : value;
+        this.args[name.replace('_', '')] = value;
+      }
+    });
   }
 
   async execute(hre) {
     output.startCollectingOutput();
 
-    // Prepare args
-    let args = JSON.parse(this.function.arguments);
-    Object.entries(args).forEach(([name, value]) => {
-      if (name.includes('_')) {
-        value = value === 'true' ? true : value;
-        value = value === 'false' ? false : value;
-        args[name.replace('_', '')] = value;
-      }
-    });
-
-    // Execute
-    const nameComponents = this.function.name.split('.');
-    if (nameComponents.length === 1) {
-      const task = nameComponents[0];
-      debug.log(`Calling: ${task} ${JSON.stringify(args, null, 2)}`, 'ai');
-      await hre.run(task, args);
-    } else {
-      const scope = nameComponents[0];
-      const task = nameComponents[1];
+    if (this.scopeName) {
       debug.log(
-        `Calling: ${scope} ${task} ${JSON.stringify(args, null, 2)}`,
+        `Calling: ${this.scopeName} ${this.taskName} ${JSON.stringify(
+          this.args,
+          null,
+          2
+        )}`,
         'ai'
       );
-      await hre.run({ scope, task }, args);
+      await hre.run({ scope: this.scopeName, task: this.taskName }, this.args);
+    } else {
+      debug.log(
+        `Calling: ${this.taskName} ${JSON.stringify(this.args, null, 2)}`,
+        'ai'
+      );
+      await hre.run(this.taskName, this.args);
     }
 
     return {
       tool_call_id: this.id,
       output: output.stopCollectingOutput(),
     };
+  }
+
+  getDescription() {
+    const cliSyntax = this.toCliSyntax();
+    const description = chalk.italic.dim(
+      `${this.taskName}: "${this.task.description}"`
+    );
+
+    return `${cliSyntax}\n${description}`;
   }
 
   /**

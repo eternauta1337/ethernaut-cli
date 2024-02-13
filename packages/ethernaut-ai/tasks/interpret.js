@@ -68,12 +68,12 @@ require('../scopes/ai')
     }
   });
 
-async function processActions(actions, actionStrings) {
-  debug.log(`Calls required: ${actionStrings}`, 'ai');
+async function processActions(actions, actionDescriptions) {
+  debug.log(`Calls required: ${actionDescriptions}`, 'ai');
 
   output.resultBox({
     title: 'Suggested Actions',
-    msgs: actionStrings,
+    msgs: actionDescriptions,
     borderStyle: 'round',
     borderColor: 'yellow',
   });
@@ -93,7 +93,10 @@ async function processActions(actions, actionStrings) {
       break;
     case 'explain':
       spinner.progress('Analyzing...', 'ai');
-      output.info(await _explainer.explain(_query, actionStrings));
+      output.resultBox({
+        title: 'Explanation',
+        msgs: [await _explainer.explain(_query, actionStrings)],
+      });
       processActions(actions, actionStrings);
       break;
     case 'skip':

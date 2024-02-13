@@ -15,18 +15,20 @@ class Interpreter extends Assistant {
     );
 
     this.on('tool_calls_required', this.processToolCalls);
+
+    this.hre = hre;
   }
 
   async processToolCalls(toolCalls) {
     debug.log(`Tool calls required: ${toolCalls.length}`, 'ai');
     debug.log(toolCalls, 'ai-deep');
 
-    const actions = toolCalls.map((tc) => new Action(tc));
-    const actionStrings = actions.map((a) => `${a.toCliSyntax()}`);
+    const actions = toolCalls.map((tc) => new Action(tc, hre));
+    const actionDescriptions = actions.map((a) => a.getDescription());
 
     debug.log(`Emitting calls_required event`, 'ai');
 
-    this.emit('actions_required', actions, actionStrings);
+    this.emit('actions_required', actions, actionDescriptions);
   }
 }
 
