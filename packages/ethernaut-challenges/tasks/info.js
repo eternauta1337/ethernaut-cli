@@ -20,6 +20,8 @@ require('../scopes/oz')
     try {
       const info = getLevelInfo(level);
 
+      output.infoBox(info.description, 'Description');
+      output.infoBox(info.source, 'Source Code');
       output.resultBox(
         `Level name: ${info.name}\n` +
           `Contract name: ${info.contractName}\n` +
@@ -27,11 +29,8 @@ require('../scopes/oz')
           `Address: ${info.levelAddress}`,
         `Ethernaut Challenge #${level}`
       );
-
-      output.infoBox(info.description, 'Description');
-      output.infoBox(info.source, 'Source Code');
     } catch (err) {
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });
 

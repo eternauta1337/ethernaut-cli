@@ -5,7 +5,7 @@ const output = require('common/output');
 require('../scopes/oz')
   .task(
     'instance',
-    'Creates an instance of a level, so that it can be played. The address of the instance is printed to the console. Use this address to interact with the contract using the ethernaut-cli call command. Make sure to use the info command to get instructions on how to complete the level.'
+    'Creates an instance of a level, so that it can be played. The address of the instance is printed to the console. Use this address to interact with the contract using the ethernaut-cli contract command. Make sure to use the info command to get instructions on how to complete the level.'
   )
   .addOptionalPositionalParam(
     'level',
@@ -18,7 +18,7 @@ require('../scopes/oz')
       const instanceAddress = await createInstance(level, hre);
       output.resultBox(`Instance created ${instanceAddress}`);
     } catch (err) {
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });
 

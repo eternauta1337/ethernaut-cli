@@ -8,6 +8,6 @@ task('navigate', 'Navigates tasks with enquirer')
     try {
       await navigateFrom(hre.scopes[scope] || hre);
     } catch (err) {
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });

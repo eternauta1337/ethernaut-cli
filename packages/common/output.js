@@ -1,55 +1,61 @@
 const chalk = require('chalk');
 const boxen = require('boxen');
+const debug = require('./debug');
 
 let _collectingOutput = false;
 let _output;
 
 function resultBox(msg, title = 'Result') {
-  _out('');
-  _out(
-    boxen(msg, {
-      title,
-      padding: 1,
-      borderStyle: 'round',
-      borderColor: 'blue',
-    })
-  );
+  box(msg, {
+    title,
+    padding: 1,
+    borderStyle: 'round',
+    borderColor: 'blue',
+  });
 }
 
 function infoBox(msg, title = 'Info') {
-  _out('');
-  _out(
-    boxen(msg, {
-      title,
-      padding: 1,
-      borderStyle: 'classic',
-      borderColor: 'gray',
-    })
-  );
+  box(msg, {
+    title,
+    padding: 1,
+    borderStyle: 'classic',
+    borderColor: 'gray',
+  });
 }
 
 function warnBox(msg, title = 'Warning') {
-  _out('');
-  _out(
-    boxen(msg, {
-      title,
-      padding: 1,
-      borderStyle: 'round',
-      borderColor: 'yellow',
-    })
-  );
+  box(msg, {
+    title,
+    padding: 1,
+    borderStyle: 'round',
+    borderColor: 'yellow',
+  });
 }
 
-function errorBox(msg, title = 'Error') {
+function errorBox(error) {
+  debug.log(error);
+  box(error.stack, {
+    title: 'Error',
+    padding: 1,
+    borderStyle: 'double',
+    borderColor: 'red',
+  });
+}
+
+function box(
+  msg,
+  { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
+) {
   _out('');
   _out(
     boxen(msg, {
       title,
-      padding: 1,
-      borderStyle: 'round',
-      borderColor: 'red',
+      padding,
+      borderStyle,
+      borderColor,
     })
   );
+  _out('');
 }
 
 function info(msg) {

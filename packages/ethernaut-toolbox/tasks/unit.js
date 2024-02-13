@@ -33,7 +33,7 @@ const unit = require('../scopes/util')
       output.resultBox(result);
     } catch (err) {
       debug.log(err);
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });
 

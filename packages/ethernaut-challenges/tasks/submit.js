@@ -19,7 +19,7 @@ require('../scopes/oz')
       output.resultBox(await submitInstance(address, hre));
     } catch (err) {
       debug.log(err, 'interact');
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });
 

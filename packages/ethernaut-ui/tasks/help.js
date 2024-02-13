@@ -6,6 +6,6 @@ task('help', 'Jumps into the help navigator').setAction(async ({}, hre) => {
   try {
     await navigateFrom(hre.scopes[scope] || hre);
   } catch (err) {
-    output.errorBox(err.message);
+    output.errorBox(err);
   }
 });

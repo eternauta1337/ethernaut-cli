@@ -15,6 +15,6 @@ require('../scopes/util')
       output.resultBox(hre.ethers.encodeBytes32String(value));
     } catch (err) {
       debug.log(err);
-      output.errorBox(err.message);
+      output.errorBox(err);
     }
   });

@@ -64,7 +64,7 @@ const contract = require('../scopes/interact')
         await interact({ abiPath, address, fn, params, value, noConfirm });
       } catch (err) {
         debug.log(err, 'interact');
-        output.errorBox(err.message);
+        output.errorBox(err);
       }
     }
   );
