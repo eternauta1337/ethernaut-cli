@@ -5,13 +5,13 @@ const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
 } = require('../internal/signatures');
-const loadAbi = require('./call/load-abi');
+const loadAbi = require('./contract/load-abi');
 const prompt = require('common/prompt');
-const fnPrompt = require('./call/fn-prompt');
-const paramsPrompt = require('./call/params-prompt');
-const abiPathPrompt = require('./call/abi-path-prompt');
-const addressPrompt = require('./call/address-prompt');
-const valuePrompt = require('./call/value-prompt');
+const fnPrompt = require('./contract/fn-prompt');
+const paramsPrompt = require('./contract/params-prompt');
+const abiPathPrompt = require('./contract/abi-path-prompt');
+const addressPrompt = require('./contract/address-prompt');
+const valuePrompt = require('./contract/value-prompt');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
@@ -20,8 +20,8 @@ const path = require('path');
 const connectSigner = require('../internal/connect-signer');
 const printTxSummary = require('../internal/print-tx-summary');
 
-const call = require('../scopes/interact')
-  .task('call', 'Calls a contract function')
+const contract = require('../scopes/interact')
+  .task('contract', 'Interacts with a contract')
   .addOptionalParam(
     'abiPath',
     'The path of a json file defining the abi of the contract',
@@ -214,8 +214,8 @@ async function executeWrite(
 }
 
 // Specialized prompts for each param
-call.paramDefinitions.abiPath.prompt = abiPathPrompt;
-call.paramDefinitions.address.prompt = addressPrompt;
-call.paramDefinitions.fn.prompt = fnPrompt;
-call.paramDefinitions.params.prompt = paramsPrompt;
-call.paramDefinitions.value.prompt = valuePrompt;
+contract.paramDefinitions.abiPath.prompt = abiPathPrompt;
+contract.paramDefinitions.address.prompt = addressPrompt;
+contract.paramDefinitions.fn.prompt = fnPrompt;
+contract.paramDefinitions.params.prompt = paramsPrompt;
+contract.paramDefinitions.value.prompt = valuePrompt;
