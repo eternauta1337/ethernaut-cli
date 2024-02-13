@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const { types } = require('hardhat/config');
 const getBalance = require('../internal/get-balance');
@@ -14,6 +13,7 @@ const paramsPrompt = require('./contract/params-prompt');
 const abiPrompt = require('./contract/abi-prompt');
 const addressPrompt = require('./contract/address-prompt');
 const valuePrompt = require('./contract/value-prompt');
+const abiCheck = require('./contract/abi-check');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
@@ -218,33 +218,5 @@ contract.paramDefinitions.fn.prompt = fnPrompt;
 contract.paramDefinitions.params.prompt = paramsPrompt;
 contract.paramDefinitions.value.prompt = valuePrompt;
 
-contract.paramDefinitions.abi.check = async function (abi) {
-  // An abi is specified but its not a valid file.
-  // Try to match it with a known file...
-  if (abi && !isValidJsonFile(abi)) {
-    const abis = storage.readAbiFiles();
-    const match = abis.find((a) =>
-      a.name.toLowerCase().includes(abi.toLowerCase())
-    );
-    if (match) {
-      debug.log(
-        `Matched incoming ABI "${abi}" with known ABI at "${match.path}"`,
-        'interact'
-      );
-      abi = match.path;
-      return abi;
-    }
-  }
-};
-
-function isValidJsonFile(abi) {
-  if (path.extname(abi) !== '.json') {
-    return false;
-  }
-
-  if (!fs.existsSync(abi)) {
-    return false;
-  }
-
-  return true;
-}
+// Specialized checks for each param
+contract.paramDefinitions.abi.check = abiCheck;
