@@ -7,6 +7,8 @@ task('help', 'Jumps into the help navigator').setAction(async ({}, hre) => {
     if (process.argv.length >= 3) {
       const scope = process.argv[2];
       await navigateFrom(hre.scopes[scope] || hre);
+    } else {
+      await navigateFrom(hre);
     }
   } catch (err) {
     output.errorBox(err);
