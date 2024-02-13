@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { types } = require('hardhat/config');
 const getBalance = require('../internal/get-balance');
 const mineTx = require('../internal/mine-tx');
@@ -9,22 +11,21 @@ const loadAbi = require('./contract/load-abi');
 const prompt = require('common/prompt');
 const fnPrompt = require('./contract/fn-prompt');
 const paramsPrompt = require('./contract/params-prompt');
-const abiPathPrompt = require('./contract/abi-path-prompt');
+const abiPrompt = require('./contract/abi-prompt');
 const addressPrompt = require('./contract/address-prompt');
 const valuePrompt = require('./contract/value-prompt');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
 const debug = require('common/debug');
-const path = require('path');
 const connectSigner = require('../internal/connect-signer');
 const printTxSummary = require('../internal/print-tx-summary');
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
   .addOptionalParam(
-    'abiPath',
-    'The path of a json file defining the abi of the contract',
+    'abi',
+    'The path to a json file specifying the abi of the contract',
     undefined,
     types.string
   )
@@ -58,38 +59,36 @@ const contract = require('../scopes/interact')
     false,
     types.boolean
   )
-  .setAction(
-    async ({ abiPath, address, fn, params, value, noConfirm }, hre) => {
-      try {
-        await interact({ abiPath, address, fn, params, value, noConfirm });
-      } catch (err) {
-        debug.log(err, 'interact');
-        output.errorBox(err);
-      }
+  .setAction(async ({ abi, address, fn, params, value, noConfirm }, hre) => {
+    try {
+      await interact({ abi, address, fn, params, value, noConfirm });
+    } catch (err) {
+      debug.log(err, 'interact');
+      output.errorBox(err);
     }
-  );
+  });
 
-async function interact({ abiPath, address, fn, params, value, noConfirm }) {
-  // TODO: abiPath is not actually needed if fn is a signature
+async function interact({ abi, address, fn, params, value, noConfirm }) {
+  // TODO: abi is not actually needed if fn is a signature
 
   // Parse params (incoming as string)
   params = params ? params.split(',') : [];
 
   // TODO: Also validate
   if (!address) throw new Error('Address is required');
-  if (!abiPath) throw new Error('abiPath is required');
+  if (!abi) throw new Error('abi is required');
   if (!fn) throw new Error('fn is required');
   if (!value) value = '0';
 
   debug.log('Interacting with', 'interact');
-  debug.log(`abiPath: ${abiPath}`, 'interact');
+  debug.log(`abi: ${abi}`, 'interact');
   debug.log(`address: ${address}`, 'interact');
   debug.log(`fn: ${fn}`, 'interact');
   debug.log(`params: ${params}`, 'interact');
   debug.log(`value: ${value}`, 'interact');
 
-  const abi = loadAbi(abiPath);
-  debug.log(abi, 'interact-deep');
+  const _abi = loadAbi(abi);
+  debug.log(_abi, 'interact-deep');
 
   const network = hre.network.config.name || hre.network.name;
 
@@ -97,14 +96,14 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
 
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact');
-  let contract = await hre.ethers.getContractAt(abi, address);
+  let contract = await hre.ethers.getContractAt(_abi, address);
   contract = contract.connect(signer);
   spinner.success('Contract instantiated', 'interact');
   debug.log(`Instantiated contract: ${contract.target}`, 'interact');
 
   // Id the function to call
   const fnName = fn.split('(')[0];
-  const abiFn = abi.find((abiFn) => abiFn.name?.includes(fnName));
+  const abiFn = _abi.find((abiFn) => abiFn.name?.includes(fnName));
   const sig = getFunctionSignature(abiFn);
 
   // Double check params
@@ -116,7 +115,7 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
 
   // Remember this interaction
   // TODO: Only if successful?
-  storage.rememberAbiAndAddress(abiPath, address, network);
+  storage.rememberAbiAndAddress(abi, address, network);
 
   // Execute read or write
   const isReadOnly =
@@ -132,7 +131,7 @@ async function interact({ abiPath, address, fn, params, value, noConfirm }) {
       params,
       value,
       noConfirm,
-      abiPath,
+      abi,
       address
     );
   }
@@ -160,7 +159,7 @@ async function executeWrite(
   params,
   value,
   noConfirm,
-  abiPath,
+  abi,
   address
 ) {
   // Build tx params
@@ -180,7 +179,7 @@ async function executeWrite(
   }
 
   // Display tx summary
-  const contractName = path.parse(abiPath).name;
+  const contractName = path.parse(abi).name;
   await printTxSummary({
     signer,
     to: address,
@@ -213,8 +212,39 @@ async function executeWrite(
 }
 
 // Specialized prompts for each param
-contract.paramDefinitions.abiPath.prompt = abiPathPrompt;
+contract.paramDefinitions.abi.prompt = abiPrompt;
 contract.paramDefinitions.address.prompt = addressPrompt;
 contract.paramDefinitions.fn.prompt = fnPrompt;
 contract.paramDefinitions.params.prompt = paramsPrompt;
 contract.paramDefinitions.value.prompt = valuePrompt;
+
+contract.paramDefinitions.abi.check = async function (abi) {
+  // An abi is specified but its not a valid file.
+  // Try to match it with a known file...
+  if (abi && !isValidJsonFile(abi)) {
+    const abis = storage.readAbiFiles();
+    const match = abis.find((a) =>
+      a.name.toLowerCase().includes(abi.toLowerCase())
+    );
+    if (match) {
+      debug.log(
+        `Matched incoming ABI "${abi}" with known ABI at "${match.path}"`,
+        'interact'
+      );
+      abi = match.path;
+      return abi;
+    }
+  }
+};
+
+function isValidJsonFile(abi) {
+  if (path.extname(abi) !== '.json') {
+    return false;
+  }
+
+  if (!fs.existsSync(abi)) {
+    return false;
+  }
+
+  return true;
+}

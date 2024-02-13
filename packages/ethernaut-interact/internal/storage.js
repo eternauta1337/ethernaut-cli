@@ -21,12 +21,12 @@ function readAddresses() {
   return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
 }
 
-function findAddressWithAbi(abiPath, network) {
+function findAddressWithAbi(abi, network) {
   const networkAddresses = readAddresses()[network];
   if (!networkAddresses) return undefined;
 
   return Object.entries(networkAddresses).find(
-    ([address, addressAbiPath]) => addressAbiPath === abiPath
+    ([address, addressAbiPath]) => addressAbiPath === abi
   )[0];
 }
 
@@ -36,7 +36,7 @@ function storeAddresses(data) {
   fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2));
 }
 
-function rememberAbiAndAddress(abiPath, address, network) {
+function rememberAbiAndAddress(abi, address, network) {
   initStorage();
 
   const addresses = readAddresses();
@@ -45,7 +45,7 @@ function rememberAbiAndAddress(abiPath, address, network) {
     addresses[network] = {};
   }
 
-  addresses[network][address] = abiPath;
+  addresses[network][address] = abi;
 
   storeAddresses(addresses);
 }

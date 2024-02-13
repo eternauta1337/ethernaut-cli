@@ -25,7 +25,7 @@ require('../scopes/oz')
       output.resultBox(
         `Level name: ${info.name}\n` +
           `Contract name: ${info.contractName}\n` +
-          `ABI path: ${info.abiPath}\n` +
+          `ABI path: ${info.abi}\n` +
           `Address: ${info.levelAddress}`,
         `Ethernaut Challenge #${level}`
       );
@@ -45,7 +45,7 @@ function getLevelInfo(level) {
   const contractName = levelInfo.instanceContract.split('.')[0];
 
   const abisPath = path.join(process.cwd(), 'artifacts', 'interact', 'abis');
-  const abiPath = path.join(abisPath, `${contractName}.json`);
+  const abi = path.join(abisPath, `${contractName}.json`);
 
   const sourcesPath = path.join(__dirname, '..', 'extracted', 'contracts');
   const sourcePath = path.join(sourcesPath, `${contractName}.sol`);
@@ -59,7 +59,7 @@ function getLevelInfo(level) {
   return {
     name,
     contractName,
-    abiPath,
+    abi,
     levelAddress,
     source,
     description,

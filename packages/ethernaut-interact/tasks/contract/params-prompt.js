@@ -2,14 +2,14 @@ const loadAbi = require('./load-abi');
 const debug = require('common/debug');
 const prompt = require('common/prompt');
 
-module.exports = async function ({ abiPath, fn }) {
-  if (!abiPath) return;
+module.exports = async function ({ abi, fn }) {
+  if (!abi) return;
 
   try {
-    const abi = loadAbi(abiPath);
+    const _abi = loadAbi(abi);
 
     const fnName = fn.split('(')[0];
-    const abiFn = abi.find((abiFn) => abiFn.name === fnName);
+    const abiFn = _abi.find((abiFn) => abiFn.name === fnName);
 
     let params = [];
     for (const input of abiFn.inputs) {

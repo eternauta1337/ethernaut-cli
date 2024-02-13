@@ -118,8 +118,13 @@ async function collectParameters(args, task) {
     // TODO: Handle flags
     if (param.isFlag) continue;
 
-    // Skip if arg is already provided
     const arg = args[param.name];
+
+    if (param.check) {
+      args[param.name] = await param.check(arg);
+    }
+
+    // Skip if arg is already provided
     if (arg !== undefined) continue;
 
     // Does the parameter provide its own prompt?

@@ -10,17 +10,15 @@ const strategies = {
   MANUAL: 'Enter path manually',
 };
 
-module.exports = async function ({ hre, address }) {
+module.exports = async function ({ abi, hre, address }) {
   try {
-    let abiPath;
-
     const network = hre.network.config.name || hre.network.name;
 
     // Try to deduce the abi from previous interactions
     // in the current network
     if (address) {
-      abiPath = deduceAbiFromAddress(address, network);
-      if (abiPath) return abiPath;
+      abi = deduceAbiFromAddress(address, network);
+      if (abi) return abi;
     } else {
       debug.log('Cannot deduce from address', 'interact');
     }
@@ -32,10 +30,10 @@ module.exports = async function ({ hre, address }) {
     // Execute the chosen strategy
     switch (choice) {
       case strategies.BROWSE:
-        abiPath = await browseKnwonAbis();
+        abi = await browseKnwonAbis();
         break;
       case strategies.ETHERSCAN:
-        abiPath = await getAbiFromEtherscan(address, network);
+        abi = await getAbiFromEtherscan(address, network);
         break;
       case strategies.MANUAL:
       // Do nothing
@@ -43,11 +41,11 @@ module.exports = async function ({ hre, address }) {
 
     // Remember anything?
     // Note: The abi file is stored below when fetching from Etherscan
-    if (abiPath && address) {
-      storage.rememberAbiAndAddress(abiPath, address, network);
+    if (abi && address) {
+      storage.rememberAbiAndAddress(abi, address, network);
     }
 
-    return abiPath;
+    return abi;
   } catch (err) {
     debug.log(err, 'interact');
   }
@@ -126,8 +124,8 @@ function deduceAbiFromAddress(address, network) {
     'interact'
   );
 
-  const abiPath = addresses[address];
-  if (!abiPath) {
+  const abi = addresses[address];
+  if (!abi) {
     debug.log(
       `No address entry found for ${address} on ${network}`,
       'interact'
@@ -135,9 +133,9 @@ function deduceAbiFromAddress(address, network) {
     return;
   }
 
-  debug.log(`Found ...${abiPath.split('/').pop()} for ${address}`, 'interact');
+  debug.log(`Found ...${abi.split('/').pop()} for ${address}`, 'interact');
 
-  return abiPath;
+  return abi;
 }
 
 async function getAbiFromEtherscan(address, network) {
@@ -152,14 +150,14 @@ async function getAbiFromEtherscan(address, network) {
 
   try {
     const info = await etherscan.getContractCode(address);
-    const abiPath = storage.storeAbi(info.ContractName, info.ABI);
+    const abi = storage.storeAbi(info.ContractName, info.ABI);
 
     spinner.success(
       `Abi fetched from Etherscan ${info.ContractName}`,
       'etherscan'
     );
 
-    return abiPath;
+    return abi;
   } catch (err) {
     spinner.fail(
       `Unable to fetch ABI from Etherscan: ${err.message}`,

@@ -6,13 +6,13 @@ const {
 const debug = require('common/debug');
 const prompt = require('common/prompt');
 
-module.exports = async function ({ abiPath }) {
-  if (!abiPath) return;
+module.exports = async function ({ abi }) {
+  if (!abi) return;
 
   try {
-    const abi = loadAbi(abiPath);
+    const _abi = loadAbi(abi);
     const isFunction = (fn) => fn.type === 'function';
-    const abiFns = abi.filter((el) => isFunction(el));
+    const abiFns = _abi.filter((el) => isFunction(el));
     const choices = abiFns.map((fn) => ({
       title: getPopulatedFunctionSignature(fn),
       value: getFunctionSignature(fn),
