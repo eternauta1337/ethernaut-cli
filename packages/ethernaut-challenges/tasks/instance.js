@@ -16,9 +16,9 @@ require('../scopes/oz')
   .setAction(async ({ level }, hre) => {
     try {
       const instanceAddress = await createInstance(level, hre);
-      output.result(`Instance created ${instanceAddress}`);
+      output.resultBox(`Instance created ${instanceAddress}`);
     } catch (err) {
-      output.problem(err.message);
+      output.errorBox(err.message);
     }
   });
 

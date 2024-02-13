@@ -4,19 +4,52 @@ const boxen = require('boxen');
 let _collectingOutput = false;
 let _output;
 
-function result(msg) {
-  _out(chalk.blue(`> ${msg}`));
+function resultBox(msg, title = 'Result') {
+  _out('');
+  _out(
+    boxen(msg, {
+      title,
+      padding: 1,
+      borderStyle: 'round',
+      borderColor: 'blue',
+    })
+  );
 }
 
-function resultBox({
-  title,
-  msgs,
-  padding = 1,
-  borderStyle = 'double',
-  borderColor = 'green',
-}) {
+function infoBox(msg, title = 'Info') {
   _out('');
-  _out(boxen(msgs.join('\n'), { title, padding, borderStyle, borderColor }));
+  _out(
+    boxen(msg, {
+      title,
+      padding: 1,
+      borderStyle: 'classic',
+      borderColor: 'gray',
+    })
+  );
+}
+
+function warnBox(msg, title = 'Warning') {
+  _out('');
+  _out(
+    boxen(msg, {
+      title,
+      padding: 1,
+      borderStyle: 'round',
+      borderColor: 'yellow',
+    })
+  );
+}
+
+function errorBox(msg, title = 'Error') {
+  _out('');
+  _out(
+    boxen(msg, {
+      title,
+      padding: 1,
+      borderStyle: 'round',
+      borderColor: 'red',
+    })
+  );
 }
 
 function info(msg) {
@@ -25,10 +58,6 @@ function info(msg) {
 
 function warn(msg) {
   _out(chalk.yellow.bold(`! ${msg}`));
-}
-
-function problem(msg) {
-  _out(chalk.red(msg));
 }
 
 function _out(msg) {
@@ -59,11 +88,12 @@ function stopCollectingOutput() {
 }
 
 module.exports = {
-  result,
   resultBox,
+  infoBox,
+  warnBox,
+  errorBox,
   info,
   warn,
-  problem,
   startCollectingOutput,
   stopCollectingOutput,
 };

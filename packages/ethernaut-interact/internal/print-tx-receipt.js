@@ -4,15 +4,13 @@ const { getFullEventSignature } = require('./signatures');
 
 module.exports = async function printTxReceipt(receipt, contract) {
   // Tx info
-  output.resultBox({
-    title: 'Transaction Receipt',
-    msgs: [
-      `Tx hash: ${receipt.hash}`,
-      `Gas used: ${receipt.gasUsed.toString()}`,
-      `Gas price: ${receipt.gasPrice.toString()}`,
+  output.resultBox(
+    `Tx hash: ${receipt.hash}\n` +
+      `Gas used: ${receipt.gasUsed.toString()}\n` +
+      `Gas price: ${receipt.gasPrice.toString()}\n` +
       `Block number: ${receipt.blockNumber}`,
-    ],
-  });
+    'Transaction Receipt'
+  );
 
   // Display events
   if (contract) {
@@ -26,12 +24,10 @@ module.exports = async function printTxReceipt(receipt, contract) {
           (item) => item.name === event.name
         );
 
-        output.resultBox({
-          title: `Event ${idx + 1}`,
-          msgs: [getFullEventSignature(eventAbi, event)],
-          borderStyle: 'round',
-          borderColor: 'green',
-        });
+        output.resultBox(
+          getFullEventSignature(eventAbi, event),
+          `Event ${idx + 1}`
+        );
       });
     } else {
       output.info('Emitted no events');

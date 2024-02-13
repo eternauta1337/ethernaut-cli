@@ -12,9 +12,9 @@ require('../scopes/util')
   )
   .setAction(async ({ value }, hre) => {
     try {
-      output.result(hre.ethers.encodeBytes32String(value));
+      output.resultBox(hre.ethers.encodeBytes32String(value));
     } catch (err) {
       debug.log(err);
-      output.problem(err.message);
+      output.errorBox(err.message);
     }
   });

@@ -7,7 +7,7 @@ let _channelErrors = {};
 const _spinnies = new Spinnies({
   color: 'white',
   succeedColor: 'white',
-  spinner: cliSpinners.random,
+  spinner: cliSpinners.dots,
 });
 
 function enable(value) {

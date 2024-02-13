@@ -31,7 +31,7 @@ require('../scopes/interact')
       await sendEther({ address, value, noConfirm, hre });
     } catch (err) {
       debug.log(err, 'interact');
-      output.problem(err.message);
+      output.errorBox(err.message);
     }
   });
 

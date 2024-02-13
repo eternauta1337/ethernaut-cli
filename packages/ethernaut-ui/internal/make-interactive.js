@@ -59,19 +59,7 @@ function makeInteractive(task) {
       // output.info(`${toCliSyntax(args, task)}`);
       // output.info('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
       // TODO: This looks really nice but is hard to copy
-      output.resultBox({
-        title: 'Autocomplete',
-        msgs: [toCliSyntax(args, task)],
-        borderStyle: {
-          topLeft: '+',
-          topRight: '+',
-          bottomLeft: '+',
-          bottomRight: '+',
-          vertical: ' ',
-          horizontal: '~',
-        },
-        borderColor: 'gray',
-      });
+      output.infoBox(toCliSyntax(args, task), 'Autocomplete');
     }
     // }
 

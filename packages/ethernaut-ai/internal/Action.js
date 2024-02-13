@@ -82,11 +82,11 @@ class Action {
 
   getDescription() {
     const cliSyntax = this.toCliSyntax();
-    const description = chalk.italic.dim(
-      `${this.taskName}: "${this.task.description}"`
+    const description = chalk.dim(
+      `i "${this.taskName}" task: ${this.task.description}`
     );
 
-    return `${cliSyntax}\n${description}`;
+    return `> ${cliSyntax}\n${description}`;
   }
 
   /**

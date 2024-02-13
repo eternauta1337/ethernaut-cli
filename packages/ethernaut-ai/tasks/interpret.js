@@ -55,28 +55,18 @@ require('../scopes/ai')
       spinner.success('Assistant done', 'ai');
 
       if (response) {
-        output.resultBox({
-          title: 'Assistant response',
-          msgs: [response],
-          borderStyle: 'round',
-          borderColor: 'blue',
-        });
+        output.resultBox(response, 'Assistant response');
       }
     } catch (err) {
       debug.log(err, 'ai');
-      output.problem(err.message);
+      output.errorBox(err.message);
     }
   });
 
 async function processActions(actions, actionDescriptions) {
   debug.log(`Calls required: ${actionDescriptions}`, 'ai');
 
-  output.resultBox({
-    title: 'Suggested Actions',
-    msgs: actionDescriptions,
-    borderStyle: 'round',
-    borderColor: 'yellow',
-  });
+  output.infoBox(actionDescriptions.join('\n'), 'Suggested Actions');
 
   switch (await promptUser()) {
     case 'execute':
@@ -93,10 +83,10 @@ async function processActions(actions, actionDescriptions) {
       break;
     case 'explain':
       spinner.progress('Analyzing...', 'ai');
-      output.resultBox({
-        title: 'Explanation',
-        msgs: [await _explainer.explain(_query, actionStrings)],
-      });
+      output.infoBox(
+        await _explainer.explain(_query, actionStrings),
+        'Explanation'
+      );
       processActions(actions, actionStrings);
       break;
     case 'skip':
