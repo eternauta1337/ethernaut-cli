@@ -55,7 +55,6 @@ function box(
       borderColor,
     })
   );
-  _out('');
 }
 
 function info(msg) {

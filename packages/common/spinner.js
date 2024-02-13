@@ -4,6 +4,8 @@ const debug = require('common/debug');
 
 let _enabled = true;
 let _channelErrors = {};
+let _activeChannels = {};
+
 const _spinnies = new Spinnies({
   color: 'white',
   succeedColor: 'white',
@@ -19,6 +21,7 @@ function progress(msg, channel = 'default') {
 
   _ensureSpinnie(channel);
   _spinnies.update(channel, { text: msg });
+  _activeChannels[channel] = true;
 }
 
 function success(msg = 'Done', channel = 'default') {
@@ -26,6 +29,7 @@ function success(msg = 'Done', channel = 'default') {
 
   _ensureSpinnie(channel);
   _spinnies.succeed(channel, { text: msg });
+  _activeChannels[channel] = false;
 }
 
 function fail(msg = 'Fail', channel = 'default') {
@@ -42,6 +46,12 @@ function remove(channel = 'default') {
 }
 
 function stop() {
+  Object.entries(_activeChannels).forEach(([channel, isActive]) => {
+    if (isActive) {
+      _spinnies.remove(channel);
+      _activeChannels[channel] = false;
+    }
+  });
   _spinnies.stopAll();
 }
 
