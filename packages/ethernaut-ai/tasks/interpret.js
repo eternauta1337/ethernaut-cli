@@ -65,7 +65,7 @@ require('../scopes/ai')
 async function processActions(actions, actionDescriptions) {
   debug.log(`Calls required: ${actionDescriptions}`, 'ai');
 
-  output.infoBox(actionDescriptions.join('\n'), 'Suggested Actions');
+  output.copyBox(actionDescriptions.join('\n'), 'Suggested Actions');
 
   switch (await promptUser()) {
     case 'execute':

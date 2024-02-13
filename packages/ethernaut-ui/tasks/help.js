@@ -4,7 +4,10 @@ const output = require('common/output');
 
 task('help', 'Jumps into the help navigator').setAction(async ({}, hre) => {
   try {
-    await navigateFrom(hre.scopes[scope] || hre);
+    if (process.argv.length >= 3) {
+      const scope = process.argv[2];
+      await navigateFrom(hre.scopes[scope] || hre);
+    }
   } catch (err) {
     output.errorBox(err);
   }

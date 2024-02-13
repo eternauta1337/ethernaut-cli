@@ -42,11 +42,26 @@ function errorBox(error) {
   });
 }
 
+function copyBox(msg, title = 'Info') {
+  box(chalk.cyan(msg), {
+    title,
+    padding: 0,
+    borderColor: 'cyan',
+    borderStyle: {
+      topLeft: '+',
+      topRight: '+',
+      bottomLeft: '+',
+      bottomRight: '+',
+      horizontal: '-',
+      vertical: ' ',
+    },
+  });
+}
+
 function box(
   msg,
   { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
 ) {
-  _out('');
   _out(
     boxen(msg, {
       title,
@@ -97,6 +112,7 @@ module.exports = {
   infoBox,
   warnBox,
   errorBox,
+  copyBox,
   info,
   warn,
   startCollectingOutput,

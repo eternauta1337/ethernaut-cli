@@ -7,7 +7,7 @@ const mineTx = require('../internal/mine-tx');
 const connectSigner = require('../internal/connect-signer');
 
 require('../scopes/interact')
-  .task('send', 'Sends ether to a contract')
+  .task('send', 'Sends ether to an address')
   .addOptionalParam(
     'address',
     'The address that will receive the ether',
