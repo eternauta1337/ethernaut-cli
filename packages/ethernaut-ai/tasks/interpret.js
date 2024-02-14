@@ -83,10 +83,10 @@ async function processActions(actions, actionDescriptions) {
     case 'explain':
       spinner.progress('Analyzing...', 'ai');
       output.infoBox(
-        await _explainer.explain(_query, actionStrings),
+        await _explainer.explain(_query, actionDescriptions),
         'Explanation'
       );
-      processActions(actions, actionStrings);
+      processActions(actions, actionDescriptions);
       break;
     case 'skip':
       spinner.progress('Exiting...', 'ai');
