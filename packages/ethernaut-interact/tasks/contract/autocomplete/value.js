@@ -1,7 +1,7 @@
-const loadAbi = require('./load-abi');
+const loadAbi = require('../load-abi');
 const debug = require('common/debug');
 
-module.exports = async function ({ abi, fn }) {
+module.exports = async function autocompleteValue({ abi, fn }) {
   if (!abi) return;
 
   try {

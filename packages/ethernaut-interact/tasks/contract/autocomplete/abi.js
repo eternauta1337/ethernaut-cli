@@ -1,8 +1,11 @@
-const storage = require('../../internal/storage');
-const EtherscanApi = require('../../internal/etherscan');
+const fs = require('fs');
+const path = require('path');
+const storage = require('../../../internal/storage');
+const EtherscanApi = require('../../../internal/etherscan');
 const prompt = require('common/prompt');
 const spinner = require('common/spinner');
 const debug = require('common/debug');
+const similarity = require('string-similarity');
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
@@ -10,9 +13,29 @@ const strategies = {
   MANUAL: 'Enter path manually',
 };
 
-module.exports = async function ({ abi, hre, address }) {
+module.exports = async function autocompleteAbi({ abi, hre, address }) {
   try {
     const network = hre.network.config.name || hre.network.name;
+
+    // Try to complete a partial abi path
+    if (abi && !isValidJsonFile(abi)) {
+      const abis = storage.readAbiFiles();
+      const matches = similarity.findBestMatch(
+        abi,
+        abis.map((a) => a.name)
+      );
+      if (matches) {
+        const match = abis.find((a) => a.name === matches.bestMatch.target);
+        if (match) {
+          debug.log(
+            `Matched incoming ABI "${abi}" with known ABI "${match.path}"`,
+            'interact'
+          );
+
+          return match.path;
+        }
+      }
+    }
 
     // Try to deduce the abi from previous interactions
     // in the current network
@@ -166,4 +189,16 @@ async function getAbiFromEtherscan(address, network) {
 
     debug.log(err.message, 'etherscan');
   }
+}
+
+function isValidJsonFile(abi) {
+  if (path.extname(abi) !== '.json') {
+    return false;
+  }
+
+  if (!fs.existsSync(abi)) {
+    return false;
+  }
+
+  return true;
 }

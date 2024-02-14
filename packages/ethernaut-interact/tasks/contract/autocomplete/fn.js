@@ -1,12 +1,12 @@
-const loadAbi = require('./load-abi');
+const loadAbi = require('../load-abi');
 const {
   getFunctionSignature,
   getPopulatedFunctionSignature,
-} = require('../../internal/signatures');
+} = require('../../../internal/signatures');
 const debug = require('common/debug');
 const prompt = require('common/prompt');
 
-module.exports = async function ({ abi }) {
+module.exports = async function autocompleteFn({ abi }) {
   if (!abi) return;
 
   try {

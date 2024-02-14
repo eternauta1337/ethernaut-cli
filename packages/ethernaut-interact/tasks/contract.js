@@ -8,12 +8,11 @@ const {
 } = require('../internal/signatures');
 const loadAbi = require('./contract/load-abi');
 const prompt = require('common/prompt');
-const fnPrompt = require('./contract/fn-prompt');
-const paramsPrompt = require('./contract/params-prompt');
-const abiPrompt = require('./contract/abi-prompt');
-const addressPrompt = require('./contract/address-prompt');
-const valuePrompt = require('./contract/value-prompt');
-const abiCheck = require('./contract/abi-check');
+const autocompleteFn = require('./contract/autocomplete/fn');
+const autocompleteParams = require('./contract/autocomplete/params');
+const autocompleteAbi = require('./contract/autocomplete/abi');
+const autocompleteAddress = require('./contract/autocomplete/address');
+const autocompleteValue = require('./contract/autocomplete/value');
 const storage = require('../internal/storage');
 const output = require('common/output');
 const spinner = require('common/spinner');
@@ -212,11 +211,8 @@ async function executeWrite(
 }
 
 // Specialized prompts for each param
-contract.paramDefinitions.abi.prompt = abiPrompt;
-contract.paramDefinitions.address.prompt = addressPrompt;
-contract.paramDefinitions.fn.prompt = fnPrompt;
-contract.paramDefinitions.params.prompt = paramsPrompt;
-contract.paramDefinitions.value.prompt = valuePrompt;
-
-// Specialized checks for each param
-contract.paramDefinitions.abi.check = abiCheck;
+contract.paramDefinitions.abi.autocomplete = autocompleteAbi;
+contract.paramDefinitions.address.autocomplete = autocompleteAddress;
+contract.paramDefinitions.fn.autocomplete = autocompleteFn;
+contract.paramDefinitions.params.autocomplete = autocompleteParams;
+contract.paramDefinitions.value.autocomplete = autocompleteValue;

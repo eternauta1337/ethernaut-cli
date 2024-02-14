@@ -1,9 +1,9 @@
 const { task: hreTask } = require('hardhat/config');
-const prompt = require('common/prompt');
 const getNodes = require('common/get-nodes');
 const debug = require('common/debug');
 const output = require('common/output');
 const camelToKebabCase = require('common/kebab');
+const collectArguments = require('./collect-args');
 
 let _hre;
 
@@ -37,8 +37,8 @@ function makeInteractive(task) {
   }
   debug.log(`Making task "${task.name}" interactive`, 'ui');
 
+  // TODO: Ai doesn't know how to handle flags
   // TODO: This wont really work until I can parse args
-  // TODO: Ai doesn't know how to handle these
   // before extending the environment...
   // Rn it will throw if this flag is used
   // task.addFlag('nonInteractive', 'Disable interactivity', false);
@@ -49,12 +49,11 @@ function makeInteractive(task) {
     // const { nonInteractive } = args;
 
     // if (nonInteractive === false) {
-    const newArgs = await collectParameters(args, task);
-
-    args = { ...args, ...newArgs };
+    const collectedArgs = await collectArguments(args, task, _hre);
+    args = { ...args, ...collectedArgs };
 
     // If parameters were collected, print out the call
-    if (Object.values(newArgs).length > 0) {
+    if (Object.values(collectedArgs).length > 0) {
       output.copyBox(toCliSyntax(args, task), 'Autocompleted');
     }
     // }
@@ -97,68 +96,4 @@ function toCliSyntax(args, task) {
     .join(' ');
 
   return `ethernaut ${name} ${printArgs}`;
-}
-
-async function collectParameters(args, task) {
-  // Put all params in an array
-  // Combine positional and named parameters
-  const paramDefinitions = task.positionalParamDefinitions.concat(
-    Object.values(task.paramDefinitions)
-  );
-
-  // Prompt the user for parameters
-  // that haven't been provided
-  const newArgs = {};
-  for (let param of paramDefinitions) {
-    debug.log(
-      `Collecting parameter "${param.name}" ${JSON.stringify(args)}"`,
-      'ui'
-    );
-
-    // TODO: Handle flags
-    if (param.isFlag) continue;
-
-    const arg = args[param.name];
-
-    if (param.check) {
-      args[param.name] = await param.check(arg);
-    }
-
-    // Skip if arg is already provided
-    if (arg !== undefined) continue;
-
-    // Does the parameter provide its own prompt?
-    if (param.prompt) {
-      debug.log(`Running custom prompt for "${param.name}"`, 'ui');
-
-      newArgs[param.name] = await param.prompt({
-        hre: _hre,
-        name: param.name,
-        description: param.description,
-        ...args,
-        ...newArgs,
-      });
-
-      debug.log(
-        `Custom prompt for "${param.name}" collected "${newArgs[param.name]}"`,
-        'ui'
-      );
-
-      if (newArgs[param.name] !== undefined) continue;
-    }
-
-    const description = param.description
-      ? ` (${param.description.split('.')[0].substring(0, 150)})`
-      : '';
-
-    const response = await prompt({
-      type: 'input',
-      message: `Enter ${param.name}${description}:`,
-      initial: param.defaultValue,
-    });
-
-    newArgs[param.name] = response;
-  }
-
-  return newArgs;
 }
