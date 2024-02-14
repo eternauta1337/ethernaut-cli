@@ -2,10 +2,18 @@
   "name": "ethernaut-toolbox",
   "version": "1.0.0",
   "description": "A collection of tools for the Ethernaut CLI",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive ./test"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^2.20.0",
+    "mocha": "^10.3.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
 }
