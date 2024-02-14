@@ -52,11 +52,9 @@ const contract = require('../scopes/interact')
     undefined,
     types.string
   )
-  .addOptionalParam(
+  .addFlag(
     'noConfirm',
-    'Skip confirmation prompts, avoiding any type of interactivity',
-    false,
-    types.boolean
+    'Skip confirmation prompts, avoiding any type of interactivity'
   )
   .setAction(async ({ abi, address, fn, params, value, noConfirm }, hre) => {
     try {

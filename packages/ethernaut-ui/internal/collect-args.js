@@ -15,7 +15,7 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
   const collectedArgs = {};
   for (let paramDef of paramDefinitions) {
     // TODO: Handle flags
-    if (paramDef.isFlag) continue;
+    // if (paramDef.isFlag) continue;
 
     const providedArg = providedArgs[paramDef.name];
 
