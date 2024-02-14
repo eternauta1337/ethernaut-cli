@@ -1,8 +1,10 @@
 const storage = require('../../../internal/storage');
 const debug = require('common/debug');
 
-module.exports = async function autocompleteAddress({ abi, hre }) {
+module.exports = async function autocompleteAddress({ abi, address, hre }) {
   if (!abi) return;
+
+  if (address !== undefined) return;
 
   try {
     const network = hre.network.config.name || hre.network.name;

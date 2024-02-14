@@ -37,6 +37,11 @@ module.exports = async function autocompleteAbi({ abi, hre, address }) {
       }
     }
 
+    // If there is an abi at this point,
+    // return undefined, signaling that there was
+    // no need to autocomplete.
+    if (abi) return undefined;
+
     // Try to deduce the abi from previous interactions
     // in the current network
     if (address) {

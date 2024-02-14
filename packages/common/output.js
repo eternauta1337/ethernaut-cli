@@ -62,7 +62,8 @@ function box(
   msg,
   { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
 ) {
-  _out(
+  _collect(msg);
+  console.log(
     boxen(msg, {
       title,
       padding,
@@ -73,18 +74,20 @@ function box(
 }
 
 function info(msg) {
-  _out(chalk.white(`i ${msg}`));
+  _collect(msg);
+  console.log(chalk.white(`i ${msg}`));
 }
 
 function warn(msg) {
-  _out(chalk.yellow.bold(`! ${msg}`));
+  _collect(msg);
+  console.log(chalk.yellow.bold(`! ${msg}`));
 }
 
-function _out(msg) {
+function _collect(msg) {
   if (msg === undefined) return;
+  if (!_collectingOutput) return;
 
   _output += msg + '\n';
-  console.log(msg);
 }
 
 function startCollectingOutput() {

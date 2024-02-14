@@ -2,8 +2,10 @@ const loadAbi = require('../load-abi');
 const debug = require('common/debug');
 const prompt = require('common/prompt');
 
-module.exports = async function autocompleteParams({ abi, fn }) {
+module.exports = async function autocompleteParams({ params, abi, fn }) {
   if (!abi) return;
+
+  if (params !== undefined) return;
 
   try {
     const _abi = loadAbi(abi);

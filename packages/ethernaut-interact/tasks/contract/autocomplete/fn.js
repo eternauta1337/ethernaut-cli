@@ -6,8 +6,10 @@ const {
 const debug = require('common/debug');
 const prompt = require('common/prompt');
 
-module.exports = async function autocompleteFn({ abi }) {
+module.exports = async function autocompleteFn({ fn, abi }) {
   if (!abi) return;
+
+  if (fn !== undefined) return;
 
   try {
     const _abi = loadAbi(abi);

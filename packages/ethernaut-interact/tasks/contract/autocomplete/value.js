@@ -1,8 +1,10 @@
 const loadAbi = require('../load-abi');
 const debug = require('common/debug');
 
-module.exports = async function autocompleteValue({ abi, fn }) {
+module.exports = async function autocompleteValue({ value, abi, fn }) {
   if (!abi) return;
+
+  if (value !== undefined) return;
 
   try {
     const _abi = loadAbi(abi);
