@@ -12,7 +12,9 @@ require('../scopes/util')
   )
   .setAction(async ({ value }, hre) => {
     try {
-      output.resultBox(hre.ethers.toUtf8String(value));
+      const strNullPadded = hre.ethers.toUtf8String(value);
+      const str = strNullPadded.replace(/\x00/g, '');
+      output.resultBox(str);
     } catch (err) {
       debug.log(err);
       output.errorBox(err);
