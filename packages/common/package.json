@@ -1,6 +1,9 @@
 {
   "name": "common",
   "private": true,
+  "scripts": {
+    "test": "echo \"TODO tests...\" && exit 0"
+  },
   "dependencies": {
     "boxen": "^5.1.2",
     "cli-spinners": "^2.9.2",

@@ -1,6 +1,9 @@
 {
   "name": "ethernaut-cli-monorepo",
   "private": true,
+  "scripts": {
+    "test": "npm run test --workspaces"
+  },
   "workspaces": [
     "packages/*"
   ]
