@@ -3,7 +3,8 @@ const boxen = require('boxen');
 const debug = require('./debug');
 
 let _collectingOutput = false;
-let _output;
+let _outputBuffer;
+let _muted = false;
 
 function resultBox(msg, title = 'Result') {
   box(msg, {
@@ -63,7 +64,7 @@ function box(
   { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
 ) {
   _collect(msg);
-  console.log(
+  _out(
     boxen(msg, {
       title,
       padding,
@@ -75,29 +76,34 @@ function box(
 
 function info(msg) {
   _collect(msg);
-  console.log(chalk.white(`i ${msg}`));
+  _out(chalk.white(`i ${msg}`));
 }
 
 function warn(msg) {
   _collect(msg);
-  console.log(chalk.yellow.bold(`! ${msg}`));
+  _out(chalk.yellow.bold(`! ${msg}`));
+}
+
+function _out(msg) {
+  if (_muted) return;
+  console.log(msg);
 }
 
 function _collect(msg) {
   if (msg === undefined) return;
   if (!_collectingOutput) return;
 
-  _output += msg + '\n';
+  _outputBuffer.content += msg + '\n';
 }
 
-function startCollectingOutput() {
+function startCollectingOutput(buffer = { content: '' }) {
   if (_collectingOutput) {
     error('Already collecting output');
   }
 
   _collectingOutput = true;
 
-  _output = '';
+  _outputBuffer = buffer;
 }
 
 function stopCollectingOutput() {
@@ -105,9 +111,17 @@ function stopCollectingOutput() {
     error('Not collecting output');
   }
 
-  _collectingOutput = false;
+  const content = _outputBuffer.content;
 
-  return _output;
+  _collectingOutput = false;
+  _outputBuffer.content = '';
+  _outputBuffer = undefined;
+
+  return content;
+}
+
+function mute(value) {
+  _muted = value;
 }
 
 module.exports = {
@@ -120,4 +134,5 @@ module.exports = {
   warn,
   startCollectingOutput,
   stopCollectingOutput,
+  mute,
 };
