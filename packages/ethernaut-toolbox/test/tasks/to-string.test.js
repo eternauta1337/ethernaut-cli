@@ -38,7 +38,7 @@ describe('to-string', function () {
     assert.equal(output(), '');
   });
 
-  it('throws when an invalid...', async function () {
+  it('throws when an invalid bytes value is passed', async function () {
     await this.hre.run(
       { scope: 'util', task: 'to-string' },
       {
