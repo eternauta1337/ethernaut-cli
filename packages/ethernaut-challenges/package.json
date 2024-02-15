@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "extract": "node ./src/extract.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --exit --recursive 'test/**/*.test.js' --ignore 'test/fixture-projects/**/*'"
   },
   "devDependencies": {
     "ethernaut": "github:OpenZeppelin/ethernaut",
