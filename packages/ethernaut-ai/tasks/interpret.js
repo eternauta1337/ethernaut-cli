@@ -55,7 +55,7 @@ require('../scopes/ai')
       spinner.success('Assistant done', 'ai');
 
       if (response) {
-        output.resultBox(response, 'Assistant response');
+        return output.resultBox(response, 'Assistant response');
       }
     } catch (err) {
       output.errorBox(err);

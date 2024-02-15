@@ -2,8 +2,6 @@ const chalk = require('chalk');
 const boxen = require('boxen');
 const debug = require('./debug');
 
-let _collectingOutput = false;
-let _outputBuffer;
 let _muted = false;
 
 function resultBox(msg, title = 'Result') {
@@ -13,6 +11,8 @@ function resultBox(msg, title = 'Result') {
     borderStyle: 'round',
     borderColor: 'blue',
   });
+
+  return msg;
 }
 
 function infoBox(msg, title = 'Info') {
@@ -22,6 +22,8 @@ function infoBox(msg, title = 'Info') {
     borderStyle: 'classic',
     borderColor: 'gray',
   });
+
+  return msg;
 }
 
 function warnBox(msg, title = 'Warning') {
@@ -31,16 +33,21 @@ function warnBox(msg, title = 'Warning') {
     borderStyle: 'round',
     borderColor: 'yellow',
   });
+
+  return msg;
 }
 
 function errorBox(error) {
   debug.log(error);
+
   box(error.stack, {
     title: 'Error',
     padding: 1,
     borderStyle: 'double',
     borderColor: 'red',
   });
+
+  return error.message;
 }
 
 function copyBox(msg, title = 'Info') {
@@ -57,13 +64,14 @@ function copyBox(msg, title = 'Info') {
       vertical: ' ',
     },
   });
+
+  return msg;
 }
 
 function box(
   msg,
   { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
 ) {
-  _collect(msg);
   _out(
     boxen(msg, {
       title,
@@ -75,49 +83,20 @@ function box(
 }
 
 function info(msg) {
-  _collect(msg);
   _out(chalk.white(`i ${msg}`));
+
+  return msg;
 }
 
 function warn(msg) {
-  _collect(msg);
   _out(chalk.yellow.bold(`! ${msg}`));
+
+  return msg;
 }
 
 function _out(msg) {
   if (_muted) return;
   console.log(msg);
-}
-
-function _collect(msg) {
-  if (msg === undefined) return;
-  if (!_collectingOutput) return;
-
-  _outputBuffer.content += msg + '\n';
-}
-
-function startCollectingOutput(buffer = { content: '' }) {
-  if (_collectingOutput) {
-    error('Already collecting output');
-  }
-
-  _collectingOutput = true;
-
-  _outputBuffer = buffer;
-}
-
-function stopCollectingOutput() {
-  if (!_collectingOutput) {
-    error('Not collecting output');
-  }
-
-  const content = _outputBuffer.content;
-
-  _collectingOutput = false;
-  _outputBuffer.content = '';
-  _outputBuffer = undefined;
-
-  return content;
 }
 
 function mute(value) {
@@ -132,7 +111,5 @@ module.exports = {
   copyBox,
   info,
   warn,
-  startCollectingOutput,
-  stopCollectingOutput,
   mute,
 };

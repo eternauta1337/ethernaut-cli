@@ -1,16 +1,9 @@
 const assert = require('assert');
 const helper = require('../../src/internal/helper');
-const {
-  useEnvironment,
-  collectOutput,
-  extractLine,
-} = require('common/test-helpers');
+const { findLineWith } = require('common/strings');
 
 describe('info', function () {
   let deploymentInfo;
-
-  const hre = useEnvironment('basic-project');
-  const output = collectOutput();
 
   before('load deployment info', async function () {
     deploymentInfo = helper.getDeploymentInfo();
@@ -20,23 +13,21 @@ describe('info', function () {
     let levelInfo;
 
     before('run info 1', async function () {
-      await hre().run({ scope: 'oz', task: 'info' }, { level: '1' });
-      levelInfo = output();
+      levelInfo = await hre.run({ scope: 'oz', task: 'info' }, { level: '1' });
     });
 
     it('shows level name', async function () {
-      assert.equal(extractLine(levelInfo, 'Level name:'), 'Hello Ethernaut');
+      assert.equal(findLineWith('Level name:', levelInfo), 'Hello Ethernaut');
     });
 
     it('shows contract name', async function () {
-      assert.equal(extractLine(levelInfo, 'Contract name:'), 'Instance.sol');
+      assert.equal(findLineWith('Contract name:', levelInfo), 'Instance.sol');
     });
 
     it('shows abi path', async function () {
-      assert.ok(
-        extractLine(levelInfo, 'ABI path:').includes(
-          'basic-project/artifacts/interact/abis/Instance.json'
-        )
+      assert.equal(
+        findLineWith('ABI path:', levelInfo),
+        '~/ethernaut-cli/packages/ethernaut-challenges/test/fixture-projects/basic-project/artifacts/interact/abis/Instance.json'
       );
     });
 

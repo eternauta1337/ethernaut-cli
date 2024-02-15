@@ -16,7 +16,7 @@ require('../scopes/oz')
   )
   .setAction(async ({ address }, hre) => {
     try {
-      output.resultBox(await submitInstance(address, hre));
+      return output.resultBox(await submitInstance(address, hre));
     } catch (err) {
       debug.log(err, 'interact');
       output.errorBox(err);

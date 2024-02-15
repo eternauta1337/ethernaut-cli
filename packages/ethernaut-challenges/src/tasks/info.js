@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const output = require('common/output');
 const debug = require('common/debug');
+const replaceHomeDir = require('common/home-dir');
 
 require('../scopes/oz')
   .task(
@@ -20,17 +21,21 @@ require('../scopes/oz')
     try {
       const info = getLevelInfo(level);
 
-      output.infoBox(info.description, 'Description');
-      output.infoBox(info.source, 'Source Code');
-      output.resultBox(
+      let str = '';
+
+      str += output.infoBox(info.description, 'Description');
+      str += output.infoBox(info.source, 'Source Code');
+      str += output.resultBox(
         `Level name: ${info.name}\n` +
           `Contract name: ${info.contractName}.sol\n` +
           `ABI path: ${info.abi}\n` +
           `Address: ${info.levelAddress}`,
         `Ethernaut Challenge #${level}`
       );
+
+      return str;
     } catch (err) {
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 
@@ -44,7 +49,9 @@ function getLevelInfo(level) {
   const name = levelInfo.name;
   const contractName = levelInfo.instanceContract.split('.')[0];
 
-  const abi = path.join(helper.getAbisPath(), `${contractName}.json`);
+  const abi = replaceHomeDir(
+    path.join(helper.getAbisPath(), `${contractName}.json`)
+  );
 
   const sourcePath = path.join(helper.getSourcesPath(), `${contractName}.sol`);
   const source = fs.readFileSync(sourcePath, 'utf8');

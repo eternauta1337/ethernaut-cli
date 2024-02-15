@@ -11,7 +11,9 @@ require('../scopes/oz')
   .setAction(async ({ level }, hre) => {
     try {
       const completed = await checkLevels(hre);
-      output.resultBox(completed.map((c, i) => `Level ${i}: ${c}`).join('\n'));
+      return output.resultBox(
+        completed.map((c, i) => `Level ${i}: ${c}`).join('\n')
+      );
     } catch (err) {
       output.errorBox(err);
     }

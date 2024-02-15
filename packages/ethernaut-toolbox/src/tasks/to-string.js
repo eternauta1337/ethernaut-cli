@@ -14,9 +14,8 @@ require('../scopes/util')
     try {
       const strNullPadded = hre.ethers.toUtf8String(value);
       const str = strNullPadded.replace(/\x00/g, '');
-      output.resultBox(str);
+      return output.resultBox(str);
     } catch (err) {
-      debug.log(err);
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });

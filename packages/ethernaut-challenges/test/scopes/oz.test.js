@@ -1,10 +1,7 @@
 const assert = require('assert');
-const { useEnvironment } = require('common/test-helpers');
 
-describe('util', function () {
-  const hre = useEnvironment('basic-project');
-
+describe('oz', function () {
   it('has an "oz" scope', async function () {
-    assert.notEqual(hre().scopes['oz'], undefined);
+    assert.notEqual(hre.scopes['oz'], undefined);
   });
 });

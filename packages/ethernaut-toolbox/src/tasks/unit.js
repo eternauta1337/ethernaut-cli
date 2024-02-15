@@ -28,10 +28,9 @@ const unit = require('../scopes/util')
       const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/;
       result = result.match(removeTrailingZeroes)[1];
 
-      output.resultBox(result);
+      return output.resultBox(result);
     } catch (err) {
-      debug.log(err);
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 

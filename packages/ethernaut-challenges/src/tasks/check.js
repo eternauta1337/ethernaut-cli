@@ -18,8 +18,8 @@ require('../scopes/oz')
   .setAction(async ({ level }, hre) => {
     try {
       const completed = await checkLevel(level, hre);
-      if (completed) output.resultBox('Level completed');
-      else output.warnBox('Level not completed');
+      if (completed) return output.resultBox('Level completed');
+      else return output.warnBox('Level not completed');
     } catch (err) {
       output.errorBox(err);
     }

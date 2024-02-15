@@ -54,7 +54,7 @@ class Action {
   }
 
   async execute(hre) {
-    output.startCollectingOutput();
+    const collectedOutput = '';
 
     if (this.scopeName) {
       debug.log(
@@ -65,18 +65,21 @@ class Action {
         )}`,
         'ai'
       );
-      await hre.run({ scope: this.scopeName, task: this.taskName }, this.args);
+      collectedOutput += await hre.run(
+        { scope: this.scopeName, task: this.taskName },
+        this.args
+      );
     } else {
       debug.log(
         `Calling: ${this.taskName} ${JSON.stringify(this.args, null, 2)}`,
         'ai'
       );
-      await hre.run(this.taskName, this.args);
+      collectedOutput += await hre.run(this.taskName, this.args);
     }
 
     return {
       tool_call_id: this.id,
-      output: output.stopCollectingOutput(),
+      output: collectedOutput,
     };
   }
 
