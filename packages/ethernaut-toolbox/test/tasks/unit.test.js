@@ -2,11 +2,11 @@ const assert = require('assert');
 const { useEnvironment, collectOutput } = require('common/test-helpers');
 
 describe('unit', function () {
-  useEnvironment('basic-project');
+  const hre = useEnvironment('basic-project');
   const output = collectOutput();
 
   it('converts 1 ether to wei', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'unit' },
       {
         value: '1',
@@ -18,7 +18,7 @@ describe('unit', function () {
   });
 
   it('converts 1 wei to ether', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'unit' },
       {
         value: '1',
@@ -30,7 +30,7 @@ describe('unit', function () {
   });
 
   it('converts 12 szabo to mwei', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'unit' },
       {
         value: '12',

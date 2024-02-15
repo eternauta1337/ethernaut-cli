@@ -2,11 +2,11 @@ const assert = require('assert');
 const { useEnvironment, collectOutput } = require('common/test-helpers');
 
 describe('to-string', function () {
-  useEnvironment('basic-project');
+  const hre = useEnvironment('basic-project');
   const output = collectOutput();
 
   it('converts "hello" from bytes', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'to-string' },
       {
         value:
@@ -17,7 +17,7 @@ describe('to-string', function () {
   });
 
   it('converts "42" from bytes', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'to-string' },
       {
         value:
@@ -28,7 +28,7 @@ describe('to-string', function () {
   });
 
   it('converts "" from bytes', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'to-string' },
       {
         value:
@@ -39,7 +39,7 @@ describe('to-string', function () {
   });
 
   it('throws when an invalid bytes value is passed', async function () {
-    await this.hre.run(
+    await hre().run(
       { scope: 'util', task: 'to-string' },
       {
         value: 'abc',

@@ -24,7 +24,7 @@ require('../scopes/oz')
       output.infoBox(info.source, 'Source Code');
       output.resultBox(
         `Level name: ${info.name}\n` +
-          `Contract name: ${info.contractName}\n` +
+          `Contract name: ${info.contractName}.sol\n` +
           `ABI path: ${info.abi}\n` +
           `Address: ${info.levelAddress}`,
         `Ethernaut Challenge #${level}`
@@ -44,11 +44,9 @@ function getLevelInfo(level) {
   const name = levelInfo.name;
   const contractName = levelInfo.instanceContract.split('.')[0];
 
-  const abisPath = path.join(process.cwd(), 'artifacts', 'interact', 'abis');
-  const abi = path.join(abisPath, `${contractName}.json`);
+  const abi = path.join(helper.getAbisPath(), `${contractName}.json`);
 
-  const sourcesPath = path.join(__dirname, '..', 'extracted', 'contracts');
-  const sourcePath = path.join(sourcesPath, `${contractName}.sol`);
+  const sourcePath = path.join(helper.getSourcesPath(), `${contractName}.sol`);
   const source = fs.readFileSync(sourcePath, 'utf8');
 
   const description = helper.getLevelDescription(levelInfo.description);
