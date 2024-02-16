@@ -18,8 +18,7 @@ require('../scopes/oz')
     try {
       return output.resultBox(await submitInstance(address, hre));
     } catch (err) {
-      debug.log(err, 'interact');
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 
@@ -38,10 +37,10 @@ async function submitInstance(address, hre) {
   debug.log(JSON.stringify(receipt, null, 2), 'interact');
 
   if (receipt.status === 0) {
-    throw new Error('Transaction failed');
+    throw new Error('Level not completed: Submission transaction failed');
   }
   if (receipt.logs.length === 0) {
-    throw new Error('No events emitted');
+    throw new Error('Level not completed: No events emitted upon submission');
   }
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
