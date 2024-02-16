@@ -24,7 +24,9 @@ require('../scopes/oz')
       let str = '';
 
       str += output.infoBox(info.description, 'Description');
-      str += output.infoBox(info.source, 'Source Code');
+      if (info.revealCode) {
+        str += output.infoBox(info.source, 'Source Code');
+      }
       str += output.resultBox(
         `Level name: ${info.name}\n` +
           `Contract name: ${info.contractName}.sol\n` +
@@ -44,7 +46,7 @@ function getLevelInfo(level) {
 
   const idx = parseInt(level) - 1;
   const levelInfo = gamedata.levels[idx];
-  debug.log(`Level info: ${levelInfo}`, 'challenges');
+  debug.log(`Level info: ${JSON.stringify(levelInfo, null, 2)}`, 'challenges');
 
   const name = levelInfo.name;
   const contractName = levelInfo.instanceContract.split('.')[0];

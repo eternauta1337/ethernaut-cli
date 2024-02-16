@@ -31,7 +31,58 @@ describe('info', function () {
       );
     });
 
-    // TODO: Source
-    // TODO: Description
+    it('shows address', async function () {
+      assert.equal(findLineWith('Address:', levelInfo), deploymentInfo['1']);
+    });
+
+    it('shows description', async function () {
+      assert.equal(findLineWith('#### 1.', levelInfo), 'Set up MetaMask');
+      assert.equal(
+        findLineWith('#### 9.', levelInfo),
+        'Interact with the contract to complete the level'
+      );
+    });
+
+    it('doesnt show source', async function () {
+      assert.ok(!levelInfo.includes('pragma solidity'));
+    });
+  });
+
+  describe('when info is called on level 2', function () {
+    let levelInfo;
+
+    before('run info 2', async function () {
+      levelInfo = await hre.run({ scope: 'oz', task: 'info' }, { level: '2' });
+    });
+
+    it('shows level name', async function () {
+      assert.equal(findLineWith('Level name:', levelInfo), 'Fallback');
+    });
+
+    it('shows contract name', async function () {
+      assert.equal(findLineWith('Contract name:', levelInfo), 'Fallback.sol');
+    });
+
+    it('shows abi path', async function () {
+      assert.equal(
+        findLineWith('ABI path:', levelInfo),
+        '~/ethernaut-cli/packages/ethernaut-challenges/test/fixture-projects/basic-project/artifacts/interact/abis/Fallback.json'
+      );
+    });
+
+    it('shows address', async function () {
+      assert.equal(findLineWith('Address:', levelInfo), deploymentInfo['2']);
+    });
+
+    it('shows description', async function () {
+      assert.equal(
+        findLineWith('1)', levelInfo),
+        'you claim ownership of the contract'
+      );
+    });
+
+    it('shows source', async function () {
+      assert.ok(levelInfo.includes('pragma solidity'));
+    });
   });
 });
