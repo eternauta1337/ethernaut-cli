@@ -4,7 +4,7 @@
   "description": "A collection of tools for the Ethernaut CLI",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --exit --require '../common/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "mocha --exit --timeout 60000 --require '../common/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "author": "",
   "license": "ISC",

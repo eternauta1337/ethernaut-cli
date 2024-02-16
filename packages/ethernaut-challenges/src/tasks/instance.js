@@ -18,7 +18,7 @@ require('../scopes/oz')
       const instanceAddress = await createInstance(level, hre);
       return output.resultBox(`Instance created ${instanceAddress}`);
     } catch (err) {
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 
@@ -33,9 +33,18 @@ async function createInstance(level, hre) {
   // Create the level instance
   const idx = parseInt(level) - 1;
   const levelAddress = deploymentInfo[idx];
+
   const tx = await ethernaut.createLevelInstance(levelAddress);
   const receipt = await tx.wait();
+  if (receipt.status !== 1) {
+    throw new Error('Instance creation transaction reverted');
+  }
+
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
+  if (events.length === 0) {
+    throw new Error('No events emitted during instance creation');
+  }
+
   const createdEvent = events[0];
   const instanceAddress = createdEvent.args[1];
 

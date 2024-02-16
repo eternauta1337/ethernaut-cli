@@ -31,6 +31,12 @@ function getEthernautAbi() {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+function getAbi(abiName) {
+  const filePath = path.join(getAbisPath(), `${abiName}.json`);
+
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
 // ------------------------
 // Paths
 // ------------------------
@@ -59,4 +65,5 @@ module.exports = {
   getAbisPath,
   getSourcesPath,
   getEthernautAbi,
+  getAbi,
 };

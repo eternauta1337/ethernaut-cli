@@ -1,9 +1,13 @@
 const fs = require('fs-extra');
 const path = require('path');
+const debug = require('common/debug');
 
 module.exports = function copyFiles(src, dst) {
-  src = path.join(__dirname, '..', src);
-  dst = path.join(__dirname, '..', dst);
+  debug.log(`>>> Copying files from ${src} to ${dst}`, 'common');
+
+  if (!fs.existsSync(src)) {
+    throw new Error(`Source directory ${src} does not exist`);
+  }
 
   fs.ensureDirSync(dst);
 
