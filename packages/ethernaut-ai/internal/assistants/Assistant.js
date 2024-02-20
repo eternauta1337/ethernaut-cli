@@ -91,7 +91,7 @@ class Assistant extends EventEmitter {
   }
 
   async reportToolOutputs(outputs) {
-    debug.log(outputs, 'ai-deep');
+    debug.log(`Reporting output: ${JSON.stringify(outputs)}`, 'ai-deep');
 
     if (!outputs) {
       await openai.beta.threads.runs.cancel(this.thread.id, this.run.id);

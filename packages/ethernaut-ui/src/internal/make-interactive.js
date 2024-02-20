@@ -58,7 +58,7 @@ function makeInteractive(task) {
     }
     // }
 
-    await runSuper(args, hre, runSuper);
+    return await runSuper(args, hre, runSuper);
   };
 
   // Complete the override by calling task()

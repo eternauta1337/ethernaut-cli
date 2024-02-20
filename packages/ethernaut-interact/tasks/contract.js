@@ -59,10 +59,9 @@ const contract = require('../scopes/interact')
   )
   .setAction(async ({ abi, address, fn, params, value, noConfirm }, hre) => {
     try {
-      await interact({ abi, address, fn, params, value, noConfirm });
+      return await interact({ abi, address, fn, params, value, noConfirm });
     } catch (err) {
-      debug.log(err, 'interact');
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 

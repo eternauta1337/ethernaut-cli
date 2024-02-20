@@ -54,7 +54,7 @@ class Action {
   }
 
   async execute(hre) {
-    const collectedOutput = '';
+    let collectedOutput = '';
 
     if (this.scopeName) {
       debug.log(

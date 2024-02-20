@@ -58,7 +58,7 @@ require('../scopes/ai')
         return output.resultBox(response, 'Assistant response');
       }
     } catch (err) {
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 

@@ -14,6 +14,8 @@
     "enquirer": "^2.4.1"
   },
   "devDependencies": {
-    "mocha": "^10.3.0"
+    "ansi-escapes": "4.3.2",
+    "mocha": "^10.3.0",
+    "node-pty": "^1.0.0"
   }
 }
