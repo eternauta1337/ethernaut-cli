@@ -2,7 +2,7 @@ const assert = require('assert');
 const { extractAddress } = require('common/address');
 const helper = require('../../src/internal/helper');
 
-describe.only('submit', function () {
+describe('submit', function () {
   describe('when an instance of level 1 is required', function () {
     let instanceAddress;
     before('run instance 1', async function () {
@@ -50,7 +50,7 @@ describe.only('submit', function () {
         });
 
         before('get level address', async function () {
-          const deploymentInfo = helper.getDeploymentInfo();
+          const deploymentInfo = helper.getDeploymentInfo('hardhat');
           levelAddress = deploymentInfo['0'];
         });
 

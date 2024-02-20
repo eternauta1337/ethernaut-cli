@@ -7,10 +7,19 @@ function getGamedata() {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
-function getDeploymentInfo() {
-  const filePath = path.join(getGamedataPath(), 'deploy.sepolia.json');
+function getDeploymentInfo(network) {
+  const filePath = path.join(getGamedataPath(), `deploy.${network}.json`);
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`No deployment info found for ${network}`);
+  }
 
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+function getLevelAddress(level, network) {
+  const idx = parseInt(level) - 1;
+  const deploymentInfo = getDeploymentInfo(network);
+  return deploymentInfo[idx];
 }
 
 function getLevelDescription(descriptionFileName) {
@@ -66,4 +75,5 @@ module.exports = {
   getSourcesPath,
   getEthernautAbi,
   getAbi,
+  getLevelAddress,
 };

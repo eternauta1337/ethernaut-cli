@@ -3,14 +3,7 @@ const path = require('path');
 const { spawn } = require('child_process');
 
 // Paths
-const src = path.resolve(
-  __dirname,
-  '..',
-  '..',
-  '..',
-  'node_modules',
-  'ethernaut'
-);
+const src = path.resolve(__dirname, '..', 'node_modules', 'ethernaut');
 const srcContracts = path.resolve(src, 'contracts', 'contracts');
 const srcContractsLevels = path.resolve(srcContracts, 'levels');
 const srcGamedata = path.resolve(src, 'client', 'src', 'gamedata');

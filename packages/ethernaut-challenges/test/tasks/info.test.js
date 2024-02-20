@@ -6,7 +6,7 @@ describe('info', function () {
   let deploymentInfo;
 
   before('load deployment info', async function () {
-    deploymentInfo = helper.getDeploymentInfo();
+    deploymentInfo = helper.getDeploymentInfo('hardhat');
   });
 
   describe('when info is called on level 1', function () {

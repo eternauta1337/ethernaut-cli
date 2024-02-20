@@ -4,8 +4,9 @@
   "description": "Play the Open Zeppelin ethernaut challenges in the cli",
   "main": "src/index.js",
   "scripts": {
-    "extract": "node ./src/extract.js",
-    "test": "mocha --exit --timeout 60000 --require '../common/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "extract": "node ./scripts/extract.js",
+    "compile": "cd test/fixture-projects/basic-project && npx hardhat compile && cd ../../..",
+    "test": "npm run compile && mocha --exit --timeout 60000 --require '../common/setup-tests.js' --require '../../../scripts/deploy.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
     "ethernaut": "github:OpenZeppelin/ethernaut",

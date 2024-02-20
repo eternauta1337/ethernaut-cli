@@ -2,6 +2,7 @@ const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
 const debug = require('common/debug');
+const getNetwork = require('common/network');
 
 require('../scopes/oz')
   .task(
@@ -23,7 +24,8 @@ require('../scopes/oz')
   });
 
 async function submitInstance(address, hre) {
-  const deploymentInfo = helper.getDeploymentInfo();
+  const network = getNetwork(hre);
+  const deploymentInfo = helper.getDeploymentInfo(network);
 
   // Prepare the main game contract
   // TODO: This could be a package util
@@ -45,7 +47,10 @@ async function submitInstance(address, hre) {
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log));
 
-  const completedEvent = events[0];
+  const completedEvent = events.find(
+    (event) => event?.name === 'LevelCompletedLog'
+  );
+
   const instanceAddress = completedEvent.args[1];
   const levelAddress = completedEvent.args[2];
 

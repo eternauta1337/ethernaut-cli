@@ -1,8 +1,10 @@
 const path = require('path');
 const output = require('common/output');
+const spinner = require('common/spinner');
 
 async function setup() {
   output.mute(true);
+  spinner.mute(true);
 
   loadHre();
 }

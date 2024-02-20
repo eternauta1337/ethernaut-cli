@@ -1,7 +1,7 @@
 const helper = require('../internal/helper');
 const output = require('common/output');
-const spinner = require('common/spinner');
 const findLevelCompletedEvents = require('../internal/level-completed-logs');
+const getNetwork = require('common/network');
 
 require('../scopes/oz')
   .task(
@@ -20,7 +20,8 @@ require('../scopes/oz')
   });
 
 async function checkLevels(hre) {
-  const deploymentInfo = helper.getDeploymentInfo();
+  const network = getNetwork(hre);
+  const deploymentInfo = helper.getDeploymentInfo(network);
 
   // Prepare the main game contract
   const gameAddress = deploymentInfo.ethernaut;

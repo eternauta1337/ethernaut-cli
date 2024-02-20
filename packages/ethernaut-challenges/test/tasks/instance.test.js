@@ -6,7 +6,7 @@ describe('instance', function () {
   let deploymentInfo;
 
   before('get gamedata', async function () {
-    deploymentInfo = helper.getDeploymentInfo();
+    deploymentInfo = helper.getDeploymentInfo('hardhat');
   });
 
   describe('when instance is called for level 1', function () {

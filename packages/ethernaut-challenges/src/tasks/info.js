@@ -5,6 +5,7 @@ const path = require('path');
 const output = require('common/output');
 const debug = require('common/debug');
 const replaceHomeDir = require('common/home-dir');
+const getNetwork = require('common/network');
 
 require('../scopes/oz')
   .task(
@@ -60,7 +61,8 @@ function getLevelInfo(level) {
 
   const description = helper.getLevelDescription(levelInfo.description);
 
-  const deploymentInfo = helper.getDeploymentInfo();
+  const network = getNetwork(hre);
+  const deploymentInfo = helper.getDeploymentInfo(network);
   const levelAddress = deploymentInfo[level];
 
   return {

@@ -5,6 +5,7 @@ const debug = require('common/debug');
 let _enabled = true;
 let _channelErrors = {};
 let _activeChannels = {};
+let _muted = false;
 
 const _spinnies = new Spinnies({
   color: 'white',
@@ -16,8 +17,13 @@ function enable(value) {
   _enabled = value;
 }
 
+function mute(value) {
+  _muted = value;
+}
+
 function progress(msg, channel = 'default') {
-  if (!_enabled) return debug.log(msg, 'spinner');
+  if (_muted) return;
+  if (_enabled === false) return debug.log(msg, 'spinner');
 
   _ensureSpinnie(channel);
   _spinnies.update(channel, { text: msg });
@@ -25,7 +31,8 @@ function progress(msg, channel = 'default') {
 }
 
 function success(msg = 'Done', channel = 'default') {
-  if (!_enabled) return debug.log(msg, 'spinner');
+  if (_muted) return;
+  if (_enabled === false) return debug.log(msg, 'spinner');
 
   _ensureSpinnie(channel);
   _spinnies.succeed(channel, { text: msg });
@@ -33,7 +40,8 @@ function success(msg = 'Done', channel = 'default') {
 }
 
 function fail(msg = 'Fail', channel = 'default') {
-  if (!_enabled) return debug.log(msg, 'spinner');
+  if (_muted) return;
+  if (_enabled === false) return debug.log(msg, 'spinner');
 
   const text = _appendChannelErrors(msg, channel);
 
@@ -70,6 +78,7 @@ function _ensureSpinnie(channel) {
 
 module.exports = {
   enable,
+  mute,
   progress,
   success,
   fail,

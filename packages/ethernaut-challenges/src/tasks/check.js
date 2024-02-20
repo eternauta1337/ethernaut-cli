@@ -1,8 +1,8 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const output = require('common/output');
-const spinner = require('common/spinner');
 const findLevelCompletedEvents = require('../internal/level-completed-logs');
+const getNetwork = require('common/network');
 
 require('../scopes/oz')
   .task(
@@ -26,7 +26,12 @@ require('../scopes/oz')
   });
 
 async function checkLevel(level, hre) {
-  const deploymentInfo = helper.getDeploymentInfo();
+  if (level < 1) {
+    throw new Error('Invalid level number');
+  }
+
+  const network = getNetwork(hre);
+  const deploymentInfo = helper.getDeploymentInfo(network);
 
   // Prepare the main game contract
   const gameAddress = deploymentInfo.ethernaut;
@@ -38,7 +43,8 @@ async function checkLevel(level, hre) {
   const playerAddress = signer.address;
 
   // TODO: Get corresponding level address
-  const levelAddress = deploymentInfo[level];
+  const idx = parseInt(level) - 1;
+  const levelAddress = deploymentInfo[idx];
 
   // The contract doesn't have a function for checking
   // if a level is completed (geez Ethernaut :eye-roll:).
