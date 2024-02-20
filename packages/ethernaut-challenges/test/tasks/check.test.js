@@ -1,8 +1,13 @@
 const assert = require('assert');
 const { extractAddress } = require('common/address');
 const helper = require('../../src/internal/helper');
+const deploy = require('../helpers/deploy');
 
 describe('check', function () {
+  before('deploy game', async function () {
+    await deploy(hre);
+  });
+
   describe('when an instance of level 1 is required', function () {
     let instanceAddress;
 
@@ -45,7 +50,7 @@ describe('check', function () {
             );
           });
 
-          it('shows that the level has been completer', async function () {
+          it('shows that the level has been completed', async function () {
             assert.equal(
               await hre.run({ scope: 'oz', task: 'check' }, { level: '1' }),
               'Level completed'

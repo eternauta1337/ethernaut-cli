@@ -1,8 +1,7 @@
 const { types } = require('hardhat/config');
-const helper = require('../internal/helper');
 const output = require('common/output');
 const debug = require('common/debug');
-const getNetwork = require('common/network');
+const getEthernautContract = require('../internal/ethernaut-contract');
 
 require('../scopes/oz')
   .task(
@@ -24,14 +23,7 @@ require('../scopes/oz')
   });
 
 async function submitInstance(address, hre) {
-  const network = getNetwork(hre);
-  const deploymentInfo = helper.getDeploymentInfo(network);
-
-  // Prepare the main game contract
-  // TODO: This could be a package util
-  const gameAddress = deploymentInfo.ethernaut;
-  const abi = helper.getEthernautAbi();
-  const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
+  const ethernaut = await getEthernautContract(hre);
 
   // Submit the instance
   const tx = await ethernaut.submitLevelInstance(address);

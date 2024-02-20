@@ -1,11 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-const helper = require('../src/internal/helper');
+const helper = require('../../src/internal/helper');
 
-exports.mochaGlobalSetup = async function deploy() {
+let hre;
+
+module.exports = async function deploy(_hre) {
+  hre = _hre;
+
   const network = hre.network.name;
 
-  console.log(`Deploying ethernaut in the ${network} network...`);
+  // console.log(`Deploying ethernaut in the ${network} network...`);
 
   // Deploy the main game contract
   const ethernaut = await deployEthernaut();

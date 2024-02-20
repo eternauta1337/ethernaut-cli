@@ -1,9 +1,14 @@
 const assert = require('assert');
 const { containsAddress, extractAddress } = require('common/address');
 const helper = require('../../src/internal/helper');
+const deploy = require('../helpers/deploy');
 
 describe('instance', function () {
   let deploymentInfo;
+
+  before('deploy game', async function () {
+    await deploy(hre);
+  });
 
   before('get gamedata', async function () {
     deploymentInfo = helper.getDeploymentInfo('hardhat');

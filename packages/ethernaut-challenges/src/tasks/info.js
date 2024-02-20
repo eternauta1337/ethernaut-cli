@@ -43,10 +43,16 @@ require('../scopes/oz')
   });
 
 function getLevelInfo(level) {
-  const gamedata = helper.getGamedata();
-
   const idx = parseInt(level) - 1;
+  if (idx < 0) {
+    throw new Error('Invalid level number');
+  }
+
+  const gamedata = helper.getGamedata();
   const levelInfo = gamedata.levels[idx];
+  if (!levelInfo) {
+    throw new Error(`Level ${level} not found`);
+  }
   debug.log(`Level info: ${JSON.stringify(levelInfo, null, 2)}`, 'challenges');
 
   const name = levelInfo.name;

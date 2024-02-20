@@ -1,8 +1,13 @@
 const assert = require('assert');
 const { extractAddress } = require('common/address');
 const helper = require('../../src/internal/helper');
+const deploy = require('../helpers/deploy');
 
 describe('submit', function () {
+  before('deploy game', async function () {
+    await deploy(hre);
+  });
+
   describe('when an instance of level 1 is required', function () {
     let instanceAddress;
     before('run instance 1', async function () {
@@ -37,7 +42,7 @@ describe('submit', function () {
 
         before('modify the instance', async function () {
           const abi = helper.getAbi('Instance');
-          contract = await hre.ethers.getContractAt(abi, instanceAddress);
+          const contract = await hre.ethers.getContractAt(abi, instanceAddress);
           const tx = await contract.authenticate('ethernaut0');
           await tx.wait();
         });
