@@ -12,7 +12,7 @@ const keys = {
 };
 
 class Terminal {
-  constructor() {
+  constructor(cwd) {
     this.history = '';
     this.output = '';
 
@@ -22,7 +22,7 @@ class Terminal {
       name: 'xterm-color',
       cols: 80,
       rows: 30,
-      cwd: process.env.HOME,
+      cwd: cwd || process.cwd(),
       env: process.env,
     });
 

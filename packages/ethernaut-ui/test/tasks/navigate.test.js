@@ -7,7 +7,7 @@ describe('navigate', function () {
 
   describe('when entering navigation', function () {
     before('run navigate', async function () {
-      await terminal.run('ethernaut navigate', 1000);
+      await terminal.run('npx hardhat navigate', 1000);
     });
 
     it('displays the main prompt', async function () {
@@ -18,13 +18,6 @@ describe('navigate', function () {
       assert.equal(
         findLineWith('[util]', terminal.output),
         'A collection of tools for the Ethernaut CLI'
-      );
-    });
-
-    it('displays the ai scope', async function () {
-      assert.equal(
-        findLineWith('[ai]', terminal.output),
-        'AI assistant for hardhat tasks'
       );
     });
 
