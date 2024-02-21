@@ -1,55 +1,131 @@
-// const mockStdio = require('mock-stdio');
 const assert = require('assert');
-const pty = require('node-pty');
-const os = require('os');
-const ansiEscapes = require('ansi-escapes');
-
-const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash';
-
-function stripAnsi(inputString) {
-  // Regular expression to match ANSI escape codes
-  const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g;
-  // Replace ANSI escape codes with an empty string
-  return inputString.replace(ansiEscapeCodesPattern, '');
-}
+const { Terminal, keys } = require('common/terminal');
+const { findLineWith } = require('common/strings');
 
 describe('navigate', function () {
-  let result = '';
+  const terminal = new Terminal();
 
-  before('run something', async function () {
-    const ptyProcess = pty.spawn(shell, [], {
-      name: 'xterm-color',
-      cols: 80,
-      rows: 30,
-      cwd: process.env.HOME,
-      env: process.env,
+  describe('when entering navigation', function () {
+    before('run navigate', async function () {
+      await terminal.run('ethernaut navigate', 1000);
     });
 
-    ptyProcess.on('data', function (data) {
-      result += stripAnsi(data.toString());
+    it('displays the main prompt', async function () {
+      assert.ok(terminal.output.includes('Pick a task or scope'));
     });
 
-    // Open navigation
-    ptyProcess.write('ethernaut navigate\r');
+    it('displays the util scope', async function () {
+      assert.equal(
+        findLineWith('[util]', terminal.output),
+        'A collection of tools for the Ethernaut CLI'
+      );
+    });
 
-    // Wait a bit and interact with the prompt
-    setTimeout(() => {
-      // Down arrow key x2
-      ptyProcess.write(ansiEscapes.cursorDown());
-      ptyProcess.write(ansiEscapes.cursorDown());
+    it('displays the ai scope', async function () {
+      assert.equal(
+        findLineWith('[ai]', terminal.output),
+        'AI assistant for hardhat tasks'
+      );
+    });
 
-      // Simulate pressing Enter shortly after
-      setTimeout(() => {
-        ptyProcess.write('\r');
-      }, 200);
-    }, 500); //
+    it('displays the compile task', async function () {
+      assert.equal(
+        findLineWith('compile', terminal.output),
+        'Compiles the entire project, building all artifacts'
+      );
+    });
 
-    // Wait 1s
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  });
+    describe('when using the arrow keys to navigate to the util package', function () {
+      before('interact', async function () {
+        await terminal.input(keys.DOWN, 100);
+        await terminal.input(keys.DOWN, 100);
+        await terminal.input(keys.ENTER, 1000);
+      });
 
-  it('xxx', async function () {
-    // Show output
-    console.log(`>${result}<`);
+      it('shows that util was picked', async function () {
+        assert.ok(terminal.output.includes('Pick a task or scope · util'));
+      });
+
+      it('shows the up nav', async function () {
+        assert.ok(terminal.output.includes('up'));
+      });
+
+      it('shows utils', async function () {
+        assert.ok(terminal.output.includes('to-bytes'));
+        assert.ok(terminal.output.includes('to-string'));
+        assert.ok(terminal.output.includes('unit'));
+      });
+
+      describe('when selecting up', function () {
+        before('interact', async function () {
+          await terminal.input(keys.ENTER, 200);
+        });
+
+        it('does not show utils', async function () {
+          assert.ok(!terminal.output.includes('to-bytes'));
+          assert.ok(!terminal.output.includes('to-string'));
+          assert.ok(!terminal.output.includes('unit'));
+        });
+
+        describe('when navigating to utils with autocomplete', function () {
+          before('interact', async function () {
+            await terminal.input('util\r', 200);
+          });
+
+          it('shows utils', async function () {
+            assert.ok(terminal.output.includes('to-bytes'));
+            assert.ok(terminal.output.includes('to-string'));
+            assert.ok(terminal.output.includes('unit'));
+          });
+
+          describe('when autocompleting for the unit util', function () {
+            before('type u', async function () {
+              await terminal.input('u', 200);
+            });
+
+            it('shows the up nav', async function () {
+              assert.ok(terminal.output.includes('up'));
+            });
+
+            it('shows the unit util', async function () {
+              assert.ok(terminal.output.includes('unit'));
+            });
+
+            it('doesnt show the other utils', async function () {
+              assert.ok(!terminal.output.includes('to-bytes'));
+              assert.ok(!terminal.output.includes('to-string'));
+            });
+
+            describe('when continuing to autocomplete', function () {
+              before('type n', async function () {
+                await terminal.input('n', 200);
+              });
+
+              it('doesnt show the up nav', async function () {
+                assert.ok(!terminal.output.includes('up'));
+              });
+
+              it('shows the unit util', async function () {
+                assert.ok(terminal.output.includes('unit'));
+              });
+
+              describe('when selecting the unit util', function () {
+                before('press enter', async function () {
+                  await terminal.input(keys.ENTER, 500);
+                });
+
+                it('displays a prompt for entering the value to convert', async function () {
+                  assert.ok(
+                    terminal.output.includes(
+                      'Enter value (The value to convert)'
+                    )
+                  );
+                });
+              });
+            });
+          });
+        });
+      });
+    });
   });
 });
