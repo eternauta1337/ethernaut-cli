@@ -28,13 +28,15 @@ require('../scopes/interact')
   )
   .setAction(async ({ address, value, noConfirm }, hre) => {
     try {
-      await sendEther({ address, value, noConfirm, hre });
+      return await sendEther({ address, value, noConfirm, hre });
     } catch (err) {
-      output.errorBox(err);
+      return output.errorBox(err);
     }
   });
 
 async function sendEther({ address, value, noConfirm, hre }) {
+  let buffer = '';
+
   if (!value) value = '0';
 
   const valueWei = hre.ethers.parseEther(value);
@@ -42,7 +44,7 @@ async function sendEther({ address, value, noConfirm, hre }) {
   const signer = await connectSigner(noConfirm);
 
   // Show a summary of the transaction
-  await printTxSummary({
+  buffer += await printTxSummary({
     signer,
     to: address,
     value,
@@ -58,7 +60,11 @@ async function sendEther({ address, value, noConfirm, hre }) {
     value: valueWei,
   });
 
-  await mineTx(tx);
+  buffer += await mineTx(tx);
 
-  output.info(`Resulting balance: ${await getBalance(signer.address)}`);
+  buffer += output.info(
+    `Resulting balance: ${await getBalance(signer.address)}`
+  );
+
+  return buffer;
 }
