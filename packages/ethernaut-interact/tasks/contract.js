@@ -118,9 +118,9 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   const isReadOnly =
     abiFn.stateMutability === 'view' || abiFn.stateMutability === 'pure';
   if (isReadOnly) {
-    await executeRead(contract, sig, params);
+    return await executeRead(contract, sig, params);
   } else {
-    await executeWrite(
+    return await executeWrite(
       signer,
       contract,
       abiFn,
@@ -145,7 +145,7 @@ async function executeRead(contract, sig, params) {
   }
 
   spinner.success('Contract read successful', 'interact');
-  output.resultBox(`${sig} => ${result}`, 'Read Contract');
+  return output.resultBox(`${sig} => ${result}`, 'Read Contract');
 }
 
 async function executeWrite(
@@ -159,6 +159,8 @@ async function executeWrite(
   abi,
   address
 ) {
+  let buffer = '';
+
   // Build tx params
   const isPayable = abiFn.payable || abiFn.stateMutability === 'payable';
   const txParams = {};
@@ -177,7 +179,7 @@ async function executeWrite(
 
   // Display tx summary
   const contractName = path.parse(abi).name;
-  await printTxSummary({
+  buffer += await printTxSummary({
     signer,
     to: address,
     value: value,
@@ -203,9 +205,11 @@ async function executeWrite(
 
   spinner.success('Transaction sent', 'interact');
 
-  await mineTx(tx, contract);
+  buffer += await mineTx(tx, contract);
 
-  output.info(`Resulting balance: ${await getBalance(signer.address)}`);
+  buffer += output.info(
+    `Resulting balance: ${await getBalance(signer.address)}`
+  );
 }
 
 // Specialized prompts for each param

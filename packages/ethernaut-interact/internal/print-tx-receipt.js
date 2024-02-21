@@ -3,8 +3,10 @@ const debug = require('common/debug');
 const { getFullEventSignature } = require('./signatures');
 
 module.exports = async function printTxReceipt(receipt, contract) {
+  let buffer = '';
+
   // Tx info
-  output.resultBox(
+  buffer += output.resultBox(
     `Tx hash: ${receipt.hash}\n` +
       `Gas used: ${receipt.gasUsed.toString()}\n` +
       `Gas price: ${receipt.gasPrice.toString()}\n` +
@@ -16,7 +18,7 @@ module.exports = async function printTxReceipt(receipt, contract) {
   if (contract) {
     const events = receipt.logs.map((log) => contract.interface.parseLog(log));
     if (events.length > 0) {
-      output.info(`Emitted ${events.length} events:`);
+      buffer += output.info(`Emitted ${events.length} events:`);
       events.forEach((event, idx) => {
         debug.log(event, 'interact-deep');
 
@@ -24,13 +26,15 @@ module.exports = async function printTxReceipt(receipt, contract) {
           (item) => item.name === event.name
         );
 
-        output.resultBox(
+        buffer += output.resultBox(
           getFullEventSignature(eventAbi, event),
           `Event ${idx + 1}`
         );
       });
     } else {
-      output.info('Emitted no events');
+      buffer += output.info('Emitted no events');
     }
   }
+
+  return buffer;
 };

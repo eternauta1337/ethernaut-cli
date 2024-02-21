@@ -7,7 +7,7 @@ module.exports = async function printTxSummary({
   value,
   description,
 }) {
-  output.warnBox(
+  return output.warnBox(
     `${description}\n\n` +
       `Signer: ${signer.address}\n` +
       `Balance: ${await getBalance(signer.address)} ETH\n` +

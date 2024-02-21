@@ -17,5 +17,5 @@ module.exports = async function mineTx(tx, contract) {
 
   spinner.success('Transaction mined successfully', 'interact');
 
-  await printTxReceipt(receipt, contract);
+  return await printTxReceipt(receipt, contract);
 };
