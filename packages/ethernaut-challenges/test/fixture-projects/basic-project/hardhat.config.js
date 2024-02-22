@@ -34,4 +34,10 @@ module.exports = {
       },
     ],
   },
+  defaultNetwork: 'local',
+  networks: {
+    local: {
+      url: 'http://localhost:8545',
+    },
+  },
 };

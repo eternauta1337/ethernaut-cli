@@ -55,7 +55,7 @@ describe('submit', function () {
         });
 
         before('get level address', async function () {
-          const deploymentInfo = helper.getDeploymentInfo('hardhat');
+          const deploymentInfo = helper.getDeploymentInfo('local');
           levelAddress = deploymentInfo['0'];
         });
 

@@ -11,7 +11,7 @@ describe('instance', function () {
   });
 
   before('get gamedata', async function () {
-    deploymentInfo = helper.getDeploymentInfo('hardhat');
+    deploymentInfo = helper.getDeploymentInfo('local');
   });
 
   describe('when instance is called for level 1', function () {
