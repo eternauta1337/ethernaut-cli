@@ -53,8 +53,12 @@ class Action {
     });
   }
 
-  async execute(hre) {
+  async execute(hre, noConfirm = false) {
     let collectedOutput = '';
+
+    if (noConfirm) {
+      this.args.noConfirm = true;
+    }
 
     if (this.scopeName) {
       debug.log(

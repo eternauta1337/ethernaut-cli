@@ -24,6 +24,6 @@
     "hardhat": "^2.19.4"
   },
   "scripts": {
-    "test": "echo \"TODO tests...\" && exit 0"
+    "test": "mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'"
   }
 }

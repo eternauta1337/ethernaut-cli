@@ -2,19 +2,23 @@ const path = require('path');
 const output = require('common/src/output');
 const spinner = require('common/src/spinner');
 
-async function setup() {
+async function muteOutput() {
   output.mute(true);
   spinner.mute(true);
-
-  loadHre();
 }
 
-function loadHre() {
-  process.chdir(
-    path.join(process.cwd(), 'test', 'fixture-projects', 'basic-project')
-  );
+function loadProject(projectName = 'basic-project') {
+  const currentPath = process.cwd();
+  const projectPath = path.join(process.cwd(), projectName);
+
+  if (currentPath !== projectPath) {
+    process.chdir(projectPath);
+  }
 
   global.hre = require('hardhat');
 }
 
-setup();
+module.exports = {
+  muteOutput,
+  loadProject,
+};

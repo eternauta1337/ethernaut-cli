@@ -75,7 +75,7 @@ async function processActions(actions, actionDescriptions) {
         // TODO: Not sure why this might be needed...
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        outputs.push(await action.execute(hre));
+        outputs.push(await action.execute(hre, _noConfirm));
       }
       spinner.progress('Analyzing...', 'ai');
       await _interpreter.reportToolOutputs(outputs);

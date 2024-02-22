@@ -7,7 +7,7 @@
     "extract": "node ./scripts/extract.js",
     "fix-package": "node ./scripts/fix-package.js",
     "compile": "cd test/fixture-projects/basic-project && npx hardhat compile && cd ../../..",
-    "test": "npm run fix-package && npm run compile && mocha --exit --timeout 60000 --require '../common/src/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "npm run fix-package && npm run compile && mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
     "ethernaut": "github:OpenZeppelin/ethernaut",
