@@ -4,7 +4,7 @@ const isAddress = (str) => {
 };
 
 const containsAddress = (str) => {
-  const regex = /0x[a-fA-F0-9]{40}/;
+  const regex = /0x[a-fA-F0-9]{40}(?![a-fA-F0-9])/;
   return regex.test(str);
 };
 

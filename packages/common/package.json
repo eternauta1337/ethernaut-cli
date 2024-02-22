@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "echo \"TODO tests...\" && exit 0"
+    "test": "mocha --exit --timeout 60000 --require '../common/src/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "dependencies": {
     "boxen": "^5.1.2",
