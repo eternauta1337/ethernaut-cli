@@ -54,9 +54,8 @@ class Terminal {
   }
 
   _waitForCompletion() {
-    console.log('waiting for completion');
     return new Promise((resolve) => {
-      this.process.onExit(() => {
+      this.process.once('exit', () => {
         debug.log('Process exited', 'terminal');
         resolve();
       });
