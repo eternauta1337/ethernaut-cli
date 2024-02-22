@@ -1,5 +1,6 @@
 const pty = require('node-pty');
 const os = require('os');
+const debug = require('common/debug');
 
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g;
 
@@ -26,21 +27,40 @@ class Terminal {
       env: process.env,
     });
 
-    this.process.on('data', (data) => {
+    this.process.onData((data) => {
       const txt = this.stripAnsi(data.toString());
+      debug.log(txt, 'terminal');
       this.history += txt;
       this.output += txt;
     });
   }
 
   async run(command, wait) {
+    debug.log(`Running command: ${command}`, 'terminal');
+
     this._write(`${command}\r`);
-    return this.wait(wait);
+
+    // Wait for the command to complete or the delay to expire,
+    // whichever happens first.
+    // Note: for completion to actually work, onclude '&& exit' in the command.
+    const completion = this._waitForCompletion();
+    const delay = this.wait(wait);
+    return await Promise.race([completion, delay]);
   }
 
   async input(command, wait) {
     this._write(command);
     return this.wait(wait);
+  }
+
+  _waitForCompletion() {
+    console.log('waiting for completion');
+    return new Promise((resolve) => {
+      this.process.onExit(() => {
+        debug.log('Process exited', 'terminal');
+        resolve();
+      });
+    });
   }
 
   _write(content) {
