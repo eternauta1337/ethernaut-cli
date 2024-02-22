@@ -2,10 +2,10 @@ const { types } = require('hardhat/config');
 const Interpreter = require('../internal/assistants/Interpreter');
 const Explainer = require('../internal/assistants/Explainer');
 const Thread = require('../internal/threads/Thread');
-const output = require('common/output');
-const debug = require('common/debug');
-const spinner = require('common/spinner');
-const prompt = require('common/prompt');
+const output = require('common/src/output');
+const debug = require('common/src/debug');
+const spinner = require('common/src/spinner');
+const prompt = require('common/src/prompt');
 
 let _noConfirm;
 let _thread;

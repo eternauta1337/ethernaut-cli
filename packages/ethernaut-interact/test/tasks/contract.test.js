@@ -1,6 +1,6 @@
 const assert = require('assert');
 const getBalance = require('../../src/internal/get-balance');
-const { Terminal } = require('common/terminal');
+const { Terminal } = require('common/src/terminal');
 const path = require('path');
 
 describe.only('contract', function () {

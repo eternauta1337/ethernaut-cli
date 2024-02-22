@@ -1,6 +1,6 @@
-const debug = require('common/debug');
-const output = require('common/output');
-const camelToKebabCase = require('common/kebab');
+const debug = require('common/src/debug');
+const output = require('common/src/output');
+const camelToKebabCase = require('common/src/kebab');
 const chalk = require('chalk');
 
 class Action {

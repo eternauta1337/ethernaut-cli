@@ -1,6 +1,6 @@
 const assert = require('assert');
 const helper = require('../../src/internal/helper');
-const { findLineWith } = require('common/strings');
+const { findLineWith } = require('common/src/strings');
 
 describe('info', function () {
   let deploymentInfo;

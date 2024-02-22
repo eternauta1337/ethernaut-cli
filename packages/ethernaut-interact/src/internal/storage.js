@@ -3,7 +3,7 @@ const path = require('path');
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('common/create-file');
+} = require('common/src/create-file');
 
 /**
  * addresses.json schema:

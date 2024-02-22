@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Terminal } = require('common/terminal');
+const { Terminal } = require('common/src/terminal');
 
 describe('help', function () {
   const terminal = new Terminal();

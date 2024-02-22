@@ -1,6 +1,6 @@
 const path = require('path');
-const output = require('common/output');
-const spinner = require('common/spinner');
+const output = require('common/src/output');
+const spinner = require('common/src/spinner');
 
 async function setup() {
   output.mute(true);

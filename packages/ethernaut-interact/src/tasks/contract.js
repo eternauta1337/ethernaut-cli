@@ -7,19 +7,19 @@ const {
   getFunctionSignature,
 } = require('../internal/signatures');
 const loadAbi = require('./contract/load-abi');
-const prompt = require('common/prompt');
+const prompt = require('common/src/prompt');
 const autocompleteFn = require('./contract/autocomplete/fn');
 const autocompleteParams = require('./contract/autocomplete/params');
 const autocompleteAbi = require('./contract/autocomplete/abi');
 const autocompleteAddress = require('./contract/autocomplete/address');
 const autocompleteValue = require('./contract/autocomplete/value');
 const storage = require('../internal/storage');
-const output = require('common/output');
-const spinner = require('common/spinner');
-const debug = require('common/debug');
+const output = require('common/src/output');
+const spinner = require('common/src/spinner');
+const debug = require('common/src/debug');
 const connectSigner = require('../internal/connect-signer');
 const printTxSummary = require('../internal/print-tx-summary');
-const getNetwork = require('common/network');
+const getNetwork = require('common/src/network');
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')

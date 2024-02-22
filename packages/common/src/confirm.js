@@ -1,4 +1,4 @@
-const prompt = require('common/prompt');
+const prompt = require('common/src/prompt');
 
 module.exports = async function confirm(msg, skip, exit = true) {
   if (skip) return;

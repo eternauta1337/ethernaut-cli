@@ -1,5 +1,5 @@
 const getBalance = require('./get-balance');
-const output = require('common/output');
+const output = require('common/src/output');
 
 module.exports = async function printTxSummary({
   signer,

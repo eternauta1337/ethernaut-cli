@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config');
-const output = require('common/output');
-const debug = require('common/debug');
+const output = require('common/src/output');
+const debug = require('common/src/debug');
 
 require('../scopes/util')
   .task('to-string', 'Converts bytes32 to string')

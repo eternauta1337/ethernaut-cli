@@ -1,6 +1,6 @@
 const assert = require('assert');
-const { findLineWith } = require('common/strings');
-const { extractAddress } = require('common/address');
+const { findLineWith } = require('common/src/strings');
+const { extractAddress } = require('common/src/address');
 const helper = require('../../src/internal/helper');
 const deploy = require('../helpers/deploy');
 

@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config');
-const prompt = require('common/prompt');
-const output = require('common/output');
-const debug = require('common/debug');
+const prompt = require('common/src/prompt');
+const output = require('common/src/output');
+const debug = require('common/src/debug');
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney'];
 

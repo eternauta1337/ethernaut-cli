@@ -3,8 +3,8 @@ const {
   getFunctionSignature,
   getPopulatedFunctionSignature,
 } = require('../../../internal/signatures');
-const debug = require('common/debug');
-const prompt = require('common/prompt');
+const debug = require('common/src/debug');
+const prompt = require('common/src/prompt');
 
 module.exports = async function autocompleteFn({ fn, abi }) {
   if (!abi) return;

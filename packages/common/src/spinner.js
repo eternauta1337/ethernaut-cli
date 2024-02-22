@@ -1,6 +1,6 @@
 const Spinnies = require('spinnies');
 const cliSpinners = require('cli-spinners');
-const debug = require('common/debug');
+const debug = require('common/src/debug');
 
 let _enabled = true;
 let _channelErrors = {};

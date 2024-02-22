@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Terminal } = require('common/terminal');
+const { Terminal } = require('common/src/terminal');
 
 describe('interpret', function () {
   const terminal = new Terminal();
@@ -36,7 +36,6 @@ describe('interpret', function () {
           `npx hardhat ai interpret "what is SNX in bytes?" --new-thread && exit`,
           10000
         );
-        console.log(terminal.output);
       });
 
       it('suggests actions', async function () {

@@ -1,4 +1,4 @@
-const spinner = require('common/spinner');
+const spinner = require('common/src/spinner');
 const warnWithPrompt = require('../internal/warn-prompt');
 const getBalance = require('../internal/get-balance');
 

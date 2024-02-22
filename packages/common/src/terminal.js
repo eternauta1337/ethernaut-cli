@@ -1,6 +1,6 @@
 const pty = require('node-pty');
 const os = require('os');
-const debug = require('common/debug');
+const debug = require('common/src/debug');
 
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g;
 

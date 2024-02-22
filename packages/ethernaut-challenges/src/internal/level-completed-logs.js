@@ -1,4 +1,4 @@
-const spinner = require('common/spinner');
+const spinner = require('common/src/spinner');
 
 module.exports = async function findLevelCompletedEvents(
   ethernaut,

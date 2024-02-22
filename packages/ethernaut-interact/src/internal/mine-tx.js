@@ -1,5 +1,5 @@
-const spinner = require('common/spinner');
-const debug = require('common/debug');
+const spinner = require('common/src/spinner');
+const debug = require('common/src/debug');
 const printTxReceipt = require('./print-tx-receipt');
 
 module.exports = async function mineTx(tx, contract) {

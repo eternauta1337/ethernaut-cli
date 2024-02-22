@@ -1,6 +1,6 @@
 const { task } = require('hardhat/config');
 const navigateFrom = require('../internal/navigate-from');
-const output = require('common/output');
+const output = require('common/src/output');
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')

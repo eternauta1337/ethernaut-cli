@@ -2,10 +2,10 @@ const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
 const fs = require('fs');
 const path = require('path');
-const output = require('common/output');
-const debug = require('common/debug');
-const replaceHomeDir = require('common/home-dir');
-const getNetwork = require('common/network');
+const output = require('common/src/output');
+const debug = require('common/src/debug');
+const replaceHomeDir = require('common/src/home-dir');
+const getNetwork = require('common/src/network');
 
 require('../scopes/oz')
   .task(

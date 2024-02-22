@@ -1,8 +1,8 @@
 const { task: hreTask } = require('hardhat/config');
-const getNodes = require('common/get-nodes');
-const debug = require('common/debug');
-const output = require('common/output');
-const camelToKebabCase = require('common/kebab');
+const getNodes = require('common/src/get-nodes');
+const debug = require('common/src/debug');
+const output = require('common/src/output');
+const camelToKebabCase = require('common/src/kebab');
 const collectArguments = require('./collect-args');
 
 let _hre;

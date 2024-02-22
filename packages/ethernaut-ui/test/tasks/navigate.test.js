@@ -1,6 +1,6 @@
 const assert = require('assert');
-const { Terminal, keys } = require('common/terminal');
-const { findLineWith } = require('common/strings');
+const { Terminal, keys } = require('common/src/terminal');
+const { findLineWith } = require('common/src/strings');
 
 describe('navigate', function () {
   const terminal = new Terminal();

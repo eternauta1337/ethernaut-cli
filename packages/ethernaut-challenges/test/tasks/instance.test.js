@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { containsAddress, extractAddress } = require('common/address');
+const { containsAddress, extractAddress } = require('common/src/address');
 const helper = require('../../src/internal/helper');
 const deploy = require('../helpers/deploy');
 

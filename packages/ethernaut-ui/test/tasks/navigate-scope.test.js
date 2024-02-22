@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Terminal, keys } = require('common/terminal');
+const { Terminal, keys } = require('common/src/terminal');
 
 describe('navigate scope', function () {
   const terminal = new Terminal();

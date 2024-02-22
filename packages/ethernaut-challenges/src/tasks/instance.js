@@ -1,9 +1,9 @@
 const { types } = require('hardhat/config');
 const helper = require('../internal/helper');
-const output = require('common/output');
-const getNetwork = require('common/network');
+const output = require('common/src/output');
+const getNetwork = require('common/src/network');
 const getEthernautContract = require('../internal/ethernaut-contract');
-const spinner = require('common/spinner');
+const spinner = require('common/src/spinner');
 
 require('../scopes/oz')
   .task(

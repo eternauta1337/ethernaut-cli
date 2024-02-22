@@ -1,5 +1,5 @@
-const getNodes = require('common/get-nodes');
-const flattenTasks = require('common/flatten-tasks');
+const getNodes = require('common/src/get-nodes');
+const flattenTasks = require('common/src/flatten-tasks');
 
 module.exports = function buildDocs(hre) {
   const docs = [];

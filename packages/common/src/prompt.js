@@ -1,6 +1,6 @@
 const { prompt } = require('enquirer');
-const suggest = require('common/enquirer-suggest');
-const spinner = require('common/spinner');
+const suggest = require('common/src/enquirer-suggest');
+const spinner = require('common/src/spinner');
 
 module.exports = async function ({ type, message, choices, limit, initial }) {
   // Spinners eat up the last line of output,

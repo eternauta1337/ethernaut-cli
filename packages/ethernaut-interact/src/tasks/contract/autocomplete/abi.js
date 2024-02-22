@@ -2,11 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const storage = require('../../../internal/storage');
 const EtherscanApi = require('../../../internal/etherscan');
-const prompt = require('common/prompt');
-const spinner = require('common/spinner');
-const debug = require('common/debug');
+const prompt = require('common/src/prompt');
+const spinner = require('common/src/spinner');
+const debug = require('common/src/debug');
 const similarity = require('string-similarity');
-const getNetwork = require('common/network');
+const getNetwork = require('common/src/network');
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',

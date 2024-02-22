@@ -1,7 +1,7 @@
 const { extendEnvironment } = require('hardhat/config');
-const requireAll = require('common/require-all');
+const requireAll = require('common/src/require-all');
 const makeTasksInteractive = require('./internal/make-interactive');
-const spinner = require('common/spinner');
+const spinner = require('common/src/spinner');
 
 requireAll(__dirname, 'scopes');
 requireAll(__dirname, 'tasks');

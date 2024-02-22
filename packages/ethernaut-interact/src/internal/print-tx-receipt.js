@@ -1,5 +1,5 @@
-const output = require('common/output');
-const debug = require('common/debug');
+const output = require('common/src/output');
+const debug = require('common/src/debug');
 const { getFullEventSignature } = require('./signatures');
 
 module.exports = async function printTxReceipt(receipt, contract) {

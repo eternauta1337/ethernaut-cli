@@ -1,6 +1,6 @@
 const storage = require('../../../internal/storage');
-const debug = require('common/debug');
-const getNetwork = require('common/network');
+const debug = require('common/src/debug');
+const getNetwork = require('common/src/network');
 
 module.exports = async function autocompleteAddress({ abi, address, hre }) {
   if (!abi) return;

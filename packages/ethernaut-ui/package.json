@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --exit --timeout 60000 --require '../common/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "mocha --exit --timeout 60000 --require '../common/src/setup-tests.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "keywords": [],
   "author": "",

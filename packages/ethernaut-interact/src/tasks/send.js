@@ -1,5 +1,5 @@
-const output = require('common/output');
-const confirm = require('common/confirm');
+const output = require('common/src/output');
+const confirm = require('common/src/confirm');
 const getBalance = require('../internal/get-balance');
 const printTxSummary = require('../internal/print-tx-summary');
 const mineTx = require('../internal/mine-tx');

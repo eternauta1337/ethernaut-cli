@@ -1,7 +1,7 @@
-const hashStr = require('common/hash-str');
+const hashStr = require('common/src/hash-str');
 const storage = require('../storage');
 const openai = require('../openai');
-const debug = require('common/debug');
+const debug = require('common/src/debug');
 const EventEmitter = require('events');
 
 class Assistant extends EventEmitter {

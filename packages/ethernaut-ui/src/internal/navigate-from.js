@@ -1,5 +1,5 @@
-const prompt = require('common/prompt');
-const getNodes = require('common/get-nodes');
+const prompt = require('common/src/prompt');
+const getNodes = require('common/src/get-nodes');
 const chalk = require('chalk');
 
 module.exports = async function navigateFrom(node) {

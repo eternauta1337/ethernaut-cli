@@ -1,5 +1,5 @@
 const helper = require('./helper');
-const getNetwork = require('common/network');
+const getNetwork = require('common/src/network');
 
 module.exports = async function getEthernautContract(hre) {
   const network = getNetwork(hre);

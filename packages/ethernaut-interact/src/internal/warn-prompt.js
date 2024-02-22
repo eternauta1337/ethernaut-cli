@@ -1,4 +1,4 @@
-const prompt = require('common/prompt');
+const prompt = require('common/src/prompt');
 
 module.exports = async function warnWithPrompt(message) {
   output.warn(message);

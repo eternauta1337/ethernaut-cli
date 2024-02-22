@@ -1,7 +1,7 @@
 const assert = require('assert');
-const { almostEqual } = require('common/math');
+const { almostEqual } = require('common/src/math');
 const getBalance = require('../../src/internal/get-balance');
-const { Terminal } = require('common/terminal');
+const { Terminal } = require('common/src/terminal');
 
 describe('send', function () {
   const terminal = new Terminal();
