@@ -1,5 +1,4 @@
 const output = require('common/output');
-const debug = require('common/debug');
 const confirm = require('common/confirm');
 const getBalance = require('../internal/get-balance');
 const printTxSummary = require('../internal/print-tx-summary');
