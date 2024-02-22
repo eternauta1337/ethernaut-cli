@@ -77,7 +77,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   if (!fn) throw new Error('fn is required');
   if (!value) value = '0';
 
-  debug.log('Interacting with', 'interact');
+  debug.log('Interacting with:', 'interact');
   debug.log(`abi: ${abi}`, 'interact');
   debug.log(`address: ${address}`, 'interact');
   debug.log(`fn: ${fn}`, 'interact');

@@ -38,11 +38,12 @@ describe('send', function () {
     };
 
     const itPrintsPostTxInfo = () => {
-      it('shows tx results', async function () {
+      it('shows tx receipt', async function () {
         assert.ok(terminal.output.includes('Transaction Receipt'));
         assert.ok(terminal.output.includes('Tx hash:'));
         assert.ok(terminal.output.includes('Gas price:'));
         assert.ok(terminal.output.includes('Gas used: 21000'));
+        assert.ok(terminal.output.includes('Block number:'));
       });
 
       it('shows shows final sender balance', async function () {
