@@ -23,6 +23,7 @@
     "hardhat": "^2.19.4"
   },
   "scripts": {
+    "build": "echo 'No build step'",
     "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
