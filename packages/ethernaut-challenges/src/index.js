@@ -4,6 +4,7 @@ const copyFiles = require('common/src/copy-files')
 const spinner = require('common/src/spinner')
 const path = require('path')
 
+require('@nomicfoundation/hardhat-ethers')
 requireAll(__dirname, 'tasks')
 
 extendEnvironment((hre) => {

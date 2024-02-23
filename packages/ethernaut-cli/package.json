@@ -19,7 +19,6 @@
     "ai"
   ],
   "dependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
     "dotenv": "^16.4.1",
     "hardhat": "^2.19.4"
   },

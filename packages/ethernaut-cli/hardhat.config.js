@@ -1,7 +1,5 @@
 require('dotenv').config()
 
-require('@nomicfoundation/hardhat-toolbox')
-
 require('ethernaut-ui')
 require('ethernaut-toolbox')
 require('ethernaut-interact')

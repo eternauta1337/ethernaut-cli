@@ -13,7 +13,7 @@ describe('completing level 1 of ethernaut with ai', function () {
 
   before('run command', async function () {
     await terminal.run(
-      'ethernaut ai interpret "complete level 2 of the ethernaut challenges" --no-confirm --new-thread && exit',
+      'ethernaut ai interpret "complete level 2 of the ethernaut challenges" --no-confirm --new-thread',
       240000,
     )
   })

@@ -13,10 +13,13 @@ const keys = {
   ENTER: '\r',
 }
 
+const doneTxt = '__terminal_done__'
+
 class Terminal {
   constructor(cwd) {
     this.history = ''
     this.output = ''
+    this.running = false
 
     const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
 
@@ -30,23 +33,28 @@ class Terminal {
 
     this.process.onData((data) => {
       const txt = this.stripAnsi(data.toString())
-      debug.log(txt, 'terminal')
+      debug.log(`Terminal output: ${txt}`, 'terminal')
       this.history += txt
       this.output += txt
     })
   }
 
   async run(command, wait) {
+    if (this.running) {
+      throw new Error('Terminal is already running a command')
+    }
+
+    this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
 
-    this._write(`${command}\r`)
+    // Attach doneTxt to the command so we can detect when it's done.
+    this._write(`${command} && echo '${doneTxt}'\r`)
 
-    // Wait for the command to complete or the delay to expire,
-    // whichever happens first.
-    // Note: for completion to actually work, onclude '&& exit' in the command.
     const completion = this._waitForCompletion()
     const delay = this.wait(wait)
-    return await Promise.race([completion, delay])
+    await Promise.race([completion, delay])
+
+    this.running = false
   }
 
   async input(command, wait) {
@@ -55,10 +63,15 @@ class Terminal {
   }
 
   _waitForCompletion() {
+    // Attach a secondary event listener that only checks
+    // for the doneTxt string.
     return new Promise((resolve) => {
-      this.process.once('exit', () => {
-        debug.log('Process exited', 'terminal')
-        resolve()
+      const listener = this.process.onData((data) => {
+        if (data.includes(doneTxt) && !data.includes('echo')) {
+          debug.log('Command completed', 'terminal')
+          listener.dispose()
+          resolve()
+        }
       })
     })
   }
