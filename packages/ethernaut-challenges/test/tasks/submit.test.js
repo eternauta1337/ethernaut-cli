@@ -2,6 +2,7 @@ const assert = require('assert')
 const { extractAddress } = require('common/src/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
+const hre = require('hardhat')
 
 describe('submit', function () {
   before('deploy game', async function () {
@@ -38,6 +39,7 @@ describe('submit', function () {
       })
 
       describe('after the instance is modified', function () {
+        let output
         let levelAddress
 
         before('modify the instance', async function () {

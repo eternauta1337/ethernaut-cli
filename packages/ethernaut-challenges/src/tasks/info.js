@@ -6,6 +6,7 @@ const output = require('common/src/output')
 const debug = require('common/src/debug')
 const replaceHomeDir = require('common/src/home-dir')
 const getNetwork = require('common/src/network')
+const hre = require('hardhat')
 
 require('../scopes/oz')
   .task(
@@ -18,7 +19,7 @@ require('../scopes/oz')
     undefined,
     types.string,
   )
-  .setAction(async ({ level }, hre) => {
+  .setAction(async ({ level }) => {
     try {
       const info = getLevelInfo(level)
 

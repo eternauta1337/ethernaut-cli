@@ -4,6 +4,7 @@ const getBalance = require('../internal/get-balance')
 const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
 const connectSigner = require('../internal/connect-signer')
+const { types } = require('hardhat/config')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')

@@ -1,6 +1,7 @@
 const prompt = require('common/src/prompt')
 const getNodes = require('common/src/get-nodes')
 const chalk = require('chalk')
+const hre = require('hardhat')
 
 module.exports = async function navigateFrom(node) {
   const children = getNodes(node).sort((a, b) => b.isScope - a.isScope)

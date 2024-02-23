@@ -29,7 +29,7 @@ describe('address', function () {
       )
       assert.ok(
         containsAddress(
-          `There\nis\nan\naddress\nin\nhere\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`,
+          'There\nis\nan\naddress\nin\nhere\n0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
         ),
       )
     })

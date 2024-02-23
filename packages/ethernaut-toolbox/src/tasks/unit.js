@@ -1,7 +1,6 @@
 const { types } = require('hardhat/config')
 const prompt = require('common/src/prompt')
 const output = require('common/src/output')
-const debug = require('common/src/debug')
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney']
 
@@ -18,12 +17,12 @@ const unit = require('../scopes/util')
     undefined,
     types.string,
   )
-  .addOptionalParam('from', `The unit to convert from`, undefined, types.string)
-  .addOptionalParam('to', `The unit to convert to`, undefined, types.string)
+  .addOptionalParam('from', 'The unit to convert from', undefined, types.string)
+  .addOptionalParam('to', 'The unit to convert to', undefined, types.string)
   .setAction(async ({ value, from, to }, hre) => {
     try {
-      const valueWei = ethers.parseUnits(value, from)
-      let result = ethers.formatUnits(valueWei, to)
+      const valueWei = hre.ethers.parseUnits(value, from)
+      let result = hre.ethers.formatUnits(valueWei, to)
 
       const removeTrailingZeroes = /^0*(\d+(?:\.(?:(?!0+$)\d)+)?)/
       result = result.match(removeTrailingZeroes)[1]

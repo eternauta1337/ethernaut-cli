@@ -26,7 +26,7 @@ function findAddressWithAbi(abi, network) {
   if (!networkAddresses) return undefined
 
   return Object.entries(networkAddresses).find(
-    ([address, addressAbiPath]) => addressAbiPath === abi,
+    ([_, addressAbiPath]) => addressAbiPath === abi,
   )[0]
 }
 

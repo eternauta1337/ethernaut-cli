@@ -65,7 +65,7 @@ class Assistant extends EventEmitter {
       switch (required_action.type) {
         case 'submit_tool_outputs':
           if (this.prevStatus !== 'requires_action') {
-            debug.log(`Emitting tool_calls_required event`, 'ai')
+            debug.log('Emitting tool_calls_required event', 'ai')
             this.emit(
               'tool_calls_required',
               required_action.submit_tool_outputs.tool_calls,
@@ -76,7 +76,6 @@ class Assistant extends EventEmitter {
           throw new Error(
             `Unknown action request type: ${required_action.type}`,
           )
-          break
       }
     }
 

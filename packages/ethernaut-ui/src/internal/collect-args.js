@@ -21,7 +21,7 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
 
     const argsSoFar = { ...providedArgs, ...collectedArgs }
 
-    collectedArg = await collectArg(paramDef, providedArg, argsSoFar)
+    const collectedArg = await collectArg(paramDef, providedArg, argsSoFar)
     if (collectedArg !== undefined) {
       debug.log(
         `Autocompletion for "${paramDef.name}" collected "${collectedArg}"`,

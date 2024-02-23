@@ -80,7 +80,7 @@ module.exports = async function autocompleteAbi({ abi, hre, address }) {
   }
 }
 
-async function selectStrategy({ address, network }) {
+async function selectStrategy({ address }) {
   // Collect available choices since
   // not all strategies might be available
   const choices = [strategies.MANUAL]

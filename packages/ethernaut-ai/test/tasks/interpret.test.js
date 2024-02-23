@@ -8,7 +8,7 @@ describe('interpret', function () {
     describe('without prompting', function () {
       before('call interpret', async function () {
         await terminal.run(
-          `npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread && exit`,
+          'npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread && exit',
           60000,
         )
       })
@@ -33,7 +33,7 @@ describe('interpret', function () {
     describe.only('with promptiong', function () {
       before('run interpret', async function () {
         await terminal.run(
-          `npx hardhat ai interpret "what is SNX in bytes?" --new-thread && exit`,
+          'npx hardhat ai interpret "what is SNX in bytes?" --new-thread && exit',
           10000,
         )
       })

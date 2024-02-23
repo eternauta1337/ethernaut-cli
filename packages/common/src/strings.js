@@ -1,6 +1,6 @@
 function findLineWith(text, fullText) {
   // Escape special characters in the lineStart string to safely use it in a regular expression
-  const escapedLineStart = text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+  const escapedLineStart = text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
 
   // Construct a dynamic regular expression using the escaped lineStart
   // The 'm' flag is used to perform multiline matching

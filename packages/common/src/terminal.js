@@ -2,6 +2,7 @@ const pty = require('node-pty')
 const os = require('os')
 const debug = require('common/src/debug')
 
+// eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
 
 const keys = {

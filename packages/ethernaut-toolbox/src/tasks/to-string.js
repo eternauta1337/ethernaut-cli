@@ -1,6 +1,5 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const debug = require('common/src/debug')
 
 require('../scopes/util')
   .task('to-string', 'Converts bytes32 to string')
@@ -13,6 +12,7 @@ require('../scopes/util')
   .setAction(async ({ value }, hre) => {
     try {
       const strNullPadded = hre.ethers.toUtf8String(value)
+      // eslint-disable-next-line no-control-regex
       const str = strNullPadded.replace(/\x00/g, '')
       return output.resultBox(str)
     } catch (err) {

@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { Terminal, keys } = require('common/src/terminal')
+const { Terminal } = require('common/src/terminal')
 
 describe('interact unit', function () {
   const terminal = new Terminal()

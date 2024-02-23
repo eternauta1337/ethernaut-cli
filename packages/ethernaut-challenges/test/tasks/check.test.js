@@ -2,6 +2,7 @@ const assert = require('assert')
 const { extractAddress } = require('common/src/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
+const hre = require('hardhat')
 
 describe('check', function () {
   before('deploy game', async function () {
@@ -30,7 +31,7 @@ describe('check', function () {
       describe('when the instance is modified but not submitted yet', function () {
         before('modify the instance', async function () {
           const abi = helper.getAbi('Instance')
-          contract = await hre.ethers.getContractAt(abi, instanceAddress)
+          const contract = await hre.ethers.getContractAt(abi, instanceAddress)
           const tx = await contract.authenticate('ethernaut0')
           await tx.wait()
         })

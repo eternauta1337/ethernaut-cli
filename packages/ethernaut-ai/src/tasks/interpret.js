@@ -6,6 +6,7 @@ const output = require('common/src/output')
 const debug = require('common/src/debug')
 const spinner = require('common/src/spinner')
 const prompt = require('common/src/prompt')
+const hre = require('hardhat')
 
 let _noConfirm
 let _thread
@@ -67,10 +68,10 @@ async function processActions(actions, actionDescriptions) {
 
   output.copyBox(actionDescriptions.join('\n'), 'Suggested Actions')
 
+  const outputs = []
   switch (await promptUser()) {
     case 'execute':
       spinner.progress('Executing...', 'ai')
-      const outputs = []
       for (let action of actions) {
         // TODO: Not sure why this might be needed...
         await new Promise((resolve) => setTimeout(resolve, 1000))

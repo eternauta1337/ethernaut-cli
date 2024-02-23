@@ -1,4 +1,5 @@
 const assert = require('assert')
+const hre = require('hardhat')
 
 describe('oz', function () {
   it('has an "oz" scope', async function () {

@@ -2,6 +2,7 @@ const buildToolsSpec = require('./utils/build-tools-spec')
 const Assistant = require('./Assistant')
 const Action = require('../Action')
 const debug = require('common/src/debug')
+const hre = require('hardhat')
 
 class Interpreter extends Assistant {
   constructor(hre) {
@@ -26,7 +27,7 @@ class Interpreter extends Assistant {
     const actions = toolCalls.map((tc) => new Action(tc, hre))
     const actionDescriptions = actions.map((a) => a.getDescription())
 
-    debug.log(`Emitting calls_required event`, 'ai')
+    debug.log('Emitting calls_required event', 'ai')
 
     this.emit('actions_required', actions, actionDescriptions)
   }

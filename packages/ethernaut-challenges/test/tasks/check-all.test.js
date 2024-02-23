@@ -3,6 +3,7 @@ const { findLineWith } = require('common/src/strings')
 const { extractAddress } = require('common/src/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
+const hre = require('hardhat')
 
 describe('check-all', function () {
   let output

@@ -2,6 +2,7 @@ const assert = require('assert')
 const { containsAddress, extractAddress } = require('common/src/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
+const hre = require('hardhat')
 
 describe('instance', function () {
   let deploymentInfo

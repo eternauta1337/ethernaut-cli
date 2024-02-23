@@ -20,6 +20,7 @@ const debug = require('common/src/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
 const getNetwork = require('common/src/network')
+const hre = require('hardhat')
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
@@ -57,7 +58,7 @@ const contract = require('../scopes/interact')
     'noConfirm',
     'Skip confirmation prompts, avoiding any type of interactivity',
   )
-  .setAction(async ({ abi, address, fn, params, value, noConfirm }, hre) => {
+  .setAction(async ({ abi, address, fn, params, value, noConfirm }) => {
     try {
       return await interact({ abi, address, fn, params, value, noConfirm })
     } catch (err) {
@@ -135,7 +136,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
 }
 
 async function executeRead(contract, sig, params) {
-  spinner.progress(`Reading contract`, 'interact')
+  spinner.progress('Reading contract', 'interact')
 
   let result
   if (params.length > 0) {
@@ -210,6 +211,8 @@ async function executeWrite(
   buffer += output.info(
     `Resulting balance: ${await getBalance(signer.address)}`,
   )
+
+  return buffer
 }
 
 // Specialized prompts for each param

@@ -30,7 +30,9 @@ const _getCallerFile = () => {
 
       if (current.getFileName() !== caller.getFileName()) break
     }
-  } catch (e) {}
+  } catch (e) {
+    // Ignore
+  }
 
   Error.prepareStackTrace = originalFunc
 

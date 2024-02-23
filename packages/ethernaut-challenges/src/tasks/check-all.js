@@ -8,7 +8,7 @@ require('../scopes/oz')
     'check-all',
     'Checks all levels that have been completed and submitted by the player',
   )
-  .setAction(async ({}, hre) => {
+  .setAction(async (_, hre) => {
     try {
       const completed = await checkLevels(hre)
       return output.resultBox(
