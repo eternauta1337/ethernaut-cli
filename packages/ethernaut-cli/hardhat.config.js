@@ -1,4 +1,6 @@
-require('dotenv').config()
+require('dotenv').config({
+  path: require('path').resolve(__dirname, '../../.env'),
+})
 
 require('ethernaut-ui')
 require('ethernaut-toolbox')
