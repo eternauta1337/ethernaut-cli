@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "extract": "node ./scripts/extract.js",
-    "fix-package": "node ./scripts/fix-package.js",
-    "compile": "cd test/fixture-projects/basic-project && npx hardhat compile && cd ../../..",
-    "test": "npm run fix-package && npm run compile && mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
     "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",

@@ -2,9 +2,6 @@
   "name": "basic-project",
   "version": "1.0.0",
   "devDependencies": {
-    "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
-    "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3",
-    "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "ethers": "^6.11.1"
   }

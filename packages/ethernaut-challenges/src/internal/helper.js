@@ -50,16 +50,12 @@ function getAbi(abiName) {
 // Paths
 // ------------------------
 
-function getExtractedFilesPath() {
-  return path.join(__dirname, '..', '..', 'extracted');
-}
-
 function getAbisPath() {
   return path.join(process.cwd(), 'artifacts', 'interact', 'abis');
 }
 
 function getSourcesPath() {
-  return path.join(getExtractedFilesPath(), 'contracts');
+  return path.join(__dirname, '..', '..', 'contracts', 'levels');
 }
 
 function getGamedataPath() {

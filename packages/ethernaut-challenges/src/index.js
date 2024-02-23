@@ -10,7 +10,7 @@ extendEnvironment((hre) => {
   spinner.enable(!hre.hardhatArguments.verbose);
 
   copyFiles(
-    path.resolve(__dirname, '..', 'extracted', 'abis'),
+    path.resolve(__dirname, '..', 'abis'),
     path.resolve(process.cwd(), 'artifacts', 'interact', 'abis')
   );
 });

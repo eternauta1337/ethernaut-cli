@@ -41,9 +41,7 @@ module.exports = async function deploy(_hre) {
 };
 
 async function deployEthernaut() {
-  const Ethernaut = await hre.ethers.getContractFactory(
-    'ethernaut/contracts/contracts/Ethernaut.sol:Ethernaut'
-  );
+  const Ethernaut = await hre.ethers.getContractFactory('Ethernaut');
 
   return await Ethernaut.deploy();
 }
