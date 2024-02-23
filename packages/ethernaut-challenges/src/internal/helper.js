@@ -63,7 +63,7 @@ function getSourcesPath() {
 }
 
 function getGamedataPath() {
-  return path.join(__dirname, '..', '..', 'extracted', 'gamedata');
+  return path.join(__dirname, '..', '..', 'gamedata');
 }
 
 module.exports = {
