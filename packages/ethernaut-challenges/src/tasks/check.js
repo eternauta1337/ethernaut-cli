@@ -1,50 +1,50 @@
-const { types } = require('hardhat/config');
-const helper = require('../internal/helper');
-const output = require('common/src/output');
-const findLevelCompletedEvents = require('../internal/level-completed-logs');
-const getNetwork = require('common/src/network');
+const { types } = require('hardhat/config')
+const helper = require('../internal/helper')
+const output = require('common/src/output')
+const findLevelCompletedEvents = require('../internal/level-completed-logs')
+const getNetwork = require('common/src/network')
 
 require('../scopes/oz')
   .task(
     'check',
-    'Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements'
+    'Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements',
   )
   .addOptionalPositionalParam(
     'level',
     'The level number',
     undefined,
-    types.string
+    types.string,
   )
   .setAction(async ({ level }, hre) => {
     try {
-      const completed = await checkLevel(level, hre);
-      if (completed) return output.resultBox('Level completed');
-      else return output.warnBox('Level not completed');
+      const completed = await checkLevel(level, hre)
+      if (completed) return output.resultBox('Level completed')
+      else return output.warnBox('Level not completed')
     } catch (err) {
-      output.errorBox(err);
+      output.errorBox(err)
     }
-  });
+  })
 
 async function checkLevel(level, hre) {
   if (level < 1) {
-    throw new Error('Invalid level number');
+    throw new Error('Invalid level number')
   }
 
-  const network = getNetwork(hre);
-  const deploymentInfo = helper.getDeploymentInfo(network);
+  const network = getNetwork(hre)
+  const deploymentInfo = helper.getDeploymentInfo(network)
 
   // Prepare the main game contract
-  const gameAddress = deploymentInfo.ethernaut;
-  const abi = helper.getEthernautAbi();
-  const ethernaut = await hre.ethers.getContractAt(abi, gameAddress);
+  const gameAddress = deploymentInfo.ethernaut
+  const abi = helper.getEthernautAbi()
+  const ethernaut = await hre.ethers.getContractAt(abi, gameAddress)
 
   // Get player address
-  const signer = (await hre.ethers.getSigners())[0];
-  const playerAddress = signer.address;
+  const signer = (await hre.ethers.getSigners())[0]
+  const playerAddress = signer.address
 
   // TODO: Get corresponding level address
-  const idx = parseInt(level) - 1;
-  const levelAddress = deploymentInfo[idx];
+  const idx = parseInt(level) - 1
+  const levelAddress = deploymentInfo[idx]
 
   // The contract doesn't have a function for checking
   // if a level is completed (geez Ethernaut :eye-roll:).
@@ -52,8 +52,8 @@ async function checkLevel(level, hre) {
   const events = await findLevelCompletedEvents(
     ethernaut,
     playerAddress,
-    levelAddress
-  );
+    levelAddress,
+  )
 
-  return events.length > 0;
+  return events.length > 0
 }

@@ -1,84 +1,84 @@
-const storage = require('../storage');
-const openai = require('../openai');
+const storage = require('../storage')
+const openai = require('../openai')
 
 class Thread {
   constructor(name = 'default', newThread) {
-    this.name = name;
+    this.name = name
 
     if (newThread) {
-      storage.clearThreadInfo(name);
+      storage.clearThreadInfo(name)
     }
 
-    storage.init();
+    storage.init()
   }
 
   async post(message) {
-    await this.invalidateId();
+    await this.invalidateId()
 
     await openai.beta.threads.messages.create(this.id, {
       role: 'user',
       content: message,
-    });
+    })
   }
 
   async stop() {
-    await this.invalidateId();
+    await this.invalidateId()
 
-    const runs = await openai.beta.threads.runs.list(this.id);
-    if (!runs) return;
+    const runs = await openai.beta.threads.runs.list(this.id)
+    if (!runs) return
 
     const activeRuns = runs.body.data.filter(
       (run) =>
         run.status === 'in_progress' ||
         run.status === 'queued' ||
-        run.status === 'requires_action'
-    );
-    if (!activeRuns || activeRuns.length === 0) return;
+        run.status === 'requires_action',
+    )
+    if (!activeRuns || activeRuns.length === 0) return
 
     for (const run of activeRuns) {
-      await openai.beta.threads.runs.cancel(this.id, run.id);
+      await openai.beta.threads.runs.cancel(this.id, run.id)
     }
   }
 
   async getMessages() {
-    return await openai.beta.threads.messages.list(this.id);
+    return await openai.beta.threads.messages.list(this.id)
   }
 
   async getLastMessage(runId, role = 'assistant') {
-    const messages = await this.getMessages();
+    const messages = await this.getMessages()
 
-    let msgs = messages.data;
+    let msgs = messages.data
 
     if (runId && role === 'assistant') {
       msgs = msgs.filter(
-        (message) => message.run_id === runId && message.role === 'assistant'
-      );
+        (message) => message.run_id === runId && message.role === 'assistant',
+      )
     }
 
     if (msgs.length === 0) {
-      throw new Error('No message found');
+      throw new Error('No message found')
     }
 
-    const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0];
+    const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0]
 
-    return msg.content[0].text.value;
+    return msg.content[0].text.value
   }
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      const { id } = await openai.beta.threads.create();
+      const { id } = await openai.beta.threads.create()
 
-      storage.storeThreadInfo(this.name, id);
+      storage.storeThreadInfo(this.name, id)
 
-      this.id = id;
+      this.id = id
     } else {
-      this.id = storage.getThreadId(this.name);
+      this.id = storage.getThreadId(this.name)
     }
   }
 
   needsUpdate() {
-    return storage.readThreadInfo(this.name) === undefined;
+    return storage.readThreadInfo(this.name) === undefined
   }
 }
 
-module.exports = Thread;
+module.exports = Thread

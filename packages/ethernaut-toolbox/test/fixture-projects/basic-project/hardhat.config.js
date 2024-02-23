@@ -1,6 +1,6 @@
 /** @type import('hardhat/config').HardhatUserConfig */
-require('@nomicfoundation/hardhat-ethers');
-require('../../../src/index');
+require('@nomicfoundation/hardhat-ethers')
+require('../../../src/index')
 
 module.exports = {
   solidity: '0.8.24',
@@ -10,4 +10,4 @@ module.exports = {
       url: 'http://localhost:8545',
     },
   },
-};
+}

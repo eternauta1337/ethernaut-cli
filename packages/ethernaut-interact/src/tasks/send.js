@@ -1,9 +1,9 @@
-const output = require('common/src/output');
-const confirm = require('common/src/confirm');
-const getBalance = require('../internal/get-balance');
-const printTxSummary = require('../internal/print-tx-summary');
-const mineTx = require('../internal/mine-tx');
-const connectSigner = require('../internal/connect-signer');
+const output = require('common/src/output')
+const confirm = require('common/src/confirm')
+const getBalance = require('../internal/get-balance')
+const printTxSummary = require('../internal/print-tx-summary')
+const mineTx = require('../internal/mine-tx')
+const connectSigner = require('../internal/connect-signer')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')
@@ -11,34 +11,34 @@ require('../scopes/interact')
     'address',
     'The address that will receive the ether',
     undefined,
-    types.string
+    types.string,
   )
   .addOptionalParam(
     'value',
     'The amount of ether to send with the transaction. Warning! The value is in ether, not wei.',
     undefined,
-    types.string
+    types.string,
   )
   .addFlag(
     'noConfirm',
-    'Skip confirmation prompts, avoiding any type of interactivity'
+    'Skip confirmation prompts, avoiding any type of interactivity',
   )
   .setAction(async ({ address, value, noConfirm }, hre) => {
     try {
-      return await sendEther({ address, value, noConfirm, hre });
+      return await sendEther({ address, value, noConfirm, hre })
     } catch (err) {
-      return output.errorBox(err);
+      return output.errorBox(err)
     }
-  });
+  })
 
 async function sendEther({ address, value, noConfirm, hre }) {
-  let buffer = '';
+  let buffer = ''
 
-  if (!value) value = '0';
+  if (!value) value = '0'
 
-  const valueWei = hre.ethers.parseEther(value);
+  const valueWei = hre.ethers.parseEther(value)
 
-  const signer = await connectSigner(noConfirm);
+  const signer = await connectSigner(noConfirm)
 
   // Show a summary of the transaction
   buffer += await printTxSummary({
@@ -46,22 +46,22 @@ async function sendEther({ address, value, noConfirm, hre }) {
     to: address,
     value,
     description: `Sending ${value} ETH (${valueWei} wei) to ${address}`,
-  });
+  })
 
   // Prompt the user for confirmation
-  await confirm('Do you want to proceed with the call?', noConfirm);
+  await confirm('Do you want to proceed with the call?', noConfirm)
 
   // Prepare the tx
   const tx = await signer.sendTransaction({
     to: address,
     value: valueWei,
-  });
+  })
 
-  buffer += await mineTx(tx);
+  buffer += await mineTx(tx)
 
   buffer += output.info(
-    `Resulting balance: ${await getBalance(signer.address)}`
-  );
+    `Resulting balance: ${await getBalance(signer.address)}`,
+  )
 
-  return buffer;
+  return buffer
 }

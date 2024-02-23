@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('common/src/create-file');
+} = require('common/src/create-file')
 
 /**
  * addresses.json schema:
@@ -16,78 +16,78 @@ const {
  */
 
 function readAddresses() {
-  initStorage();
+  initStorage()
 
-  return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'));
+  return JSON.parse(fs.readFileSync(getAddressesFilePath(), 'utf8'))
 }
 
 function findAddressWithAbi(abi, network) {
-  const networkAddresses = readAddresses()[network];
-  if (!networkAddresses) return undefined;
+  const networkAddresses = readAddresses()[network]
+  if (!networkAddresses) return undefined
 
   return Object.entries(networkAddresses).find(
-    ([address, addressAbiPath]) => addressAbiPath === abi
-  )[0];
+    ([address, addressAbiPath]) => addressAbiPath === abi,
+  )[0]
 }
 
 function storeAddresses(data) {
-  initStorage();
+  initStorage()
 
-  fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2));
+  fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2))
 }
 
 function rememberAbiAndAddress(abi, address, network) {
-  initStorage();
+  initStorage()
 
-  const addresses = readAddresses();
+  const addresses = readAddresses()
 
   if (!addresses[network]) {
-    addresses[network] = {};
+    addresses[network] = {}
   }
 
-  addresses[network][address] = abi;
+  addresses[network][address] = abi
 
-  storeAddresses(addresses);
+  storeAddresses(addresses)
 }
 
 function getAddressesFilePath() {
-  return path.join(getInteractFilePath(), 'addresses.json');
+  return path.join(getInteractFilePath(), 'addresses.json')
 }
 
 function storeAbi(name, abi) {
-  initStorage();
+  initStorage()
 
-  const filePath = path.join(getAbisFilePath(), `${name}.json`);
+  const filePath = path.join(getAbisFilePath(), `${name}.json`)
 
-  fs.writeFileSync(filePath, JSON.stringify(abi, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(abi, null, 2))
 
-  return filePath;
+  return filePath
 }
 
 function getAbisFilePath() {
-  return path.join(getInteractFilePath(), 'abis');
+  return path.join(getInteractFilePath(), 'abis')
 }
 
 function getInteractFilePath() {
-  return path.join(process.cwd(), 'artifacts', 'interact');
+  return path.join(process.cwd(), 'artifacts', 'interact')
 }
 
 function initStorage() {
-  createFolderIfMissing(getAbisFilePath());
-  createFileIfMissing(getAddressesFilePath(), {});
+  createFolderIfMissing(getAbisFilePath())
+  createFileIfMissing(getAddressesFilePath(), {})
 }
 
 function readAbiFiles() {
-  initStorage();
+  initStorage()
 
-  const abisPath = getAbisFilePath();
+  const abisPath = getAbisFilePath()
 
   return fs.readdirSync(abisPath).map((abiFile) => {
     return {
       name: abiFile.split('.json')[0],
       path: path.join(abisPath, abiFile),
-    };
-  });
+    }
+  })
 }
 
 module.exports = {
@@ -96,4 +96,4 @@ module.exports = {
   readAddresses,
   readAbiFiles,
   findAddressWithAbi,
-};
+}

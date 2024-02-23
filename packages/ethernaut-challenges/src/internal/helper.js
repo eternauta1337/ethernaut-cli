@@ -1,25 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 
 function getGamedata() {
-  const filePath = path.join(getGamedataPath(), 'gamedata.json');
+  const filePath = path.join(getGamedataPath(), 'gamedata.json')
 
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 function getDeploymentInfo(network) {
-  const filePath = path.join(getGamedataPath(), `deploy.${network}.json`);
+  const filePath = path.join(getGamedataPath(), `deploy.${network}.json`)
   if (!fs.existsSync(filePath)) {
-    throw new Error(`No deployment info found for ${network}`);
+    throw new Error(`No deployment info found for ${network}`)
   }
 
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 function getLevelAddress(level, network) {
-  const idx = parseInt(level) - 1;
-  const deploymentInfo = getDeploymentInfo(network);
-  return deploymentInfo[idx];
+  const idx = parseInt(level) - 1
+  const deploymentInfo = getDeploymentInfo(network)
+  return deploymentInfo[idx]
 }
 
 function getLevelDescription(descriptionFileName) {
@@ -28,22 +28,22 @@ function getLevelDescription(descriptionFileName) {
     'en',
     'descriptions',
     'levels',
-    descriptionFileName
-  );
+    descriptionFileName,
+  )
 
-  return fs.readFileSync(filePath, 'utf8');
+  return fs.readFileSync(filePath, 'utf8')
 }
 
 function getEthernautAbi() {
-  const filePath = path.join(getAbisPath(), 'Ethernaut.json');
+  const filePath = path.join(getAbisPath(), 'Ethernaut.json')
 
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 function getAbi(abiName) {
-  const filePath = path.join(getAbisPath(), `${abiName}.json`);
+  const filePath = path.join(getAbisPath(), `${abiName}.json`)
 
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 // ------------------------
@@ -51,15 +51,15 @@ function getAbi(abiName) {
 // ------------------------
 
 function getAbisPath() {
-  return path.join(process.cwd(), 'artifacts', 'interact', 'abis');
+  return path.join(process.cwd(), 'artifacts', 'interact', 'abis')
 }
 
 function getSourcesPath() {
-  return path.join(__dirname, '..', '..', 'contracts', 'levels');
+  return path.join(__dirname, '..', '..', 'contracts', 'levels')
 }
 
 function getGamedataPath() {
-  return path.join(__dirname, '..', '..', 'gamedata');
+  return path.join(__dirname, '..', '..', 'gamedata')
 }
 
 module.exports = {
@@ -72,4 +72,4 @@ module.exports = {
   getEthernautAbi,
   getAbi,
   getLevelAddress,
-};
+}

@@ -1,5 +1,5 @@
-const getBalance = require('./get-balance');
-const output = require('common/src/output');
+const getBalance = require('./get-balance')
+const output = require('common/src/output')
 
 module.exports = async function printTxSummary({
   signer,
@@ -13,6 +13,6 @@ module.exports = async function printTxSummary({
       `Balance: ${await getBalance(signer.address)} ETH\n` +
       `To: ${to}\n` +
       `Value: ${value} ETH`,
-    'Pending Tx'
-  );
-};
+    'Pending Tx',
+  )
+}

@@ -1,12 +1,12 @@
-require('dotenv').config();
+require('dotenv').config()
 
-require('@nomicfoundation/hardhat-toolbox');
+require('@nomicfoundation/hardhat-toolbox')
 
-require('ethernaut-ui');
-require('ethernaut-toolbox');
-require('ethernaut-interact');
-require('ethernaut-ai');
-require('ethernaut-challenges');
+require('ethernaut-ui')
+require('ethernaut-toolbox')
+require('ethernaut-interact')
+require('ethernaut-ai')
+require('ethernaut-challenges')
 
 module.exports = {
   solidity: '0.8.19',
@@ -37,4 +37,4 @@ module.exports = {
       },
     },
   },
-};
+}

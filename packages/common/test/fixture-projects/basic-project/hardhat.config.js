@@ -1,5 +1,5 @@
 /** @type import('hardhat/config').HardhatUserConfig */
-require('@nomicfoundation/hardhat-ethers');
+require('@nomicfoundation/hardhat-ethers')
 
 module.exports = {
   solidity: '0.8.24',
@@ -9,4 +9,4 @@ module.exports = {
       url: 'http://localhost:8545',
     },
   },
-};
+}

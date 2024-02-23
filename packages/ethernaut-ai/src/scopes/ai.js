@@ -1,4 +1,4 @@
-const { scope } = require('hardhat/config');
-const { description } = require('../../package.json');
+const { scope } = require('hardhat/config')
+const { description } = require('../../package.json')
 
-module.exports = scope('ai', description);
+module.exports = scope('ai', description)

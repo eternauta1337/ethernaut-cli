@@ -1,17 +1,17 @@
-const Assistant = require('./Assistant');
+const Assistant = require('./Assistant')
 
 class Name extends Assistant {
   constructor(hre) {
-    const config = require('./configs/namer.json');
+    const config = require('./configs/namer.json')
 
-    super('namer', config);
+    super('namer', config)
   }
 
   async process(thread) {
-    await this.invalidateId();
+    await this.invalidateId()
 
     // Implement your logic here
   }
 }
 
-module.exports = Interpreter;
+module.exports = Interpreter

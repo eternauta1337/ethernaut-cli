@@ -1,9 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs')
+const path = require('path')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('common/src/create-file');
+} = require('common/src/create-file')
 
 /**
  * Stores data like this:
@@ -44,32 +44,32 @@ const {
 // -------------------
 
 function storeThreadInfo(name, id) {
-  const info = readInfo();
+  const info = readInfo()
 
-  const thread = info.threads.find((e) => e.name === name);
+  const thread = info.threads.find((e) => e.name === name)
 
   if (thread) {
-    thread.id = id;
+    thread.id = id
   } else {
-    info.threads.push({ name, id });
+    info.threads.push({ name, id })
   }
 
-  storeInfo(info);
+  storeInfo(info)
 }
 
 function getThreadId(name) {
-  return readThreadInfo(name)?.id;
+  return readThreadInfo(name)?.id
 }
 
 function readThreadInfo(name) {
-  const threads = readInfo().threads;
-  return threads.find((e) => e.name === name);
+  const threads = readInfo().threads
+  return threads.find((e) => e.name === name)
 }
 
 function clearThreadInfo(name) {
-  const info = readInfo();
-  info.threads = info.threads.filter((e) => e.name !== name);
-  storeInfo(info);
+  const info = readInfo()
+  info.threads = info.threads.filter((e) => e.name !== name)
+  storeInfo(info)
 }
 
 // -------------------
@@ -77,50 +77,50 @@ function clearThreadInfo(name) {
 // -------------------
 
 function readAssistantConfig(id) {
-  const filePath = getAssistantConfigPath(id);
-  if (!fs.existsSync(filePath)) return null;
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const filePath = getAssistantConfigPath(id)
+  if (!fs.existsSync(filePath)) return null
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
 }
 
 function readAssistantInfo(name) {
-  const assistants = readInfo().assistants;
-  return assistants.find((e) => e.name === name);
+  const assistants = readInfo().assistants
+  return assistants.find((e) => e.name === name)
 }
 
 function storeAssistantInfo(name, id) {
-  const info = readInfo();
+  const info = readInfo()
 
-  const assistant = info.assistants.find((e) => e.name === name);
+  const assistant = info.assistants.find((e) => e.name === name)
 
   if (assistant) {
-    assistant.id = id;
+    assistant.id = id
   } else {
-    info.assistants.push({ name, id });
+    info.assistants.push({ name, id })
   }
 
-  storeInfo(info);
+  storeInfo(info)
 }
 
 function storeAssistantConfig(id, data) {
-  fs.writeFileSync(getAssistantConfigPath(id), JSON.stringify(data, null, 2));
+  fs.writeFileSync(getAssistantConfigPath(id), JSON.stringify(data, null, 2))
 }
 
 function deleteAssistantConfig(id) {
-  const filePath = getAssistantConfigPath(id);
-  if (!fs.existsSync(filePath)) return;
-  fs.unlinkSync(getAssistantConfigPath(id));
+  const filePath = getAssistantConfigPath(id)
+  if (!fs.existsSync(filePath)) return
+  fs.unlinkSync(getAssistantConfigPath(id))
 }
 
 function getAssistantConfigPath(id) {
-  return path.join(getAssistantsFolderPath(), `${id}.json`);
+  return path.join(getAssistantsFolderPath(), `${id}.json`)
 }
 
 function getAssistantsFolderPath() {
-  return path.join(getAiFolderPath(), 'assistants');
+  return path.join(getAiFolderPath(), 'assistants')
 }
 
 function getAssistantId(name) {
-  return readAssistantInfo(name)?.id;
+  return readAssistantInfo(name)?.id
 }
 
 // -------------------
@@ -128,28 +128,28 @@ function getAssistantId(name) {
 // -------------------
 
 function init() {
-  createFolderIfMissing(getAiFolderPath());
-  createFolderIfMissing(getAssistantsFolderPath());
+  createFolderIfMissing(getAiFolderPath())
+  createFolderIfMissing(getAssistantsFolderPath())
   createFileIfMissing(getInfoFilePath(), {
     assistants: [],
     threads: [],
-  });
+  })
 }
 
 function readInfo() {
-  return JSON.parse(fs.readFileSync(getInfoFilePath(), 'utf8'));
+  return JSON.parse(fs.readFileSync(getInfoFilePath(), 'utf8'))
 }
 
 function storeInfo(data) {
-  fs.writeFileSync(getInfoFilePath(), JSON.stringify(data, null, 2));
+  fs.writeFileSync(getInfoFilePath(), JSON.stringify(data, null, 2))
 }
 
 function getAiFolderPath() {
-  return path.join(process.cwd(), 'artifacts', 'ai');
+  return path.join(process.cwd(), 'artifacts', 'ai')
 }
 
 function getInfoFilePath() {
-  return path.join(getAiFolderPath(), 'info.json');
+  return path.join(getAiFolderPath(), 'info.json')
 }
 
 module.exports = {
@@ -169,4 +169,4 @@ module.exports = {
   deleteAssistantConfig,
   readAssistantInfo,
   getAssistantId,
-};
+}

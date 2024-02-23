@@ -1,73 +1,73 @@
 function getFunctionSignature(fnAbi) {
   return `${fnAbi.name || fnAbi.type}(${(fnAbi.inputs || [])
     .map((input) => input?.type)
-    .join(',')})`;
+    .join(',')})`
 }
 
 function getPopulatedFunctionSignature(fnAbi, params) {
-  const multiline = !!params && params.length > 0;
+  const multiline = !!params && params.length > 0
 
   const isWriteCall =
-    fnAbi.stateMutability !== 'view' && fnAbi.stateMutability !== 'pure';
+    fnAbi.stateMutability !== 'view' && fnAbi.stateMutability !== 'pure'
 
   // Collect parameter list
-  const parameterDescriptions = [];
+  const parameterDescriptions = []
   for (let i = 0; i < fnAbi.inputs.length; i++) {
-    const input = fnAbi.inputs[i];
+    const input = fnAbi.inputs[i]
 
-    const valueDescription = params ? `${params[i]}` : '';
+    const valueDescription = params ? `${params[i]}` : ''
 
     parameterDescriptions.push(
       `${valueDescription.length > 0 ? `${valueDescription} ` : ''}${
         input.type
-      }${input.name ? ` ${input.name}` : ''}`
-    );
+      }${input.name ? ` ${input.name}` : ''}`,
+    )
   }
 
   // Collect return values
   const outputDescriptions = fnAbi.outputs.map(
-    (output) => `${output.type}${output.name ? ` ${output.name}` : ''}`
-  );
+    (output) => `${output.type}${output.name ? ` ${output.name}` : ''}`,
+  )
 
   // Function name
-  let str = `${fnAbi.name || fnAbi.type}${multiline ? '(\n' : '('}`;
+  let str = `${fnAbi.name || fnAbi.type}${multiline ? '(\n' : '('}`
   str += `${multiline ? '  ' : ''}${parameterDescriptions.join(
-    multiline ? ',\n  ' : ', '
-  )}`;
-  str += `${multiline ? '\n)' : ')'}`;
+    multiline ? ',\n  ' : ', ',
+  )}`
+  str += `${multiline ? '\n)' : ')'}`
 
   // Function decorators
   if (isWriteCall) {
-    str += ` ${fnAbi.stateMutability}`;
+    str += ` ${fnAbi.stateMutability}`
   }
 
   // Return values
   if (outputDescriptions.length > 0) {
-    str += ` returns (${outputDescriptions.join(', ')})`;
+    str += ` returns (${outputDescriptions.join(', ')})`
   }
 
-  return str;
+  return str
 }
 
 function getFullEventSignature(eventAbi, event) {
-  let i = 0;
+  let i = 0
 
   const namedArgs = event.args.map((arg) => {
-    const input = eventAbi.inputs[i];
-    i++;
+    const input = eventAbi.inputs[i]
+    i++
 
-    return `${input.type} ${input.name} = ${arg}`;
-  });
+    return `${input.type} ${input.name} = ${arg}`
+  })
 
-  let str = `${event.name}(\n`;
-  str += `  ${namedArgs.join(',\n  ')}`;
-  str += '\n)';
+  let str = `${event.name}(\n`
+  str += `  ${namedArgs.join(',\n  ')}`
+  str += '\n)'
 
-  return str;
+  return str
 }
 
 module.exports = {
   getFunctionSignature,
   getPopulatedFunctionSignature,
   getFullEventSignature,
-};
+}

@@ -1,6 +1,6 @@
 /** @type import('hardhat/config').HardhatUserConfig */
-require('@nomicfoundation/hardhat-ethers');
-require('../../../src/index');
+require('@nomicfoundation/hardhat-ethers')
+require('../../../src/index')
 
 module.exports = {
   solidity: {
@@ -43,4 +43,4 @@ module.exports = {
   paths: {
     artifacts: '../../../artifacts',
   },
-};
+}

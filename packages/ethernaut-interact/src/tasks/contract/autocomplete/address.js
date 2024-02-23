@@ -1,21 +1,21 @@
-const storage = require('../../../internal/storage');
-const debug = require('common/src/debug');
-const getNetwork = require('common/src/network');
+const storage = require('../../../internal/storage')
+const debug = require('common/src/debug')
+const getNetwork = require('common/src/network')
 
 module.exports = async function autocompleteAddress({ abi, address, hre }) {
-  if (!abi) return;
+  if (!abi) return
 
-  if (address !== undefined) return;
+  if (address !== undefined) return
 
   try {
-    const network = getNetwork(hre);
+    const network = getNetwork(hre)
 
-    debug.log(`Looking for addresses for ABI ${abi}`, 'interact');
-    const addresses = storage.findAddressWithAbi(abi, network);
-    debug.log(`Addresses used with ${abi}: ${addresses}`, 'interact');
+    debug.log(`Looking for addresses for ABI ${abi}`, 'interact')
+    const addresses = storage.findAddressWithAbi(abi, network)
+    debug.log(`Addresses used with ${abi}: ${addresses}`, 'interact')
 
-    return addresses;
+    return addresses
   } catch (err) {
-    debug.log(err);
+    debug.log(err)
   }
-};
+}

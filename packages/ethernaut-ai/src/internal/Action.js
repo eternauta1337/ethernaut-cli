@@ -1,7 +1,7 @@
-const debug = require('common/src/debug');
-const output = require('common/src/output');
-const camelToKebabCase = require('common/src/kebab');
-const chalk = require('chalk');
+const debug = require('common/src/debug')
+const output = require('common/src/output')
+const camelToKebabCase = require('common/src/kebab')
+const chalk = require('chalk')
 
 class Action {
   /**
@@ -17,47 +17,47 @@ class Action {
    * Optional arguments are prefixed with an underscore.
    */
   constructor(toolCall, hre) {
-    this.hre = hre;
-    this.id = toolCall.id;
-    this.function = toolCall.function;
-    this.parseTask();
-    this.parseArgs();
+    this.hre = hre
+    this.id = toolCall.id
+    this.function = toolCall.function
+    this.parseTask()
+    this.parseArgs()
   }
 
   parseTask() {
-    const nameComponents = this.function.name.split('.');
+    const nameComponents = this.function.name.split('.')
 
     if (nameComponents.length === 1) {
-      this.taskName = nameComponents[0];
+      this.taskName = nameComponents[0]
     } else {
-      this.scopeName = nameComponents[0];
-      this.taskName = nameComponents[1];
+      this.scopeName = nameComponents[0]
+      this.taskName = nameComponents[1]
     }
 
     if (this.scopeName) {
-      this.scope = this.hre.scopes[this.scopeName];
-      this.task = this.scope.tasks[this.taskName];
+      this.scope = this.hre.scopes[this.scopeName]
+      this.task = this.scope.tasks[this.taskName]
     } else {
-      this.task = this.hre.tasks[this.taskName];
+      this.task = this.hre.tasks[this.taskName]
     }
   }
 
   parseArgs() {
-    this.args = JSON.parse(this.function.arguments);
+    this.args = JSON.parse(this.function.arguments)
     Object.entries(this.args).forEach(([name, value]) => {
       if (name.includes('_')) {
-        value = value === 'true' ? true : value;
-        value = value === 'false' ? false : value;
-        this.args[name.replace('_', '')] = value;
+        value = value === 'true' ? true : value
+        value = value === 'false' ? false : value
+        this.args[name.replace('_', '')] = value
       }
-    });
+    })
   }
 
   async execute(hre, noConfirm = false) {
-    let collectedOutput = '';
+    let collectedOutput = ''
 
     if (noConfirm) {
-      this.args.noConfirm = true;
+      this.args.noConfirm = true
     }
 
     if (this.scopeName) {
@@ -65,35 +65,35 @@ class Action {
         `Calling: ${this.scopeName} ${this.taskName} ${JSON.stringify(
           this.args,
           null,
-          2
+          2,
         )}`,
-        'ai'
-      );
+        'ai',
+      )
       collectedOutput += await hre.run(
         { scope: this.scopeName, task: this.taskName },
-        this.args
-      );
+        this.args,
+      )
     } else {
       debug.log(
         `Calling: ${this.taskName} ${JSON.stringify(this.args, null, 2)}`,
-        'ai'
-      );
-      collectedOutput += await hre.run(this.taskName, this.args);
+        'ai',
+      )
+      collectedOutput += await hre.run(this.taskName, this.args)
     }
 
     return {
       tool_call_id: this.id,
       output: collectedOutput,
-    };
+    }
   }
 
   getDescription() {
-    const cliSyntax = this.toCliSyntax();
+    const cliSyntax = this.toCliSyntax()
     const description = chalk.dim(
-      `"${this.taskName}" task: ${this.task.description}`
-    );
+      `"${this.taskName}" task: ${this.task.description}`,
+    )
 
-    return `${cliSyntax}\n${description}`;
+    return `${cliSyntax}\n${description}`
   }
 
   /**
@@ -102,28 +102,28 @@ class Action {
   toCliSyntax() {
     // Function name can be '<scope>.<task>' or just '<task>
     // For print out, replace '.' with ' '.
-    const name = this.function.name.replace('.', ' ');
+    const name = this.function.name.replace('.', ' ')
 
     // The first token is task name (with scope if present)
-    const tokens = ['ethernaut', name];
+    const tokens = ['ethernaut', name]
 
     // Arguments and options are mixed in the tool call definition,
     // but option names are marked starting with an underscore.
-    const argsAndOpts = JSON.parse(this.function.arguments);
+    const argsAndOpts = JSON.parse(this.function.arguments)
     Object.entries(argsAndOpts).forEach(([name, value]) => {
-      const isOption = name.includes('_');
+      const isOption = name.includes('_')
 
       if (isOption) {
-        name = name.substring(1); // Remove underscore
-        name = `--${camelToKebabCase(name)}`;
-        tokens.push(name);
+        name = name.substring(1) // Remove underscore
+        name = `--${camelToKebabCase(name)}`
+        tokens.push(name)
       }
 
-      tokens.push(`${value}`);
-    });
+      tokens.push(`${value}`)
+    })
 
-    return tokens.join(' ');
+    return tokens.join(' ')
   }
 }
 
-module.exports = Action;
+module.exports = Action

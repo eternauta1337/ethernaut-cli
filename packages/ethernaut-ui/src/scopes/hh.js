@@ -1,3 +1,3 @@
-const { scope } = require('hardhat/config');
+const { scope } = require('hardhat/config')
 
-module.exports = scope('hardhat', 'The built in hardhat tasks');
+module.exports = scope('hardhat', 'The built in hardhat tasks')

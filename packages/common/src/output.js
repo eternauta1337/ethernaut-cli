@@ -1,8 +1,8 @@
-const chalk = require('chalk');
-const boxen = require('boxen');
-const debug = require('./debug');
+const chalk = require('chalk')
+const boxen = require('boxen')
+const debug = require('./debug')
 
-let _muted = false;
+let _muted = false
 
 function resultBox(msg, title = 'Result') {
   box(msg, {
@@ -10,9 +10,9 @@ function resultBox(msg, title = 'Result') {
     padding: 1,
     borderStyle: 'round',
     borderColor: 'blue',
-  });
+  })
 
-  return msg;
+  return msg
 }
 
 function infoBox(msg, title = 'Info') {
@@ -21,9 +21,9 @@ function infoBox(msg, title = 'Info') {
     padding: 1,
     borderStyle: 'classic',
     borderColor: 'gray',
-  });
+  })
 
-  return msg;
+  return msg
 }
 
 function warnBox(msg, title = 'Warning') {
@@ -32,22 +32,22 @@ function warnBox(msg, title = 'Warning') {
     padding: 1,
     borderStyle: 'round',
     borderColor: 'yellow',
-  });
+  })
 
-  return msg;
+  return msg
 }
 
 function errorBox(error) {
-  debug.log(error);
+  debug.log(error)
 
   box(error.stack, {
     title: 'Error',
     padding: 1,
     borderStyle: 'double',
     borderColor: 'red',
-  });
+  })
 
-  return error.message;
+  return error.message
 }
 
 function copyBox(msg, title = 'Info') {
@@ -63,14 +63,14 @@ function copyBox(msg, title = 'Info') {
       horizontal: '-',
       vertical: ' ',
     },
-  });
+  })
 
-  return msg;
+  return msg
 }
 
 function box(
   msg,
-  { title, padding = 1, borderStyle = 'round', borderColor = 'blue' }
+  { title, padding = 1, borderStyle = 'round', borderColor = 'blue' },
 ) {
   _out(
     boxen(msg, {
@@ -78,29 +78,29 @@ function box(
       padding,
       borderStyle,
       borderColor,
-    })
-  );
+    }),
+  )
 }
 
 function info(msg) {
-  _out(chalk.white(`i ${msg}`));
+  _out(chalk.white(`i ${msg}`))
 
-  return msg;
+  return msg
 }
 
 function warn(msg) {
-  _out(chalk.yellow.bold(`! ${msg}`));
+  _out(chalk.yellow.bold(`! ${msg}`))
 
-  return msg;
+  return msg
 }
 
 function _out(msg) {
-  if (_muted) return;
-  console.log(msg);
+  if (_muted) return
+  console.log(msg)
 }
 
 function mute(value) {
-  _muted = value;
+  _muted = value
 }
 
 module.exports = {
@@ -112,4 +112,4 @@ module.exports = {
   info,
   warn,
   mute,
-};
+}

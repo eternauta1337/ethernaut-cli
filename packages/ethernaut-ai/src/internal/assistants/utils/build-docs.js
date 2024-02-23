@@ -1,46 +1,46 @@
-const getNodes = require('common/src/get-nodes');
-const flattenTasks = require('common/src/flatten-tasks');
+const getNodes = require('common/src/get-nodes')
+const flattenTasks = require('common/src/flatten-tasks')
 
 module.exports = function buildDocs(hre) {
-  const docs = [];
+  const docs = []
 
-  const nodes = getNodes(hre);
+  const nodes = getNodes(hre)
 
-  const scopes = nodes.filter((n) => n.isScope === true);
+  const scopes = nodes.filter((n) => n.isScope === true)
   scopes.forEach((s) => {
-    let str = '';
-    str += `scope: "${s.name}"\n`;
-    str += `  description: ${s._description}\n`;
-    docs.push(str);
-  });
+    let str = ''
+    str += `scope: "${s.name}"\n`
+    str += `  description: ${s._description}\n`
+    docs.push(str)
+  })
 
-  const tasks = flattenTasks(nodes);
+  const tasks = flattenTasks(nodes)
   tasks.forEach((t) => {
-    let str = '';
-    str += `task: "${t.scope ? `${t.scope} ${t.name}` : t.name}"\n`;
-    if (t.scope) str += `  scope: ${t.scope}\n`;
-    str += `  description: ${t._description}\n`;
-    str += `  parameters: ${injectParameterDocs(t)}\n`;
-    docs.push(str);
-  });
+    let str = ''
+    str += `task: "${t.scope ? `${t.scope} ${t.name}` : t.name}"\n`
+    if (t.scope) str += `  scope: ${t.scope}\n`
+    str += `  description: ${t._description}\n`
+    str += `  parameters: ${injectParameterDocs(t)}\n`
+    docs.push(str)
+  })
 
-  return docs;
-};
+  return docs
+}
 
 function injectParameterDocs(task) {
-  let str = '\n';
+  let str = '\n'
 
   for (const param of task.positionalParamDefinitions) {
     str += `    "${param.name}"${param.isOptional ? ' (optional)' : ''} ${
       param.description
-    }\n`;
+    }\n`
   }
 
   for (const param of Object.values(task.paramDefinitions)) {
     str += `    "--${param.name}"${param.isOptional ? ' (optional)' : ''} ${
       param.description
-    }\n`;
+    }\n`
   }
 
-  return str;
+  return str
 }

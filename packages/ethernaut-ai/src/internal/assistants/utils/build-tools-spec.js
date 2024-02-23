@@ -1,13 +1,13 @@
-const getNodes = require('common/src/get-nodes');
-const flattenTasks = require('common/src/flatten-tasks');
+const getNodes = require('common/src/get-nodes')
+const flattenTasks = require('common/src/flatten-tasks')
 
 module.exports = function buildToolsSpec(hre) {
-  const tasks = flattenTasks(getNodes(hre));
+  const tasks = flattenTasks(getNodes(hre))
 
-  const tools = [];
+  const tools = []
 
   tasks.forEach((t) => {
-    if (t.scope && t.scope === 'vars') return;
+    if (t.scope && t.scope === 'vars') return
 
     tools.push({
       type: 'function',
@@ -16,34 +16,34 @@ module.exports = function buildToolsSpec(hre) {
         description: t._description,
         parameters: collectParameterSpecs(t),
       },
-    });
-  });
+    })
+  })
 
-  return tools;
-};
+  return tools
+}
 
 function collectParameterSpecs(task) {
-  const properties = {};
-  const required = [];
+  const properties = {}
+  const required = []
 
   for (const param of task.positionalParamDefinitions) {
     properties[param.name] = {
       type: 'string',
       description: param.description,
-    };
+    }
     if (!param.isOptional) {
-      required.push(param.name);
+      required.push(param.name)
     }
   }
 
   for (const param of Object.values(task.paramDefinitions)) {
-    const name = `_${param.name}`;
+    const name = `_${param.name}`
     properties[name] = {
       type: 'string',
       description: param.description,
-    };
+    }
     if (!param.isOptional) {
-      required.push(name);
+      required.push(name)
     }
   }
 
@@ -51,5 +51,5 @@ function collectParameterSpecs(task) {
     type: 'object',
     properties,
     required,
-  };
+  }
 }

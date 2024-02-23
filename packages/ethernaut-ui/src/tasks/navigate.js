@@ -1,13 +1,13 @@
-const { task } = require('hardhat/config');
-const navigateFrom = require('../internal/navigate-from');
-const output = require('common/src/output');
+const { task } = require('hardhat/config')
+const navigateFrom = require('../internal/navigate-from')
+const output = require('common/src/output')
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
   .setAction(async ({ scope }) => {
     try {
-      await navigateFrom(hre.scopes[scope] || hre);
+      await navigateFrom(hre.scopes[scope] || hre)
     } catch (err) {
-      output.errorBox(err);
+      output.errorBox(err)
     }
-  });
+  })

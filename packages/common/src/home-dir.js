@@ -1,9 +1,9 @@
-const os = require('os');
+const os = require('os')
 
 module.exports = function replaceHomeDir(pathString) {
-  const homeDir = os.homedir();
+  const homeDir = os.homedir()
   if (pathString.startsWith(homeDir)) {
-    return pathString.replace(homeDir, '~');
+    return pathString.replace(homeDir, '~')
   }
-  return pathString;
-};
+  return pathString
+}

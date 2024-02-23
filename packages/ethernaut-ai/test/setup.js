@@ -1,4 +1,4 @@
-const { loadProject, muteOutput } = require('common/src/setup-tests');
+const { loadProject, muteOutput } = require('common/src/setup-tests')
 
-muteOutput();
-loadProject('test/fixture-projects/basic-project');
+muteOutput()
+loadProject('test/fixture-projects/basic-project')

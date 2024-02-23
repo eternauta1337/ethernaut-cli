@@ -1,8 +1,8 @@
-const camelToKebabCase = require('../src/kebab');
-const assert = require('assert');
+const camelToKebabCase = require('../src/kebab')
+const assert = require('assert')
 
 describe('kebab', function () {
   it('can convert mySimpleFunction to my_simple_function', async function () {
-    assert.equal(camelToKebabCase('mySimpleFunction'), 'my-simple-function');
-  });
-});
+    assert.equal(camelToKebabCase('mySimpleFunction'), 'my-simple-function')
+  })
+})

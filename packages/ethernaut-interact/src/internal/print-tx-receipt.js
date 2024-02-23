@@ -1,9 +1,9 @@
-const output = require('common/src/output');
-const debug = require('common/src/debug');
-const { getFullEventSignature } = require('./signatures');
+const output = require('common/src/output')
+const debug = require('common/src/debug')
+const { getFullEventSignature } = require('./signatures')
 
 module.exports = async function printTxReceipt(receipt, contract) {
-  let buffer = '';
+  let buffer = ''
 
   // Tx info
   buffer += output.resultBox(
@@ -11,30 +11,30 @@ module.exports = async function printTxReceipt(receipt, contract) {
       `Gas used: ${receipt.gasUsed.toString()}\n` +
       `Gas price: ${receipt.gasPrice.toString()}\n` +
       `Block number: ${receipt.blockNumber}`,
-    'Transaction Receipt'
-  );
+    'Transaction Receipt',
+  )
 
   // Display events
   if (contract) {
-    const events = receipt.logs.map((log) => contract.interface.parseLog(log));
+    const events = receipt.logs.map((log) => contract.interface.parseLog(log))
     if (events.length > 0) {
-      buffer += output.info(`Emitted ${events.length} events:`);
+      buffer += output.info(`Emitted ${events.length} events:`)
       events.forEach((event, idx) => {
-        debug.log(event, 'interact-deep');
+        debug.log(event, 'interact-deep')
 
         const eventAbi = contract.interface.fragments.find(
-          (item) => item.name === event.name
-        );
+          (item) => item.name === event.name,
+        )
 
         buffer += output.resultBox(
           getFullEventSignature(eventAbi, event),
-          `Event ${idx + 1}`
-        );
-      });
+          `Event ${idx + 1}`,
+        )
+      })
     } else {
-      buffer += output.info('Emitted no events');
+      buffer += output.info('Emitted no events')
     }
   }
 
-  return buffer;
-};
+  return buffer
+}
