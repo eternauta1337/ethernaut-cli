@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "mocha": "^10.3.0",
-    "node-pty": "^1.0.0"
+    "node-pty": "^1.0.0",
+    "nyc": "^15.1.0"
   }
 }

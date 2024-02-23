@@ -5,15 +5,16 @@
   "main": "src/index.js",
   "scripts": {
     "extract": "node ./scripts/extract.js",
-    "test": "mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
-    "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
-    "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3",
-    "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "ethers": "^6.11.1",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "nyc": "^15.1.0",
+    "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
+    "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3"
   },
   "author": "",
   "license": "ISC"

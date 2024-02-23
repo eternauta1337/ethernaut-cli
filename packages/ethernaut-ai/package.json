@@ -4,12 +4,15 @@
   "description": "AI assistant for hardhat tasks",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",
     "openai": "^4.26.0"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0"
   }
 }
