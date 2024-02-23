@@ -7,12 +7,14 @@
     "node": true,
     "mocha": true
   },
+  "plugins": ["mocha"],
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "globals": {
     "hre": "readonly"
   },
   "rules": {
     "quotes": ["error", "single"],
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "mocha/no-exclusive-tests": "error"
   }
 }

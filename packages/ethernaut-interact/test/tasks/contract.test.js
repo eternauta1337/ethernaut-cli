@@ -3,7 +3,7 @@ const getBalance = require('../../src/internal/get-balance')
 const { Terminal } = require('common/src/terminal')
 const path = require('path')
 
-describe.only('contract', function () {
+describe('contract', function () {
   const terminal = new Terminal()
 
   describe('when interacting with a sample contract', function () {
