@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "build": "npm run build --workspaces",
     "lint": "eslint 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "npm run test --workspaces"
