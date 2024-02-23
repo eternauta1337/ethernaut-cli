@@ -2,7 +2,6 @@ const assert = require('assert')
 const { almostEqual } = require('common/src/math')
 const getBalance = require('../../src/internal/get-balance')
 const { Terminal } = require('common/src/terminal')
-const hre = require('hardhat')
 
 describe('send', function () {
   const terminal = new Terminal()

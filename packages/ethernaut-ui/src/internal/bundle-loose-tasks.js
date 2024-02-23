@@ -1,5 +1,4 @@
 const hh = require('./scopes/hh')
-const hre = require('hardhat')
 
 module.exports = function bundleLooseTasks() {
   Object.values(hre.tasks).forEach((task) => {

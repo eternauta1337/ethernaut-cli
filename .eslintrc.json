@@ -8,6 +8,9 @@
     "mocha": true
   },
   "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "globals": {
+    "hre": "readonly"
+  },
   "rules": {
     "quotes": ["error", "single"],
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]

@@ -1,7 +1,6 @@
 const spinner = require('common/src/spinner')
 const warnWithPrompt = require('../internal/warn-prompt')
 const getBalance = require('../internal/get-balance')
-const hre = require('hardhat')
 
 module.exports = async function conenctSigner(noConfirm) {
   spinner.progress('Connecting signer', 'interact')

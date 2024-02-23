@@ -1,5 +1,4 @@
 const assert = require('assert')
-const hre = require('hardhat')
 
 describe('unit', function () {
   it('converts 1 ether to wei', async function () {

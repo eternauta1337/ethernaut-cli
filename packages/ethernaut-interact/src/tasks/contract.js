@@ -20,7 +20,6 @@ const debug = require('common/src/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
 const getNetwork = require('common/src/network')
-const hre = require('hardhat')
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')

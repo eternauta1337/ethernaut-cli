@@ -1,5 +1,4 @@
 const assert = require('assert')
-const hre = require('hardhat')
 
 describe('to-bytes', function () {
   it('converts "hello" to bytes', async function () {

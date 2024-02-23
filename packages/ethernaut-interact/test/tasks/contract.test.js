@@ -2,7 +2,6 @@ const assert = require('assert')
 const getBalance = require('../../src/internal/get-balance')
 const { Terminal } = require('common/src/terminal')
 const path = require('path')
-const hre = require('hardhat')
 
 describe.only('contract', function () {
   const terminal = new Terminal()

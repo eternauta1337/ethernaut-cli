@@ -1,7 +1,6 @@
 const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const getNetwork = require('common/src/network')
-const hre = require('hardhat')
 
 describe('completing level 1 of ethernaut with ai', function () {
   const terminal = new Terminal()

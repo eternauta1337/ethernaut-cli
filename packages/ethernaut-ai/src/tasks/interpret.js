@@ -6,7 +6,6 @@ const output = require('common/src/output')
 const debug = require('common/src/debug')
 const spinner = require('common/src/spinner')
 const prompt = require('common/src/prompt')
-const hre = require('hardhat')
 
 let _noConfirm
 let _thread
