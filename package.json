@@ -5,6 +5,7 @@
   "scripts": {
     "chain": "cd packages/ethernaut-toolbox/test/fixture-projects/basic-project && npx hardhat node --hostname 127.0.0.1 --port 8545",
     "build": "npm run build --workspaces",
+    "compile": "npm run compile --workspaces",
     "lint": "eslint 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "npm run test --workspaces"

@@ -4,7 +4,8 @@
   "description": "Play the Open Zeppelin ethernaut challenges in the cli",
   "main": "src/index.js",
   "scripts": {
-    "build": "hardhat compile && npm run install:test",
+    "build": "npm run install:test",
+    "compile": "hardhat compile",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
     "extract": "node ./scripts/extract.js",
     "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
