@@ -12,7 +12,7 @@ env:
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
-  test-common:
+  common:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,7 +27,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/common && npm t
-  test-toolbox:
+  ethernaut-toolbox:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -42,7 +42,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-toolbox && npm t
-  test-ui:
+  ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,7 +57,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ui && npm t
-  test-interact:
+  ethernaut-interact:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -75,8 +75,8 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact && npm t
-  test-challenges:
+      - run: DEBUG=*terminal cd packages/ethernaut-interact && npm t
+  ethernaut-challenges:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -94,4 +94,4 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-challenges && npm t
+      - run: DEBUG=*terminal cd packages/ethernaut-challenges && npm t
