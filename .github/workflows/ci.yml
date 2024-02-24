@@ -30,4 +30,4 @@ jobs:
         run: |
           npm run chain &
           sleep 10
-      - run: npm test
+      - run: DEBUG=*terminal npm test
