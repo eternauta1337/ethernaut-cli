@@ -8,8 +8,6 @@ class Thread {
     if (newThread) {
       storage.clearThreadInfo(name)
     }
-
-    storage.init()
   }
 
   async post(message) {

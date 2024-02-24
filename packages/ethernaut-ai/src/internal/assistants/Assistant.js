@@ -13,8 +13,6 @@ class Assistant extends EventEmitter {
     this.prevStatus = undefined
 
     this.injectCommonInstructions()
-
-    storage.init()
   }
 
   async process(thread, model) {
@@ -61,8 +59,11 @@ class Assistant extends EventEmitter {
     }
 
     // Bad exit
-    if (status === 'cancelled' || status === 'failed') {
+    if (status === 'cancelled') {
       return undefined
+    }
+    if (status === 'failed') {
+      throw new Error(`Run failed: ${status} - ${runInfo.last_error.message}`)
     }
 
     // Action
