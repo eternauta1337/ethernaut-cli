@@ -25,7 +25,8 @@
   "scripts": {
     "build": "echo 'No build step'",
     "compile": "echo 'No compile step'",
-    "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'",
+    "test-integration": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.integration.js' --ignore '../../fixture-projects/**/*'"
   },
   "devDependencies": {
     "nyc": "^15.1.0"

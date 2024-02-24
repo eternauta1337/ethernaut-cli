@@ -11,38 +11,42 @@ const keys = {
   RIGHT: '\x1B\x5B\x43',
   LEFT: '\x1B\x5B\x44',
   ENTER: '\r',
+  CTRLC: '\x03',
 }
 
 const doneTxt = '__terminal_done__'
 
 class Terminal {
-  constructor(cwd) {
+  constructor() {
     this.history = ''
     this.output = ''
-    this.running = false
 
-    const shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
-
-    this.process = pty.spawn(shell, [], {
-      name: 'xterm-color',
-      cols: 80,
-      rows: 30,
-      cwd: cwd || process.cwd(),
-      env: process.env,
-    })
-
-    this.process.onData((data) => {
-      const txt = this.stripAnsi(data.toString())
-      debug.log(`Terminal output: ${txt}`, 'terminal')
-      this.history += txt
-      this.output += txt
-    })
+    this.shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
   }
 
   async run(command, wait = 240000) {
     if (this.running) {
       throw new Error('Terminal is already running a command')
     }
+
+    if (this.listener) {
+      this.listener.dispose()
+    }
+
+    this.process = pty.spawn(this.shell, [], {
+      name: 'xterm-color',
+      cols: 80,
+      rows: 30,
+      cwd: process.cwd(),
+      env: process.env,
+    })
+
+    this.listener = this.process.onData((data) => {
+      const txt = this.stripAnsi(data.toString())
+      this.history += txt
+      this.output += txt
+      debug.log(`Terminal output: ${txt}`, 'terminal')
+    })
 
     this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
@@ -66,11 +70,16 @@ class Terminal {
     // Attach a secondary event listener that only checks
     // for the doneTxt string.
     return new Promise((resolve) => {
+      let buffer = ''
       const listener = this.process.onData((data) => {
-        if (data.includes(doneTxt) && !data.includes('echo')) {
-          debug.log('Command completed', 'terminal')
-          listener.dispose()
-          resolve()
+        buffer += data
+        if (buffer.includes(doneTxt)) {
+          if (buffer.includes('&& echo')) buffer = ''
+          else {
+            debug.log('Command completed', 'terminal')
+            listener.dispose()
+            resolve()
+          }
         }
       })
     })
