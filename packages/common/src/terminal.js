@@ -39,7 +39,7 @@ class Terminal {
     })
   }
 
-  async run(command, wait) {
+  async run(command, wait = 240000) {
     if (this.running) {
       throw new Error('Terminal is already running a command')
     }
@@ -57,7 +57,7 @@ class Terminal {
     this.running = false
   }
 
-  async input(command, wait) {
+  async input(command, wait = 200) {
     this._write(command)
     return this.wait(wait)
   }

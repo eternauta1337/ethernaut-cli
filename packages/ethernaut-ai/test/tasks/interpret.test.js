@@ -1,7 +1,7 @@
 const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
-describe.skip('interpret', function () {
+describe('interpret', function () {
   const terminal = new Terminal()
 
   describe('when asked to convert SNX to bytes', function () {
@@ -9,7 +9,6 @@ describe.skip('interpret', function () {
       before('call interpret', async function () {
         await terminal.run(
           'npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread',
-          60000,
         )
       })
 

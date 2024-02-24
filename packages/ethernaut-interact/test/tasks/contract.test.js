@@ -111,7 +111,6 @@ describe('contract', function () {
           before('run contract', async function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --no-confirm --abi ${abiPath} --fn incrementCounter --params 42`,
-              2000,
             )
           })
 
@@ -121,7 +120,6 @@ describe('contract', function () {
           it('incremented the counter', async function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn counter`,
-              1000,
             )
             console.log(terminal.output)
             assert.ok(terminal.output.includes('counter() => 42'))
@@ -131,7 +129,6 @@ describe('contract', function () {
             before('run contract', async function () {
               await terminal.run(
                 `npx hardhat interact contract --address ${await sample.getAddress()} --no-confirm --abi ${abiPath} --fn decrementCounter --params 42`,
-                1000,
               )
             })
 
@@ -149,7 +146,7 @@ describe('contract', function () {
           before('run contract', async function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn incrementCounter --params 42`,
-              1000,
+              5000,
             )
           })
 

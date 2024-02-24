@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const getNetwork = require('common/src/network')
 
-describe.skip('completing level 2 of ethernaut with ai', function () {
+describe('completing level 2 of ethernaut with ai', function () {
   const terminal = new Terminal()
 
   before('check network', async function () {
@@ -14,7 +14,6 @@ describe.skip('completing level 2 of ethernaut with ai', function () {
   before('run command', async function () {
     await terminal.run(
       'ethernaut ai interpret "complete level 2 of the ethernaut challenges" --no-confirm --new-thread',
-      240000,
     )
   })
 
