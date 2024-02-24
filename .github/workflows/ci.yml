@@ -109,4 +109,4 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ai && DEBUG=*terminal npm t
+      - run: cd packages/ethernaut-ai && npm t
