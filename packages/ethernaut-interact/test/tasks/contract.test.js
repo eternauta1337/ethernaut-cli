@@ -121,7 +121,6 @@ describe('contract', function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn counter`,
             )
-            console.log(terminal.output)
             assert.ok(terminal.output.includes('counter() => 42'))
           })
 
