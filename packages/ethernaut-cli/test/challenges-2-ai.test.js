@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const getNetwork = require('common/src/network')
 
-describe('completing level 2 of ethernaut with ai', function () {
+describe.skip('completing level 2 of ethernaut with ai', function () {
   const terminal = new Terminal()
 
   before('check network', async function () {

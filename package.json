@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "chain": "cd packages/ethernaut-toolbox/test/fixture-projects/basic-project && npx hardhat node --hostname 127.0.0.1 --port 8545",
     "build": "npm run build --workspaces",
     "lint": "eslint 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
