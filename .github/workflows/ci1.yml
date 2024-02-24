@@ -75,7 +75,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact && DEBUG=*terminal npm t
+      - run: cd packages/ethernaut-interact && npm t
   # ethernaut-challenges:
   #   runs-on: ubuntu-latest
   #   strategy:
