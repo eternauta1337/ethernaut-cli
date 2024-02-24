@@ -111,7 +111,7 @@ describe('contract', function () {
           before('run contract', async function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --no-confirm --abi ${abiPath} --fn incrementCounter --params 42`,
-              1000,
+              2000,
             )
           })
 

@@ -31,4 +31,10 @@ jobs:
         run: |
           npm run chain &
           sleep 10
-      - run: DEBUG=*terminal npm test
+      - run: cd packages/common && npm t
+      - run: cd packages/ethernaut-toolbox && npm t
+      - run: cd packages/ethernaut-ui && npm t
+      - run: cd packages/ethernaut-interact && npm t
+      - run: cd packages/ethernaut-challenges && npm t
+      - run: cd packages/ethernaut-ai && npm t
+      - run: cd packages/ethernaut-cli && npm t
