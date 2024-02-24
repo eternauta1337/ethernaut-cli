@@ -17,14 +17,21 @@ class Assistant extends EventEmitter {
     storage.init()
   }
 
-  async process(thread) {
+  async process(thread, model) {
     await this.invalidateId()
 
     this.thread = thread
 
-    this.run = await openai.beta.threads.runs.create(thread.id, {
+    let params = {
       assistant_id: this.id,
-    })
+    }
+
+    if (model) {
+      debug.log('Using model:', model)
+      params.model = model
+    }
+
+    this.run = await openai.beta.threads.runs.create(thread.id, params)
 
     return await this.processRun()
   }
