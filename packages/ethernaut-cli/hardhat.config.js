@@ -7,6 +7,7 @@ require('ethernaut-toolbox')
 require('ethernaut-interact')
 require('ethernaut-ai')
 require('ethernaut-challenges')
+require('ethernaut-network')
 
 module.exports = {
   solidity: '0.8.19',
