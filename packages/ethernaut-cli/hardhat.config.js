@@ -16,10 +16,6 @@ module.exports = {
     local: {
       url: 'http://localhost:8545',
     },
-    mainnet: {
-      name: 'Ethereum Mainnet',
-      url: 'https://ethereum-rpc.publicnode.com',
-    },
   },
   ethernaut: {
     ai: {

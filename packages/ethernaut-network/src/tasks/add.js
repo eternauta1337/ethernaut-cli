@@ -2,7 +2,6 @@ const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const fs = require('fs')
 const stringify = require('javascript-stringify').stringify
-const autocompleteName = require('./add/autocomplete/name')
 const autocompleteProvider = require('./add/autocomplete/provider')
 
 const add = require('../scopes/net')
@@ -14,21 +13,23 @@ const add = require('../scopes/net')
     types.string,
   )
   .addOptionalParam(
-    'name',
-    'The actual name of the underlying network',
-    undefined,
-    types.string,
-  )
-  .addOptionalParam(
     'provider',
     'The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/${INFURA_API_KEY}. Make sure to specify these in your .env file.',
     undefined,
     types.string,
   )
-  .setAction(async ({ alias, name, provider }, hre) => {
+  .setAction(async ({ alias, provider }, hre) => {
     try {
+      // Validate the alias, needs to be a valid js variable name
+      const aliasRegex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/
+      if (!aliasRegex.test(alias)) {
+        throw new Error(
+          `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
+        )
+      }
+
       if (alias in hre.userConfig.networks) {
-        throw new Error(`Network ${alias} already exists`)
+        throw new Error(`The network alias ${alias} already exists`)
       }
 
       const newConfig = JSON.parse(JSON.stringify(hre.userConfig))
@@ -37,7 +38,6 @@ const add = require('../scopes/net')
       }
 
       newConfig.networks[alias] = {
-        name,
         url: provider,
       }
 
@@ -66,5 +66,4 @@ function saveConfig(newConfig, hre) {
   fs.writeFileSync(filePath, fileContent)
 }
 
-add.paramDefinitions.name.autocomplete = autocompleteName
 add.paramDefinitions.provider.autocomplete = autocompleteProvider
