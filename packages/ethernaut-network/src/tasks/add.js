@@ -1,8 +1,7 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const fs = require('fs')
-const stringify = require('javascript-stringify').stringify
 const autocompleteProvider = require('./add/autocomplete/provider')
+const storage = require('../internal/storage')
 
 const add = require('../scopes/net')
   .task('add', 'Adds a network to the cli')
@@ -18,52 +17,31 @@ const add = require('../scopes/net')
     undefined,
     types.string,
   )
-  .setAction(async ({ alias, provider }, hre) => {
+  .setAction(async ({ alias, provider }) => {
     try {
-      // Validate the alias, needs to be a valid js variable name
-      const aliasRegex = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/
-      if (!aliasRegex.test(alias)) {
+      const validateAlias = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/
+      if (!validateAlias.test(alias)) {
         throw new Error(
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
         )
       }
 
-      if (alias in hre.userConfig.networks) {
+      const networks = storage.readNetworks()
+
+      if (alias in networks) {
         throw new Error(`The network alias ${alias} already exists`)
       }
 
-      const newConfig = JSON.parse(JSON.stringify(hre.userConfig))
-      if (!newConfig.networks) {
-        newConfig.networks = {}
-      }
-
-      newConfig.networks[alias] = {
+      networks[alias] = {
         url: provider,
       }
 
-      saveConfig(newConfig, hre)
+      storage.storeNetworks(networks)
 
-      output.resultBox(`Added network ${alias}`)
+      output.resultBox(`Added network ${alias} with provider ${provider}`)
     } catch (err) {
       return output.errorBox(err)
     }
   })
-
-function saveConfig(newConfig, hre) {
-  const filePath = hre.config.paths.configFile
-  let fileContent = fs.readFileSync(filePath, 'utf-8')
-
-  // Find the module.exports part of the file
-  let regex = /(module\.exports = [\s\S]*)/
-  if (!regex.test(fileContent)) {
-    throw new Error('Could not find the module.exports object in the file.')
-  }
-
-  // Rebuild the file with the new exports object
-  const newModuleExports = `module.exports = ${stringify(newConfig, null, 2)}`
-  fileContent = fileContent.replace(regex, newModuleExports)
-
-  fs.writeFileSync(filePath, fileContent)
-}
 
 add.paramDefinitions.provider.autocomplete = autocompleteProvider

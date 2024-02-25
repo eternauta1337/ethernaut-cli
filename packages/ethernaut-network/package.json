@@ -11,9 +11,6 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "javascript-stringify": "^2.1.0"
-  },
   "devDependencies": {
     "nyc": "^15.1.0"
   }
