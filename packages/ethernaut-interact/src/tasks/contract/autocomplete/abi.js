@@ -6,7 +6,7 @@ const prompt = require('common/src/prompt')
 const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
 const similarity = require('string-similarity')
-const getNetwork = require('common/src/network')
+const getNetworkName = require('common/src/network')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
@@ -16,7 +16,7 @@ const strategies = {
 
 module.exports = async function autocompleteAbi({ abi, hre, address }) {
   try {
-    const network = getNetwork(hre)
+    const network = await getNetworkName(hre)
 
     // Try to complete a partial abi path
     if (abi && !isValidJsonFile(abi)) {

@@ -1,8 +1,8 @@
 const helper = require('./helper')
-const getNetwork = require('common/src/network')
+const getNetworkName = require('common/src/network')
 
 module.exports = async function getEthernautContract(hre) {
-  const network = getNetwork(hre)
+  const network = await getNetworkName(hre)
 
   // Get the game address
   const deploymentInfo = helper.getDeploymentInfo(network)

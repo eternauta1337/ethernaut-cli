@@ -60,7 +60,7 @@ async function autocomplete(paramDef, argsSoFar) {
 
   const collectedArg = await paramDef.autocomplete({
     hre: _hre,
-    name: paramDef.name,
+    paramName: paramDef.name,
     description: paramDef.description,
     ...argsSoFar,
   })

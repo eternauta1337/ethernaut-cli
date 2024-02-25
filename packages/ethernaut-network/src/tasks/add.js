@@ -2,8 +2,10 @@ const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const fs = require('fs')
 const stringify = require('javascript-stringify').stringify
+const autocompleteName = require('./add/autocomplete/name')
+const autocompleteProvider = require('./add/autocomplete/provider')
 
-require('../scopes/net')
+const add = require('../scopes/net')
   .task('add', 'Adds a network to the cli')
   .addOptionalParam(
     'alias',
@@ -19,7 +21,7 @@ require('../scopes/net')
   )
   .addOptionalParam(
     'provider',
-    'The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/process.env.ALCHEMY_API_KEY. Make sure to specify these in your .env file.',
+    'The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/${INFURA_API_KEY}. Make sure to specify these in your .env file.',
     undefined,
     types.string,
   )
@@ -63,3 +65,6 @@ function saveConfig(newConfig, hre) {
 
   fs.writeFileSync(filePath, fileContent)
 }
+
+add.paramDefinitions.name.autocomplete = autocompleteName
+add.paramDefinitions.provider.autocomplete = autocompleteProvider

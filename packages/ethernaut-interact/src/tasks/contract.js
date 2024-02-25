@@ -19,7 +19,7 @@ const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
-const getNetwork = require('common/src/network')
+const getNetworkName = require('common/src/network')
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
@@ -87,7 +87,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   const _abi = loadAbi(abi)
   debug.log(_abi, 'interact-deep')
 
-  const network = getNetwork(hre)
+  const network = await getNetworkName(hre)
 
   const signer = await connectSigner(noConfirm)
 
