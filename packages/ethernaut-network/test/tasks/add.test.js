@@ -36,9 +36,9 @@ describe('add', function () {
     it('suggests strategies', async function () {
       assert.ok(
         terminal.output.includes('How would you like to specify a provider?'),
-        terminal.output.includes('Known networks'),
-        terminal.output.includes('Enter url manually'),
       )
+      assert.ok(terminal.output.includes('Known networks'))
+      assert.ok(terminal.output.includes('Enter url manually'))
     })
 
     describe('when browse known networks is selected', function () {

@@ -52,7 +52,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-toolbox && npm t
+      - run: cd packages/ethernaut-toolbox && DEBUG=*terminal npm t
   ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -67,7 +67,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ui && npm t
+      - run: cd packages/ethernaut-ui && DEBUG=*terminal npm t
   ethernaut-interact:
     runs-on: ubuntu-latest
     strategy:
@@ -86,7 +86,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact && npm t
+      - run: cd packages/ethernaut-interact && DEBUG=*terminal npm t
   ethernaut-challenges:
     runs-on: ubuntu-latest
     strategy:
@@ -105,7 +105,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-challenges && npm t
+      - run: cd packages/ethernaut-challenges && DEBUG=*terminal npm t
   ethernaut-ai:
     runs-on: ubuntu-latest
     strategy:
@@ -150,4 +150,4 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-cli && npm t
+      - run: cd packages/ethernaut-cli && DEBUG=*terminal npm t
