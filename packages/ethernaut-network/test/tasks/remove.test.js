@@ -12,6 +12,13 @@ describe('remove', function () {
     storage.storeNetworks(networks)
   })
 
+  after('remove test networks', async function () {
+    const networks = storage.readNetworks()
+    if ('test__3' in networks) delete networks.test__3
+    if ('test__4' in networks) delete networks.test__4
+    storage.storeNetworks(networks)
+  })
+
   describe('when all params are specified', function () {
     before('run remove', async function () {
       await terminal.run('npx hardhat net remove --alias test__3')

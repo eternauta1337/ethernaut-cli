@@ -5,12 +5,15 @@ const storage = require('ethernaut-network/src/internal/storage')
 describe('add', function () {
   const terminal = new Terminal()
 
-  before('remove test networks', async function () {
+  const removeTestNetworks = function () {
     const networks = storage.readNetworks()
     if ('test__1' in networks) delete networks.test__1
     if ('test__2' in networks) delete networks.test__2
     storage.storeNetworks(networks)
-  })
+  }
+
+  before('remove test networks', removeTestNetworks)
+  after('remove test networks', removeTestNetworks)
 
   describe('when all params are specified', function () {
     before('run add', async function () {
