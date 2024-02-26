@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteProvider = require('./add/autocomplete/provider')
+const autocompleteProvider = require('./autocomplete/provider')
 const storage = require('../internal/storage')
 
 const add = require('../scopes/net')

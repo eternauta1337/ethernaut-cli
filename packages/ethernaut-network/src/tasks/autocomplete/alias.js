@@ -1,5 +1,5 @@
 const prompt = require('common/src/prompt')
-const storage = require('../../../internal/storage')
+const storage = require('../../internal/storage')
 
 module.exports = async function autocompleteAlias({ alias }) {
   if (alias) return undefined
@@ -8,7 +8,7 @@ module.exports = async function autocompleteAlias({ alias }) {
 
   return await prompt({
     type: 'autocomplete',
-    message: 'Select a network to remove',
+    message: 'Select a network',
     limit: 15,
     choices,
   })

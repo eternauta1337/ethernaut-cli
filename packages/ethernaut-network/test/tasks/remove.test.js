@@ -30,7 +30,7 @@ describe('remove', function () {
 
     it('suggests networks', async function () {
       assert.ok(
-        terminal.output.includes('Select a network to remove'),
+        terminal.output.includes('Select a network'),
         terminal.output.includes('test__4'),
       )
     })

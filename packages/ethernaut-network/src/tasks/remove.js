@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteAlias = require('./remove/autocomplete/alias')
+const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
 const remove = require('../scopes/net')
