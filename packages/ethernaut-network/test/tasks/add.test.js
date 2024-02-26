@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const storage = require('ethernaut-network/src/internal/storage')
 
-describe('task', function () {
+describe('add', function () {
   const terminal = new Terminal()
 
   before('remove test networks', async function () {
