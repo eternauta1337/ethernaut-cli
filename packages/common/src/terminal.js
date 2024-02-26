@@ -14,23 +14,16 @@ const keys = {
   CTRLC: '\x03',
 }
 
-const doneTxt = '__terminal_done__'
-
 class Terminal {
   constructor() {
     this.history = ''
     this.output = ''
-
     this.shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
   }
 
-  async run(command, wait = 240000) {
+  async run(command, wait = 10000) {
     if (this.running) {
       throw new Error('Terminal is already running a command')
-    }
-
-    if (this.listener) {
-      this.listener.dispose()
     }
 
     this.process = pty.spawn(this.shell, [], {
@@ -40,6 +33,10 @@ class Terminal {
       cwd: process.cwd(),
       env: process.env,
     })
+
+    if (this.listener) {
+      this.listener.dispose()
+    }
 
     this.listener = this.process.onData((data) => {
       const txt = this.stripAnsi(data.toString())
@@ -51,8 +48,7 @@ class Terminal {
     this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
 
-    // Attach doneTxt to the command so we can detect when it's done.
-    this._write(`${command} && echo '${doneTxt}'\r`)
+    this._write(`${command} && exit\r`)
 
     const completion = this._waitForCompletion()
     const delay = this.wait(wait)
@@ -67,20 +63,10 @@ class Terminal {
   }
 
   _waitForCompletion() {
-    // Attach a secondary event listener that only checks
-    // for the doneTxt string.
     return new Promise((resolve) => {
-      let buffer = ''
-      const listener = this.process.onData((data) => {
-        buffer += data
-        if (buffer.includes(doneTxt)) {
-          if (buffer.includes('&& echo')) buffer = ''
-          else {
-            debug.log('Command completed', 'terminal')
-            listener.dispose()
-            resolve()
-          }
-        }
+      this.process.onExit(() => {
+        debug.log('Command completed', 'terminal')
+        resolve()
       })
     })
   }
