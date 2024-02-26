@@ -11,12 +11,7 @@ require('ethernaut-network')
 
 module.exports = {
   solidity: '0.8.19',
-  defaultNetwork: 'local',
-  networks: {
-    local: {
-      url: 'http://localhost:8545',
-    },
-  },
+  defaultNetwork: 'localhost',
   ethernaut: {
     ai: {
       interpreter: {

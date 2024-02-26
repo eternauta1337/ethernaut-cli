@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5"
   }
 }

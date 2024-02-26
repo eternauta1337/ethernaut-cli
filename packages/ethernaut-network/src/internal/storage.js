@@ -14,9 +14,12 @@ const {
  *
  * networks.json schema:
  * {
+ *    activeNetwork: 'networkAlias1',
  *    networkAlias1: {
  *      url: 'http://some-url/${SOME_API_KEY}'
- *    }
+ *    },
+ *    networkAlias2: { .. },
+ *    ...
  * }
  */
 
@@ -30,7 +33,9 @@ function storeNetworks(networks) {
 
 function init() {
   createFolderIfMissing(getNetworkFolderPath())
-  createFileIfMissing(getNetworksFilePath(), {})
+  createFileIfMissing(getNetworksFilePath(), {
+    activeNetwork: 'localhost',
+  })
 }
 
 function getNetworkFolderPath() {

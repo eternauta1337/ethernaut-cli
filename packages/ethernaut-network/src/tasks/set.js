@@ -2,16 +2,17 @@ const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
+const { setNetwork } = require('../internal/set-network')
 
-const remove = require('../scopes/net')
-  .task('remove', 'Removes a network to from cli')
+const set = require('../scopes/net')
+  .task('set', 'Activates a network on the cli')
   .addOptionalParam(
     'alias',
     'How the network is referenced in the cli',
     undefined,
     types.string,
   )
-  .setAction(async ({ alias }) => {
+  .setAction(async ({ alias }, hre) => {
     try {
       const networks = storage.readNetworks()
 
@@ -19,18 +20,15 @@ const remove = require('../scopes/net')
         throw new Error(`The network alias ${alias} does not exist`)
       }
 
-      delete networks[alias]
+      await setNetwork(alias, hre)
 
-      if (networks.activeNetwork === alias) {
-        networks.activeNetwork = 'localhost'
-      }
-
+      networks.activeNetwork = alias
       storage.storeNetworks(networks)
 
-      output.resultBox(`Removed network ${alias}`)
+      output.resultBox(`The active network is now "${alias}"`)
     } catch (err) {
       return output.errorBox(err)
     }
   })
 
-remove.paramDefinitions.alias.autocomplete = autocompleteAlias
+set.paramDefinitions.alias.autocomplete = autocompleteAlias

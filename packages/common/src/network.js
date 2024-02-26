@@ -1,8 +1,10 @@
 const { chains } = require('common/src/chains')
+const debug = require('common/src/debug')
 
 module.exports = async function getNetworkName(hre) {
   // Get the chain id from the ethers provider
   const provider = hre.ethers.provider
+  debug.log(provider, 'network-deep')
   const network = (await provider.getNetwork()).toJSON()
   const chainId = Number(network.chainId)
 
