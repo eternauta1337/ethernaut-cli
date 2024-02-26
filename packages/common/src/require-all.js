@@ -5,6 +5,9 @@ module.exports = function requireAll(location, folder) {
   const folderPath = path.join(location, folder)
   fs.readdirSync(folderPath).forEach((file) => {
     const filePath = path.join(location, folder, file)
-    require(filePath)
+    const stats = fs.statSync(filePath)
+    if (!stats.isDirectory()) {
+      require(filePath)
+    }
   })
 }
