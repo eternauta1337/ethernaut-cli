@@ -45,4 +45,5 @@ module.exports = {
   init,
   readNetworks,
   storeNetworks,
+  getNetworkFolderPath,
 }
