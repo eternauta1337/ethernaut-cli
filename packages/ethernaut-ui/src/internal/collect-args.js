@@ -4,6 +4,8 @@ const prompt = require('common/src/prompt')
 let _hre
 
 module.exports = async function collectArguments(providedArgs, task, hre) {
+  debug.log(`Collecting arguments for task ${task.name}`, 'ui')
+
   _hre = hre
 
   // Merge all of the task's parameter definitions in the same array,
