@@ -48,7 +48,7 @@ class Terminal {
     this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
 
-    this._write(`${command} && exit\r`)
+    this._write(`${command} && sleep 1 && exit\r`)
 
     const completion = this._waitForCompletion()
     const delay = this.wait(wait)
