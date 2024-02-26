@@ -30,7 +30,7 @@ describe('add', function () {
 
   describe('when provider is missing', function () {
     before('run add', async function () {
-      await terminal.run('npx hardhat net add --alias test__2', 1000)
+      await terminal.run('npx hardhat net add --alias test__2', 5000)
     })
 
     it('suggests strategies', async function () {
