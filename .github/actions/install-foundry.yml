@@ -1,0 +1,21 @@
+name: 'Install Foundry'
+description: 'Installs Foundry'
+runs:
+  using: 'composite'
+  steps:
+    - run:
+      name: 'Run installer'
+      working_directory: ~/
+      environment:
+        shell: bash
+      command: echo 'Installing Foundry...'
+      # command: |-
+      #   export PATH="$PATH:$HOME/.foundry/bin"
+      #   echo 'export PATH=$PATH:$HOME/.foundry/bin' >> $BASH_ENV
+      #   if command -v anvil; then
+      #     echo "Anvil already installed"
+      #     anvil --version
+      #   else
+      #     curl -L https://foundry.paradigm.xyz | bash
+      #     foundryup
+      #   fi
