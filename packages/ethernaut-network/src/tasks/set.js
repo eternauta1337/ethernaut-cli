@@ -31,4 +31,6 @@ const set = require('../scopes/net')
     }
   })
 
-set.paramDefinitions.alias.autocomplete = autocompleteAlias
+set.paramDefinitions.alias.autocomplete = autocompleteAlias(
+  'Select a network to activate',
+)

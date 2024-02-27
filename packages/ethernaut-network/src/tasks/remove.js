@@ -33,4 +33,6 @@ const remove = require('../scopes/net')
     }
   })
 
-remove.paramDefinitions.alias.autocomplete = autocompleteAlias
+remove.paramDefinitions.alias.autocomplete = autocompleteAlias(
+  'Select a network to remove',
+)

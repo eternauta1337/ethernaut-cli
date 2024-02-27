@@ -2,8 +2,9 @@ const output = require('common/src/output')
 const { execSync } = require('child_process')
 const { isUrl } = require('common/src/url')
 const storage = require('../internal/storage')
+const autocompleteFork = require('./autocomplete/fork')
 
-require('../scopes/net')
+const local = require('../scopes/net')
   .task('local', 'Starts a local chain')
   .addOptionalParam('fork', 'The alias or url of the network to fork')
   .setAction(async ({ fork }) => {
@@ -23,7 +24,7 @@ require('../scopes/net')
   })
 
 function getForkUrl(fork) {
-  if (fork && fork !== '') {
+  if (fork && fork !== 'none') {
     if (isUrl(fork)) {
       return fork
     } else {
@@ -46,3 +47,5 @@ function startAnvil(forkUrl) {
     execSync(`anvil --fork-url ${forkUrl}`, { stdio: 'inherit' })
   }
 }
+
+local.paramDefinitions.fork.autocomplete = autocompleteFork
