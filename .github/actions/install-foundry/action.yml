@@ -7,7 +7,7 @@ runs:
       shell: bash
       run: |-
         export PATH="$PATH:$HOME/.foundry/bin"
-        echo 'export PATH=$PATH:$HOME/.foundry/bin' >> $GITHUB_PATH
+        echo "$HOME/.foundry/bin" >> $GITHUB_PATH
         if command -v anvil; then
           echo "Anvil already installed"
           anvil --version
