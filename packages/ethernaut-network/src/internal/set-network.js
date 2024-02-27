@@ -9,6 +9,14 @@ const debug = require('common/src/debug')
 const applyEnvVars = require('./apply-env-vars')
 
 async function setActiveNetwork(hre) {
+  if (hre.hardhatArguments.network) {
+    debug.log(
+      `Ignoring active network because --network is set to "${hre.hardhatArguments.network}"`,
+      'network',
+    )
+    return
+  }
+
   debug.log('Setting active network', 'network')
   const networks = storage.readNetworks()
   await setNetwork(networks.activeNetwork, hre)
