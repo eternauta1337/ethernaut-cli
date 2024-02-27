@@ -17,11 +17,12 @@ jobs:
         node-version: [20.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/install-foundry
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
       - run: anvil --version
       - run: npm ci
       - run: npm run lint
