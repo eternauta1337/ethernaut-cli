@@ -6,6 +6,7 @@ const {
   HardhatEthersProvider,
 } = require('@nomicfoundation/hardhat-ethers/internal/hardhat-ethers-provider')
 const debug = require('common/src/debug')
+const applyEnvVars = require('./apply-env-vars')
 
 async function setActiveNetwork(hre) {
   debug.log('Setting active network', 'network')
@@ -40,7 +41,7 @@ function injectNetworkInConfig(alias, network, config) {
     gasMultiplier: 1,
     httpHeaders: {},
     timeout: 40000,
-    url: network.url,
+    url: applyEnvVars(network.url),
   }
 }
 
