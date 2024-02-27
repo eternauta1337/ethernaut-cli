@@ -5,7 +5,7 @@ const path = require('path')
 const output = require('common/src/output')
 const debug = require('common/src/debug')
 const replaceHomeDir = require('common/src/home-dir')
-const getNetworkName = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 require('../scopes/oz')
   .task(

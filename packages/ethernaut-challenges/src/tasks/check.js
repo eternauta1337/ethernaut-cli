@@ -2,7 +2,7 @@ const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
 const output = require('common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
-const getNetworkName = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 require('../scopes/oz')
   .task(

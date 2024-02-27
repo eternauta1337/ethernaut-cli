@@ -6,7 +6,7 @@ const prompt = require('common/src/prompt')
 const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
 const similarity = require('string-similarity')
-const getNetworkName = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',

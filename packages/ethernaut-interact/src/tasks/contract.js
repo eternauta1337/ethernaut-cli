@@ -19,7 +19,7 @@ const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
-const getNetworkName = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')

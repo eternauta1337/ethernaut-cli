@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
 const output = require('common/src/output')
-const getNetworkName = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
 const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
