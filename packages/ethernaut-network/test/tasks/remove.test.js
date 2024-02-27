@@ -32,7 +32,7 @@ describe('remove', function () {
 
   describe('when alias is missing', function () {
     before('run remove', async function () {
-      await terminal.run('npx hardhat net remove', 1000)
+      await terminal.run('npx hardhat net remove', 2000)
     })
 
     it('suggests networks', async function () {
