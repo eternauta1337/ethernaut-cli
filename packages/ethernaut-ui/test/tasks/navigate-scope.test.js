@@ -10,21 +10,24 @@ describe('navigate scope', function () {
     })
 
     it('displays the main prompt', async function () {
-      assert.ok(terminal.output.includes('Pick a task or scope'))
+      assert.ok(
+        terminal.output.includes('Pick a task or scope'),
+        terminal.output,
+      )
     })
 
     it('doesnt display any scopes', async function () {
-      assert.ok(!terminal.output.includes('['))
+      assert.ok(!terminal.output.includes('['), terminal.output)
     })
 
     it('shows utils', async function () {
-      assert.ok(terminal.output.includes('to-bytes'))
-      assert.ok(terminal.output.includes('to-string'))
-      assert.ok(terminal.output.includes('unit'))
+      assert.ok(terminal.output.includes('to-bytes'), terminal.output)
+      assert.ok(terminal.output.includes('to-string'), terminal.output)
+      assert.ok(terminal.output.includes('unit'), terminal.output)
     })
 
     it('shows the up nav', async function () {
-      assert.ok(terminal.output.includes('up'))
+      assert.ok(terminal.output.includes('up'), terminal.output)
     })
 
     describe('when navigating up', function () {
@@ -33,13 +36,13 @@ describe('navigate scope', function () {
       })
 
       it('does not show utils', async function () {
-        assert.ok(!terminal.output.includes('to-bytes'))
-        assert.ok(!terminal.output.includes('to-string'))
-        assert.ok(!terminal.output.includes('unit'))
+        assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
+        assert.ok(!terminal.output.includes('to-string'), terminal.output)
+        assert.ok(!terminal.output.includes('unit'), terminal.output)
       })
 
       it('shows the util scope', async function () {
-        assert.ok(terminal.output.includes('[util]'))
+        assert.ok(terminal.output.includes('[util]'), terminal.output)
       })
     })
   })

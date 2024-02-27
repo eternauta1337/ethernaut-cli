@@ -11,8 +11,11 @@ describe('local', function () {
     })
 
     it('queries for a network to fork', async function () {
-      assert.ok(terminal.output.includes('Select a network to fork'))
-      assert.ok(terminal.output.includes('none'))
+      assert.ok(
+        terminal.output.includes('Select a network to fork'),
+        terminal.output,
+      )
+      assert.ok(terminal.output.includes('none'), terminal.output)
     })
 
     describe('when none is selected', function () {
@@ -25,7 +28,10 @@ describe('local', function () {
       })
 
       it('starts a local chain', async function () {
-        assert.ok(terminal.output.includes('Available Accounts'))
+        assert.ok(
+          terminal.output.includes('Available Accounts'),
+          terminal.output,
+        )
       })
     })
   })
@@ -37,7 +43,10 @@ describe('local', function () {
       })
 
       it('starts a local chain', async function () {
-        assert.ok(terminal.output.includes('Available Accounts'))
+        assert.ok(
+          terminal.output.includes('Available Accounts'),
+          terminal.output,
+        )
       })
     })
 

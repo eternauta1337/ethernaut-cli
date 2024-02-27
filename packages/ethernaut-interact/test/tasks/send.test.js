@@ -26,7 +26,7 @@ describe('send', function () {
       })
 
       it('printed a tx summary', async function () {
-        assert.ok(terminal.output.includes('Pending Tx'))
+        assert.ok(terminal.output.includes('Pending Tx'), terminal.output)
         assert.ok(
           terminal.output.includes(
             'Sending 1 ETH (1000000000000000000 wei) to',
@@ -35,17 +35,20 @@ describe('send', function () {
         assert.ok(terminal.output.includes(`Signer: ${signer1.address}`))
         assert.ok(terminal.output.includes(`Balance: ${balance1} ETH`))
         assert.ok(terminal.output.includes(`To: ${signer2.address}`))
-        assert.ok(terminal.output.includes('Value: 1 ETH'))
+        assert.ok(terminal.output.includes('Value: 1 ETH'), terminal.output)
       })
     }
 
     const itPrintsPostTxInfo = () => {
       it('shows tx receipt', async function () {
-        assert.ok(terminal.output.includes('Transaction Receipt'))
-        assert.ok(terminal.output.includes('Tx hash:'))
-        assert.ok(terminal.output.includes('Gas price:'))
-        assert.ok(terminal.output.includes('Gas used: 21000'))
-        assert.ok(terminal.output.includes('Block number:'))
+        assert.ok(
+          terminal.output.includes('Transaction Receipt'),
+          terminal.output,
+        )
+        assert.ok(terminal.output.includes('Tx hash:'), terminal.output)
+        assert.ok(terminal.output.includes('Gas price:'), terminal.output)
+        assert.ok(terminal.output.includes('Gas used: 21000'), terminal.output)
+        assert.ok(terminal.output.includes('Block number:'), terminal.output)
       })
 
       it('shows shows final sender balance', async function () {
@@ -103,6 +106,7 @@ describe('send', function () {
       it('prompts the user for confirmation', async function () {
         assert.ok(
           terminal.output.includes('Do you want to proceed with the call?'),
+          terminal.output,
         )
       })
 

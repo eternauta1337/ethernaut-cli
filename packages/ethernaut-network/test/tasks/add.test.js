@@ -36,9 +36,10 @@ describe('add', function () {
     it('suggests strategies', async function () {
       assert.ok(
         terminal.output.includes('How would you like to specify a provider?'),
+        terminal.output,
       )
-      assert.ok(terminal.output.includes('Known networks'))
-      assert.ok(terminal.output.includes('Enter url manually'))
+      assert.ok(terminal.output.includes('Known networks'), terminal.output)
+      assert.ok(terminal.output.includes('Enter url manually'), terminal.output)
     })
 
     describe('when browse known networks is selected', function () {
@@ -47,12 +48,12 @@ describe('add', function () {
       })
 
       it('shows network', async function () {
-        assert.ok(terminal.output.includes('Select a network'))
-        assert.ok(terminal.output.includes('Ethereum Mainnet'))
-        assert.ok(terminal.output.includes('Expanse Network'))
-        assert.ok(terminal.output.includes('Ropsten'))
-        assert.ok(terminal.output.includes('Rinkeby'))
-        assert.ok(terminal.output.includes('Goerli'))
+        assert.ok(terminal.output.includes('Select a network'), terminal.output)
+        assert.ok(terminal.output.includes('Ethereum Mainnet'), terminal.output)
+        assert.ok(terminal.output.includes('Expanse Network'), terminal.output)
+        assert.ok(terminal.output.includes('Ropsten'), terminal.output)
+        assert.ok(terminal.output.includes('Rinkeby'), terminal.output)
+        assert.ok(terminal.output.includes('Goerli'), terminal.output)
       })
 
       describe('when a network is chosen', function () {
@@ -63,7 +64,10 @@ describe('add', function () {
         })
 
         it('shows providers', async function () {
-          assert.ok(terminal.output.includes('Select a provider'))
+          assert.ok(
+            terminal.output.includes('Select a provider'),
+            terminal.output,
+          )
           assert.ok(
             terminal.output.includes(
               'https://mainnet.infura.io/v3/${INFURA_API_KEY}',

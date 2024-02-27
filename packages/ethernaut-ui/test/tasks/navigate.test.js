@@ -11,7 +11,10 @@ describe('navigate', function () {
     })
 
     it('displays the main prompt', async function () {
-      assert.ok(terminal.output.includes('Pick a task or scope'))
+      assert.ok(
+        terminal.output.includes('Pick a task or scope'),
+        terminal.output,
+      )
     })
 
     it('displays the util scope', async function () {
@@ -36,17 +39,20 @@ describe('navigate', function () {
       })
 
       it('shows that util was picked', async function () {
-        assert.ok(terminal.output.includes('Pick a task or scope · util'))
+        assert.ok(
+          terminal.output.includes('Pick a task or scope · util'),
+          terminal.output,
+        )
       })
 
       it('shows the up nav', async function () {
-        assert.ok(terminal.output.includes('up'))
+        assert.ok(terminal.output.includes('up'), terminal.output)
       })
 
       it('shows utils', async function () {
-        assert.ok(terminal.output.includes('to-bytes'))
-        assert.ok(terminal.output.includes('to-string'))
-        assert.ok(terminal.output.includes('unit'))
+        assert.ok(terminal.output.includes('to-bytes'), terminal.output)
+        assert.ok(terminal.output.includes('to-string'), terminal.output)
+        assert.ok(terminal.output.includes('unit'), terminal.output)
       })
 
       describe('when selecting up', function () {
@@ -55,9 +61,9 @@ describe('navigate', function () {
         })
 
         it('does not show utils', async function () {
-          assert.ok(!terminal.output.includes('to-bytes'))
-          assert.ok(!terminal.output.includes('to-string'))
-          assert.ok(!terminal.output.includes('unit'))
+          assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
+          assert.ok(!terminal.output.includes('to-string'), terminal.output)
+          assert.ok(!terminal.output.includes('unit'), terminal.output)
         })
 
         describe('when navigating to utils with autocomplete', function () {
@@ -66,9 +72,9 @@ describe('navigate', function () {
           })
 
           it('shows utils', async function () {
-            assert.ok(terminal.output.includes('to-bytes'))
-            assert.ok(terminal.output.includes('to-string'))
-            assert.ok(terminal.output.includes('unit'))
+            assert.ok(terminal.output.includes('to-bytes'), terminal.output)
+            assert.ok(terminal.output.includes('to-string'), terminal.output)
+            assert.ok(terminal.output.includes('unit'), terminal.output)
           })
 
           describe('when autocompleting for the unit util', function () {
@@ -77,16 +83,16 @@ describe('navigate', function () {
             })
 
             it('shows the up nav', async function () {
-              assert.ok(terminal.output.includes('up'))
+              assert.ok(terminal.output.includes('up'), terminal.output)
             })
 
             it('shows the unit util', async function () {
-              assert.ok(terminal.output.includes('unit'))
+              assert.ok(terminal.output.includes('unit'), terminal.output)
             })
 
             it('doesnt show the other utils', async function () {
-              assert.ok(!terminal.output.includes('to-bytes'))
-              assert.ok(!terminal.output.includes('to-string'))
+              assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
+              assert.ok(!terminal.output.includes('to-string'), terminal.output)
             })
 
             describe('when continuing to autocomplete', function () {
@@ -95,11 +101,11 @@ describe('navigate', function () {
               })
 
               it('doesnt show the up nav', async function () {
-                assert.ok(!terminal.output.includes('up'))
+                assert.ok(!terminal.output.includes('up'), terminal.output)
               })
 
               it('shows the unit util', async function () {
-                assert.ok(terminal.output.includes('unit'))
+                assert.ok(terminal.output.includes('unit'), terminal.output)
               })
 
               describe('when selecting the unit util', function () {

@@ -24,11 +24,17 @@ describe('info', function () {
     })
 
     it('shows the expected results', async function () {
-      assert.ok(terminal.output.includes('Name: Ethereum Mainnet'))
-      assert.ok(terminal.output.includes('Currency: Ether (ETH)'))
-      assert.ok(terminal.output.includes('Chain ID: 1'))
-      assert.ok(terminal.output.includes('Gas price:'))
-      assert.ok(terminal.output.includes('Block number'))
+      assert.ok(
+        terminal.output.includes('Name: Ethereum Mainnet'),
+        terminal.output,
+      )
+      assert.ok(
+        terminal.output.includes('Currency: Ether (ETH)'),
+        terminal.output,
+      )
+      assert.ok(terminal.output.includes('Chain ID: 1'), terminal.output)
+      assert.ok(terminal.output.includes('Gas price:'), terminal.output)
+      assert.ok(terminal.output.includes('Block number'), terminal.output)
     })
   })
 })

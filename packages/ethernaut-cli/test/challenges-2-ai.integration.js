@@ -18,6 +18,6 @@ describe('completing level 2 of ethernaut with ai', function () {
   })
 
   it('completes the level', async function () {
-    assert.ok(terminal.output.includes('Level completed'))
+    assert.ok(terminal.output.includes('Level completed'), terminal.output)
   })
 })

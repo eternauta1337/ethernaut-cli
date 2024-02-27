@@ -25,8 +25,8 @@ describe('list', function () {
     })
 
     it('prints the networks', async function () {
-      assert.ok(terminal.output.includes('- test__3 (poop)'))
-      assert.ok(terminal.output.includes('- test__4 (poop)'))
+      assert.ok(terminal.output.includes('- test__3 (poop)'), terminal.output)
+      assert.ok(terminal.output.includes('- test__4 (poop)'), terminal.output)
     })
   })
 })

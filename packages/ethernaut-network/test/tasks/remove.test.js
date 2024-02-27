@@ -38,7 +38,9 @@ describe('remove', function () {
     it('suggests networks', async function () {
       assert.ok(
         terminal.output.includes('Select a network'),
+        terminal.output,
         terminal.output.includes('test__4'),
+        terminal.output,
       )
     })
 

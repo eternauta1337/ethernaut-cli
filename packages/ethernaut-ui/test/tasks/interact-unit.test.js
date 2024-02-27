@@ -10,11 +10,14 @@ describe('interact unit', function () {
     })
 
     it('contains the word "result"', async function () {
-      assert.ok(terminal.output.includes('Result'))
+      assert.ok(terminal.output.includes('Result'), terminal.output)
     })
 
     it('shows the output of unit', async function () {
-      assert.ok(terminal.output.includes('1000000000000000000'))
+      assert.ok(
+        terminal.output.includes('1000000000000000000'),
+        terminal.output,
+      )
     })
   })
 
@@ -24,11 +27,14 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'))
+      assert.ok(!terminal.output.includes('Result'), terminal.output)
     })
 
     it('displays the to prompt', async function () {
-      assert.ok(terminal.output.includes('Enter to (The unit to convert to)'))
+      assert.ok(
+        terminal.output.includes('Enter to (The unit to convert to)'),
+        terminal.output,
+      )
     })
 
     describe('when entering <to>', function () {
@@ -37,7 +43,10 @@ describe('interact unit', function () {
       })
 
       it('shows the output of unit', async function () {
-        assert.ok(terminal.output.includes('1000000000000000000'))
+        assert.ok(
+          terminal.output.includes('1000000000000000000'),
+          terminal.output,
+        )
       })
     })
   })
@@ -48,11 +57,14 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'))
+      assert.ok(!terminal.output.includes('Result'), terminal.output)
     })
 
     it('displays the <value> prompt', async function () {
-      assert.ok(terminal.output.includes('Enter value (The value to convert'))
+      assert.ok(
+        terminal.output.includes('Enter value (The value to convert'),
+        terminal.output,
+      )
     })
 
     describe('when entering the value', function () {
@@ -63,15 +75,16 @@ describe('interact unit', function () {
       it('displays the <from> prompt', async function () {
         assert.ok(
           terminal.output.includes('Enter from (The unit to convert from'),
+          terminal.output,
         )
       })
 
       it('displays the units', async function () {
-        assert.ok(terminal.output.includes('ether'))
-        assert.ok(terminal.output.includes('wei'))
-        assert.ok(terminal.output.includes('kwei'))
-        assert.ok(terminal.output.includes('szabo'))
-        assert.ok(terminal.output.includes('finney'))
+        assert.ok(terminal.output.includes('ether'), terminal.output)
+        assert.ok(terminal.output.includes('wei'), terminal.output)
+        assert.ok(terminal.output.includes('kwei'), terminal.output)
+        assert.ok(terminal.output.includes('szabo'), terminal.output)
+        assert.ok(terminal.output.includes('finney'), terminal.output)
       })
 
       describe('when autocompleting <from>', function () {
@@ -81,7 +94,7 @@ describe('interact unit', function () {
         })
 
         it('does not display the wei option', async function () {
-          assert.ok(!terminal.output.includes('wei'))
+          assert.ok(!terminal.output.includes('wei'), terminal.output)
         })
 
         describe('when entering <from>', function () {
@@ -92,6 +105,7 @@ describe('interact unit', function () {
           it('displays the <to> prompt', async function () {
             assert.ok(
               terminal.output.includes('Enter to (The unit to convert to'),
+              terminal.output,
             )
           })
 
@@ -101,7 +115,10 @@ describe('interact unit', function () {
             })
 
             it('shows the output of unit', async function () {
-              assert.ok(terminal.output.includes('1000000000000000000'))
+              assert.ok(
+                terminal.output.includes('1000000000000000000'),
+                terminal.output,
+              )
             })
           })
         })

@@ -10,22 +10,29 @@ describe('help', function () {
     })
 
     it('displays the main prompt', async function () {
-      assert.ok(terminal.output.includes('Pick a task or scope'))
+      assert.ok(
+        terminal.output.includes('Pick a task or scope'),
+        terminal.output,
+      )
     })
 
     it('displays the util scope', async function () {
-      assert.ok(terminal.output.includes('[util]'))
+      assert.ok(terminal.output.includes('[util]'), terminal.output)
     })
   })
 
   describe('when entering the cli with the --help option or task', function () {
     const itShowsHelp = function () {
       it('does not show navigation', async function () {
-        assert.ok(!terminal.output.includes('?'))
+        assert.ok(!terminal.output.includes('?'), terminal.output)
       })
 
       it('shows help', async function () {
-        assert.ok(terminal.output.includes('Hardhat version'), terminal.output)
+        assert.ok(
+          terminal.output.includes('Hardhat version'),
+          terminal.output,
+          terminal.output,
+        )
       })
     }
 
