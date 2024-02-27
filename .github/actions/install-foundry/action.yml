@@ -3,12 +3,10 @@ description: 'Installs Foundry'
 runs:
   using: 'composite'
   steps:
-    - run:
-      name: 'Run installer'
-      working_directory: ~/
-      environment:
-        shell: bash
-      command: echo 'Installing Foundry...'
+    - name: 'Install Foundry'
+      shell: bash
+      run: |
+        echo 'Installing Foundry...'
       # command: |-
       #   export PATH="$PATH:$HOME/.foundry/bin"
       #   echo 'export PATH=$PATH:$HOME/.foundry/bin' >> $BASH_ENV
