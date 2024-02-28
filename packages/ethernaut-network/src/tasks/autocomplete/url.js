@@ -6,8 +6,8 @@ const strategies = {
   MANUAL: 'Enter url manually',
 }
 
-module.exports = async function autocompleteProvider({ provider }) {
-  if (provider) return undefined
+module.exports = async function autocompleteProvider({ url }) {
+  if (url) return undefined
 
   const choice = await selectStrategy()
   switch (choice) {

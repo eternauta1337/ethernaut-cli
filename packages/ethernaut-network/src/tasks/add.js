@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteProvider = require('./autocomplete/provider')
+const autocompleteUrl = require('./autocomplete/url')
 const storage = require('../internal/storage')
 
 const add = require('../scopes/net')
@@ -12,12 +12,12 @@ const add = require('../scopes/net')
     types.string,
   )
   .addOptionalParam(
-    'provider',
+    'url',
     'The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/${INFURA_API_KEY}. Make sure to specify these in your .env file.',
     undefined,
     types.string,
   )
-  .setAction(async ({ alias, provider }) => {
+  .setAction(async ({ alias, url }) => {
     try {
       const validateAlias = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/
       if (!validateAlias.test(alias)) {
@@ -33,15 +33,15 @@ const add = require('../scopes/net')
       }
 
       networks[alias] = {
-        url: provider,
+        url,
       }
 
       storage.storeNetworks(networks)
 
-      output.resultBox(`Added network ${alias} with provider ${provider}`)
+      output.resultBox(`Added network ${alias} with provider ${url}`)
     } catch (err) {
       return output.errorBox(err)
     }
   })
 
-add.paramDefinitions.provider.autocomplete = autocompleteProvider
+add.paramDefinitions.url.autocomplete = autocompleteUrl

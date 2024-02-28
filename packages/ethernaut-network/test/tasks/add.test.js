@@ -18,7 +18,7 @@ describe('add', function () {
   describe('when all params are specified', function () {
     before('run add', async function () {
       await terminal.run(
-        'npx hardhat net add test__1 --provider http://localhost:8545',
+        'npx hardhat net add test__1 --url http://localhost:8545',
       )
     })
 
