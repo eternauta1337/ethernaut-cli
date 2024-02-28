@@ -14,6 +14,22 @@ module.exports = {
   solidity: '0.8.19',
   defaultNetwork: 'localhost',
   ethernaut: {
+    ui: {
+      exclude: {
+        scopes: ['vars', 'hardhat'],
+        tasks: [
+          'compile',
+          'check',
+          'clean',
+          'flatten',
+          'node',
+          'test',
+          'navigate',
+          'help',
+          'run',
+        ],
+      },
+    },
     ai: {
       interpreter: {
         additionalInstructions: [''],

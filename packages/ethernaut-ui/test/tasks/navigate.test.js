@@ -21,18 +21,16 @@ describe('navigate', function () {
       )
     })
 
-    it('displays the compile task', async function () {
+    it('displays the console task', async function () {
       assert.equal(
-        findLineWith('compile', terminal.output),
-        'Compiles the entire project, building all artifacts',
+        findLineWith('console', terminal.output),
+        'Opens a hardhat console',
       )
     })
 
     describe('when using the arrow keys to navigate to the util package', function () {
       before('interact', async function () {
-        await terminal.input(keys.DOWN, 100)
-        await terminal.input(keys.DOWN, 100)
-        await terminal.input(keys.ENTER, 1000)
+        await terminal.input('util\r', 1000)
       })
 
       it('shows that util was picked', async function () {
@@ -104,7 +102,7 @@ describe('navigate', function () {
 
               describe('when selecting the unit util', function () {
                 before('press enter', async function () {
-                  await terminal.input(keys.ENTER, 500)
+                  await terminal.input(keys.ENTER, 1000)
                 })
 
                 it('displays a prompt for entering the value to convert', async function () {

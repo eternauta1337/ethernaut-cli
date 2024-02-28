@@ -6,7 +6,7 @@ task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam('scope', 'The group of tasks to navigate')
   .setAction(async ({ scope }) => {
     try {
-      await navigateFrom(hre.scopes[scope] || hre)
+      await navigateFrom(hre.scopes[scope] || hre, hre)
     } catch (err) {
       output.errorBox(err)
     }

@@ -15,6 +15,10 @@ describe('help', function () {
     it('displays the util scope', async function () {
       terminal.has('[util]')
     })
+
+    it('does not display the vars scope', async function () {
+      terminal.notHas('[vars]')
+    })
   })
 
   describe('when entering the cli with the --help option or task', function () {

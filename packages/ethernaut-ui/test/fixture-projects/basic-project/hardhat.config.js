@@ -11,4 +11,12 @@ module.exports = {
       url: 'http://localhost:8545',
     },
   },
+  ethernaut: {
+    ui: {
+      exclude: {
+        scopes: ['vars', 'hardhat'],
+        tasks: ['compile'],
+      },
+    },
+  },
 }
