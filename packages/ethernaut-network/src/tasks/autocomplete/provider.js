@@ -40,7 +40,7 @@ async function selectNetworkThenProvider() {
   })
 
   const chain = chains.find((c) => c.name === networkName)
-  choices = chain.rpc
+  choices = chain.rpc.filter((rpc) => !rpc.includes('wss'))
 
   return await prompt({
     type: 'autocomplete',

@@ -66,6 +66,11 @@ describe('add', function () {
           terminal.has(publicNodeUrl)
         })
 
+        it('excludes web sockets', async function () {
+          terminal.notHas('wss://ethereum-rpc.publicnode.com')
+          terminal.notHas('wss://')
+        })
+
         describe('when a provider is selected', function () {
           before('select provider', async function () {
             await terminal.input('pu\r')
