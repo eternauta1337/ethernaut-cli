@@ -45,7 +45,10 @@ async function createInstance(level, hre) {
     throw new Error('Instance creation transaction reverted')
   }
 
-  spinner.success(`Created level instance on ${network}`, 'challenges')
+  spinner.success(
+    `Created level instance on ${network} for player ${receipt.from}`,
+    'challenges',
+  )
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log))
   if (events.length === 0) {

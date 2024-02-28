@@ -25,7 +25,11 @@ const set = require('../scopes/sig')
       signers.activeSigner = alias
       storage.storeSigners(signers)
 
-      output.resultBox(`The active signer is now "${alias}"`)
+      const signer = signers[alias]
+
+      output.resultBox(
+        `The active signer is now "${alias}" with address ${signer.address}`,
+      )
     } catch (err) {
       return output.errorBox(err)
     }
