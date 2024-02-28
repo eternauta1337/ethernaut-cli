@@ -43,7 +43,7 @@ describe('local', function () {
     describe('with none', function () {
       before('run', async function () {
         await terminal.run(
-          'npx hardhat net local --fork none --port 8545',
+          'npx hardhat net local --fork none --port 8547',
           2000,
         )
       })
@@ -70,7 +70,10 @@ describe('local', function () {
       })
 
       before('run', async function () {
-        await terminal.run('npx hardhat net local --fork test__mainnet', 5000)
+        await terminal.run(
+          'npx hardhat net local --fork test__mainnet --port 8547',
+          5000,
+        )
       })
 
       it('starts a local forked chain', async function () {
