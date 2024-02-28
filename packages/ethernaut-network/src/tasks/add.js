@@ -2,6 +2,7 @@ const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const autocompleteUrl = require('./autocomplete/url')
 const storage = require('../internal/storage')
+const { validateVarName } = require('common/src/name')
 
 const add = require('../scopes/net')
   .task('add', 'Adds a network to the cli')
@@ -19,8 +20,7 @@ const add = require('../scopes/net')
   )
   .setAction(async ({ alias, url }) => {
     try {
-      const validateAlias = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/
-      if (!validateAlias.test(alias)) {
+      if (!validateVarName(alias)) {
         throw new Error(
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
         )
