@@ -156,6 +156,12 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+      - name: Start local chain
+        run: |
+          npm run chain &
+          sleep 5
       - run: cd packages/ethernaut-signer && npm t
   ethernaut-cli:
     runs-on: ubuntu-latest
