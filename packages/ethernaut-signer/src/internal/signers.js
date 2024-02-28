@@ -17,6 +17,10 @@ function getWallet(pk) {
   return new hre.ethers.Wallet(pk, hre.ethers.provider)
 }
 
+function generatePk(hre) {
+  return hre.ethers.Wallet.createRandom().privateKey
+}
+
 async function getSigner(address) {
   const signers = storage.readSigners()
 
@@ -79,4 +83,5 @@ module.exports = {
   getSigner,
   getSigners,
   modifySigners,
+  generatePk,
 }

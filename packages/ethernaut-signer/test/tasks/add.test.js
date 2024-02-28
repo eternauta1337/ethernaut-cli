@@ -13,11 +13,22 @@ describe('add', function () {
   const removeTestSigners = function () {
     const signers = storage.readSigners()
     if ('test__1' in signers) delete signers.test__1
+    if ('test__2' in signers) delete signers.test__1
     storage.storeSigners(signers)
   }
 
   before('remove test signers', removeTestSigners)
   after('remove test signers', removeTestSigners)
+
+  describe('when generating a random pk', function () {
+    before('generate', async function () {
+      await terminal.run('npx hardhat sig add test__1 --pk random')
+    })
+
+    it('generates the signer', async function () {
+      terminal.has('Generated random private key')
+    })
+  })
 
   describe('when all params are specified', function () {
     before('run add', async function () {
