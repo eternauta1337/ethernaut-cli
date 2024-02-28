@@ -11,11 +11,8 @@ describe('local', function () {
     })
 
     it('queries for a network to fork', async function () {
-      assert.ok(
-        terminal.output.includes('Select a network to fork'),
-        terminal.output,
-      )
-      assert.ok(terminal.output.includes('none'), terminal.output)
+      terminal.has('Select a network to fork')
+      terminal.has('none')
     })
 
     describe('when none is selected', function () {
@@ -24,7 +21,7 @@ describe('local', function () {
       })
 
       it('queries for a port number', async function () {
-        assert.ok(terminal.output.includes('Enter port'), terminal.output)
+        terminal.has('Enter port')
       })
 
       describe('when 8546 is entered', function () {
@@ -37,10 +34,7 @@ describe('local', function () {
         })
 
         it('starts a local chain', async function () {
-          assert.ok(
-            terminal.output.includes('Listening on 127.0.0.1:8546'),
-            terminal.output,
-          )
+          terminal.has('Listening on 127.0.0.1:8546')
         })
       })
     })
@@ -56,10 +50,7 @@ describe('local', function () {
       })
 
       it('starts a local chain', async function () {
-        assert.ok(
-          terminal.output.includes('Available Accounts'),
-          terminal.output,
-        )
+        terminal.has('Available Accounts')
       })
     })
 
@@ -88,6 +79,7 @@ describe('local', function () {
           terminal.output.includes(
             `Starting local chain with fork ${rpcUrl}...`,
           ),
+          terminal.output,
         )
       })
     })

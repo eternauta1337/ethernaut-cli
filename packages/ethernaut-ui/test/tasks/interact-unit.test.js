@@ -10,14 +10,11 @@ describe('interact unit', function () {
     })
 
     it('contains the word "result"', async function () {
-      assert.ok(terminal.output.includes('Result'), terminal.output)
+      terminal.has('Result')
     })
 
     it('shows the output of unit', async function () {
-      assert.ok(
-        terminal.output.includes('1000000000000000000'),
-        terminal.output,
-      )
+      terminal.has('1000000000000000000')
     })
   })
 
@@ -31,10 +28,7 @@ describe('interact unit', function () {
     })
 
     it('displays the to prompt', async function () {
-      assert.ok(
-        terminal.output.includes('Enter to (The unit to convert to)'),
-        terminal.output,
-      )
+      terminal.has('Enter to (The unit to convert to)')
     })
 
     describe('when entering <to>', function () {
@@ -43,10 +37,7 @@ describe('interact unit', function () {
       })
 
       it('shows the output of unit', async function () {
-        assert.ok(
-          terminal.output.includes('1000000000000000000'),
-          terminal.output,
-        )
+        terminal.has('1000000000000000000')
       })
     })
   })
@@ -61,10 +52,7 @@ describe('interact unit', function () {
     })
 
     it('displays the <value> prompt', async function () {
-      assert.ok(
-        terminal.output.includes('Enter value (The value to convert'),
-        terminal.output,
-      )
+      terminal.has('Enter value (The value to convert')
     })
 
     describe('when entering the value', function () {
@@ -73,18 +61,15 @@ describe('interact unit', function () {
       })
 
       it('displays the <from> prompt', async function () {
-        assert.ok(
-          terminal.output.includes('Enter from (The unit to convert from'),
-          terminal.output,
-        )
+        terminal.has('Enter from (The unit to convert from')
       })
 
       it('displays the units', async function () {
-        assert.ok(terminal.output.includes('ether'), terminal.output)
-        assert.ok(terminal.output.includes('wei'), terminal.output)
-        assert.ok(terminal.output.includes('kwei'), terminal.output)
-        assert.ok(terminal.output.includes('szabo'), terminal.output)
-        assert.ok(terminal.output.includes('finney'), terminal.output)
+        terminal.has('ether')
+        terminal.has('wei')
+        terminal.has('kwei')
+        terminal.has('szabo')
+        terminal.has('finney')
       })
 
       describe('when autocompleting <from>', function () {
@@ -103,10 +88,7 @@ describe('interact unit', function () {
           })
 
           it('displays the <to> prompt', async function () {
-            assert.ok(
-              terminal.output.includes('Enter to (The unit to convert to'),
-              terminal.output,
-            )
+            terminal.has('Enter to (The unit to convert to')
           })
 
           describe('when entering <from>', function () {
@@ -115,10 +97,7 @@ describe('interact unit', function () {
             })
 
             it('shows the output of unit', async function () {
-              assert.ok(
-                terminal.output.includes('1000000000000000000'),
-                terminal.output,
-              )
+              terminal.has('1000000000000000000')
             })
           })
         })

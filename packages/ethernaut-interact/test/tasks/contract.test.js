@@ -65,48 +65,33 @@ describe('contract', function () {
         })
 
         it('printed a tx summary', async function () {
-          assert.ok(terminal.output.includes('Pending Tx'), terminal.output)
-          assert.ok(
-            terminal.output.includes('Sample.incrementCounter('),
-            terminal.output,
-          )
+          terminal.has('Pending Tx')
+          terminal.has('Sample.incrementCounter(')
           assert.ok(terminal.output.includes(`Signer: ${signer.address}`))
           assert.ok(terminal.output.includes(`Balance: ${balance} ETH`))
           assert.ok(
             terminal.output.includes(`To: ${await sample.getAddress()}`),
           )
-          assert.ok(terminal.output.includes('Value: 0 ETH'), terminal.output)
+          terminal.has('Value: 0 ETH')
         })
       }
 
       const itPrintsPostTxInfo = () => {
         it('shows tx statuses', async function () {
-          assert.ok(
-            terminal.output.includes('Transaction sent'),
-            terminal.output,
-          )
-          assert.ok(
-            terminal.output.includes('Transaction mined successfully'),
-            terminal.output,
-          )
+          terminal.has('Transaction sent')
+          terminal.has('Transaction mined successfully')
         })
 
         it('shows tx receipt', async function () {
-          assert.ok(
-            terminal.output.includes('Transaction Receipt'),
-            terminal.output,
-          )
-          assert.ok(terminal.output.includes('Tx hash:'), terminal.output)
-          assert.ok(terminal.output.includes('Gas price:'), terminal.output)
-          assert.ok(terminal.output.includes('Gas used:'), terminal.output)
-          assert.ok(terminal.output.includes('Block number:'), terminal.output)
+          terminal.has('Transaction Receipt')
+          terminal.has('Tx hash:')
+          terminal.has('Gas price:')
+          terminal.has('Gas used:')
+          terminal.has('Block number:')
         })
 
         it('shows emitted events', async function () {
-          assert.ok(
-            terminal.output.includes('Emitted no events'),
-            terminal.output,
-          )
+          terminal.has('Emitted no events')
         })
 
         it('shows shows final sender balance', async function () {
@@ -136,10 +121,7 @@ describe('contract', function () {
             await terminal.run(
               `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn counter`,
             )
-            assert.ok(
-              terminal.output.includes('counter() => 42'),
-              terminal.output,
-            )
+            terminal.has('counter() => 42')
           })
 
           describe('and then decrementing it', function () {
@@ -170,10 +152,7 @@ describe('contract', function () {
           itPrintsPreliminaryInfo()
 
           it('prompts the user for confirmation', async function () {
-            assert.ok(
-              terminal.output.includes('Do you want to proceed with the call?'),
-              terminal.output,
-            )
+            terminal.has('Do you want to proceed with the call?')
           })
 
           describe('when the user confirms', function () {

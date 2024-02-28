@@ -1,6 +1,7 @@
 const pty = require('node-pty')
 const os = require('os')
 const debug = require('common/src/debug')
+const assert = require('assert')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
@@ -86,6 +87,10 @@ class Terminal {
 
   stripAnsi(inputString) {
     return inputString.replace(ansiEscapeCodesPattern, '')
+  }
+
+  has(output) {
+    assert.ok(this.output.includes(output), this.output)
   }
 }
 

@@ -13,17 +13,11 @@ describe('interpret', function () {
       })
 
       it('suggests actions', async function () {
-        assert.ok(
-          terminal.output.includes('Suggested Actions'),
-          terminal.output,
-        )
+        terminal.has('Suggested Actions')
       })
 
       it('has an assistant response', async function () {
-        assert.ok(
-          terminal.output.includes('Assistant response'),
-          terminal.output,
-        )
+        terminal.has('Assistant response')
       })
 
       it('includes the expected output', async function () {
@@ -44,20 +38,14 @@ describe('interpret', function () {
       })
 
       it('suggests actions', async function () {
-        assert.ok(
-          terminal.output.includes('Suggested Actions'),
-          terminal.output,
-        )
+        terminal.has('Suggested Actions')
       })
 
       it('prompts the user for next steps', async function () {
-        assert.ok(
-          terminal.output.includes('How would you like to proceed?'),
-          terminal.output,
-        )
-        assert.ok(terminal.output.includes('execute'), terminal.output)
-        assert.ok(terminal.output.includes('explain'), terminal.output)
-        assert.ok(terminal.output.includes('skip'), terminal.output)
+        terminal.has('How would you like to proceed?')
+        terminal.has('execute')
+        terminal.has('explain')
+        terminal.has('skip')
       })
 
       describe('when the user continues', function () {

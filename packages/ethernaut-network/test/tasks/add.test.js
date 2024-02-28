@@ -24,7 +24,7 @@ describe('add', function () {
 
     it('adds the network', async function () {
       const networks = storage.readNetworks()
-      assert.ok(networks.test__1, { url: 'http://localhost:8545' })
+      assert.deepEqual(networks.test__1, { url: 'http://localhost:8545' })
     })
   })
 
@@ -34,12 +34,9 @@ describe('add', function () {
     })
 
     it('suggests strategies', async function () {
-      assert.ok(
-        terminal.output.includes('How would you like to specify a provider?'),
-        terminal.output,
-      )
-      assert.ok(terminal.output.includes('Known networks'), terminal.output)
-      assert.ok(terminal.output.includes('Enter url manually'), terminal.output)
+      terminal.has('How would you like to specify a provider?')
+      terminal.has('Known networks')
+      terminal.has('Enter url manually')
     })
 
     describe('when browse known networks is selected', function () {
@@ -48,12 +45,12 @@ describe('add', function () {
       })
 
       it('shows network', async function () {
-        assert.ok(terminal.output.includes('Select a network'), terminal.output)
-        assert.ok(terminal.output.includes('Ethereum Mainnet'), terminal.output)
-        assert.ok(terminal.output.includes('Expanse Network'), terminal.output)
-        assert.ok(terminal.output.includes('Ropsten'), terminal.output)
-        assert.ok(terminal.output.includes('Rinkeby'), terminal.output)
-        assert.ok(terminal.output.includes('Goerli'), terminal.output)
+        terminal.has('Select a network')
+        terminal.has('Ethereum Mainnet')
+        terminal.has('Expanse Network')
+        terminal.has('Ropsten')
+        terminal.has('Rinkeby')
+        terminal.has('Goerli')
       })
 
       describe('when a network is chosen', function () {
@@ -64,10 +61,7 @@ describe('add', function () {
         })
 
         it('shows providers', async function () {
-          assert.ok(
-            terminal.output.includes('Select a provider'),
-            terminal.output,
-          )
+          terminal.has('Select a provider')
           assert.ok(
             terminal.output.includes(
               'https://mainnet.infura.io/v3/${INFURA_API_KEY}',
@@ -83,7 +77,7 @@ describe('add', function () {
 
           it('adds the network', async function () {
             const networks = storage.readNetworks()
-            assert.ok(networks.test__2, { url: publicNodeUrl })
+            assert.deepEqual(networks.test__2, { url: publicNodeUrl })
           })
         })
       })
