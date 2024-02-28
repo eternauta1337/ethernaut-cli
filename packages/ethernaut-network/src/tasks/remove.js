@@ -4,7 +4,7 @@ const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
 const remove = require('../scopes/net')
-  .task('remove', 'Removes a network to from cli')
+  .task('remove', 'Removes a network from the cli')
   .addOptionalPositionalParam(
     'alias',
     'How the network is referenced in the cli',
