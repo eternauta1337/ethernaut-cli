@@ -12,8 +12,8 @@ describe('add', function () {
 
   const removeTestSigners = function () {
     const signers = storage.readSigners()
-    if ('test__1' in signers) delete signers.test__1
-    if ('test__2' in signers) delete signers.test__1
+    if ('test__7' in signers) delete signers.test__7
+    if ('test__8' in signers) delete signers.test__8
     storage.storeSigners(signers)
   }
 
@@ -22,7 +22,7 @@ describe('add', function () {
 
   describe('when generating a random pk', function () {
     before('generate', async function () {
-      await terminal.run('npx hardhat sig add test__1 --pk random')
+      await terminal.run('npx hardhat sig add test__8 --pk random')
     })
 
     it('generates the signer', async function () {
@@ -32,16 +32,12 @@ describe('add', function () {
 
   describe('when all params are specified', function () {
     before('run add', async function () {
-      await terminal.run(`npx hardhat sig add test__1 --pk ${demoSig.pk}`)
+      await terminal.run(`npx hardhat sig add test__7 --pk ${demoSig.pk}`)
     })
 
     it('adds the signer', async function () {
       const signers = storage.readSigners()
-      assert.deepEqual(
-        signers.test__1,
-        { address: demoSig.address, pk: demoSig.pk },
-        terminal.output,
-      )
+      assert.deepEqual(signers.test__7, demoSig, terminal.output)
     })
   })
 })
