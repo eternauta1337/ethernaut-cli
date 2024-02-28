@@ -12,11 +12,7 @@ describe('set', function () {
 
   before('add test signers', async function () {
     const signers = storage.readSigners()
-    if (!('test__3' in signers))
-      signers.test__3 = {
-        address: demoSig.address,
-        pk: demoSig.pk,
-      }
+    if (!('test__3' in signers)) signers.test__3 = demoSig
     storage.storeSigners(signers)
   })
 

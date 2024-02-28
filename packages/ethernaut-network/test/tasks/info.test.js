@@ -18,18 +18,18 @@ describe('info', function () {
       storage.storeNetworks(networks)
     })
 
-    describe('when specifying an alias', function () {})
+    describe('when specifying an alias', function () {
+      before('query', async function () {
+        await terminal.run('npx hardhat net info test__mainnet', 5000)
+      })
 
-    before('query', async function () {
-      await terminal.run('npx hardhat net info test__mainnet', 5000)
-    })
-
-    it('shows the expected results', async function () {
-      terminal.has('Name: Ethereum Mainnet')
-      terminal.has('Currency: Ether (ETH)')
-      terminal.has('Chain ID: 1')
-      terminal.has('Gas price:')
-      terminal.has('Block number')
+      it('shows the expected results', async function () {
+        terminal.has('Name: Ethereum Mainnet')
+        terminal.has('Currency: Ether (ETH)')
+        terminal.has('Chain ID: 1')
+        terminal.has('Gas price:')
+        terminal.has('Block number')
+      })
     })
   })
 })
