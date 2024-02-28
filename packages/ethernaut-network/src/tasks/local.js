@@ -8,9 +8,12 @@ const applyEnvVars = require('../internal/apply-env-vars')
 const local = require('../scopes/net')
   .task('local', 'Starts a local chain')
   .addOptionalParam('fork', 'The alias or url of the network to fork')
-  .setAction(async ({ fork }) => {
+  .addOptionalParam('port', 'The port to run the local chain on')
+  .setAction(async ({ fork, port }) => {
     try {
       const forkUrl = getForkUrl(fork)
+
+      port = Number(port) || 8545
 
       if (forkUrl) {
         output.info(`Starting local chain with fork ${forkUrl.url}...`)
@@ -18,7 +21,7 @@ const local = require('../scopes/net')
         output.info('Starting local chain...')
       }
 
-      startAnvil(forkUrl.unfoldedUrl)
+      startAnvil(forkUrl.unfoldedUrl, port)
     } catch (err) {
       return output.errorBox(err)
     }
@@ -47,13 +50,13 @@ function getForkUrl(fork) {
   return urlInfo
 }
 
-function startAnvil(forkUrl) {
+function startAnvil(forkUrl, port) {
   execSync('anvil --version', { stdio: 'inherit' })
 
   if (!forkUrl) {
-    execSync('anvil', { stdio: 'inherit' })
+    execSync(`anvil --port ${port}`, { stdio: 'inherit' })
   } else {
-    execSync(`anvil --fork-url ${forkUrl}`, { stdio: 'inherit' })
+    execSync(`anvil --fork-url ${forkUrl} --port ${port}`, { stdio: 'inherit' })
   }
 }
 
