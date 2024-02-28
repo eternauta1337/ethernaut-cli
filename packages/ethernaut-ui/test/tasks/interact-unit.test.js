@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
 describe('interact unit', function () {
@@ -10,11 +9,11 @@ describe('interact unit', function () {
     })
 
     it('contains the word "result"', async function () {
-      assert.ok(terminal.output.includes('Result'))
+      terminal.has('Result')
     })
 
     it('shows the output of unit', async function () {
-      assert.ok(terminal.output.includes('1000000000000000000'))
+      terminal.has('1000000000000000000')
     })
   })
 
@@ -24,11 +23,11 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'))
+      terminal.notHas('Result')
     })
 
     it('displays the to prompt', async function () {
-      assert.ok(terminal.output.includes('Enter to (The unit to convert to)'))
+      terminal.has('Enter to (The unit to convert to)')
     })
 
     describe('when entering <to>', function () {
@@ -37,7 +36,7 @@ describe('interact unit', function () {
       })
 
       it('shows the output of unit', async function () {
-        assert.ok(terminal.output.includes('1000000000000000000'))
+        terminal.has('1000000000000000000')
       })
     })
   })
@@ -48,11 +47,11 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'))
+      terminal.notHas('Result')
     })
 
     it('displays the <value> prompt', async function () {
-      assert.ok(terminal.output.includes('Enter value (The value to convert'))
+      terminal.has('Enter value (The value to convert')
     })
 
     describe('when entering the value', function () {
@@ -61,17 +60,15 @@ describe('interact unit', function () {
       })
 
       it('displays the <from> prompt', async function () {
-        assert.ok(
-          terminal.output.includes('Enter from (The unit to convert from'),
-        )
+        terminal.has('Enter from (The unit to convert from')
       })
 
       it('displays the units', async function () {
-        assert.ok(terminal.output.includes('ether'))
-        assert.ok(terminal.output.includes('wei'))
-        assert.ok(terminal.output.includes('kwei'))
-        assert.ok(terminal.output.includes('szabo'))
-        assert.ok(terminal.output.includes('finney'))
+        terminal.has('ether')
+        terminal.has('wei')
+        terminal.has('kwei')
+        terminal.has('szabo')
+        terminal.has('finney')
       })
 
       describe('when autocompleting <from>', function () {
@@ -81,7 +78,7 @@ describe('interact unit', function () {
         })
 
         it('does not display the wei option', async function () {
-          assert.ok(!terminal.output.includes('wei'))
+          terminal.notHas('wei')
         })
 
         describe('when entering <from>', function () {
@@ -90,9 +87,7 @@ describe('interact unit', function () {
           })
 
           it('displays the <to> prompt', async function () {
-            assert.ok(
-              terminal.output.includes('Enter to (The unit to convert to'),
-            )
+            terminal.has('Enter to (The unit to convert to')
           })
 
           describe('when entering <from>', function () {
@@ -101,7 +96,7 @@ describe('interact unit', function () {
             })
 
             it('shows the output of unit', async function () {
-              assert.ok(terminal.output.includes('1000000000000000000'))
+              terminal.has('1000000000000000000')
             })
           })
         })

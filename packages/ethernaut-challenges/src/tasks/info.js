@@ -5,7 +5,7 @@ const path = require('path')
 const output = require('common/src/output')
 const debug = require('common/src/debug')
 const replaceHomeDir = require('common/src/home-dir')
-const getNetwork = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 require('../scopes/oz')
   .task(
@@ -20,7 +20,7 @@ require('../scopes/oz')
   )
   .setAction(async ({ level }) => {
     try {
-      const info = getLevelInfo(level)
+      const info = await getLevelInfo(level)
 
       let str = ''
 
@@ -42,7 +42,7 @@ require('../scopes/oz')
     }
   })
 
-function getLevelInfo(level) {
+async function getLevelInfo(level) {
   const idx = parseInt(level) - 1
   if (idx < 0) {
     throw new Error('Invalid level number')
@@ -67,7 +67,7 @@ function getLevelInfo(level) {
 
   const description = helper.getLevelDescription(levelInfo.description)
 
-  const network = getNetwork(hre)
+  const network = await getNetworkName(hre)
   const deploymentInfo = helper.getDeploymentInfo(network)
   const levelAddress = deploymentInfo[level]
 

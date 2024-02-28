@@ -11,7 +11,7 @@ describe('navigate', function () {
     })
 
     it('displays the main prompt', async function () {
-      assert.ok(terminal.output.includes('Pick a task or scope'))
+      terminal.has('Pick a task or scope')
     })
 
     it('displays the util scope', async function () {
@@ -36,17 +36,17 @@ describe('navigate', function () {
       })
 
       it('shows that util was picked', async function () {
-        assert.ok(terminal.output.includes('Pick a task or scope · util'))
+        terminal.has('Pick a task or scope · util')
       })
 
       it('shows the up nav', async function () {
-        assert.ok(terminal.output.includes('up'))
+        terminal.has('up')
       })
 
       it('shows utils', async function () {
-        assert.ok(terminal.output.includes('to-bytes'))
-        assert.ok(terminal.output.includes('to-string'))
-        assert.ok(terminal.output.includes('unit'))
+        terminal.has('to-bytes')
+        terminal.has('to-string')
+        terminal.has('unit')
       })
 
       describe('when selecting up', function () {
@@ -55,9 +55,9 @@ describe('navigate', function () {
         })
 
         it('does not show utils', async function () {
-          assert.ok(!terminal.output.includes('to-bytes'))
-          assert.ok(!terminal.output.includes('to-string'))
-          assert.ok(!terminal.output.includes('unit'))
+          terminal.notHas('to-bytes')
+          terminal.notHas('to-string')
+          terminal.notHas('unit')
         })
 
         describe('when navigating to utils with autocomplete', function () {
@@ -66,9 +66,9 @@ describe('navigate', function () {
           })
 
           it('shows utils', async function () {
-            assert.ok(terminal.output.includes('to-bytes'))
-            assert.ok(terminal.output.includes('to-string'))
-            assert.ok(terminal.output.includes('unit'))
+            terminal.has('to-bytes')
+            terminal.has('to-string')
+            terminal.has('unit')
           })
 
           describe('when autocompleting for the unit util', function () {
@@ -77,16 +77,16 @@ describe('navigate', function () {
             })
 
             it('shows the up nav', async function () {
-              assert.ok(terminal.output.includes('up'))
+              terminal.has('up')
             })
 
             it('shows the unit util', async function () {
-              assert.ok(terminal.output.includes('unit'))
+              terminal.has('unit')
             })
 
             it('doesnt show the other utils', async function () {
-              assert.ok(!terminal.output.includes('to-bytes'))
-              assert.ok(!terminal.output.includes('to-string'))
+              terminal.notHas('to-bytes')
+              terminal.notHas('to-string')
             })
 
             describe('when continuing to autocomplete', function () {
@@ -95,11 +95,11 @@ describe('navigate', function () {
               })
 
               it('doesnt show the up nav', async function () {
-                assert.ok(!terminal.output.includes('up'))
+                terminal.notHas('up')
               })
 
               it('shows the unit util', async function () {
-                assert.ok(terminal.output.includes('unit'))
+                terminal.has('unit')
               })
 
               describe('when selecting the unit util', function () {
@@ -108,11 +108,7 @@ describe('navigate', function () {
                 })
 
                 it('displays a prompt for entering the value to convert', async function () {
-                  assert.ok(
-                    terminal.output.includes(
-                      'Enter value (The value to convert)',
-                    ),
-                  )
+                  terminal.has('Enter value (The value to convert)')
                 })
               })
             })

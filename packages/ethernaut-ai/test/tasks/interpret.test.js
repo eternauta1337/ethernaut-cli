@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
 describe('interpret', function () {
@@ -13,18 +12,16 @@ describe('interpret', function () {
       })
 
       it('suggests actions', async function () {
-        assert.ok(terminal.output.includes('Suggested Actions'))
+        terminal.has('Suggested Actions')
       })
 
       it('has an assistant response', async function () {
-        assert.ok(terminal.output.includes('Assistant response'))
+        terminal.has('Assistant response')
       })
 
       it('includes the expected output', async function () {
-        assert.ok(
-          terminal.output.includes(
-            '0x534e580000000000000000000000000000000000000000000000000000000000',
-          ),
+        terminal.has(
+          '0x534e580000000000000000000000000000000000000000000000000000000000',
         )
       })
     })
@@ -38,14 +35,14 @@ describe('interpret', function () {
       })
 
       it('suggests actions', async function () {
-        assert.ok(terminal.output.includes('Suggested Actions'))
+        terminal.has('Suggested Actions')
       })
 
       it('prompts the user for next steps', async function () {
-        assert.ok(terminal.output.includes('How would you like to proceed?'))
-        assert.ok(terminal.output.includes('execute'))
-        assert.ok(terminal.output.includes('explain'))
-        assert.ok(terminal.output.includes('skip'))
+        terminal.has('How would you like to proceed?')
+        terminal.has('execute')
+        terminal.has('explain')
+        terminal.has('skip')
       })
 
       describe('when the user continues', function () {
@@ -54,14 +51,12 @@ describe('interpret', function () {
         })
 
         it('has an assistant response', async function () {
-          assert.ok(terminal.output.includes('Assistant response'))
+          terminal.has('Assistant response')
         })
 
         it('includes the expected output', async function () {
-          assert.ok(
-            terminal.output.includes(
-              '0x534e580000000000000000000000000000000000000000000000000000000000',
-            ),
+          terminal.has(
+            '0x534e580000000000000000000000000000000000000000000000000000000000',
           )
         })
       })

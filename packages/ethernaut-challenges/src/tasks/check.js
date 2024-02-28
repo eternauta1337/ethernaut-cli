@@ -2,7 +2,7 @@ const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
 const output = require('common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
-const getNetwork = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 require('../scopes/oz')
   .task(
@@ -30,7 +30,7 @@ async function checkLevel(level, hre) {
     throw new Error('Invalid level number')
   }
 
-  const network = getNetwork(hre)
+  const network = await getNetworkName(hre)
   const deploymentInfo = helper.getDeploymentInfo(network)
 
   // Prepare the main game contract

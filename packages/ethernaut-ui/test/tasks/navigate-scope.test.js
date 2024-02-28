@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal, keys } = require('common/src/terminal')
 
 describe('navigate scope', function () {
@@ -10,21 +9,21 @@ describe('navigate scope', function () {
     })
 
     it('displays the main prompt', async function () {
-      assert.ok(terminal.output.includes('Pick a task or scope'))
+      terminal.has('Pick a task or scope')
     })
 
     it('doesnt display any scopes', async function () {
-      assert.ok(!terminal.output.includes('['))
+      terminal.notHas('[')
     })
 
     it('shows utils', async function () {
-      assert.ok(terminal.output.includes('to-bytes'))
-      assert.ok(terminal.output.includes('to-string'))
-      assert.ok(terminal.output.includes('unit'))
+      terminal.has('to-bytes')
+      terminal.has('to-string')
+      terminal.has('unit')
     })
 
     it('shows the up nav', async function () {
-      assert.ok(terminal.output.includes('up'))
+      terminal.has('up')
     })
 
     describe('when navigating up', function () {
@@ -33,13 +32,13 @@ describe('navigate scope', function () {
       })
 
       it('does not show utils', async function () {
-        assert.ok(!terminal.output.includes('to-bytes'))
-        assert.ok(!terminal.output.includes('to-string'))
-        assert.ok(!terminal.output.includes('unit'))
+        terminal.notHas('to-bytes')
+        terminal.notHas('to-string')
+        terminal.notHas('unit')
       })
 
       it('shows the util scope', async function () {
-        assert.ok(terminal.output.includes('[util]'))
+        terminal.has('[util]')
       })
     })
   })

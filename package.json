@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "chain": "cd packages/ethernaut-toolbox/test/fixture-projects/basic-project && npx hardhat node --hostname 127.0.0.1 --port 8545",
+    "count": "git ls-files --exclude-standard ':!:package-lock.json' ':!:*.md' ':!:packages/ethernaut-challenges/contracts/*' ':!:packages/ethernaut-challenges/abis/*' ':!:packages/ethernaut-challenges/gamedata/*' ':!:packages/common/data/*' | xargs wc -l",
+    "chain": "packages/ethernaut-cli/ethernaut net local --fork 'none' --port 8545",
     "build": "npm run build --workspaces",
     "compile": "npm run compile --workspaces",
     "lint": "eslint 'packages/**/*.js'",

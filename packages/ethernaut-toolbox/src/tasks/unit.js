@@ -33,20 +33,21 @@ const unit = require('../scopes/util')
     }
   })
 
-async function autocompleteUnit({ name, description, from, to }) {
+async function autocompleteUnit({ paramName, description, from, to }) {
   // No need to autocomplete?
-  if (name === 'from' && from) return undefined
-  if (name === 'to' && to) return undefined
+  if (paramName === 'from' && from) return undefined
+  if (paramName === 'to' && to) return undefined
 
   // Choices are all units minus the one used
   let choices = units.concat()
-  if (name === 'from' && to) choices = units.filter((unit) => unit !== to)
-  if (name === 'to' && from) choices = units.filter((unit) => unit !== from)
+  if (paramName === 'from' && to) choices = units.filter((unit) => unit !== to)
+  if (paramName === 'to' && from)
+    choices = units.filter((unit) => unit !== from)
 
   // Show unit list
   return await prompt({
     type: 'autocomplete',
-    message: `Enter ${name} (${description})`,
+    message: `Enter ${paramName} (${description})`,
     choices,
   })
 }

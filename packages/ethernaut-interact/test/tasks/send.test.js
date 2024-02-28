@@ -18,41 +18,31 @@ describe('send', function () {
 
     const itPrintsPreliminaryInfo = () => {
       it('shows that the signer is connected and prints the correct initial balance', async function () {
-        assert.ok(
-          terminal.output.includes(
-            `Connected signer ${signer1.address} (${balance1} ETH)`,
-          ),
-        )
+        terminal.has(`Connected signer ${signer1.address} (${balance1} ETH)`)
       })
 
       it('printed a tx summary', async function () {
-        assert.ok(terminal.output.includes('Pending Tx'))
-        assert.ok(
-          terminal.output.includes(
-            'Sending 1 ETH (1000000000000000000 wei) to',
-          ),
-        )
-        assert.ok(terminal.output.includes(`Signer: ${signer1.address}`))
-        assert.ok(terminal.output.includes(`Balance: ${balance1} ETH`))
-        assert.ok(terminal.output.includes(`To: ${signer2.address}`))
-        assert.ok(terminal.output.includes('Value: 1 ETH'))
+        terminal.has('Pending Tx')
+        terminal.has('Sending 1 ETH (1000000000000000000 wei) to')
+        terminal.has(`Signer: ${signer1.address}`)
+        terminal.has(`Balance: ${balance1} ETH`)
+        terminal.has(`To: ${signer2.address}`)
+        terminal.has('Value: 1 ETH')
       })
     }
 
     const itPrintsPostTxInfo = () => {
       it('shows tx receipt', async function () {
-        assert.ok(terminal.output.includes('Transaction Receipt'))
-        assert.ok(terminal.output.includes('Tx hash:'))
-        assert.ok(terminal.output.includes('Gas price:'))
-        assert.ok(terminal.output.includes('Gas used: 21000'))
-        assert.ok(terminal.output.includes('Block number:'))
+        terminal.has('Transaction Receipt')
+        terminal.has('Tx hash:')
+        terminal.has('Gas price:')
+        terminal.has('Gas used: 21000')
+        terminal.has('Block number:')
       })
 
       it('shows shows final sender balance', async function () {
         const newBalance1 = await getBalance(signer1.address)
-        assert.ok(
-          terminal.output.includes(`i Resulting balance: ${newBalance1}`),
-        )
+        terminal.has(`i Resulting balance: ${newBalance1}`)
       })
     }
 
@@ -101,9 +91,7 @@ describe('send', function () {
       itPrintsPreliminaryInfo()
 
       it('prompts the user for confirmation', async function () {
-        assert.ok(
-          terminal.output.includes('Do you want to proceed with the call?'),
-        )
+        terminal.has('Do you want to proceed with the call?')
       })
 
       describe('when the user confirms', function () {

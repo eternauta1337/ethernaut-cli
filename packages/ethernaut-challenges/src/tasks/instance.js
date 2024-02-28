@@ -1,9 +1,10 @@
 const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
 const output = require('common/src/output')
-const getNetwork = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
 const spinner = require('common/src/spinner')
+const debug = require('common/src/debug')
 
 require('../scopes/oz')
   .task(
@@ -26,13 +27,17 @@ require('../scopes/oz')
   })
 
 async function createInstance(level, hre) {
-  const network = getNetwork(hre)
+  const network = await getNetworkName(hre)
+  debug.log(
+    `Creating instance for level ${level} on network ${network}`,
+    'challenges',
+  )
 
   const ethernaut = await getEthernautContract(hre)
 
   const levelAddress = helper.getLevelAddress(level, network)
 
-  spinner.progress('Creating level instance...', 'challenges')
+  spinner.progress(`Creating level instance on ${network}...`, 'challenges')
 
   const tx = await ethernaut.createLevelInstance(levelAddress)
   const receipt = await tx.wait()
@@ -40,7 +45,10 @@ async function createInstance(level, hre) {
     throw new Error('Instance creation transaction reverted')
   }
 
-  spinner.success('Instance created', 'challenges')
+  spinner.success(
+    `Created level instance on ${network} for player ${receipt.from}`,
+    'challenges',
+  )
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log))
   if (events.length === 0) {

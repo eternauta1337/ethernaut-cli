@@ -1,0 +1,93 @@
+# TODO: This is an attempt to cache dependencies and then run jobs, but can't get GA caching to work...
+# name: Ethernaut cli CI
+
+# on:
+#   push:
+#   pull_request:
+
+# env:
+#   ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+#   ALCHEMY_API_KEY: ${{ secrets.ALCHEMY_API_KEY }}
+#   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+# jobs:
+#   setup:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '20.x'
+#           cache: 'npm'
+#       - name: Cache npm dependencies
+#         id: cache-npm
+#         uses: actions/cache@v3
+#         env:
+#           cache-name: cache-node_modules
+#         with:
+#           path: '~/.npm'
+#           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-build-${{ env.cache-name }}-
+#             ${{ runner.os }}-build-
+#             ${{ runner.os }}-
+#       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+#         name: List the state of node modules
+#         continue-on-error: true
+#         run: npm list
+#       - name: Install npm dependencies
+#         run: npm install
+#       - run: npm run build --if-present
+#       - run: npm run compile --if-present
+
+#   common:
+#     needs: setup
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Setup Node.js with cache
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '20.x'
+#       - run: cd packages/common && npm t
+
+#   # Repeat the pattern for other jobs, like ethernaut-toolbox, ethernaut-ui, etc.
+#   # Make sure to remove redundant npm ci steps and add 'needs: setup' to ensure they run after the setup job
+
+#   # install-foundry:
+#   #   needs: setup
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - name: Install Foundry
+#   #       uses: foundry-rs/foundry-toolchain@v1
+#   #       id: foundry-install
+#   #     - name: Cache Foundry
+#   #       uses: actions/cache@v3
+#   #       with:
+#   #         path: |
+#   #           ~/.foundry
+#   #           ~/.cargo/bin/foundry
+#   #         key: ${{ runner.os }}-foundry-${{ github.sha }}
+
+#   # For jobs that require Foundry, make them depend on 'install-foundry' and adjust steps accordingly.
+#   # Example for a job requiring Foundry:
+
+#   # ethernaut-interact:
+#   #   needs: [setup, install-foundry]
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - uses: actions/checkout@v3
+#   #     - name: Setup Node.js with cache
+#   #       uses: actions/setup-node@v3
+#   #       with:
+#   #         node-version: '20.x'
+#   #     - run: npm run build --if-present
+#   #     - run: npm run compile --if-present
+#   #     - name: Start local chain
+#   #       run: |
+#   #         npm run chain &
+#   #         sleep 5
+#   #     - run: cd packages/ethernaut-interact && npm t
+
+#   # Adjust other jobs similarly, ensuring they 'need' either setup or both setup and install-foundry as appropriate.

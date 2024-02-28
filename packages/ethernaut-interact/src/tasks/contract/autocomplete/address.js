@@ -1,6 +1,6 @@
 const storage = require('../../../internal/storage')
 const debug = require('common/src/debug')
-const getNetwork = require('common/src/network')
+const { getNetworkName } = require('common/src/network')
 
 module.exports = async function autocompleteAddress({ abi, address, hre }) {
   if (!abi) return
@@ -8,7 +8,7 @@ module.exports = async function autocompleteAddress({ abi, address, hre }) {
   if (address !== undefined) return
 
   try {
-    const network = getNetwork(hre)
+    const network = await getNetworkName(hre)
 
     debug.log(`Looking for addresses for ABI ${abi}`, 'interact')
     const addresses = storage.findAddressWithAbi(abi, network)
