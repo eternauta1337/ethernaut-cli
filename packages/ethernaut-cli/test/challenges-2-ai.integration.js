@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const { getNetworkName } = require('common/src/network')
 
