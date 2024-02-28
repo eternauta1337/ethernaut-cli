@@ -18,7 +18,13 @@ async function setActiveNetwork(hre) {
   }
 
   debug.log('Setting active network', 'network')
+
   const networks = storage.readNetworks()
+  if (!networks.activeNetwork || !networks[networks.activeNetwork]) {
+    networks.activeNetwork = 'localhost'
+    storage.storeNetworks(networks)
+  }
+
   await setNetwork(networks.activeNetwork, hre)
 }
 

@@ -90,11 +90,11 @@ class Terminal {
   }
 
   has(output) {
-    assert.ok(this.output.includes(output), this.output)
+    assert.ok(this.output.includes(output), `Output: >${this.output}<`)
   }
 
   notHas(output) {
-    assert.ok(!this.output.includes(output), this.output)
+    assert.ok(!this.output.includes(output), `Output: >${this.output}`)
   }
 }
 
