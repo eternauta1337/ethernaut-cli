@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
 describe('interpret', function () {
@@ -21,10 +20,8 @@ describe('interpret', function () {
       })
 
       it('includes the expected output', async function () {
-        assert.ok(
-          terminal.output.includes(
-            '0x534e580000000000000000000000000000000000000000000000000000000000',
-          ),
+        terminal.has(
+          '0x534e580000000000000000000000000000000000000000000000000000000000',
         )
       })
     })
@@ -54,17 +51,12 @@ describe('interpret', function () {
         })
 
         it('has an assistant response', async function () {
-          assert.ok(
-            terminal.output.includes('Assistant response'),
-            terminal.output,
-          )
+          terminal.has('Assistant response')
         })
 
         it('includes the expected output', async function () {
-          assert.ok(
-            terminal.output.includes(
-              '0x534e580000000000000000000000000000000000000000000000000000000000',
-            ),
+          terminal.has(
+            '0x534e580000000000000000000000000000000000000000000000000000000000',
           )
         })
       })

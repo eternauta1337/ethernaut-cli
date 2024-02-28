@@ -57,21 +57,15 @@ describe('contract', function () {
 
       const itPrintsPreliminaryInfo = () => {
         it('shows that the signer is connected and prints the correct initial balance', async function () {
-          assert.ok(
-            terminal.output.includes(
-              `Connected signer ${signer.address} (${balance} ETH)`,
-            ),
-          )
+          terminal.has(`Connected signer ${signer.address} (${balance} ETH)`)
         })
 
         it('printed a tx summary', async function () {
           terminal.has('Pending Tx')
           terminal.has('Sample.incrementCounter(')
-          assert.ok(terminal.output.includes(`Signer: ${signer.address}`))
-          assert.ok(terminal.output.includes(`Balance: ${balance} ETH`))
-          assert.ok(
-            terminal.output.includes(`To: ${await sample.getAddress()}`),
-          )
+          terminal.has(`Signer: ${signer.address}`)
+          terminal.has(`Balance: ${balance} ETH`)
+          terminal.has(`To: ${await sample.getAddress()}`)
           terminal.has('Value: 0 ETH')
         })
       }
@@ -96,9 +90,7 @@ describe('contract', function () {
 
         it('shows shows final sender balance', async function () {
           const newBalance = await getBalance(signer.address)
-          assert.ok(
-            terminal.output.includes(`i Resulting balance: ${newBalance}`),
-          )
+          terminal.has(`i Resulting balance: ${newBalance}`)
         })
       }
 

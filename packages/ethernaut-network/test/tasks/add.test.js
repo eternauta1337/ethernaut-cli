@@ -62,12 +62,8 @@ describe('add', function () {
 
         it('shows providers', async function () {
           terminal.has('Select a provider')
-          assert.ok(
-            terminal.output.includes(
-              'https://mainnet.infura.io/v3/${INFURA_API_KEY}',
-            ),
-          )
-          assert.ok(terminal.output.includes(publicNodeUrl))
+          terminal.has('https://mainnet.infura.io/v3/${INFURA_API_KEY}')
+          terminal.has(publicNodeUrl)
         })
 
         describe('when a provider is selected', function () {

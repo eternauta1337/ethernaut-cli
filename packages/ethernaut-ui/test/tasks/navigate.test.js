@@ -108,11 +108,7 @@ describe('navigate', function () {
                 })
 
                 it('displays a prompt for entering the value to convert', async function () {
-                  assert.ok(
-                    terminal.output.includes(
-                      'Enter value (The value to convert)',
-                    ),
-                  )
+                  terminal.has('Enter value (The value to convert)')
                 })
               })
             })
