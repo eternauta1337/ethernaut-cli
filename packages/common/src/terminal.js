@@ -92,6 +92,10 @@ class Terminal {
   has(output) {
     assert.ok(this.output.includes(output), this.output)
   }
+
+  notHas(output) {
+    assert.ok(!this.output.includes(output), this.output)
+  }
 }
 
 module.exports = { Terminal, keys }

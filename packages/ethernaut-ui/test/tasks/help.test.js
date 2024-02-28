@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
 describe('help', function () {
@@ -21,15 +20,11 @@ describe('help', function () {
   describe('when entering the cli with the --help option or task', function () {
     const itShowsHelp = function () {
       it('does not show navigation', async function () {
-        assert.ok(!terminal.output.includes('?'), terminal.output)
+        terminal.notHas('?')
       })
 
       it('shows help', async function () {
-        assert.ok(
-          terminal.output.includes('Hardhat version'),
-          terminal.output,
-          terminal.output,
-        )
+        terminal.has('Hardhat version')
       })
     }
 

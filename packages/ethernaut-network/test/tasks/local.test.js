@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal, keys } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
@@ -75,12 +74,7 @@ describe('local', function () {
       })
 
       it('starts a local forked chain', async function () {
-        assert.ok(
-          terminal.output.includes(
-            `Starting local chain with fork ${rpcUrl}...`,
-          ),
-          terminal.output,
-        )
+        terminal.has(`Starting local chain with fork ${rpcUrl}...`)
       })
     })
   })

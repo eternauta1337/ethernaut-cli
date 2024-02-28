@@ -55,9 +55,9 @@ describe('navigate', function () {
         })
 
         it('does not show utils', async function () {
-          assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
-          assert.ok(!terminal.output.includes('to-string'), terminal.output)
-          assert.ok(!terminal.output.includes('unit'), terminal.output)
+          terminal.notHas('to-bytes')
+          terminal.notHas('to-string')
+          terminal.notHas('unit')
         })
 
         describe('when navigating to utils with autocomplete', function () {
@@ -85,8 +85,8 @@ describe('navigate', function () {
             })
 
             it('doesnt show the other utils', async function () {
-              assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
-              assert.ok(!terminal.output.includes('to-string'), terminal.output)
+              terminal.notHas('to-bytes')
+              terminal.notHas('to-string')
             })
 
             describe('when continuing to autocomplete', function () {
@@ -95,7 +95,7 @@ describe('navigate', function () {
               })
 
               it('doesnt show the up nav', async function () {
-                assert.ok(!terminal.output.includes('up'), terminal.output)
+                terminal.notHas('up')
               })
 
               it('shows the unit util', async function () {

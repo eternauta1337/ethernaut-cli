@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 
 describe('interact unit', function () {
@@ -24,7 +23,7 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'), terminal.output)
+      terminal.notHas('Result')
     })
 
     it('displays the to prompt', async function () {
@@ -48,7 +47,7 @@ describe('interact unit', function () {
     })
 
     it('does not contain the word "result"', async function () {
-      assert.ok(!terminal.output.includes('Result'), terminal.output)
+      terminal.notHas('Result')
     })
 
     it('displays the <value> prompt', async function () {
@@ -79,7 +78,7 @@ describe('interact unit', function () {
         })
 
         it('does not display the wei option', async function () {
-          assert.ok(!terminal.output.includes('wei'), terminal.output)
+          terminal.notHas('wei')
         })
 
         describe('when entering <from>', function () {

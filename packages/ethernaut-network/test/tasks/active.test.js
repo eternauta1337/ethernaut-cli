@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
@@ -16,10 +15,7 @@ describe('active', function () {
     })
 
     it('prints the active network', async function () {
-      assert.ok(
-        terminal.output.includes(`The active network is "${activeNetwork}"`),
-        terminal.output,
-      )
+      terminal.has(`The active network is "${activeNetwork}"`)
     })
   })
 })

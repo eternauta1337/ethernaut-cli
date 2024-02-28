@@ -1,4 +1,3 @@
-const assert = require('assert')
 const { Terminal, keys } = require('common/src/terminal')
 
 describe('navigate scope', function () {
@@ -14,7 +13,7 @@ describe('navigate scope', function () {
     })
 
     it('doesnt display any scopes', async function () {
-      assert.ok(!terminal.output.includes('['), terminal.output)
+      terminal.notHas('[')
     })
 
     it('shows utils', async function () {
@@ -33,9 +32,9 @@ describe('navigate scope', function () {
       })
 
       it('does not show utils', async function () {
-        assert.ok(!terminal.output.includes('to-bytes'), terminal.output)
-        assert.ok(!terminal.output.includes('to-string'), terminal.output)
-        assert.ok(!terminal.output.includes('unit'), terminal.output)
+        terminal.notHas('to-bytes')
+        terminal.notHas('to-string')
+        terminal.notHas('unit')
       })
 
       it('shows the util scope', async function () {
