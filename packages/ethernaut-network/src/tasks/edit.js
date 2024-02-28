@@ -5,7 +5,7 @@ const storage = require('../internal/storage')
 
 const edit = require('../scopes/net')
   .task('edit', 'Edits a network')
-  .addOptionalParam(
+  .addOptionalPositionalParam(
     'alias',
     'How the network is referenced in the cli',
     undefined,
@@ -30,6 +30,5 @@ const edit = require('../scopes/net')
     }
   })
 
-edit.paramDefinitions.alias.autocomplete = autocompleteAlias(
-  'Select a network to edit',
-)
+edit.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
+  autocompleteAlias('Select a network to edit')

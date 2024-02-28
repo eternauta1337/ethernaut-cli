@@ -21,7 +21,7 @@ describe('remove', function () {
 
   describe('when all params are specified', function () {
     before('run remove', async function () {
-      await terminal.run('npx hardhat net remove --alias test__3')
+      await terminal.run('npx hardhat net remove test__3')
     })
 
     it('removes the network', async function () {

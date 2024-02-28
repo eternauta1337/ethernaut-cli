@@ -5,7 +5,7 @@ const storage = require('../internal/storage')
 
 const add = require('../scopes/net')
   .task('add', 'Adds a network to the cli')
-  .addOptionalParam(
+  .addOptionalPositionalParam(
     'alias',
     'How the network will be referenced from the cli',
     undefined,

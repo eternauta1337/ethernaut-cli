@@ -18,8 +18,10 @@ describe('info', function () {
       storage.storeNetworks(networks)
     })
 
+    describe('when specifying an alias', function () {})
+
     before('query', async function () {
-      await terminal.run('npx hardhat net info --alias test__mainnet', 5000)
+      await terminal.run('npx hardhat net info test__mainnet', 5000)
     })
 
     it('shows the expected results', async function () {

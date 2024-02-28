@@ -6,7 +6,7 @@ const { setNetwork } = require('../internal/set-network')
 
 const set = require('../scopes/net')
   .task('set', 'Activates a network on the cli')
-  .addOptionalParam(
+  .addOptionalPositionalParam(
     'alias',
     'How the network is referenced in the cli',
     undefined,
@@ -31,6 +31,5 @@ const set = require('../scopes/net')
     }
   })
 
-set.paramDefinitions.alias.autocomplete = autocompleteAlias(
-  'Select a network to activate',
-)
+set.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
+  autocompleteAlias('Select a network to activate')

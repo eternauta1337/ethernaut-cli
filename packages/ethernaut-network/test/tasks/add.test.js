@@ -18,7 +18,7 @@ describe('add', function () {
   describe('when all params are specified', function () {
     before('run add', async function () {
       await terminal.run(
-        'npx hardhat net add --alias test__1 --provider http://localhost:8545',
+        'npx hardhat net add test__1 --provider http://localhost:8545',
       )
     })
 
@@ -30,7 +30,7 @@ describe('add', function () {
 
   describe('when provider is missing', function () {
     before('run add', async function () {
-      await terminal.run('npx hardhat net add --alias test__2', 2000)
+      await terminal.run('npx hardhat net add test__2', 2000)
     })
 
     it('suggests strategies', async function () {

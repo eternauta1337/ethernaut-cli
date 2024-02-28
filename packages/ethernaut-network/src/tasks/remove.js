@@ -5,7 +5,7 @@ const storage = require('../internal/storage')
 
 const remove = require('../scopes/net')
   .task('remove', 'Removes a network to from cli')
-  .addOptionalParam(
+  .addOptionalPositionalParam(
     'alias',
     'How the network is referenced in the cli',
     undefined,
@@ -33,6 +33,5 @@ const remove = require('../scopes/net')
     }
   })
 
-remove.paramDefinitions.alias.autocomplete = autocompleteAlias(
-  'Select a network to remove',
-)
+remove.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
+  autocompleteAlias('Select a network to remove')

@@ -19,7 +19,7 @@ describe('edit', function () {
 
   describe('when all params are specified', function () {
     before('run edit', async function () {
-      await terminal.run('npx hardhat net edit --alias test__3 --url poop2')
+      await terminal.run('npx hardhat net edit test__3 --url poop2')
     })
 
     it('edits the network', async function () {

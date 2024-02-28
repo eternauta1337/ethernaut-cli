@@ -2,10 +2,11 @@ const output = require('common/src/output')
 const storage = require('../internal/storage')
 const { chains } = require('common/src/chains')
 const { isUrl } = require('common/src/url')
+const autocompleteAlias = require('./autocomplete/alias')
 
-require('../scopes/net')
+const info = require('../scopes/net')
   .task('info', 'Provides information about a network')
-  .addOptionalParam(
+  .addOptionalPositionalParam(
     'alias',
     'An alias to the network to get information about. Can be a name, or a URL',
   )
@@ -73,3 +74,6 @@ async function populateRemoteChainInfo(info, hre) {
 
   return info
 }
+
+info.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
+  autocompleteAlias('Select a network')
