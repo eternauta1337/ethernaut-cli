@@ -6,7 +6,10 @@ require('../scopes/net')
   .setAction(async () => {
     try {
       const networks = storage.readNetworks()
-      output.resultBox(`The active network is "${networks.activeNetwork}"`)
+      const network = networks[networks.activeNetwork]
+      output.resultBox(
+        `The active network is "${networks.activeNetwork}" with url ${network.url}`,
+      )
     } catch (err) {
       return output.errorBox(err)
     }
