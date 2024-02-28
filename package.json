@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "chain": "packages/ethernaut-cli/ethernaut net local --fork 'none'",
+    "chain": "packages/ethernaut-cli/ethernaut net local --fork 'none' --port 8545",
     "build": "npm run build --workspaces",
     "compile": "npm run compile --workspaces",
     "lint": "eslint 'packages/**/*.js'",
