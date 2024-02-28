@@ -34,7 +34,7 @@ function storeSigners(signers) {
 function init() {
   createFolderIfMissing(getSignerFolderPath())
   createFileIfMissing(getSignersFilePath(), {
-    activeSigner: undefined,
+    activeSigner: 'none',
   })
 }
 

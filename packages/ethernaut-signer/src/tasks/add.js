@@ -1,8 +1,8 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-// const autocompleteUrl = require('./autocomplete/url')
 const storage = require('../internal/storage')
 const { validateVarName } = require('common/src/name')
+const { getWallet } = require('../internal/signers')
 
 require('../scopes/sig')
   .task('add', 'Adds a signer to the cli')
@@ -32,16 +32,24 @@ require('../scopes/sig')
         throw new Error(`The signer ${alias} already exists`)
       }
 
+      const address = getWallet(pk).address
+      if (!address) {
+        throw new Error(`Invalid private key: ${pk}`)
+      }
+
       signers[alias] = {
+        address,
         pk,
+      }
+
+      if (signers.activeSigner === 'none') {
+        signers.activeSigner = alias
       }
 
       storage.storeSigners(signers)
 
-      output.resultBox(`Added signer ${alias}`)
+      output.resultBox(`Added signer ${alias} with address ${address}`)
     } catch (err) {
       return output.errorBox(err)
     }
   })
-
-// add.paramDefinitions.url.autocomplete = autocompleteUrl

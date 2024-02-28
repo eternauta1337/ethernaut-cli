@@ -1,11 +1,15 @@
 const spinner = require('common/src/spinner')
 const warnWithPrompt = require('../internal/warn-prompt')
 const getBalance = require('../internal/get-balance')
+const debug = require('common/src/debug')
 
 module.exports = async function conenctSigner(noConfirm) {
   spinner.progress('Connecting signer', 'interact')
 
-  const signer = (await hre.ethers.getSigners())[0]
+  const signers = await hre.ethers.getSigners()
+  debug.log(`Signers: ${signers.map((s) => s.address).join(', ')}`, 'interact')
+
+  const signer = signers[0]
   const balance = await getBalance(signer.address)
 
   spinner.success(

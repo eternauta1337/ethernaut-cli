@@ -2,7 +2,7 @@ const { extendEnvironment } = require('hardhat/config')
 const requireAll = require('common/src/require-all')
 const spinner = require('common/src/spinner')
 const storage = require('./internal/storage')
-// const { setActiveNetwork } = require('./internal/set-network')
+const { modifySigners } = require('./internal/signers')
 
 requireAll(__dirname, 'tasks')
 
@@ -11,5 +11,5 @@ extendEnvironment((hre) => {
 
   storage.init()
 
-  // setActiveNetwork(hre)
+  modifySigners(hre)
 })
