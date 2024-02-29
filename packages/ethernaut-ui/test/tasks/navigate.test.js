@@ -42,8 +42,8 @@ describe('navigate', function () {
       })
 
       it('shows utils', async function () {
-        terminal.has('to-bytes')
-        terminal.has('to-string')
+        terminal.has('bytes')
+        terminal.has('string')
         terminal.has('unit')
       })
 
@@ -53,8 +53,8 @@ describe('navigate', function () {
         })
 
         it('does not show utils', async function () {
-          terminal.notHas('to-bytes')
-          terminal.notHas('to-string')
+          terminal.notHas('bytes')
+          terminal.notHas('string')
           terminal.notHas('unit')
         })
 
@@ -64,8 +64,8 @@ describe('navigate', function () {
           })
 
           it('shows utils', async function () {
-            terminal.has('to-bytes')
-            terminal.has('to-string')
+            terminal.has('bytes')
+            terminal.has('string')
             terminal.has('unit')
           })
 
@@ -83,8 +83,8 @@ describe('navigate', function () {
             })
 
             it('doesnt show the other utils', async function () {
-              terminal.notHas('to-bytes')
-              terminal.notHas('to-string')
+              terminal.notHas('bytes')
+              terminal.notHas('string')
             })
 
             describe('when continuing to autocomplete', function () {
