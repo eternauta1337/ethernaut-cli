@@ -1,3 +1,4 @@
+const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const storage = require('../internal/storage')
 const { chains } = require('common/src/chains')
@@ -6,7 +7,12 @@ const autocompleteAlias = require('./autocomplete/alias')
 
 const info = require('../scopes/network')
   .task('info', 'Provides information about a network')
-  .addOptionalPositionalParam('alias', 'The name or url of the network')
+  .addOptionalPositionalParam(
+    'alias',
+    'The name or url of the network',
+    undefined,
+    types.string,
+  )
   .setAction(async ({ alias }, hre) => {
     try {
       if (!alias) {

@@ -1,10 +1,16 @@
+const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const storage = require('../internal/storage')
 const autocompleteAlias = require('./autocomplete/alias')
 
 const info = require('../scopes/wallet')
   .task('info', 'Shows information about a wallet')
-  .addOptionalPositionalParam('alias', 'The name of the wallet')
+  .addOptionalPositionalParam(
+    'alias',
+    'The name of the wallet',
+    undefined,
+    types.string,
+  )
   .setAction(async ({ alias }, hre) => {
     try {
       if (!alias) {

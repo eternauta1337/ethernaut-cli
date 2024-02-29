@@ -35,7 +35,7 @@ function makeInteractive(task) {
   ) {
     return
   }
-  debug.log(`Making task "${task.name}" interactive`, 'ui')
+  debug.log(`Making task "${task.name}" interactive`, 'ui-deep')
 
   // TODO: Ai doesn't know how to handle flags
   // TODO: This wont really work until I can parse args

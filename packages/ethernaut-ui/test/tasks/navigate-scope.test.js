@@ -32,8 +32,8 @@ describe('navigate scope', function () {
       })
 
       it('does not show utils', async function () {
-        terminal.notHas('to-bytes')
-        terminal.notHas('to-string')
+        terminal.notHas('bytes')
+        terminal.notHas('string')
         terminal.notHas('unit')
       })
 

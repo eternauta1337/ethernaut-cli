@@ -1,3 +1,4 @@
+const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const { execSync } = require('child_process')
 const { isUrl } = require('common/src/url')
@@ -7,8 +8,18 @@ const applyEnvVars = require('../internal/apply-env-vars')
 
 const local = require('../scopes/network')
   .task('node', 'Starts a local development chain, potentially with a fork.')
-  .addOptionalParam('fork', 'The alias or url of the network to fork')
-  .addOptionalParam('port', 'The port to run the local chain on')
+  .addOptionalParam(
+    'fork',
+    'The alias or url of the network to fork',
+    undefined,
+    types.string,
+  )
+  .addOptionalParam(
+    'port',
+    'The port to run the local chain on',
+    undefined,
+    types.string,
+  )
   .setAction(async ({ fork, port }) => {
     try {
       const forkUrl = getForkUrl(fork)
