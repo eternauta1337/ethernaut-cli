@@ -4,7 +4,7 @@ const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 const { setSigner } = require('../internal/signers')
 
-const set = require('../scopes/sig')
+const set = require('../scopes/wallet')
   .task('set', 'Activates a signer on the cli')
   .addOptionalPositionalParam(
     'alias',

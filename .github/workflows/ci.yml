@@ -142,7 +142,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network && npm t
-  ethernaut-signer:
+  ethernaut-wallet:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -162,7 +162,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-signer && npm t
+      - run: cd packages/ethernaut-wallet && npm t
   ethernaut-cli:
     runs-on: ubuntu-latest
     strategy:

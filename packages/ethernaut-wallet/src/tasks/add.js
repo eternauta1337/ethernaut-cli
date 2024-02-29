@@ -4,7 +4,7 @@ const storage = require('../internal/storage')
 const { validateVarName } = require('common/src/name')
 const { getWallet, generatePk } = require('../internal/signers')
 
-require('../scopes/sig')
+require('../scopes/wallet')
   .task('add', 'Adds a signer to the cli')
   .addOptionalPositionalParam(
     'alias',

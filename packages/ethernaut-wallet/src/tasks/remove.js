@@ -3,7 +3,7 @@ const output = require('common/src/output')
 const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
-const remove = require('../scopes/sig')
+const remove = require('../scopes/wallet')
   .task('remove', 'Removes a signer from the cli')
   .addOptionalPositionalParam(
     'alias',

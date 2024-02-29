@@ -29,7 +29,7 @@ describe('active', function () {
 
   describe('when calling active task', function () {
     before('call task', async function () {
-      await terminal.run('npx hardhat sig active')
+      await terminal.run('npx hardhat wallet active')
     })
 
     it('prints the active signer', async function () {

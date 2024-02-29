@@ -1,8 +1,8 @@
 const output = require('common/src/output')
 const storage = require('../internal/storage')
 
-require('../scopes/sig')
-  .task('active', 'Prints the active signer')
+require('../scopes/wallet')
+  .task('active', 'Shows which wallet is currently active')
   .setAction(async () => {
     try {
       const signers = storage.readSigners()

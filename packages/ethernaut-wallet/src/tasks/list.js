@@ -1,7 +1,7 @@
 const output = require('common/src/output')
 const storage = require('../internal/storage')
 
-require('../scopes/sig')
+require('../scopes/wallet')
   .task('list', 'Prints all signers')
   .setAction(async () => {
     try {

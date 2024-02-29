@@ -1,6 +1,6 @@
 const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
-const storage = require('ethernaut-signer/src/internal/storage')
+const storage = require('ethernaut-wallet/src/internal/storage')
 
 describe('remove', function () {
   const terminal = new Terminal()
@@ -21,7 +21,7 @@ describe('remove', function () {
 
   describe('when all params are specified', function () {
     before('run remove', async function () {
-      await terminal.run('npx hardhat sig remove test__3')
+      await terminal.run('npx hardhat wallet remove test__3')
     })
 
     it('removes the signer', async function () {
@@ -32,7 +32,7 @@ describe('remove', function () {
 
   describe('when alias is missing', function () {
     before('run remove', async function () {
-      await terminal.run('npx hardhat sig remove', 2000)
+      await terminal.run('npx hardhat wallet remove', 2000)
     })
 
     it('suggests signers', async function () {

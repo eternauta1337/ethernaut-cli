@@ -2,7 +2,7 @@ const output = require('common/src/output')
 const storage = require('../internal/storage')
 const autocompleteAlias = require('./autocomplete/alias')
 
-const info = require('../scopes/sig')
+const info = require('../scopes/wallet')
   .task('info', 'Provides information about a signer')
   .addOptionalPositionalParam(
     'alias',

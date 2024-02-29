@@ -1,6 +1,6 @@
 const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
-const storage = require('ethernaut-signer/src/internal/storage')
+const storage = require('ethernaut-wallet/src/internal/storage')
 
 describe('set', function () {
   const terminal = new Terminal()
@@ -24,7 +24,7 @@ describe('set', function () {
 
   describe('when all params are specified', function () {
     before('run set', async function () {
-      await terminal.run('npx hardhat sig set test__3')
+      await terminal.run('npx hardhat wallet set test__3')
     })
 
     it('stored the active signer', async function () {

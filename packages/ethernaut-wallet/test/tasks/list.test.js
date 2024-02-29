@@ -20,7 +20,7 @@ describe('list', function () {
 
   describe('when calling list', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sig list')
+      await terminal.run('npx hardhat wallet list')
     })
 
     it('prints the signers', async function () {

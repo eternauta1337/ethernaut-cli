@@ -1,7 +1,7 @@
 {
-  "name": "ethernaut-signer",
+  "name": "ethernaut-wallet",
   "version": "1.0.0",
-  "description": "Ethernaut CLI signer utility",
+  "description": "Wallet management utilities for the Ethernaut CLI",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",
