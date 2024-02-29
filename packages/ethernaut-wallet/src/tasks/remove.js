@@ -4,10 +4,10 @@ const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
 const remove = require('../scopes/wallet')
-  .task('remove', 'Removes a signer from the cli')
+  .task('remove', 'Removes a wallet')
   .addOptionalPositionalParam(
     'alias',
-    'The alias of the signer to remove',
+    'The name of the wallet',
     undefined,
     types.string,
   )
@@ -16,7 +16,7 @@ const remove = require('../scopes/wallet')
       const signers = storage.readSigners()
 
       if (!(alias in signers)) {
-        throw new Error(`The signer ${alias} does not exist`)
+        throw new Error(`The wallet ${alias} does not exist`)
       }
 
       delete signers[alias]
@@ -34,4 +34,4 @@ const remove = require('../scopes/wallet')
   })
 
 remove.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a signer to remove')
+  autocompleteAlias('Select a wallet to remove')

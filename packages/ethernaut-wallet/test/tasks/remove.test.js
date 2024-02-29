@@ -35,8 +35,8 @@ describe('remove', function () {
       await terminal.run('npx hardhat wallet remove', 2000)
     })
 
-    it('suggests signers', async function () {
-      terminal.has('Select a signer')
+    it('suggests wallets', async function () {
+      terminal.has('Select a wallet')
       terminal.has('test__4')
     })
 

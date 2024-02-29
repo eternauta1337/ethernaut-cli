@@ -5,10 +5,10 @@ const storage = require('../internal/storage')
 const { setSigner } = require('../internal/signers')
 
 const set = require('../scopes/wallet')
-  .task('set', 'Activates a signer on the cli')
+  .task('activate', 'Activates a wallet')
   .addOptionalPositionalParam(
     'alias',
-    'The alias of the signer to activate',
+    'The name of the wallet',
     undefined,
     types.string,
   )
@@ -17,7 +17,7 @@ const set = require('../scopes/wallet')
       const signers = storage.readSigners()
 
       if (!(alias in signers)) {
-        throw new Error(`The signer ${alias} does not exist`)
+        throw new Error(`The wallet ${alias} does not exist`)
       }
 
       await setSigner(alias)
@@ -28,7 +28,7 @@ const set = require('../scopes/wallet')
       const signer = signers[alias]
 
       output.resultBox(
-        `The active signer is now "${alias}" with address ${signer.address}`,
+        `The current wallet is now "${alias}" with address ${signer.address}`,
       )
     } catch (err) {
       return output.errorBox(err)
@@ -36,4 +36,4 @@ const set = require('../scopes/wallet')
   })
 
 set.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a signer to activate')
+  autocompleteAlias('Select a wallet to activate')

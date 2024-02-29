@@ -5,16 +5,16 @@ const { validateVarName } = require('common/src/name')
 const { getWallet, generatePk } = require('../internal/signers')
 
 require('../scopes/wallet')
-  .task('add', 'Adds a signer to the cli')
+  .task('create', 'Creates a new wallet')
   .addOptionalPositionalParam(
     'alias',
-    'How the signer will be referenced',
+    'The name of the wallet',
     undefined,
     types.string,
   )
   .addOptionalParam(
     'pk',
-    'The private key of the signer. Pass "random" or an empty string to generate a private key.',
+    'The private key of the wallet. Pass "random" or an empty string to generate a private key.',
     undefined,
     types.string,
   )
@@ -29,7 +29,7 @@ require('../scopes/wallet')
       const signers = storage.readSigners()
 
       if (alias in signers) {
-        throw new Error(`The signer ${alias} already exists`)
+        throw new Error(`The wallet ${alias} already exists`)
       }
 
       if (pk === 'random' || pk === '') {
@@ -53,7 +53,7 @@ require('../scopes/wallet')
 
       storage.storeSigners(signers)
 
-      output.resultBox(`Added signer ${alias} with address ${address}`)
+      output.resultBox(`Created new wallet ${alias} with address ${address}`)
     } catch (err) {
       return output.errorBox(err)
     }

@@ -3,15 +3,12 @@ const storage = require('../internal/storage')
 const autocompleteAlias = require('./autocomplete/alias')
 
 const info = require('../scopes/wallet')
-  .task('info', 'Provides information about a signer')
-  .addOptionalPositionalParam(
-    'alias',
-    'An alias to the signer to get information about',
-  )
+  .task('info', 'Shows information about a wallet')
+  .addOptionalPositionalParam('alias', 'The name of the wallet')
   .setAction(async ({ alias }, hre) => {
     try {
       if (!alias) {
-        throw new Error('You must specify a signer')
+        throw new Error('You must specify a wallet')
       }
 
       let info = {}
@@ -21,7 +18,7 @@ const info = require('../scopes/wallet')
       const signers = storage.readSigners()
       const signer = signers[alias]
       if (!signer) {
-        throw new Error(`Unknown signer: ${alias}`)
+        throw new Error(`Unknown wallet: ${alias}`)
       }
       info.address = signer.address
 

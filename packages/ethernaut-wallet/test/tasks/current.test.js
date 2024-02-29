@@ -1,7 +1,7 @@
 const { Terminal } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
-describe('active', function () {
+describe('current', function () {
   let activeSigner
   const terminal = new Terminal()
 
@@ -27,13 +27,13 @@ describe('active', function () {
     activeSigner = storage.readSigners().activeSigner
   })
 
-  describe('when calling active task', function () {
+  describe('when calling the task', function () {
     before('call task', async function () {
-      await terminal.run('npx hardhat wallet active')
+      await terminal.run('npx hardhat wallet current ')
     })
 
     it('prints the active signer', async function () {
-      terminal.has(`The active signer is "${activeSigner}"`)
+      terminal.has(`The current wallet is "${activeSigner}"`)
     })
   })
 })

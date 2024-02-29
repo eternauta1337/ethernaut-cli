@@ -2,7 +2,7 @@ const output = require('common/src/output')
 const storage = require('../internal/storage')
 
 require('../scopes/wallet')
-  .task('list', 'Prints all signers')
+  .task('list', 'Lists all wallets')
   .setAction(async () => {
     try {
       const signers = storage.readSigners()
