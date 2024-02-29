@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "count": "git ls-files --exclude-standard ':!:package-lock.json' ':!:*.md' ':!:packages/ethernaut-challenges/contracts/*' ':!:packages/ethernaut-challenges/abis/*' ':!:packages/ethernaut-challenges/gamedata/*' ':!:packages/common/data/*' | xargs wc -l",
-    "chain": "packages/ethernaut-cli/ethernaut net node --fork 'none' --port 8545",
+    "chain": "packages/ethernaut-cli/ethernaut network node --fork 'none' --port 8545",
     "build": "npm run build --workspaces",
     "compile": "npm run compile --workspaces",
     "lint": "eslint 'packages/**/*.js'",
