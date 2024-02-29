@@ -17,8 +17,8 @@ describe('navigate scope', function () {
     })
 
     it('shows utils', async function () {
-      terminal.has('to-bytes')
-      terminal.has('to-string')
+      terminal.has('bytes')
+      terminal.has('string')
       terminal.has('unit')
     })
 
