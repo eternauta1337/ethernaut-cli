@@ -4,11 +4,11 @@ const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 const { setNetwork } = require('../internal/set-network')
 
-const set = require('../scopes/net')
-  .task('set', 'Activates a network on the cli')
+const set = require('../scopes/network')
+  .task('activate', 'Activates a network')
   .addOptionalPositionalParam(
     'alias',
-    'How the network is referenced in the cli',
+    'The name of the network',
     undefined,
     types.string,
   )

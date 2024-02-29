@@ -4,11 +4,11 @@ const autocompleteUrl = require('./autocomplete/url')
 const storage = require('../internal/storage')
 const { validateVarName } = require('common/src/name')
 
-const add = require('../scopes/net')
+const add = require('../scopes/network')
   .task('add', 'Adds a network to the cli')
   .addOptionalPositionalParam(
     'alias',
-    'How the network will be referenced from the cli',
+    'The name of the network',
     undefined,
     types.string,
   )

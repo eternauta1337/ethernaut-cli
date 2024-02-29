@@ -2,6 +2,7 @@ const pty = require('node-pty')
 const os = require('os')
 const debug = require('common/src/debug')
 const assert = require('assert')
+const chalk = require('chalk')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
@@ -90,11 +91,32 @@ class Terminal {
   }
 
   has(output) {
-    assert.ok(this.output.includes(output), `Output: >${this.output}<`)
+    assert.ok(
+      this.output.includes(output),
+      this.outputErrorMessage(output, true),
+    )
   }
 
   notHas(output) {
-    assert.ok(!this.output.includes(output), `Output: >${this.output}`)
+    assert.ok(
+      !this.output.includes(output),
+      this.outputErrorMessage(output, false),
+    )
+  }
+
+  outputErrorMessage(expected, include) {
+    let str = '\n'
+    str += chalk.black(
+      `\nExpected output to${include ? ' ' : ' NOT '}include:\n`,
+    )
+    str += '```\n'
+    str += chalk.yellow(expected) + '\n'
+    str += '```\n\n'
+    str += 'Actual output:\n'
+    str += '```\n'
+    str += chalk.red(this.output)
+    str += '```\n'
+    return str
   }
 }
 

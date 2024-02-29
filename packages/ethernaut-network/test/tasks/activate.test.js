@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
-describe('set', function () {
+describe('activate', function () {
   const terminal = new Terminal()
   let activeNetwork
 
@@ -30,7 +30,7 @@ describe('set', function () {
 
   describe('when calling set', function () {
     before('call it', async function () {
-      await terminal.run('npx hardhat net set test__1', 2000)
+      await terminal.run('npx hardhat network activate test__1', 2000)
     })
 
     it('sets the active network', async function () {

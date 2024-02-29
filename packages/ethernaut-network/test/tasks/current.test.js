@@ -1,7 +1,7 @@
 const { Terminal } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
-describe('active', function () {
+describe('current', function () {
   let activeNetwork
   const terminal = new Terminal()
 
@@ -25,11 +25,11 @@ describe('active', function () {
 
   describe('when calling active task', function () {
     before('call task', async function () {
-      await terminal.run('npx hardhat net active')
+      await terminal.run('npx hardhat network current')
     })
 
     it('prints the active network', async function () {
-      terminal.has(`The active network is "${activeNetwork}"`)
+      terminal.has(`The current network is "${activeNetwork}"`)
     })
   })
 })

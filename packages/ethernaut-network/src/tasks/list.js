@@ -1,7 +1,7 @@
 const output = require('common/src/output')
 const storage = require('../internal/storage')
 
-require('../scopes/net')
+require('../scopes/network')
   .task('list', 'Prints all networks')
   .setAction(async () => {
     try {

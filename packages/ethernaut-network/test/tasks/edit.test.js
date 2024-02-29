@@ -19,7 +19,7 @@ describe('edit', function () {
 
   describe('when all params are specified', function () {
     before('run edit', async function () {
-      await terminal.run('npx hardhat net edit test__3 --url poop2')
+      await terminal.run('npx hardhat network edit test__3 --url poop2')
     })
 
     it('edits the network', async function () {
@@ -30,7 +30,7 @@ describe('edit', function () {
 
   describe('when parameters are missing', function () {
     before('run edit', async function () {
-      await terminal.run('npx hardhat net edit', 2000)
+      await terminal.run('npx hardhat network edit', 2000)
     })
 
     it('suggests networks', async function () {

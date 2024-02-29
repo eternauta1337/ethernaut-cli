@@ -20,7 +20,7 @@ describe('list', function () {
 
   describe('when calling list', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat net list')
+      await terminal.run('npx hardhat network list')
     })
 
     it('prints the networks', async function () {

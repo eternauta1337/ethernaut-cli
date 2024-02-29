@@ -5,8 +5,8 @@ const storage = require('../internal/storage')
 const autocompleteFork = require('./autocomplete/fork')
 const applyEnvVars = require('../internal/apply-env-vars')
 
-const local = require('../scopes/net')
-  .task('local', 'Starts a local chain')
+const local = require('../scopes/network')
+  .task('node', 'Starts a local development chain, potentially with a fork.')
   .addOptionalParam('fork', 'The alias or url of the network to fork')
   .addOptionalParam('port', 'The port to run the local chain on')
   .setAction(async ({ fork, port }) => {

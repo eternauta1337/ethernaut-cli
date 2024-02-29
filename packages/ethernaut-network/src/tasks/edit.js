@@ -3,11 +3,11 @@ const output = require('common/src/output')
 const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
-const edit = require('../scopes/net')
+const edit = require('../scopes/network')
   .task('edit', 'Edits a network')
   .addOptionalPositionalParam(
     'alias',
-    'How the network is referenced in the cli',
+    'The name of the network',
     undefined,
     types.string,
   )

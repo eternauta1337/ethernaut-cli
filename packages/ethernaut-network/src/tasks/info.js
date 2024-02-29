@@ -4,12 +4,9 @@ const { chains } = require('common/src/chains')
 const { isUrl } = require('common/src/url')
 const autocompleteAlias = require('./autocomplete/alias')
 
-const info = require('../scopes/net')
+const info = require('../scopes/network')
   .task('info', 'Provides information about a network')
-  .addOptionalPositionalParam(
-    'alias',
-    'An alias to the network to get information about. Can be a name, or a URL',
-  )
+  .addOptionalPositionalParam('alias', 'The name or url of the network')
   .setAction(async ({ alias }, hre) => {
     try {
       if (!alias) {

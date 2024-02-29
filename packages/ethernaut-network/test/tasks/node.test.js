@@ -1,7 +1,7 @@
 const { Terminal, keys } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
-describe('local', function () {
+describe('node', function () {
   const terminal = new Terminal()
 
   before('add test network', async function () {
@@ -18,7 +18,7 @@ describe('local', function () {
 
   describe('when parameters are not provided', function () {
     before('run', async function () {
-      await terminal.run('npx hardhat net local', 2000)
+      await terminal.run('npx hardhat network node', 2000)
     })
 
     it('queries for a network to fork', async function () {
@@ -55,7 +55,7 @@ describe('local', function () {
     describe('with none', function () {
       before('run', async function () {
         await terminal.run(
-          'npx hardhat net local --fork none --port 8547',
+          'npx hardhat network node --fork none --port 8547',
           2000,
         )
       })
@@ -83,7 +83,7 @@ describe('local', function () {
 
       before('run', async function () {
         await terminal.run(
-          'npx hardhat net local --fork test__mainnet --port 8547',
+          'npx hardhat network node --fork test__mainnet --port 8547',
           5000,
         )
       })
