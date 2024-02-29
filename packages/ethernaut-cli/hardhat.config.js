@@ -3,7 +3,7 @@ require('dotenv').config({
 })
 
 require('ethernaut-ui')
-require('ethernaut-toolbox')
+require('ethernaut-util')
 require('ethernaut-interact')
 require('ethernaut-ai')
 require('ethernaut-challenges')

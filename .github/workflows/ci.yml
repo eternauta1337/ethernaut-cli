@@ -38,7 +38,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/common && npm t
-  ethernaut-toolbox:
+  ethernaut-util:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -52,7 +52,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-toolbox && npm t
+      - run: cd packages/ethernaut-util && npm t
   ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:

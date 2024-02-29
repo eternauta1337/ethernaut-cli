@@ -1,5 +1,5 @@
 {
-  "name": "ethernaut-toolbox",
+  "name": "ethernaut-util",
   "version": "1.0.0",
   "description": "A collection of tools for the Ethernaut CLI",
   "main": "src/index.js",

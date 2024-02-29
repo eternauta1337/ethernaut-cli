@@ -2,7 +2,7 @@ const { types } = require('hardhat/config')
 const output = require('common/src/output')
 
 require('../scopes/util')
-  .task('to-string', 'Converts bytes32 to string')
+  .task('string', 'Converts bytes32 to string')
   .addOptionalPositionalParam(
     'value',
     'The value to convert',

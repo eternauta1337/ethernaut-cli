@@ -1,10 +1,10 @@
 const assert = require('assert')
 
-describe('to-string', function () {
+describe('string', function () {
   it('converts "hello" from bytes', async function () {
     assert.equal(
       await hre.run(
-        { scope: 'util', task: 'to-string' },
+        { scope: 'util', task: 'string' },
         {
           value:
             '0x68656c6c6f000000000000000000000000000000000000000000000000000000',
@@ -17,7 +17,7 @@ describe('to-string', function () {
   it('converts "42" from bytes', async function () {
     assert.equal(
       await hre.run(
-        { scope: 'util', task: 'to-string' },
+        { scope: 'util', task: 'string' },
         {
           value:
             '0x3432000000000000000000000000000000000000000000000000000000000000',
@@ -30,7 +30,7 @@ describe('to-string', function () {
   it('converts "" from bytes', async function () {
     assert.equal(
       await hre.run(
-        { scope: 'util', task: 'to-string' },
+        { scope: 'util', task: 'string' },
         {
           value:
             '0x0000000000000000000000000000000000000000000000000000000000000000',
@@ -43,7 +43,7 @@ describe('to-string', function () {
   it('shows an error message when an invalid bytes value is passed', async function () {
     assert.equal(
       await hre.run(
-        { scope: 'util', task: 'to-string' },
+        { scope: 'util', task: 'string' },
         {
           value: 'abc',
         },

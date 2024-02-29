@@ -52,7 +52,7 @@
 #           node-version: '20.x'
 #       - run: cd packages/common && npm t
 
-#   # Repeat the pattern for other jobs, like ethernaut-toolbox, ethernaut-ui, etc.
+#   # Repeat the pattern for other jobs, like ethernaut-util, ethernaut-ui, etc.
 #   # Make sure to remove redundant npm ci steps and add 'needs: setup' to ensure they run after the setup job
 
 #   # install-foundry:
