@@ -13,7 +13,7 @@ const unit = require('../scopes/util')
   )
   .addPositionalParam('value', 'The value to convert', undefined, types.string)
   .addOptionalParam('from', 'The unit to convert from', 'ether', types.string)
-  .addOptionalParam('to', 'The unit to convert to', 'kwei', types.string)
+  .addOptionalParam('to', 'The unit to convert to', 'wei', types.string)
   .setAction(async ({ value, from, to }, hre) => {
     try {
       const valueWei = hre.ethers.parseUnits(value, from)
@@ -35,9 +35,13 @@ async function autocompleteUnit({
   from,
   to,
 }) {
+  const valueProvided =
+    paramName === 'from' ? from !== undefined : to !== undefined
+  const isDefault =
+    paramName === 'from' ? from === paramDefault : to === paramDefault
+
   // No need to autocomplete?
-  if (paramName === 'from' && from && from !== paramDefault) return undefined
-  if (paramName === 'to' && to && to !== paramDefault) return undefined
+  if (valueProvided && !isDefault) return undefined
 
   // Choices are all units minus the one used
   let choices = units.concat()

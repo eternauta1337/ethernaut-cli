@@ -50,24 +50,25 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
 
   let collectedArg
 
-  // Does the parameter provide its own autocomplete function?
-  if (paramDef.autocomplete) {
-    collectedArg = await autocomplete(paramDef, argsSoFar)
-    if (collectedArg !== undefined) return collectedArg
-  }
-
   // Is the parameter already provided?
   // (But is not the default value injected by hardhat)
   if (providedArg) {
     const isInjectedDefault =
       providedArg === paramDef.defaultValue && parsedArg === undefined
     if (!isInjectedDefault) {
+      debug.log('Value was provided by the user, skipping autocompletion', 'ui')
       return providedArg
     }
   }
 
+  // Does the parameter provide its own autocomplete function?
+  if (paramDef.autocomplete) {
+    collectedArg = await autocomplete(paramDef, argsSoFar)
+    if (collectedArg !== undefined) return collectedArg
+  }
+
   // Mmnope, ok. Ask the user to input the parameter in raw text
-  collectedArg = await rawPrompt(paramDef)
+  if (collectedArg === undefined) collectedArg = await rawPrompt(paramDef)
 
   return collectedArg
 }
