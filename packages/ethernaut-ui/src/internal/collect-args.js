@@ -4,7 +4,7 @@ const prompt = require('common/src/prompt')
 let _hre
 
 module.exports = async function collectArguments(providedArgs, task, hre) {
-  debug.log(`Collecting arguments for task ${task.name}`, 'ui')
+  debug.log(`Collecting parameters for task ${task.name}`, 'ui')
 
   _hre = hre
 
@@ -20,10 +20,15 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
     // if (paramDef.isFlag) continue;
 
     const providedArg = providedArgs[paramDef.name]
-
+    const parsedArg = paramDef.parsedValue
     const argsSoFar = { ...providedArgs, ...collectedArgs }
 
-    const collectedArg = await collectArg(paramDef, providedArg, argsSoFar)
+    const collectedArg = await collectArg(
+      paramDef,
+      providedArg,
+      parsedArg,
+      argsSoFar,
+    )
     if (collectedArg !== undefined) {
       debug.log(
         `Autocompletion for "${paramDef.name}" collected "${collectedArg}"`,
@@ -37,22 +42,33 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
   return collectedArgs
 }
 
-async function collectArg(paramDef, providedArg, argsSoFar) {
+async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
   debug.log(
-    `Collecting parameter "${paramDef.name}" - Provided: ${providedArg}"`,
+    `Collecting "${paramDef.name}" - Provided: "${providedArg}", Parsed: "${parsedArg}"`,
     'ui',
   )
 
   let collectedArg
 
+  // Is the parameter already provided?
+  // (But is not the default value injected by hardhat)
+  if (providedArg) {
+    const isInjectedDefault =
+      providedArg === paramDef.defaultValue && parsedArg === undefined
+    if (!isInjectedDefault) {
+      debug.log('Value was provided by the user, skipping autocompletion', 'ui')
+      return providedArg
+    }
+  }
+
   // Does the parameter provide its own autocomplete function?
   if (paramDef.autocomplete) {
     collectedArg = await autocomplete(paramDef, argsSoFar)
+    if (collectedArg !== undefined) return collectedArg
   }
 
   // Mmnope, ok. Ask the user to input the parameter in raw text
-  if (collectedArg === undefined && providedArg === undefined)
-    collectedArg = await rawPrompt(paramDef)
+  if (collectedArg === undefined) collectedArg = await rawPrompt(paramDef)
 
   return collectedArg
 }
@@ -63,6 +79,7 @@ async function autocomplete(paramDef, argsSoFar) {
   const collectedArg = await paramDef.autocomplete({
     hre: _hre,
     paramName: paramDef.name,
+    paramDefault: paramDef.defaultValue,
     description: paramDef.description,
     ...argsSoFar,
   })

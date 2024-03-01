@@ -3,12 +3,7 @@ const output = require('common/src/output')
 
 require('../scopes/util')
   .task('string', 'Converts bytes32 to string')
-  .addOptionalPositionalParam(
-    'value',
-    'The value to convert',
-    undefined,
-    types.string,
-  )
+  .addPositionalParam('value', 'The value to convert', undefined, types.string)
   .setAction(async ({ value }, hre) => {
     try {
       const strNullPadded = hre.ethers.toUtf8String(value)

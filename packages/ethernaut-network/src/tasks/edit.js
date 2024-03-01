@@ -5,13 +5,13 @@ const storage = require('../internal/storage')
 
 const edit = require('../scopes/network')
   .task('edit', 'Edits a network')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the network',
     undefined,
     types.string,
   )
-  .addOptionalParam('url', 'The network url', undefined, types.string)
+  .addParam('url', 'The network url', undefined, types.string)
   .setAction(async ({ alias, url }) => {
     try {
       const networks = storage.readNetworks()

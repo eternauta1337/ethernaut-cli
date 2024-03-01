@@ -5,7 +5,7 @@ const storage = require('../internal/storage')
 
 const remove = require('../scopes/network')
   .task('remove', 'Removes a network from the cli')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the network',
     undefined,

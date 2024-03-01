@@ -12,12 +12,7 @@ require('../scopes/oz')
     'info',
     'Shows information about an open zeppelin challenges level. The info includes the level name, contract name, ABI path, address, and description. The ABI path can be used with the interact package call task to interact with the contract.',
   )
-  .addOptionalPositionalParam(
-    'level',
-    'The level number',
-    undefined,
-    types.string,
-  )
+  .addPositionalParam('level', 'The level number', undefined, types.string)
   .setAction(async ({ level }) => {
     try {
       const info = await getLevelInfo(level)

@@ -5,7 +5,7 @@ const autocompleteAlias = require('./autocomplete/alias')
 
 const info = require('../scopes/wallet')
   .task('info', 'Shows information about a wallet')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the wallet',
     undefined,

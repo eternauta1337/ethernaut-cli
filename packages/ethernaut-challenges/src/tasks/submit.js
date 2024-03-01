@@ -8,7 +8,7 @@ require('../scopes/oz')
     'submit',
     'Submits an instance created by the instance task, and later manipulated as required by the level. The instance must be submitted to the games main contract in order to complete the level. Use the info command to get instructions on how to complete the level.',
   )
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'address',
     'The address of the instance to submit',
     undefined,

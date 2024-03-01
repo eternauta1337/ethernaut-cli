@@ -23,19 +23,14 @@ const { getNetworkName } = require('common/src/network')
 
 const contract = require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
-  .addOptionalParam(
+  .addParam(
     'abi',
     'The path to a json file specifying the abi of the contract',
     undefined,
     types.string,
   )
-  .addOptionalParam(
-    'address',
-    'The address of the contract',
-    undefined,
-    types.string,
-  )
-  .addOptionalParam(
+  .addParam('address', 'The address of the contract', undefined, types.string)
+  .addParam(
     'fn',
     'The function of the contract to call',
     undefined,

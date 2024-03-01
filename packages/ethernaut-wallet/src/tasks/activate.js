@@ -6,7 +6,7 @@ const { setSigner } = require('../internal/signers')
 
 const set = require('../scopes/wallet')
   .task('activate', 'Activates a wallet')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the wallet',
     undefined,

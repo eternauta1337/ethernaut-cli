@@ -6,16 +6,16 @@ const { getWallet, generatePk } = require('../internal/signers')
 
 require('../scopes/wallet')
   .task('create', 'Creates a new wallet')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the wallet',
     undefined,
     types.string,
   )
-  .addOptionalParam(
+  .addParam(
     'pk',
-    'The private key of the wallet. Pass "random" or an empty string to generate a private key.',
-    undefined,
+    'The private key of the wallet or "random". Pass "random" or an empty string to generate a private key.',
+    'random',
     types.string,
   )
   .setAction(async ({ alias, pk }) => {
