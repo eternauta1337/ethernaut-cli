@@ -5,7 +5,7 @@ describe('interact unit', function () {
 
   describe('when entering unit with all params provided', function () {
     before('run command', async function () {
-      await terminal.run('npx hardhat util unit 1 --from ether --to wei', 1000)
+      await terminal.run('npx hardhat util unit 1 --from ether --to wei')
     })
 
     it('contains the word "result"', async function () {
