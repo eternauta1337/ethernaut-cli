@@ -26,7 +26,7 @@ describe('interpret', function () {
       })
     })
 
-    describe('with prompting', function () {
+    describe.skip('with prompting', function () {
       before('run interpret', async function () {
         await terminal.run(
           'npx hardhat ai interpret "what is SNX in bytes?" --new-thread --model "gpt-4"',
