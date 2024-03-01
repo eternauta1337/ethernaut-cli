@@ -26,7 +26,7 @@ const local = require('../scopes/network')
 
       port = Number(port) || 8545
 
-      if (forkUrl) {
+      if (forkUrl.url) {
         output.info(`Starting local chain with fork ${forkUrl.url}...`)
       } else {
         output.info('Starting local chain...')
