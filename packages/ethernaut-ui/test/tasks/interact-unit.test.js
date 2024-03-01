@@ -9,9 +9,7 @@ describe('interact unit', function () {
     })
 
     it('contains the word "result"', async function () {
-      console.log('>>>> COMEON')
       terminal.has('Result')
-      process.exit(0)
     })
 
     it('shows the output of unit', async function () {
