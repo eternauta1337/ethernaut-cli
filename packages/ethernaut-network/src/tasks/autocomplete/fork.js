@@ -1,8 +1,12 @@
 const prompt = require('common/src/prompt')
 const storage = require('../../internal/storage')
 
-module.exports = async function autocompleteFork({ fork }) {
-  if (fork) return undefined
+module.exports = async function autocompleteFork({ fork, paramDefault }) {
+  const valueProvided = fork !== undefined
+  const isDefault = fork === paramDefault
+
+  // No need to autocomplete?
+  if (valueProvided && !isDefault) return undefined
 
   const choices = ['none'].concat(
     Object.keys(storage.readNetworks()).filter(
