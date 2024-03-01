@@ -3,7 +3,7 @@ const output = require('common/src/output')
 
 require('../scopes/util')
   .task('bytes', 'Converts strings to bytes32')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'value',
     'The value to convert. Will always be treated as a string. Cannot be longer than a bytes32 string.',
     undefined,

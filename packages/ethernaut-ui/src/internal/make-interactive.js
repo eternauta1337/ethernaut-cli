@@ -43,6 +43,54 @@ function makeInteractive(task) {
   // Rn it will throw if this flag is used
   // task.addFlag('nonInteractive', 'Disable interactivity', false);
 
+  // Note:
+  // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js
+  // The line
+  // const env = new runtime_environment_1.Environment(resolvedConfig, hardhatArguments, taskDefinitions, scopesDefinitions, envExtenders, ctx.experimentalHardhatNetworkMessageTraceHooks, userConfig, providerExtenders);
+  // is moved before the line
+  // let { scopeName, taskName, unparsedCLAs } = argumentsParser.parseScopeAndTaskNames(allUnparsedCLAs, taskDefinitions, scopesDefinitions);
+  // so that parsing occures after env interception.
+
+  // Combine all of the task's parameter definitions in the same array,
+  // for the operations that follow.
+  const paramDefinitions = task.positionalParamDefinitions.concat(
+    Object.values(task.paramDefinitions),
+  )
+
+  // Make all parameters optional so that hardhat doesnt
+  // throw when required task arguments are not provided.
+  // We want to collect them interactively.
+  for (let paramDef of paramDefinitions) {
+    paramDef.originallyOptional = paramDef.isOptional
+    paramDef.isOptional = true
+  }
+
+  // Also, intercept parsing of parameters because
+  // hardhat automatically injects default values into the action's args.
+  // We want to identify when this happens so that we still show prompts
+  // with the default value merely suggested instead of directly injected.
+  const special = (originalType, paramDef) => ({
+    name: 'special',
+    parse: (argName, argValue) => {
+      const parsedValue = originalType.parse(argName, argValue)
+      paramDef.parsedValue = parsedValue
+      debug.log(
+        `Parsing "${argName}" - Provided: "${argValue}", Default: "${paramDef.defaultValue}", Parsed: "${parsedValue}"`,
+        'ui',
+      )
+      return parsedValue
+    },
+    validate: (argName, argValue) => {
+      return originalType.validate(argName, argValue)
+    },
+  })
+  for (let paramDef of paramDefinitions) {
+    debug.log(`  Modifying parser for param "${paramDef.name}"`, 'ui-deep')
+    paramDef.originallyOptional = paramDef.isOptional
+    paramDef.isOptional = true
+    paramDef.type = special(paramDef.type, paramDef)
+  }
+
   // Override the action so that we can
   // collect parameters from the user before runnint it
   const action = async (args, hre, runSuper) => {

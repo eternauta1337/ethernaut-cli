@@ -11,14 +11,9 @@ const unit = require('../scopes/util')
       ',',
     )}.`,
   )
-  .addOptionalPositionalParam(
-    'value',
-    'The value to convert',
-    undefined,
-    types.string,
-  )
-  .addOptionalParam('from', 'The unit to convert from', undefined, types.string)
-  .addOptionalParam('to', 'The unit to convert to', undefined, types.string)
+  .addPositionalParam('value', 'The value to convert', undefined, types.string)
+  .addOptionalParam('from', 'The unit to convert from', 'ether', types.string)
+  .addOptionalParam('to', 'The unit to convert to', 'kwei', types.string)
   .setAction(async ({ value, from, to }, hre) => {
     try {
       const valueWei = hre.ethers.parseUnits(value, from)
@@ -33,10 +28,16 @@ const unit = require('../scopes/util')
     }
   })
 
-async function autocompleteUnit({ paramName, description, from, to }) {
+async function autocompleteUnit({
+  paramName,
+  paramDefault,
+  description,
+  from,
+  to,
+}) {
   // No need to autocomplete?
-  if (paramName === 'from' && from) return undefined
-  if (paramName === 'to' && to) return undefined
+  if (paramName === 'from' && from && from !== paramDefault) return undefined
+  if (paramName === 'to' && to && to !== paramDefault) return undefined
 
   // Choices are all units minus the one used
   let choices = units.concat()
@@ -49,6 +50,7 @@ async function autocompleteUnit({ paramName, description, from, to }) {
     type: 'autocomplete',
     message: `Enter ${paramName} (${description})`,
     choices,
+    initial: choices.indexOf(paramDefault),
   })
 }
 
