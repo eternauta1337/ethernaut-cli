@@ -5,7 +5,7 @@ const storage = require('../internal/storage')
 
 const remove = require('../scopes/wallet')
   .task('remove', 'Removes a wallet')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the wallet',
     undefined,

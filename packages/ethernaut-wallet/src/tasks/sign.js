@@ -4,13 +4,8 @@ const storage = require('../internal/storage')
 const { getWallet } = require('../internal/signers')
 
 require('../scopes/wallet')
-  .task('sign', 'Signs a message with a wallet')
-  .addOptionalPositionalParam(
-    'message',
-    'The message to sign',
-    undefined,
-    types.string,
-  )
+  .task('sign', 'Signs a message with the active wallet')
+  .addPositionalParam('message', 'The message to sign', undefined, types.string)
   .setAction(async ({ message }) => {
     try {
       const signers = storage.readSigners()

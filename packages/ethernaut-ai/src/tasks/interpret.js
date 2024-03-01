@@ -15,7 +15,7 @@ let _query
 
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'query',
     'The natural language query to convert to CLI commands',
     undefined,

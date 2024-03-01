@@ -9,12 +9,7 @@ require('../scopes/oz')
     'check',
     'Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements',
   )
-  .addOptionalPositionalParam(
-    'level',
-    'The level number',
-    undefined,
-    types.string,
-  )
+  .addPositionalParam('level', 'The level number', undefined, types.string)
   .setAction(async ({ level }, hre) => {
     try {
       const completed = await checkLevel(level, hre)

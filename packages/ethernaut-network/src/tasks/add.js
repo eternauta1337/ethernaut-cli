@@ -6,13 +6,13 @@ const { validateVarName } = require('common/src/name')
 
 const add = require('../scopes/network')
   .task('add', 'Adds a network to the cli')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the network',
     undefined,
     types.string,
   )
-  .addOptionalParam(
+  .addParam(
     'url',
     'The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/${INFURA_API_KEY}. Make sure to specify these in your .env file.',
     undefined,

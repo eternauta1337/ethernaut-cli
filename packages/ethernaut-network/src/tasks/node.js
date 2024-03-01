@@ -11,13 +11,13 @@ const local = require('../scopes/network')
   .addOptionalParam(
     'fork',
     'The alias or url of the network to fork',
-    undefined,
+    'none',
     types.string,
   )
   .addOptionalParam(
     'port',
     'The port to run the local chain on',
-    undefined,
+    '8545',
     types.string,
   )
   .setAction(async ({ fork, port }) => {

@@ -6,7 +6,7 @@ const { setNetwork } = require('../internal/set-network')
 
 const set = require('../scopes/network')
   .task('activate', 'Activates a network')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name of the network',
     undefined,

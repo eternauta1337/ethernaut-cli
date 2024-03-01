@@ -44,12 +44,10 @@ function makeInteractive(task) {
   // task.addFlag('nonInteractive', 'Disable interactivity', false);
 
   // Note:
-  // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js
-  // The line
-  // const env = new runtime_environment_1.Environment(resolvedConfig, hardhatArguments, taskDefinitions, scopesDefinitions, envExtenders, ctx.experimentalHardhatNetworkMessageTraceHooks, userConfig, providerExtenders);
-  // is moved before the line
-  // let { scopeName, taskName, unparsedCLAs } = argumentsParser.parseScopeAndTaskNames(allUnparsedCLAs, taskDefinitions, scopesDefinitions);
-  // so that parsing occures after env interception.
+  // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js,
+  // that allows this environment extension code to run before hardhat parses cli arguments.
+  // Issue: https://github.com/NomicFoundation/hardhat/issues/4950
+  // PR: https://github.com/NomicFoundation/hardhat/pull/4951
 
   // Combine all of the task's parameter definitions in the same array,
   // for the operations that follow.

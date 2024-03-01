@@ -7,7 +7,7 @@ const autocompleteAlias = require('./autocomplete/alias')
 
 const info = require('../scopes/network')
   .task('info', 'Provides information about a network')
-  .addOptionalPositionalParam(
+  .addPositionalParam(
     'alias',
     'The name or url of the network',
     undefined,

@@ -11,12 +11,7 @@ require('../scopes/oz')
     'instance',
     'Creates an instance of a level, so that it can be played. The address of the instance is printed to the console. Use this address to interact with the contract using the ethernaut-cli contract command. Make sure to use the info command to get instructions on how to complete the level.',
   )
-  .addOptionalPositionalParam(
-    'level',
-    'The level number',
-    undefined,
-    types.string,
-  )
+  .addPositionalParam('level', 'The level number', undefined, types.string)
   .setAction(async ({ level }, hre) => {
     try {
       const instanceAddress = await createInstance(level, hre)
