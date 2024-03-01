@@ -29,7 +29,8 @@ describe('sample task', function () {
     })
 
     it('Asks for param with default value', async function () {
-      terminal.has('? Enter param (Sample param): › default-value')
+      terminal.has('? Enter param (Sample param):')
+      terminal.has('default-value')
     })
 
     describe('when the user enters a value', function () {

@@ -92,9 +92,14 @@ async function rawPrompt(param) {
     ? ` (${param.description.split('.')[0].substring(0, 150)})`
     : ''
 
-  return await prompt({
+  const result = await prompt({
     type: 'input',
     message: `Enter ${param.name}${description}:`,
     initial: param.defaultValue,
   })
+
+  if (result === 'false') return false
+  if (result === 'true') return true
+
+  return result
 }
