@@ -1,5 +1,5 @@
 const prompt = require('common/src/prompt')
-const storage = require('../../internal/storage')
+const storage = require('ethernaut-wallet/src/internal/storage')
 
 module.exports = (message = 'Select a wallet') => {
   return async function autocompleteAlias({ alias }) {
