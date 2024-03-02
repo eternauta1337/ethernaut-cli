@@ -1,7 +1,7 @@
 const { Terminal, keys } = require('common/src/terminal')
-const storage = require('../../src/internal/storage')
+const storage = require('ethernaut-network/src/internal/storage')
 
-describe('node', function () {
+describe('node ui', function () {
   const terminal = new Terminal()
 
   before('add test network', async function () {
