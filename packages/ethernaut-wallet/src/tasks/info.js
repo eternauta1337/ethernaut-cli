@@ -1,9 +1,8 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
 const storage = require('../internal/storage')
-const autocompleteAlias = require('./autocomplete/alias')
 
-const info = require('../scopes/wallet')
+require('../scopes/wallet')
   .task('info', 'Shows information about a wallet')
   .addPositionalParam(
     'alias',
@@ -40,6 +39,3 @@ const info = require('../scopes/wallet')
       return output.errorBox(err)
     }
   })
-
-info.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a network')

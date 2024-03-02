@@ -19,36 +19,12 @@ describe('remove', function () {
     storage.storeSigners(signers)
   })
 
-  describe('when all params are specified', function () {
-    before('run remove', async function () {
-      await terminal.run('npx hardhat wallet remove test__3')
-    })
-
-    it('removes the signer', async function () {
-      const signers = storage.readSigners()
-      assert.equal(signers.test__3, undefined)
-    })
+  before('run remove', async function () {
+    await terminal.run('npx hardhat wallet remove test__3')
   })
 
-  describe('when alias is missing', function () {
-    before('run remove', async function () {
-      await terminal.run('npx hardhat wallet remove', 2000)
-    })
-
-    it('suggests wallets', async function () {
-      terminal.has('Select a wallet')
-      terminal.has('test__4')
-    })
-
-    describe('when a signer is chosen', function () {
-      before('select', async function () {
-        await terminal.input('4\r')
-      })
-
-      it('removes the signer', async function () {
-        const signers = storage.readSigners()
-        assert.equal(signers.test__4, undefined)
-      })
-    })
+  it('removes the signer', async function () {
+    const signers = storage.readSigners()
+    assert.equal(signers.test__3, undefined)
   })
 })

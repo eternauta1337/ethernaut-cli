@@ -16,15 +16,12 @@ extendEnvironment((hre) => {
 })
 
 extendConfig((config, userConfig) => {
-  config = {
-    ...config,
-    ethernaut: {
-      ui: {
-        exclude: {
-          scopes: userConfig.ethernaut?.ui?.exclude?.scopes || [],
-          tasks: userConfig.ethernaut?.ui?.exclude?.tasks || [],
-        },
-      },
+  if (!config.ethernaut) config.ethernaut = {}
+
+  config.ethernaut.ui = {
+    exclude: {
+      scopes: userConfig.ethernaut?.ui?.exclude?.scopes || [],
+      tasks: userConfig.ethernaut?.ui?.exclude?.tasks || [],
     },
   }
 })

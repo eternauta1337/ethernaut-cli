@@ -19,36 +19,12 @@ describe('remove', function () {
     storage.storeNetworks(networks)
   })
 
-  describe('when all params are specified', function () {
-    before('run remove', async function () {
-      await terminal.run('npx hardhat network remove test__3')
-    })
-
-    it('removes the network', async function () {
-      const networks = storage.readNetworks()
-      assert.equal(networks.test__3, undefined)
-    })
+  before('run remove', async function () {
+    await terminal.run('npx hardhat network remove test__3')
   })
 
-  describe('when alias is missing', function () {
-    before('run remove', async function () {
-      await terminal.run('npx hardhat network remove', 2000)
-    })
-
-    it('suggests networks', async function () {
-      terminal.has('Select a network')
-      terminal.has('test__4')
-    })
-
-    describe('when a network is chosen', function () {
-      before('select', async function () {
-        await terminal.input('4\r')
-      })
-
-      it('removes the network', async function () {
-        const networks = storage.readNetworks()
-        assert.equal(networks.test__4, undefined)
-      })
-    })
+  it('removes the network', async function () {
+    const networks = storage.readNetworks()
+    assert.equal(networks.test__3, undefined)
   })
 })

@@ -1,9 +1,8 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
-const remove = require('../scopes/network')
+require('../scopes/network')
   .task('remove', 'Removes a network from the cli')
   .addPositionalParam(
     'alias',
@@ -32,6 +31,3 @@ const remove = require('../scopes/network')
       return output.errorBox(err)
     }
   })
-
-remove.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a network to remove')

@@ -1,10 +1,9 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteUrl = require('./autocomplete/url')
 const storage = require('../internal/storage')
 const { validateVarName } = require('common/src/name')
 
-const add = require('../scopes/network')
+require('../scopes/network')
   .task('add', 'Adds a network to the cli')
   .addPositionalParam(
     'alias',
@@ -43,5 +42,3 @@ const add = require('../scopes/network')
       return output.errorBox(err)
     }
   })
-
-add.paramDefinitions.url.autocomplete = autocompleteUrl

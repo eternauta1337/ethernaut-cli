@@ -1,10 +1,9 @@
 const { types } = require('hardhat/config')
-const prompt = require('common/src/prompt')
 const output = require('common/src/output')
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney']
 
-const unit = require('../scopes/util')
+require('../scopes/util')
   .task(
     'unit',
     `Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be one of ${units.join(
@@ -28,35 +27,6 @@ const unit = require('../scopes/util')
     }
   })
 
-async function autocompleteUnit({
-  paramName,
-  paramDefault,
-  description,
-  from,
-  to,
-}) {
-  const valueProvided =
-    paramName === 'from' ? from !== undefined : to !== undefined
-  const isDefault =
-    paramName === 'from' ? from === paramDefault : to === paramDefault
-
-  // No need to autocomplete?
-  if (valueProvided && !isDefault) return undefined
-
-  // Choices are all units minus the one used
-  let choices = units.concat()
-  if (paramName === 'from' && to) choices = units.filter((unit) => unit !== to)
-  if (paramName === 'to' && from)
-    choices = units.filter((unit) => unit !== from)
-
-  // Show unit list
-  return await prompt({
-    type: 'autocomplete',
-    message: `Enter ${paramName} (${description})`,
-    choices,
-    initial: choices.indexOf(paramDefault),
-  })
+module.exports = {
+  units,
 }
-
-unit.paramDefinitions['from'].autocomplete = autocompleteUnit
-unit.paramDefinitions['to'].autocomplete = autocompleteUnit
