@@ -3,10 +3,10 @@ const output = require('common/src/output')
 const { execSync } = require('child_process')
 const { isUrl } = require('common/src/url')
 const storage = require('../internal/storage')
-const autocompleteFork = require('./autocomplete/fork')
+// const autocompleteFork = require('./autocomplete/fork')
 const applyEnvVars = require('../internal/apply-env-vars')
 
-const local = require('../scopes/network')
+require('../scopes/network')
   .task('node', 'Starts a local development chain, potentially with a fork.')
   .addOptionalParam(
     'fork',
@@ -70,5 +70,3 @@ function startAnvil(forkUrl, port) {
     execSync(`anvil --fork-url ${forkUrl} --port ${port}`, { stdio: 'inherit' })
   }
 }
-
-local.paramDefinitions.fork.autocomplete = autocompleteFork

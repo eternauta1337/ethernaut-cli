@@ -3,9 +3,8 @@ const output = require('common/src/output')
 const storage = require('../internal/storage')
 const { chains } = require('common/src/chains')
 const { isUrl } = require('common/src/url')
-const autocompleteAlias = require('./autocomplete/alias')
 
-const info = require('../scopes/network')
+require('../scopes/network')
   .task('info', 'Provides information about a network')
   .addPositionalParam(
     'alias',
@@ -77,6 +76,3 @@ async function populateRemoteChainInfo(info, hre) {
 
   return info
 }
-
-info.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a network')

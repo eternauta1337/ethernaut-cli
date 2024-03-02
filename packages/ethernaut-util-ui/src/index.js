@@ -4,5 +4,5 @@ require('ethernaut-ui/src/index')
 require('ethernaut-util/src/index')
 
 extendEnvironment((hre) => {
-  require('./autocomplete/unit')(hre)
+  require('./autocomplete/tasks/unit')(hre)
 })

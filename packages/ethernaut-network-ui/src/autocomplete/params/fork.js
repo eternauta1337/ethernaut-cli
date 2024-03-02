@@ -1,5 +1,5 @@
 const prompt = require('common/src/prompt')
-const storage = require('../../internal/storage')
+const storage = require('ethernaut-network/src/internal/storage')
 
 module.exports = async function autocompleteFork({ fork, paramDefault }) {
   const valueProvided = fork !== undefined

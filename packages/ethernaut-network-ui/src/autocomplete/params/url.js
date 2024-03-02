@@ -6,13 +6,7 @@ const strategies = {
   MANUAL: 'Enter url manually',
 }
 
-module.exports = function setup(hre) {
-  const add = hre.scopes.network.tasks.add
-
-  add.paramDefinitions.url.autocomplete = autocompleteUrl
-}
-
-async function autocompleteUrl({ url }) {
+module.exports = async function autocompleteUrl({ url }) {
   if (url) return undefined
 
   const choice = await selectStrategy()

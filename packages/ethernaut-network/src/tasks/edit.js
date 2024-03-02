@@ -1,9 +1,8 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 
-const edit = require('../scopes/network')
+require('../scopes/network')
   .task('edit', 'Edits a network')
   .addPositionalParam(
     'alias',
@@ -29,6 +28,3 @@ const edit = require('../scopes/network')
       return output.errorBox(err)
     }
   })
-
-edit.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a network to edit')
