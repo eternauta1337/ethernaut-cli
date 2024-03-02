@@ -1,0 +1,23 @@
+{
+  "name": "ethernaut-network-ui",
+  "version": "1.0.0",
+  "description": "Ui expensions for the ethernaut-network package",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm run install:test",
+    "compile": "echo 'No compile step'",
+    "install:test": "cd test/fixture-projects/basic-project && npm install",
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "hardhat": "^2.20.0",
+    "mocha": "^10.3.0",
+    "nyc": "^15.1.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
+}

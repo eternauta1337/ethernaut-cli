@@ -3,6 +3,7 @@ const prompt = require('common/src/prompt')
 
 module.exports = function setup(hre) {
   const unit = hre.scopes.util.tasks.unit
+
   unit.paramDefinitions['from'].autocomplete = autocompleteUnit
   unit.paramDefinitions['to'].autocomplete = autocompleteUnit
 }

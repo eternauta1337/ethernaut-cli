@@ -1,10 +1,9 @@
 const { types } = require('hardhat/config')
 const output = require('common/src/output')
-const autocompleteAlias = require('./autocomplete/alias')
 const storage = require('../internal/storage')
 const { setNetwork } = require('../internal/set-network')
 
-const set = require('../scopes/network')
+require('../scopes/network')
   .task('activate', 'Activates a network')
   .addPositionalParam(
     'alias',
@@ -30,6 +29,3 @@ const set = require('../scopes/network')
       return output.errorBox(err)
     }
   })
-
-set.positionalParamDefinitions.find((p) => p.name === 'alias').autocomplete =
-  autocompleteAlias('Select a network to activate')
