@@ -1,6 +1,6 @@
 const { Terminal } = require('common/src/terminal')
 
-describe('interact unit', function () {
+describe('unit ui', function () {
   const terminal = new Terminal()
 
   describe('when entering unit with all params provided', function () {
