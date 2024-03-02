@@ -1,4 +1,4 @@
-const { Terminal, keys } = require('common/src/terminal')
+const { Terminal } = require('common/src/terminal')
 const storage = require('../../src/internal/storage')
 
 describe('node', function () {
