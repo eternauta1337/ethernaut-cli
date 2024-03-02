@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('common/src/terminal')
 const storage = require('ethernaut-wallet/src/internal/storage')
 
-describe('remove', function () {
+describe('remove ui', function () {
   const terminal = new Terminal()
 
   before('add test signers', async function () {
@@ -19,12 +19,25 @@ describe('remove', function () {
     storage.storeSigners(signers)
   })
 
-  before('run remove', async function () {
-    await terminal.run('npx hardhat wallet remove test__3')
-  })
+  describe('when alias is missing', function () {
+    before('run remove', async function () {
+      await terminal.run('npx hardhat wallet remove', 2000)
+    })
 
-  it('removes the signer', async function () {
-    const signers = storage.readSigners()
-    assert.equal(signers.test__3, undefined)
+    it('suggests wallets', async function () {
+      terminal.has('Select a wallet')
+      terminal.has('test__4')
+    })
+
+    describe('when a signer is chosen', function () {
+      before('select', async function () {
+        await terminal.input('4\r')
+      })
+
+      it('removes the signer', async function () {
+        const signers = storage.readSigners()
+        assert.equal(signers.test__4, undefined)
+      })
+    })
   })
 })
