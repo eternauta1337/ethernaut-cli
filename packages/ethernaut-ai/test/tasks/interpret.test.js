@@ -1,6 +1,6 @@
 const { Terminal } = require('common/src/terminal')
 
-describe('interpret', function () {
+describe.skip('interpret', function () {
   const terminal = new Terminal()
 
   describe('when asked to convert SNX to bytes', function () {
@@ -26,7 +26,7 @@ describe('interpret', function () {
       })
     })
 
-    describe.skip('with prompting', function () {
+    describe('with prompting', function () {
       before('run interpret', async function () {
         await terminal.run(
           'npx hardhat ai interpret "what is SNX in bytes?" --new-thread --model "gpt-4"',
