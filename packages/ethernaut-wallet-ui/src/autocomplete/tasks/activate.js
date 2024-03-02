@@ -1,5 +1,5 @@
 module.exports = function setup(hre) {
-  const activate = hre.scopes.network.tasks.activate
+  const activate = hre.scopes.wallet.tasks.activate
 
   activate.positionalParamDefinitions.find(
     (p) => p.name === 'alias',

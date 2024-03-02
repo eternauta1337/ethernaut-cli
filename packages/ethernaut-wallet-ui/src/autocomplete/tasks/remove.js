@@ -1,5 +1,5 @@
 module.exports = function setup(hre) {
-  const remove = hre.scopes.network.tasks.remove
+  const remove = hre.scopes.wallet.tasks.remove
 
   remove.positionalParamDefinitions.find(
     (p) => p.name === 'alias',
