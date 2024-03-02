@@ -1,4 +1,4 @@
-const storage = require('../../../internal/storage')
+const storage = require('ethernaut-interact/src/internal/storage')
 const debug = require('common/src/debug')
 const { getNetworkName } = require('common/src/network')
 

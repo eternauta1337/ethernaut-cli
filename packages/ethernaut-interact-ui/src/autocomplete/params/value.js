@@ -1,4 +1,4 @@
-const loadAbi = require('../load-abi')
+const loadAbi = require('ethernaut-interact/src/tasks/contract/load-abi')
 const debug = require('common/src/debug')
 
 module.exports = async function autocompleteValue({ value, abi, fn }) {

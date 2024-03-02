@@ -1,7 +1,7 @@
 {
-  "name": "ethernaut-wallet-ui",
+  "name": "ethernaut-interact-ui",
   "version": "1.0.0",
-  "description": "Ui expensions for the ethernaut-wallet package",
+  "description": "Ui expensions for the ethernaut-interact package",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",

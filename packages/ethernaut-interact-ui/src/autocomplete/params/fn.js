@@ -1,8 +1,8 @@
-const loadAbi = require('../load-abi')
+const loadAbi = require('ethernaut-interact/src/tasks/contract/load-abi')
 const {
   getFunctionSignature,
   getPopulatedFunctionSignature,
-} = require('../../../internal/signatures')
+} = require('ethernaut-interact/src/internal/signatures')
 const debug = require('common/src/debug')
 const prompt = require('common/src/prompt')
 

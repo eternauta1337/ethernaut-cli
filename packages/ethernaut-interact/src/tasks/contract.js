@@ -8,11 +8,6 @@ const {
 } = require('../internal/signatures')
 const loadAbi = require('./contract/load-abi')
 const prompt = require('common/src/prompt')
-const autocompleteFn = require('./contract/autocomplete/fn')
-const autocompleteParams = require('./contract/autocomplete/params')
-const autocompleteAbi = require('./contract/autocomplete/abi')
-const autocompleteAddress = require('./contract/autocomplete/address')
-const autocompleteValue = require('./contract/autocomplete/value')
 const storage = require('../internal/storage')
 const output = require('common/src/output')
 const spinner = require('common/src/spinner')
@@ -21,7 +16,7 @@ const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
 const { getNetworkName } = require('common/src/network')
 
-const contract = require('../scopes/interact')
+require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
   .addParam(
     'abi',
@@ -208,10 +203,3 @@ async function executeWrite(
 
   return buffer
 }
-
-// Specialized prompts for each param
-contract.paramDefinitions.abi.autocomplete = autocompleteAbi
-contract.paramDefinitions.address.autocomplete = autocompleteAddress
-contract.paramDefinitions.fn.autocomplete = autocompleteFn
-contract.paramDefinitions.params.autocomplete = autocompleteParams
-contract.paramDefinitions.value.autocomplete = autocompleteValue
