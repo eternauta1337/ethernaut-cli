@@ -17,7 +17,7 @@ require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 
-const txt = figlet.textSync('ethernaut-cli', { font: 'graffiti' })
+const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
 console.log(`v${version}`)
 
