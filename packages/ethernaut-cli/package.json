@@ -18,6 +18,7 @@
     "interactive",
     "ai"
   ],
+  "bin": "packages/ethernaut-cli/ethernaut",
   "dependencies": {
     "dotenv": "^16.4.1",
     "figlet": "^1.7.0",
