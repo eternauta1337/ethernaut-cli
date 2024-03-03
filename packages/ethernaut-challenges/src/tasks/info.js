@@ -7,7 +7,7 @@ const debug = require('common/src/debug')
 const replaceHomeDir = require('common/src/home-dir')
 const { getNetworkName } = require('common/src/network')
 
-require('../scopes/oz')
+require('../scopes/challenges')
   .task(
     'info',
     'Shows information about an open zeppelin challenges level. The info includes the level name, contract name, ABI path, address, and description. The ABI path can be used with the interact package call task to interact with the contract.',

@@ -3,7 +3,7 @@ const output = require('common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
 const { getNetworkName } = require('common/src/network')
 
-require('../scopes/oz')
+require('../scopes/challenges')
   .task(
     'check-all',
     'Checks all levels that have been completed and submitted by the player',

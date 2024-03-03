@@ -13,7 +13,7 @@ describe('check', function () {
 
     before('run instance 1', async function () {
       const output = await hre.run(
-        { scope: 'oz', task: 'instance' },
+        { scope: 'challenges', task: 'instance' },
         { level: '1' },
       )
       instanceAddress = extractAddress(output)
@@ -22,7 +22,7 @@ describe('check', function () {
     describe('before the instance is modified', function () {
       it('shows that the level hasnt been completed', async function () {
         assert.equal(
-          await hre.run({ scope: 'oz', task: 'check' }, { level: '1' }),
+          await hre.run({ scope: 'challenges', task: 'check' }, { level: '1' }),
           'Level not completed',
         )
       })
@@ -37,7 +37,10 @@ describe('check', function () {
 
         it('still shows that the level hasnt been completed', async function () {
           assert.equal(
-            await hre.run({ scope: 'oz', task: 'check' }, { level: '1' }),
+            await hre.run(
+              { scope: 'challenges', task: 'check' },
+              { level: '1' },
+            ),
             'Level not completed',
           )
         })
@@ -45,14 +48,17 @@ describe('check', function () {
         describe('when the instance is submitted', function () {
           before('submit instance', async function () {
             await hre.run(
-              { scope: 'oz', task: 'submit' },
+              { scope: 'challenges', task: 'submit' },
               { address: instanceAddress },
             )
           })
 
           it('shows that the level has been completed', async function () {
             assert.equal(
-              await hre.run({ scope: 'oz', task: 'check' }, { level: '1' }),
+              await hre.run(
+                { scope: 'challenges', task: 'check' },
+                { level: '1' },
+              ),
               'Level completed',
             )
           })

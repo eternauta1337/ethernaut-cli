@@ -13,12 +13,12 @@ describe('scopes', function () {
     assert.notEqual(hre.scopes['util'], undefined)
   })
 
-  it('has an "oz" scope', async function () {
-    assert.notEqual(hre.scopes['oz'], undefined)
+  it('has an "challenges" scope', async function () {
+    assert.notEqual(hre.scopes['challenges'], undefined)
   })
 
   it('has a "ui" scope', async function () {
-    assert.notEqual(hre.scopes['oz'], undefined)
+    assert.notEqual(hre.scopes['ui'], undefined)
   })
 
   it('doesnt have a "poop" scope', async function () {

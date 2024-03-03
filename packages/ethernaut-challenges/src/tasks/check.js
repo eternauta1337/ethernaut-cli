@@ -4,7 +4,7 @@ const output = require('common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
 const { getNetworkName } = require('common/src/network')
 
-require('../scopes/oz')
+require('../scopes/challenges')
   .task(
     'check',
     'Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements',

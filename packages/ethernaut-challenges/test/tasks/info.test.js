@@ -13,7 +13,10 @@ describe('info', function () {
     let levelInfo
 
     before('run info 1', async function () {
-      levelInfo = await hre.run({ scope: 'oz', task: 'info' }, { level: '1' })
+      levelInfo = await hre.run(
+        { scope: 'challenges', task: 'info' },
+        { level: '1' },
+      )
     })
 
     it('shows level name', async function () {
@@ -53,7 +56,10 @@ describe('info', function () {
     let levelInfo
 
     before('run info 2', async function () {
-      levelInfo = await hre.run({ scope: 'oz', task: 'info' }, { level: '2' })
+      levelInfo = await hre.run(
+        { scope: 'challenges', task: 'info' },
+        { level: '2' },
+      )
     })
 
     it('shows level name', async function () {

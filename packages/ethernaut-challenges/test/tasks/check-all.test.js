@@ -13,7 +13,7 @@ describe('check-all', function () {
 
   describe('before completing any level', function () {
     before('run check-all', async function () {
-      output = await hre.run({ scope: 'oz', task: 'check-all' })
+      output = await hre.run({ scope: 'challenges', task: 'check-all' })
     })
 
     it('shows that level 1 is incomplete', async function () {
@@ -33,7 +33,7 @@ describe('check-all', function () {
 
       before('get instance', async function () {
         output = await hre.run(
-          { scope: 'oz', task: 'instance' },
+          { scope: 'challenges', task: 'instance' },
           { level: '1' },
         )
         instanceAddress = extractAddress(output)
@@ -48,13 +48,13 @@ describe('check-all', function () {
 
       before('submit instance', async function () {
         output = await hre.run(
-          { scope: 'oz', task: 'submit' },
+          { scope: 'challenges', task: 'submit' },
           { address: instanceAddress },
         )
       })
 
       before('run check-all', async function () {
-        output = await hre.run({ scope: 'oz', task: 'check-all' })
+        output = await hre.run({ scope: 'challenges', task: 'check-all' })
       })
 
       it('shows that level 1 is complete', async function () {

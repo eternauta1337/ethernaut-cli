@@ -18,7 +18,10 @@ describe('instance', function () {
     let output
 
     before('run instance 1', async function () {
-      output = await hre.run({ scope: 'oz', task: 'instance' }, { level: '1' })
+      output = await hre.run(
+        { scope: 'challenges', task: 'instance' },
+        { level: '1' },
+      )
     })
 
     it('reports creation', async function () {
@@ -55,7 +58,10 @@ describe('instance', function () {
     let output
 
     before('run instance 2', async function () {
-      output = await hre.run({ scope: 'oz', task: 'instance' }, { level: '2' })
+      output = await hre.run(
+        { scope: 'challenges', task: 'instance' },
+        { level: '2' },
+      )
     })
 
     it('reports creation', async function () {

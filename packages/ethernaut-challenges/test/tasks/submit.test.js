@@ -12,7 +12,7 @@ describe('submit', function () {
     let instanceAddress
     before('run instance 1', async function () {
       const output = await hre.run(
-        { scope: 'oz', task: 'instance' },
+        { scope: 'challenges', task: 'instance' },
         { level: '1' },
       )
       instanceAddress = extractAddress(output)
@@ -24,7 +24,7 @@ describe('submit', function () {
 
         before('submit instance', async function () {
           output = await hre.run(
-            { scope: 'oz', task: 'submit' },
+            { scope: 'challenges', task: 'submit' },
             { address: instanceAddress },
           )
         })
@@ -50,7 +50,7 @@ describe('submit', function () {
 
         before('submit instance', async function () {
           output = await hre.run(
-            { scope: 'oz', task: 'submit' },
+            { scope: 'challenges', task: 'submit' },
             { address: instanceAddress },
           )
         })
