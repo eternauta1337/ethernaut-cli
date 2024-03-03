@@ -38,6 +38,7 @@ module.exports = {
           'navigate',
           'help',
           'run',
+          'console',
         ],
       },
     },

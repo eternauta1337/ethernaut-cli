@@ -97,7 +97,7 @@ function makeInteractive(task) {
 
       // If parameters were collected, print out the call
       if (Object.values(collectedArgs).length > 0) {
-        output.copyBox(toCliSyntax(args, task), 'Autocompleted')
+        output.info(toCliSyntax(args, task))
       }
     }
 
