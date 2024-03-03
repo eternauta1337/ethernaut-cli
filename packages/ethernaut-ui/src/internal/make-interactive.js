@@ -96,7 +96,7 @@ function makeInteractive(task) {
       args = { ...args, ...collectedArgs }
 
       // If parameters were collected, print out the call
-      if (Object.values(collectedArgs).length > 0) {
+      if (Object.values(collectedArgs).length > 1) {
         output.info(toCliSyntax(args, task))
       }
     }
@@ -116,27 +116,26 @@ function makeInteractive(task) {
 
 function toCliSyntax(args, task) {
   const name = task.scope ? `${task.scope} ${task.name}` : task.name
-  const printArgs = Object.entries(args)
-    .map(([argName, value]) => {
-      const isPositional = task.positionalParamDefinitions.some(
-        (p) => p.name === argName,
-      )
+  const printArgs = []
+  Object.entries(args).forEach(([argName, value]) => {
+    const isPositional = task.positionalParamDefinitions.some(
+      (p) => p.name === argName,
+    )
 
-      if (isPositional) {
-        return value
+    if (isPositional) {
+      printArgs.push(value)
+    } else {
+      const isFlag = task.paramDefinitions[argName]?.isFlag
+      argName = camelToKebabCase(argName)
+      if (isFlag) {
+        if (value === true) printArgs.push(`--${argName}`)
       } else {
-        const isFlag = task.paramDefinitions[argName]?.isFlag
-        argName = camelToKebabCase(argName)
-        if (isFlag) {
-          if (value === true) return `--${argName}`
-          else return ''
-        } else {
-          if (value !== undefined) return `--${argName} '${value}'`
-          else return ''
-        }
+        if (value !== undefined) printArgs.push(`--${argName} '${value}'`)
       }
-    })
-    .join(' ')
+    }
+  })
 
-  return `ethernaut ${name} ${printArgs}`
+  const printStr = printArgs.join(' ')
+
+  return `ethernaut ${name} ${printStr}`
 }

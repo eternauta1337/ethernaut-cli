@@ -16,7 +16,10 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
 
   const collectedArgs = {}
   for (let paramDef of paramDefinitions) {
-    if (paramDef.name === 'nonInteractive') continue
+    if (paramDef.name === 'nonInteractive') {
+      collectedArgs['nonInteractive'] = false
+      continue
+    }
 
     const providedArg = providedArgs[paramDef.name]
     const parsedArg = paramDef.parsedValue
@@ -57,7 +60,7 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
       providedArg === paramDef.defaultValue && parsedArg === undefined
     if (!isInjectedDefault) {
       debug.log('Value was provided by the user, skipping autocompletion', 'ui')
-      return providedArg
+      return undefined
     }
   }
 
