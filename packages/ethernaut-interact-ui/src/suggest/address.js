@@ -2,7 +2,7 @@ const storage = require('ethernaut-interact/src/internal/storage')
 const debug = require('common/src/debug')
 const { getNetworkName } = require('common/src/network')
 
-module.exports = async function promptAddress({ abi, address, hre }) {
+module.exports = async function suggestAddress({ abi, address, hre }) {
   if (!abi) return
 
   if (address !== undefined) return

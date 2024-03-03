@@ -51,7 +51,7 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
 
   // Is the parameter already provided,
   // but is not the default value injected by hardhat?
-  // If so, skip autocompletion
+  // If so, skip collection.
   if (providedArg) {
     const isInjectedDefault =
       providedArg === paramDef.defaultValue && parsedArg === undefined
@@ -70,12 +70,12 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
   // Does the parameter provide its own custom prompt function?
   if (!suggested && paramDef.prompt) {
     collectedArg = await customPrompt(paramDef, argsSoFar)
-    if (collectedArg !== undefined) return collectedArg
   }
 
   // Mmnope, ok. Ask the user to input the parameter in raw text
-  if (collectedArg === undefined)
+  if (collectedArg === undefined) {
     collectedArg = await rawPrompt(paramDef, suggested || paramDef.defaultValue)
+  }
 
   return collectedArg
 }

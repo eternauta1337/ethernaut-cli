@@ -6,10 +6,8 @@ const {
 const debug = require('common/src/debug')
 const prompt = require('common/src/prompt')
 
-module.exports = async function promptFn({ fn, abi }) {
+module.exports = async function promptFn({ abi }) {
   if (!abi) return
-
-  if (fn !== undefined) return
 
   try {
     const _abi = loadAbi(abi)

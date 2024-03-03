@@ -6,9 +6,7 @@ const strategies = {
   MANUAL: 'Enter url manually',
 }
 
-module.exports = async function promptUrl({ url }) {
-  if (url) return undefined
-
+module.exports = async function promptUrl() {
   const choice = await selectStrategy()
   switch (choice) {
     case strategies.KNOWN:

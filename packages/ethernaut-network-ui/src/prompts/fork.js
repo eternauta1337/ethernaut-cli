@@ -6,7 +6,7 @@ module.exports = async function promptFork({ fork, paramDefault }) {
   const isDefault = fork === paramDefault
 
   // No need to prompt?
-  if (valueProvided && !isDefault) return undefined
+  if (valueProvided && !isDefault) return fork
 
   const choices = ['none'].concat(
     Object.keys(storage.readNetworks()).filter(

@@ -14,7 +14,7 @@ module.exports = async function promptUnit({
     paramName === 'from' ? from === paramDefault : to === paramDefault
 
   // No need to prompt?
-  if (valueProvided && !isDefault) return undefined
+  if (valueProvided && !isDefault) return paramName === 'from' ? from : to
 
   // Choices are all units minus the one used
   let choices = units.concat()
