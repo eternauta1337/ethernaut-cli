@@ -1,6 +1,6 @@
 const hashStr = require('common/src/hash-str')
 const storage = require('../storage')
-const openai = require('../openai')
+const openai = require('../openai').openai
 const debug = require('common/src/debug')
 const EventEmitter = require('events')
 

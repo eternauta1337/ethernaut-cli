@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: require('path').resolve(__dirname, '../../../../../.env'),
+  path: require('path').resolve(__dirname, '../../../../ethernaut-cli/.env'),
 })
 require('@nomicfoundation/hardhat-ethers')
 require('../../../src/index')

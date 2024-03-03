@@ -6,6 +6,7 @@ const output = require('common/src/output')
 const debug = require('common/src/debug')
 const spinner = require('common/src/spinner')
 const prompt = require('common/src/prompt')
+const checkEnvVar = require('common/src/check-env')
 
 let _noConfirm
 let _thread
@@ -31,6 +32,11 @@ require('../scopes/ai')
   .addFlag('newThread', 'Start a new thread')
   .setAction(async ({ query, newThread, noConfirm, model }, hre) => {
     try {
+      await checkEnvVar(
+        'OPENAI_API_KEY',
+        'This is required by the ai package to interact with the openai assistants API.',
+      )
+
       _noConfirm = noConfirm
       _query = query
 

@@ -1,6 +1,4 @@
-require('dotenv').config({
-  path: require('path').resolve(__dirname, '../../.env'),
-})
+require('dotenv').config()
 const figlet = require('figlet')
 const { version } = require('./package.json')
 
