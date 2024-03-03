@@ -1,14 +1,13 @@
 const { units } = require('ethernaut-util/src/tasks/unit')
 const prompt = require('common/src/prompt')
 
-module.exports = function setup(hre) {
-  const unit = hre.scopes.util.tasks.unit
-
-  unit.paramDefinitions['from'].prompt = promptUnit
-  unit.paramDefinitions['to'].prompt = promptUnit
-}
-
-async function promptUnit({ paramName, paramDefault, description, from, to }) {
+module.exports = async function promptUnit({
+  paramName,
+  paramDefault,
+  description,
+  from,
+  to,
+}) {
   const valueProvided =
     paramName === 'from' ? from !== undefined : to !== undefined
   const isDefault =
