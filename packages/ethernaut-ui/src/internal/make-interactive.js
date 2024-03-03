@@ -37,11 +37,8 @@ function makeInteractive(task) {
   }
   debug.log(`Making task "${task.name}" interactive`, 'ui-deep')
 
-  // TODO: Ai doesn't know how to handle flags
-  // TODO: This wont really work until I can parse args
-  // before extending the environment...
-  // Rn it will throw if this flag is used
-  // task.addFlag('nonInteractive', 'Disable interactivity', false);
+  // Inject global interactivity params
+  task.addFlag('nonInteractive', 'Disable interactivity', false)
 
   // Note:
   // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js,
@@ -92,17 +89,17 @@ function makeInteractive(task) {
   // Override the action so that we can
   // collect parameters from the user before runnint it
   const action = async (args, hre, runSuper) => {
-    // const { nonInteractive } = args;
+    const { nonInteractive } = args
 
-    // if (nonInteractive === false) {
-    const collectedArgs = await collectArguments(args, task, _hre)
-    args = { ...args, ...collectedArgs }
+    if (nonInteractive === false) {
+      const collectedArgs = await collectArguments(args, task, _hre)
+      args = { ...args, ...collectedArgs }
 
-    // If parameters were collected, print out the call
-    if (Object.values(collectedArgs).length > 0) {
-      output.copyBox(toCliSyntax(args, task), 'Autocompleted')
+      // If parameters were collected, print out the call
+      if (Object.values(collectedArgs).length > 0) {
+        output.copyBox(toCliSyntax(args, task), 'Autocompleted')
+      }
     }
-    // }
 
     return await runSuper(args, hre, runSuper)
   }

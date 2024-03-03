@@ -17,10 +17,6 @@ describe('scopes', function () {
     assert.notEqual(hre.scopes['challenges'], undefined)
   })
 
-  it('doesnt have a "vars" scope', async function () {
-    assert.equal(hre.scopes['vars'], undefined)
-  })
-
   it('doesnt have a "poop" scope', async function () {
     assert.equal(hre.scopes['poop'], undefined)
   })

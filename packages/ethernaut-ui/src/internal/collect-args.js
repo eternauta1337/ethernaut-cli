@@ -16,8 +16,7 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
 
   const collectedArgs = {}
   for (let paramDef of paramDefinitions) {
-    // TODO: Handle flags
-    // if (paramDef.isFlag) continue;
+    if (paramDef.name === 'nonInteractive') continue
 
     const providedArg = providedArgs[paramDef.name]
     const parsedArg = paramDef.parsedValue

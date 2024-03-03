@@ -4,7 +4,8 @@ require('dotenv').config({
 const figlet = require('figlet')
 const { version } = require('./package.json')
 
-require('ethernaut-challenges')
+require('@nomicfoundation/hardhat-ethers')
+
 require('ethernaut-ai')
 require('ethernaut-ui')
 require('ethernaut-util')
@@ -15,6 +16,7 @@ require('ethernaut-network')
 require('ethernaut-network-ui')
 require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
+require('ethernaut-challenges')
 
 const fonts = figlet.fontsSync()
 const font = fonts[Math.floor(Math.random() * fonts.length)]
