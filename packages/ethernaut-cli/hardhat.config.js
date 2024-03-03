@@ -1,5 +1,6 @@
 require('dotenv').config()
 const figlet = require('figlet')
+const chalkAnimation = require('chalk-animation')
 const { version } = require('./package.json')
 
 require('@nomicfoundation/hardhat-ethers')
@@ -16,9 +17,8 @@ require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 
-const fonts = figlet.fontsSync()
-const font = fonts[Math.floor(Math.random() * fonts.length)]
-console.log(figlet.textSync('EthernautCLI', { font }))
+const txt = figlet.textSync('ethernaut-cli', { font: 'graffiti' })
+chalkAnimation.rainbow(txt).render()
 console.log(`v${version}`)
 
 module.exports = {

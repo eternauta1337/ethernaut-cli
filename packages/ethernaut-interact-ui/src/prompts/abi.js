@@ -4,6 +4,7 @@ const prompt = require('common/src/prompt')
 const spinner = require('common/src/spinner')
 const debug = require('common/src/debug')
 const { getNetworkName } = require('common/src/network')
+const checkEnvVar = require('common/src/check-env')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
@@ -106,6 +107,11 @@ async function browseKnwonAbis() {
 }
 
 async function getAbiFromEtherscan(address, network) {
+  await checkEnvVar(
+    'ETHERSCAN_API_KEY',
+    'This key is required to fetch ABIs from Etherscan',
+  )
+
   spinner.progress('Fetching ABI from Etherscan...', 'etherscan')
 
   const networkComp = network === 'mainnet' ? '' : `-${network}`
