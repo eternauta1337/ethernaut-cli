@@ -20,8 +20,8 @@ extendConfig((config, userConfig) => {
 
   config.ethernaut.ui = {
     exclude: {
-      scopes: userConfig.ethernaut?.ui?.exclude?.scopes || [],
-      tasks: userConfig.ethernaut?.ui?.exclude?.tasks || [],
+      scopes: userConfig.ethernaut?.ui?.exclude?.scopes.concat() || [],
+      tasks: userConfig.ethernaut?.ui?.exclude?.tasks.concat() || [],
     },
   }
 })

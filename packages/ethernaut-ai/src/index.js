@@ -12,15 +12,18 @@ extendEnvironment((hre) => {
 })
 
 extendConfig((config, userConfig) => {
-  config = {
-    ...config,
-    ethernaut: {
-      ai: {
-        interpreter: {
-          additionalInstructions:
-            userConfig.ethernaut.ai.interpreter.additionalInstructions || [],
-        },
-      },
+  if (!config.ethernaut) config.ethernaut = {}
+
+  config.ethernaut.ai = {
+    interpreter: {
+      additionalInstructions:
+        userConfig.ethernaut?.ai?.interpreter?.additionalInstructions.concat() ||
+        [],
+    },
+    explainer: {
+      additionalInstructions:
+        userConfig.ethernaut?.ai?.explainer?.additionalInstructions.concat() ||
+        [],
     },
   }
 })

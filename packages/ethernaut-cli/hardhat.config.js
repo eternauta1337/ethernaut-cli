@@ -43,10 +43,10 @@ module.exports = {
     },
     ai: {
       interpreter: {
-        additionalInstructions: [''],
+        additionalInstructions: [],
       },
       explainer: {
-        additionalInstructions: [''],
+        additionalInstructions: [],
       },
     },
   },
