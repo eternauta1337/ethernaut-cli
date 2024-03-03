@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "dotenv": "^16.4.1",
+    "figlet": "^1.7.0",
     "hardhat": "^2.19.4"
   },
   "scripts": {
