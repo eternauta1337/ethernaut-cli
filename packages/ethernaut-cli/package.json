@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "description": "AI powered interactive cli for Ethereum hackers",
   "license": "ISC",
   "repository": {
@@ -24,9 +24,22 @@
     "ethernaut"
   ],
   "dependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "dotenv": "^16.4.1",
     "figlet": "^1.7.0",
-    "hardhat": "^2.19.4"
+    "hardhat": "^2.19.4",
+    "common": "../common",
+    "ethernaut-ai": "../ethernaut-ai",
+    "ethernaut-ui": "../ethernaut-ui",
+    "ethernaut-util": "../ethernaut-util",
+    "ethernaut-util-ui": "../ethernaut-util-ui",
+    "ethernaut-interact": "../ethernaut-interact",
+    "ethernaut-interact-ui": "../ethernaut-interact-ui",
+    "ethernaut-network": "../ethernaut-network",
+    "ethernaut-network-ui": "../ethernaut-network-ui",
+    "ethernaut-wallet": "../ethernaut-wallet",
+    "ethernaut-wallet-ui": "../ethernaut-wallet-ui",
+    "ethernaut-challenges": "../ethernaut-challenges"
   },
   "scripts": {
     "build": "echo 'No build step'",
