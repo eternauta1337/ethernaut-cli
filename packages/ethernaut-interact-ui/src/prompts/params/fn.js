@@ -6,7 +6,7 @@ const {
 const debug = require('common/src/debug')
 const prompt = require('common/src/prompt')
 
-module.exports = async function autocompleteFn({ fn, abi }) {
+module.exports = async function promptFn({ fn, abi }) {
   if (!abi) return
 
   if (fn !== undefined) return

@@ -1,11 +1,11 @@
 const prompt = require('common/src/prompt')
 const storage = require('ethernaut-network/src/internal/storage')
 
-module.exports = async function autocompleteFork({ fork, paramDefault }) {
+module.exports = async function promptFork({ fork, paramDefault }) {
   const valueProvided = fork !== undefined
   const isDefault = fork === paramDefault
 
-  // No need to autocomplete?
+  // No need to prompt?
   if (valueProvided && !isDefault) return undefined
 
   const choices = ['none'].concat(

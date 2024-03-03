@@ -4,23 +4,17 @@ const prompt = require('common/src/prompt')
 module.exports = function setup(hre) {
   const unit = hre.scopes.util.tasks.unit
 
-  unit.paramDefinitions['from'].autocomplete = autocompleteUnit
-  unit.paramDefinitions['to'].autocomplete = autocompleteUnit
+  unit.paramDefinitions['from'].prompt = promptUnit
+  unit.paramDefinitions['to'].prompt = promptUnit
 }
 
-async function autocompleteUnit({
-  paramName,
-  paramDefault,
-  description,
-  from,
-  to,
-}) {
+async function promptUnit({ paramName, paramDefault, description, from, to }) {
   const valueProvided =
     paramName === 'from' ? from !== undefined : to !== undefined
   const isDefault =
     paramName === 'from' ? from === paramDefault : to === paramDefault
 
-  // No need to autocomplete?
+  // No need to prompt?
   if (valueProvided && !isDefault) return undefined
 
   // Choices are all units minus the one used

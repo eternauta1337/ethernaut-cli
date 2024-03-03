@@ -2,7 +2,7 @@ const prompt = require('common/src/prompt')
 const storage = require('ethernaut-wallet/src/internal/storage')
 
 module.exports = (message = 'Select a wallet') => {
-  return async function autocompleteAlias({ alias }) {
+  return async function promptAlias({ alias }) {
     if (alias) return undefined
 
     const choices = Object.keys(storage.readSigners()).filter(

@@ -4,7 +4,7 @@ require('ethernaut-ui/src/index')
 require('ethernaut-wallet/src/index')
 
 extendEnvironment((hre) => {
-  require('./autocomplete/tasks/activate')(hre)
-  require('./autocomplete/tasks/info')(hre)
-  require('./autocomplete/tasks/remove')(hre)
+  require('./prompts/tasks/activate')(hre)
+  require('./prompts/tasks/info')(hre)
+  require('./prompts/tasks/remove')(hre)
 })

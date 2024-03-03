@@ -14,7 +14,7 @@ const strategies = {
   MANUAL: 'Enter path manually',
 }
 
-module.exports = async function autocompleteAbi({ abi, hre, address }) {
+module.exports = async function promptAbi({ abi, hre, address }) {
   try {
     const network = await getNetworkName(hre)
 
@@ -40,7 +40,7 @@ module.exports = async function autocompleteAbi({ abi, hre, address }) {
 
     // If there is an abi at this point,
     // return undefined, signaling that there was
-    // no need to autocomplete.
+    // no need to prompt.
     if (abi) return undefined
 
     // Try to deduce the abi from previous interactions

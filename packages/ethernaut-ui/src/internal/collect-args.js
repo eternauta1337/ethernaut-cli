@@ -49,8 +49,9 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
 
   let collectedArg
 
-  // Is the parameter already provided?
-  // (But is not the default value injected by hardhat)
+  // Is the parameter already provided,
+  // but is not the default value injected by hardhat?
+  // If so, skip autocompletion
   if (providedArg) {
     const isInjectedDefault =
       providedArg === paramDef.defaultValue && parsedArg === undefined
@@ -60,9 +61,9 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
     }
   }
 
-  // Does the parameter provide its own autocomplete function?
-  if (paramDef.autocomplete) {
-    collectedArg = await autocomplete(paramDef, argsSoFar)
+  // Does the parameter provide its own prompt function?
+  if (paramDef.prompt) {
+    collectedArg = await customPrompt(paramDef, argsSoFar)
     if (collectedArg !== undefined) return collectedArg
   }
 
@@ -72,10 +73,10 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
   return collectedArg
 }
 
-async function autocomplete(paramDef, argsSoFar) {
+async function customPrompt(paramDef, argsSoFar) {
   debug.log(`Running autocompletion for "${paramDef.name}"`, 'ui')
 
-  const collectedArg = await paramDef.autocomplete({
+  const collectedArg = await paramDef.prompt({
     hre: _hre,
     paramName: paramDef.name,
     paramDefault: paramDef.defaultValue,

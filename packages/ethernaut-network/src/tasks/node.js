@@ -3,7 +3,6 @@ const output = require('common/src/output')
 const { execSync } = require('child_process')
 const { isUrl } = require('common/src/url')
 const storage = require('../internal/storage')
-// const autocompleteFork = require('./autocomplete/fork')
 const applyEnvVars = require('../internal/apply-env-vars')
 
 require('../scopes/network')

@@ -2,7 +2,7 @@ const loadAbi = require('ethernaut-interact/src/tasks/contract/load-abi')
 const debug = require('common/src/debug')
 const prompt = require('common/src/prompt')
 
-module.exports = async function autocompleteParams({ params, abi, fn }) {
+module.exports = async function promptParams({ params, abi, fn }) {
   if (!abi) return
 
   if (params !== undefined) return
