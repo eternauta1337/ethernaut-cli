@@ -61,20 +61,39 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
     }
   }
 
-  // Does the parameter provide its own prompt function?
-  if (paramDef.prompt) {
+  // Does the parameter provide suggestions?
+  let suggested
+  if (paramDef.suggest) {
+    suggested = await suggest(paramDef, argsSoFar)
+  }
+
+  // Does the parameter provide its own custom prompt function?
+  if (!suggested && paramDef.prompt) {
     collectedArg = await customPrompt(paramDef, argsSoFar)
     if (collectedArg !== undefined) return collectedArg
   }
 
   // Mmnope, ok. Ask the user to input the parameter in raw text
-  if (collectedArg === undefined) collectedArg = await rawPrompt(paramDef)
+  if (collectedArg === undefined)
+    collectedArg = await rawPrompt(paramDef, suggested || paramDef.defaultValue)
 
   return collectedArg
 }
 
+async function suggest(paramDef, argsSoFar) {
+  debug.log(`Running suggestions for "${paramDef.name}"`, 'ui')
+
+  const suggestion = await paramDef.suggest({
+    hre: _hre,
+    ...argsSoFar,
+  })
+  debug.log(`Suggested value for "${paramDef.name}": "${suggestion}"`, 'ui')
+
+  return suggestion
+}
+
 async function customPrompt(paramDef, argsSoFar) {
-  debug.log(`Running autocompletion for "${paramDef.name}"`, 'ui')
+  debug.log(`Running custom prompt for "${paramDef.name}"`, 'ui')
 
   const collectedArg = await paramDef.prompt({
     hre: _hre,
@@ -87,15 +106,17 @@ async function customPrompt(paramDef, argsSoFar) {
   return collectedArg
 }
 
-async function rawPrompt(param) {
-  const description = param.description
-    ? ` (${param.description.split('.')[0].substring(0, 150)})`
+async function rawPrompt(paramDef, suggested) {
+  debug.log(`Running raw prompt for "${paramDef.name}"`, 'ui')
+
+  const description = paramDef.description
+    ? ` (${paramDef.description.split('.')[0].substring(0, 150)})`
     : ''
 
   const result = await prompt({
     type: 'input',
-    message: `Enter ${param.name}${description}:`,
-    initial: param.defaultValue,
+    message: `Enter ${paramDef.name}${description}:`,
+    initial: suggested,
   })
 
   if (result === 'false') return false
