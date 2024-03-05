@@ -37,7 +37,8 @@ function collectParameterSpecs(task) {
   }
 
   for (const param of Object.values(task.paramDefinitions)) {
-    const name = `_${param.name}`
+    const isFlag = param.isFlag
+    const name = `_${isFlag ? '$' : ''}${param.name}`
     properties[name] = {
       type: 'string',
       description: param.description,

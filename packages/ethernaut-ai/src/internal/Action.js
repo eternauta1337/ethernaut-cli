@@ -47,7 +47,8 @@ class Action {
       if (name.includes('_')) {
         value = value === 'true' ? true : value
         value = value === 'false' ? false : value
-        this.args[name.replace('_', '')] = value
+        const cleanName = name.replace('_', '').replace('$', '')
+        this.args[cleanName] = value
       }
     })
   }
@@ -102,6 +103,11 @@ class Action {
     // Function name can be '<scope>.<task>' or just '<task>
     // For print out, replace '.' with ' '.
     const name = this.function.name.replace('.', ' ')
+    debug.log(`Building cli syntax for ${name}`, 'ai')
+    debug.log(
+      `OpenAI function: ${JSON.stringify(this.function, null, 2)}`,
+      'ai',
+    )
 
     // The first token is task name (with scope if present)
     const tokens = ['ethernaut', name]
@@ -110,16 +116,24 @@ class Action {
     // but option names are marked starting with an underscore.
     const argsAndOpts = JSON.parse(this.function.arguments)
     Object.entries(argsAndOpts).forEach(([name, value]) => {
+      debug.log(`Processing ${name}=${value}`, 'ai')
       const isOption = name.includes('_')
+      const isFlag = name.includes('$')
+      debug.log(`isOption: ${isOption}, isFlag: ${isFlag}`, 'ai')
 
       if (isOption) {
-        name = name.substring(1) // Remove underscore
+        name = isFlag ? name.substring(2) : name.substring(1) // Remove underscore
         name = `--${camelToKebabCase(name)}`
-        tokens.push(name)
+        if (!isFlag || value === 'true') {
+          tokens.push(name)
+        }
       }
 
-      tokens.push(`${value}`)
+      if (!isFlag) {
+        tokens.push(`${value}`)
+      }
     })
+    debug.log(`Tokens: ${tokens}`, 'ai')
 
     return tokens.join(' ')
   }
