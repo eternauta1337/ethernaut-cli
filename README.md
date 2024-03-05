@@ -57,7 +57,7 @@ You want the AI to also teach you about Ethereum. Also sure.
 
 ## Extensibility through hardhat plugins
 
-Interesting toy aint it?
+Interesting toy ain't it?
 
 You don't have to use this entire plethora of features tho. You can use a single feature in your regular hardhat project with exactly what you need. This is because the ethernaut-cli is completely built with hardhat plugins.
 
@@ -81,7 +81,7 @@ Tasks for sending transactions and interacting with contracts
 
 ### ethernaut-interact-ui
 
-Ui expensions for the ethernaut-interact package
+Ui extensions for the ethernaut-interact package
 
 ### ethernaut-network
 
@@ -89,7 +89,7 @@ Tasks for interacting with different networks
 
 ### ethernaut-network-ui
 
-Ui expensions for the ethernaut-network package
+Ui extensions for the ethernaut-network package
 
 ### ethernaut-ui
 
@@ -101,7 +101,7 @@ Simple, everyday utilities for Ethereum devs
 
 ### ethernaut-util-ui
 
-Ui expensions for the ethernaut-util package
+Ui extensions for the ethernaut-util package
 
 ### ethernaut-wallet
 
@@ -109,15 +109,15 @@ Tasks for interacting from different Ethereum accounts
 
 ### ethernaut-wallet-ui
 
-Ui expensions for the ethernaut-wallet package
+Ui extensions for the ethernaut-wallet package
 
 ## Additional packages
 
-Apart from plugins, the following packages can also be found on this monorepo.
+Apart from plugins, the following packages can also be found on this monorepo
 
 ### ethernaut-cli
 
-Swiss army knife command line application for Ethereum devs
+Hardhat project that combines all the plugins above and produces the ethernaut-cli binary, etc
 
 ### common
 
