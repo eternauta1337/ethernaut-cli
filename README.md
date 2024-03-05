@@ -1,11 +1,6 @@
 # ethernaut-cli
 
-Ethereum swiss army ~knife~
-Ethereum swiss army ~superweapon~
-Ethereum swiss army ~cli~
-Ethereum swiss army ~tool~
-Ethereum swiss army thing?
-
+Ethereum swiss army ~knife~ ~superweapon~ ~cli~ ~tool~ thing?
 ...for Ethereum hackers.
 
 ## Installation
