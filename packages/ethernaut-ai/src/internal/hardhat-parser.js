@@ -84,7 +84,6 @@ function preParse(hre) {
       'ai',
       'interpret',
       '--new-thread',
-      '--non-interactive',
       allUnparsedCLAs.join(' '),
     ]
     debug.log(`Modifying args to: ${newArgs}`, 'parse')
