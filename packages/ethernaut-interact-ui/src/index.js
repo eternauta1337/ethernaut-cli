@@ -10,5 +10,4 @@ extendEnvironment((hre) => {
   contract.paramDefinitions.address.suggest = require('./suggest/address')
   contract.paramDefinitions.fn.prompt = require('./prompts/fn')
   contract.paramDefinitions.params.prompt = require('./prompts/params')
-  contract.paramDefinitions.value.suggest = require('./suggest/value')
 })

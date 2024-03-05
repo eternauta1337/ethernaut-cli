@@ -4,10 +4,14 @@ Ui extensions for the ethernaut-util package
 
 ## What
 
-### Unit task
+### unit task
 
 - from: Prompt with list of common units like ether, wei, kwei, etc
 - to: Prompt with list of common units like ether, wei, kwei, etc
+
+### Suggestions
+
+This ui extension does not provide any parameter suggestions.
 
 ## Installation
 
