@@ -19,7 +19,11 @@ Once in a task, interactive mode kicks in, and all parameters are collected thro
 
 ## Ui extensions
 
-Plugins of plugins that enhance param collection prompts with cooler prompts, smart suggestions, etc.
+Plugins of plugins? Why not.
+
+Plugins that enhance parameter collection prompts in other plugins with even cooler prompts, smart suggestions, etc.
+
+For example, the ui extension of the interact plugin can fetch the abi from Etherscan if you didn't provide an abi.
 
 ## Natural language to cli commands
 
@@ -79,7 +83,7 @@ Ui expensions for the ethernaut-wallet package
 
 ## Additional packages
 
-TODO
+Apart from plugins, the following packages can also be found on this monorepo.
 
 ### ethernaut-cli
 
