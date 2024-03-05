@@ -32,10 +32,7 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
       argsSoFar,
     )
     if (collectedArg !== undefined) {
-      debug.log(
-        `Autocompletion for "${paramDef.name}" collected "${collectedArg}"`,
-        'ui',
-      )
+      debug.log(`Collected ${paramDef.name}" with "${collectedArg}"`, 'ui')
 
       collectedArgs[paramDef.name] = collectedArg
     }
@@ -71,13 +68,23 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
   }
 
   // Does the parameter provide its own custom prompt function?
-  if (!suggested && paramDef.prompt) {
+  if (suggested === undefined && paramDef.prompt) {
     collectedArg = await customPrompt(paramDef, argsSoFar)
+    debug.log(
+      `Custom prompt for "${paramDef.name}" collected "${collectedArg}"`,
+      'ui',
+    )
   }
 
   // Mmnope, ok. Ask the user to input the parameter in raw text
   if (collectedArg === undefined) {
-    collectedArg = await rawPrompt(paramDef, suggested || paramDef.defaultValue)
+    const suggestedRes =
+      suggested === undefined ? paramDef.defaultValue : suggested
+    collectedArg = await rawPrompt(paramDef, suggestedRes)
+    debug.log(
+      `Raw prompt for "${paramDef.name}" collected "${collectedArg}"`,
+      'ui',
+    )
   }
 
   return collectedArg

@@ -1,8 +1,15 @@
 const { prompt } = require('enquirer')
-const suggest = require('common/src/enquirer-suggest')
+const suggestDef = require('common/src/enquirer-suggest')
 const spinner = require('common/src/spinner')
 
-module.exports = async function ({ type, message, choices, limit, initial }) {
+module.exports = async function ({
+  type,
+  suggest,
+  message,
+  choices,
+  limit,
+  initial,
+}) {
   // Spinners eat up the last line of output,
   // which prompts use. So they can't coexist.
   // Thus, this utility guarantees that spinners
@@ -15,7 +22,7 @@ module.exports = async function ({ type, message, choices, limit, initial }) {
     message,
     choices,
     limit,
-    suggest,
+    suggest: suggest || suggestDef,
     initial,
   }).catch(() => {
     // ctrl-c exits the prompt, and another ctrl-c

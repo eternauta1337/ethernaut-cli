@@ -23,7 +23,7 @@ module.exports = async function promptAbi({ abi, hre, address }) {
     // Execute the chosen strategy
     switch (choice) {
       case strategies.BROWSE:
-        abi = await browseKnwonAbis()
+        abi = await browseKnownAbis()
         break
       case strategies.ETHERSCAN:
         abi = await getAbiFromEtherscan(address, network)
@@ -90,7 +90,7 @@ async function selectStrategy({ address }) {
   })
 }
 
-async function browseKnwonAbis() {
+async function browseKnownAbis() {
   const abiFiles = storage.readAbiFiles()
 
   const choices = abiFiles.map((file) => ({
@@ -101,7 +101,12 @@ async function browseKnwonAbis() {
   return await prompt({
     type: 'autocomplete',
     message: 'Pick an ABI',
-    limit: 15,
+    limit: 10,
+    suggest: (input, choices) => {
+      return choices.filter((choice) => {
+        return choice.message.toLowerCase().includes(input.toLowerCase())
+      })
+    },
     choices,
   })
 }
