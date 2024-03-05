@@ -21,13 +21,23 @@ Once in a task, interactive mode kicks in, and all parameters are collected thro
 
 ![Enquirer param collection](demos/interactive.gif)
 
+## Normal CLI interaction
+
+TODO
+
 ## Ui extensions
 
 Plugins of plugins? Why not.
 
 Plugins that enhance parameter collection prompts in other plugins with even cooler prompts, smart suggestions, etc.
 
-For example, the ui extension of the interact plugin can fetch the abi from Etherscan if you didn't provide an abi.
+For example, the ui extension of the interact plugin can fetch the abi from Etherscan if you didn't provide an abi:
+
+![Etherscan custom abi prompt](demos/custom.gif)
+
+But after you've interacted with the contract, it already has the abi, so the abi is instead suggested:
+
+![Abi suggestion](demos/custom1.gif)
 
 ## Natural language to cli commands
 
