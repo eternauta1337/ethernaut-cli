@@ -23,7 +23,9 @@ Once in a task, interactive mode kicks in, and all parameters are collected thro
 
 ## Normal CLI interaction
 
-TODO
+This is still a regular CLI app, so commands can be called without all the fancy ui or ai stuff:
+
+![Normal CLI mode](demos/normal.gif)
 
 ## Ui extensions
 
