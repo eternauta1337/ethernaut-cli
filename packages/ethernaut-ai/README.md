@@ -67,8 +67,6 @@ This plugin doesn't add any fields to the hre.
 
 ## Configuration
 
-<_A description of each extension to the HardhatConfig or to its fields_>
-
 This plugin extends the `HardhatUserConfig`'s `ProjectPathsUserConfig` object with the following fields:
 
 ```
@@ -84,8 +82,6 @@ config.ethernaut.ai = {
 
 ## Usage
 
-<_A description of how to use this plugin. How to use the tasks if there are any, etc._>
-
 The plugin pre-parses input, so you can just type what you need:
 
 ```
@@ -95,5 +91,5 @@ npx hardhat I need to compile this project
 However, if you need more fine grained control, you can use the `interpret` task within the `ai` scope:
 
 ```
-npx hardhat ai interpret "I need to compile this project"
+npx hardhat ai interpret "I need to compile this project" --new-thread --no-confirm
 ```
