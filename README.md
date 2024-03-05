@@ -57,7 +57,15 @@ You want the AI to also teach you about Ethereum. Also sure.
 
 ## Extensibility through hardhat plugins
 
-Composable and extensible framework built on top of hardhat. All plugins can be used independetly, or combined together as the ethernaut-cli.
+Interesting toy aint it?
+
+You don't have to use this entire plethora of features tho. You can use a single feature in your regular hardhat project with exactly what you need. This is because the ethernaut-cli is completely built with hardhat plugins.
+
+You just want task navigation and interactive mode in your project: use the `ethernaut-ui` plugin.
+
+Or the ai stuff: use `ethernaut-ai` plugin.
+
+All the plugins combined conform the ethernaut-cli experience, and each is listed below:
 
 ### ethernaut-ai
 
