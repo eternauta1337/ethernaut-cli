@@ -19,7 +19,7 @@ Just type `ethernaut` and jump straight into an enquirer based navigation mode. 
 
 Once in a task, interactive mode kicks in, and all parameters are collected through enquirer prompts.
 
-![Enquirer navigation](demos/interactive.gif)
+![Enquirer param collection](demos/interactive.gif)
 
 ## Ui extensions
 
