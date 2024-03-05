@@ -1,6 +1,12 @@
 # ethernaut-cli
 
-Swiss army knife command line application for Ethereum devs and hackers.
+Ethereum swiss army ~knife~
+Ethereum swiss army ~superweapon~
+Ethereum swiss army ~cli~
+Ethereum swiss army ~tool~
+Ethereum swiss army thing?
+
+...for Ethereum hackers.
 
 ## Installation
 
