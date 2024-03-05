@@ -4,7 +4,6 @@ const fs = require('fs')
 const path = require('path')
 const output = require('common/src/output')
 const debug = require('common/src/debug')
-const replaceHomeDir = require('common/src/home-dir')
 const { getNetworkName } = require('common/src/network')
 
 require('../scopes/challenges')
@@ -53,9 +52,7 @@ async function getLevelInfo(level) {
   const name = levelInfo.name
   const contractName = levelInfo.instanceContract.split('.')[0]
 
-  const abi = replaceHomeDir(
-    path.join(helper.getAbisPath(), `${contractName}.json`),
-  )
+  const abi = path.join(helper.getAbisPath(), `${contractName}.json`)
 
   const sourcePath = path.join(helper.getSourcesPath(), `${contractName}.sol`)
   const source = fs.readFileSync(sourcePath, 'utf8')

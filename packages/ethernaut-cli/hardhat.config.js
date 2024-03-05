@@ -33,7 +33,6 @@ module.exports = {
           'check',
           'clean',
           'flatten',
-          'node',
           'test',
           'navigate',
           'help',

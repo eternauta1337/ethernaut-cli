@@ -83,10 +83,8 @@ function preParse(hre) {
     const newArgs = [
       'ai',
       'interpret',
-      '--model',
-      'assistant-defined',
-      '--no-confirm',
       '--new-thread',
+      '--non-interactive',
       allUnparsedCLAs.join(' '),
     ]
     debug.log(`Modifying args to: ${newArgs}`, 'parse')
