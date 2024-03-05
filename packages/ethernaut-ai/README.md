@@ -2,11 +2,15 @@
 
 AI assistant that interprets user input and executes hardhat tasks
 
+![Ai natural language interpretation](../../demos/interpret.gif)
+
 ## What
 
 This plugin exposes all hardhat tasks to ChatGPT using the OpenAI assistants api, effectively producing an agent that knows how to use all the hardhat tasks in your project.
 
 Additionally, the assistant can be used to explain why a particular natural language query was interpreted to a given command, or how the command itself works.
+
+![Explain commands](../../demos/explain.gif)
 
 The assistant is automatically rebuilt whenever any of the task descriptions or parameters change.
 
