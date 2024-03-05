@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-cli",
   "version": "1.0.0-alpha.1",
-  "description": "AI powered interactive cli for Ethereum hackers",
+  "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
   "repository": {
     "type": "git",

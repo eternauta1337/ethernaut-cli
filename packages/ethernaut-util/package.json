@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-util",
   "version": "1.0.0",
-  "description": "A collection of tools for the Ethernaut CLI",
+  "description": "Simple, everyday utilities for Ethereum devs",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",

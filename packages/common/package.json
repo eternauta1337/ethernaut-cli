@@ -1,6 +1,7 @@
 {
   "name": "common",
   "version": "1.0.0",
+  "description": "Simple utilities used across all packages in the monorepo",
   "private": true,
   "scripts": {
     "build": "npm run install:test",

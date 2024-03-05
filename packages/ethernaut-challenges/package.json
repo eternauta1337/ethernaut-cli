@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-challenges",
   "version": "1.0.0",
-  "description": "Play the Open Zeppelin ethernaut challenges in the cli",
+  "description": "Tasks for playing the Open Zeppelin Ethernaut challenges from the CLI",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",

@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-network",
   "version": "1.0.0",
-  "description": "Ethernaut CLI network utilities",
+  "description": "Tasks for interacting with different networks",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",
