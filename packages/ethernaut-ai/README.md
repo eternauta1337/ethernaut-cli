@@ -1,4 +1,4 @@
-# hardhat-example-plugin
+# ethernaut-ai
 
 AI assistant that interprets user input and executes hardhat tasks
 
