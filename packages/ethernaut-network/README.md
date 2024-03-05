@@ -1,4 +1,4 @@
-# hardhat-example-plugin
+# ethernaut-network
 
 Tasks for interacting with different networks
 
