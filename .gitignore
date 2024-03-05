@@ -2,5 +2,6 @@
 **/.env
 **/artifacts
 **/cache
+**/*.cast
 .nyc_output
 .DS_Store

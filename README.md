@@ -43,9 +43,15 @@ But after you've interacted with the contract, it already has the abi, so the ab
 
 If that wasn't easy enough, just type whatever you want and AI will kick in to try to make sense of what you typed, and the right command or sequence of commands will be executed.
 
+![Ai natural language interpretation](demos/interpret.gif)
+
 You want the AI to also teach you how the commands work? Sure.
 
+![Ai command explanation](demos/explain.gif)
+
 You want the AI to also teach you about Ethereum. Also sure.
+
+![Complete level 1](demos/teach.gif)
 
 ## Extensibility through hardhat plugins
 
