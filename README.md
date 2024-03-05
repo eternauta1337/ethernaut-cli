@@ -13,12 +13,13 @@ No more man pages. No more --help.
 
 Just type `ethernaut` and jump straight into an enquirer based navigation mode. Select a scope, select a task, and boom.
 
-![Enquirer navigation](https://raw.githubusercontent.com/theethernaut/ethernaut-cli/main/demos/nav.gif)
 ![Enquirer navigation](demos/nav.gif)
 
 ## Smart interactive mode
 
 Once in a task, interactive mode kicks in, and all parameters are collected through enquirer prompts.
+
+![Enquirer navigation](demos/interactive.gif)
 
 ## Ui extensions
 
