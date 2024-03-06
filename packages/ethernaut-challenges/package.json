@@ -19,6 +19,6 @@
     "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
     "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3"
   },
-  "author": "",
+  "author": "theethernaut",
   "license": "ISC"
 }

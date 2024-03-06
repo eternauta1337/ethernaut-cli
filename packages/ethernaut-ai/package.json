@@ -9,7 +9,7 @@
     "install:test": "cd test/fixture-projects/basic-project && npm install",
     "test": "nyc mocha --exit --timeout 120000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
-  "author": "",
+  "author": "theethernaut",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",

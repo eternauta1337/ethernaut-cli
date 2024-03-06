@@ -10,7 +10,7 @@
     "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "keywords": [],
-  "author": "",
+  "author": "theethernaut",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",

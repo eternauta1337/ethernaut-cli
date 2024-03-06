@@ -3,6 +3,7 @@
   "version": "1.0.0-alpha.1",
   "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
+  "author": "theethernaut",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theethernaut/ethernaut-cli.git"
