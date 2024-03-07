@@ -33,11 +33,7 @@ No other plugins are required.
 ### info
 
 ```
-sage: hardhat [GLOBAL OPTIONS] challenges info [--non-interactive] [level]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+sage: hardhat [GLOBAL OPTIONS] challenges info [level]
 
 POSITIONAL ARGUMENTS:
 
@@ -51,11 +47,7 @@ For global options help run: hardhat help
 ### instance
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] challenges instance [--non-interactive] [level]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] challenges instance [level]
 
 POSITIONAL ARGUMENTS:
 
@@ -69,11 +61,7 @@ For global options help run: hardhat help
 ### submit
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] challenges submit [--non-interactive] [address]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] challenges submit [address]
 
 POSITIONAL ARGUMENTS:
 
@@ -87,11 +75,7 @@ For global options help run: hardhat help
 ### check
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] challenges check [--non-interactive] [level]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] challenges check [level]
 
 POSITIONAL ARGUMENTS:
 
@@ -105,11 +89,7 @@ For global options help run: hardhat help
 ### check-all
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] challenges check-all [--non-interactive]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] challenges check-all
 
 check-all: Checks all levels that have been completed and submitted by the player
 

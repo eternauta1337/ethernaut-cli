@@ -37,7 +37,7 @@ This plugin adds the following tasks:
 ### contract
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] interact contract [--abi <SPECIAL>] [--address <SPECIAL>] [--fn <SPECIAL>] [--no-confirm] [--non-interactive] [--params <SPECIAL>] [--value <SPECIAL>]
+Usage: hardhat [GLOBAL OPTIONS] interact contract [--abi <SPECIAL>] [--address <SPECIAL>] [--fn <SPECIAL>] [--no-confirm] [--params <SPECIAL>] [--value <SPECIAL>]
 
 OPTIONS:
 
@@ -45,7 +45,6 @@ OPTIONS:
   --address             The address of the contract
   --fn                  The function of the contract to call
   --no-confirm          Skip confirmation prompts, avoiding any type of interactivity
-  --non-interactive     Disable interactivity
   --params              The parameters to use in the function call. If the call requires multiple parameters, separate them with a comma. E.g. "0x123,42"
   --value               The amount of ether to send with the transaction
 
@@ -57,13 +56,12 @@ For global options help run: hardhat help
 ### send
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] interact send [--address <SPECIAL>] [--no-confirm] [--non-interactive] [--value <SPECIAL>]
+Usage: hardhat [GLOBAL OPTIONS] interact send [--address <SPECIAL>] [--no-confirm] [--value <SPECIAL>]
 
 OPTIONS:
 
   --address             The address that will receive the ether
   --no-confirm          Skip confirmation prompts, avoiding any type of interactivity
-  --non-interactive     Disable interactivity
   --value               The amount of ether to send with the transaction. Warning! The value is in ether, not wei.
 
 send: Sends ether to an address

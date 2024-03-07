@@ -35,11 +35,7 @@ This plugin adds the tasks listed below.
 ### bytes
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] util bytes [--non-interactive] [value]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] util bytes [value]
 
 POSITIONAL ARGUMENTS:
 
@@ -53,11 +49,7 @@ For global options help run: hardhat help
 ### string
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] util string [--non-interactive] [value]
-
-OPTIONS:
-
---non-interactive Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] util string [value]
 
 POSITIONAL ARGUMENTS:
 
@@ -71,12 +63,11 @@ For global options help run: hardhat help
 ### unit
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] util unit [--from <SPECIAL>] [--non-interactive] [--to <SPECIAL>] [value]
+Usage: hardhat [GLOBAL OPTIONS] util unit [--from <SPECIAL>] [--to <SPECIAL>] [value]
 
 OPTIONS:
 
   --from                The unit to convert from (default: "ether")
-  --non-interactive     Disable interactivity
   --to                  The unit to convert to (default: "wei")
 
 POSITIONAL ARGUMENTS:

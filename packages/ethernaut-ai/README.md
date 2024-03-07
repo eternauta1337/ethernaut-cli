@@ -43,14 +43,13 @@ No other plugins are required.
 This plugin adds the _interpret_ task to Hardhat:
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] ai interpret [--model <SPECIAL>] [--new-thread] [--no-confirm] [--non-interactive] [query]
+Usage: hardhat [GLOBAL OPTIONS] ai interpret [--model <SPECIAL>] [--new-thread] [--no-confirm] [query]
 
 OPTIONS:
 
   --model               The model to use (default: "assistant-defined")
   --new-thread          Start a new thread
   --no-confirm          Always execute the command without prompting
-  --non-interactive     Disable interactivity
 
 POSITIONAL ARGUMENTS:
 

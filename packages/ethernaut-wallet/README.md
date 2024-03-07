@@ -35,11 +35,7 @@ import 'ethernaut-wallet'
 ### activate
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet activate [--non-interactive] [alias]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet activate [alias]
 
 POSITIONAL ARGUMENTS:
 
@@ -53,11 +49,10 @@ For global options help run: hardhat help
 ### create
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet create [--non-interactive] [--pk <SPECIAL>] [alias]
+Usage: hardhat [GLOBAL OPTIONS] wallet create [--pk <SPECIAL>] [alias]
 
 OPTIONS:
 
-  --non-interactive     Disable interactivity
   --pk                  The private key of the wallet or "random". Pass "random" or an empty string to generate a private key. (default: "random")
 
 POSITIONAL ARGUMENTS:
@@ -72,11 +67,7 @@ For global options help run: hardhat help
 ### current
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet current [--non-interactive]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet current
 
 current: Shows which wallet is active
 
@@ -86,11 +77,7 @@ For global options help run: hardhat help
 ### info
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet info [--non-interactive] [alias]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet info [alias]
 
 POSITIONAL ARGUMENTS:
 
@@ -104,11 +91,7 @@ For global options help run: hardhat help
 ### list
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet list [--non-interactive]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet list
 
 list: Lists all wallets
 
@@ -118,11 +101,7 @@ For global options help run: hardhat help
 ### remove
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet remove [--non-interactive] [alias]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet remove [alias]
 
 POSITIONAL ARGUMENTS:
 
@@ -136,11 +115,7 @@ For global options help run: hardhat help
 ### sign
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] wallet sign [--non-interactive] [message]
-
-OPTIONS:
-
-  --non-interactive     Disable interactivity
+Usage: hardhat [GLOBAL OPTIONS] wallet sign [message]
 
 POSITIONAL ARGUMENTS:
 
