@@ -7,12 +7,18 @@ const {
 const { ArgumentsParser } = require('hardhat/internal/cli/ArgumentsParser')
 const getNodes = require('common/src/get-nodes')
 const debug = require('common/src/debug')
-const output = require('common/src/output')
 
 let _allUnparsedCLAs
 
-function modifyArgumentsParser() {
-  debug.log('Modifying ArgumentsParser', 'parse')
+function prepareParser() {
+  const alreadyModified = ArgumentsParser.prototype.modified
+
+  if (alreadyModified) {
+    debug.log('ArgumentsParser already modified', 'parse')
+    return
+  }
+
+  debug.log('Modifying ArgumentsParser...', 'parse')
 
   const originalParseScopeAndTaskNames =
     ArgumentsParser.prototype.parseScopeAndTaskNames
@@ -29,6 +35,9 @@ function modifyArgumentsParser() {
       scopeDefinitions,
     )
   }
+
+  ArgumentsParser.prototype.modified = true
+
   debug.log(
     `ArgumentsParser modified: ${ArgumentsParser.prototype.parseScopeAndTaskNames}`,
     'parse-deep',
@@ -38,11 +47,17 @@ function modifyArgumentsParser() {
 function preParse(hre) {
   debug.log(`Pre-parsing... ${JSON.stringify(process.argv, null, 2)}`, 'parse')
 
+  // Parse env variables
   const envVariableArguments = getEnvHardhatArguments(
     HARDHAT_PARAM_DEFINITIONS,
     process.env,
   )
+  debug.log(
+    `envVariableArguments: ${JSON.stringify(envVariableArguments, null, 2)}`,
+    'parse',
+  )
 
+  // Parse hardhat arguments, scope and tasks
   const argumentsParser = new ArgumentsParser()
   const { hardhatArguments, scopeOrTaskName, allUnparsedCLAs } =
     argumentsParser.parseHardhatArguments(
@@ -69,6 +84,8 @@ function preParse(hre) {
     return map
   }, {})
 
+  let success
+
   try {
     let { scopeName, taskName, unparsedCLAs } =
       argumentsParser.parseScopeAndTaskNames(
@@ -77,7 +94,7 @@ function preParse(hre) {
         scopesDefinitions,
       )
     debug.log(`Pre-parse ok: ${scopeName} ${taskName} ${unparsedCLAs}`, 'parse')
-    _allUnparsedCLAs = allUnparsedCLAs
+    success = true
   } catch (err) {
     debug.log(`Pre-parse failed: ${err}`, 'parse')
     const newArgs = [
@@ -86,13 +103,20 @@ function preParse(hre) {
       '--new-thread',
       allUnparsedCLAs.join(' '),
     ]
-    debug.log(`Modifying args to: ${newArgs}`, 'parse')
-    output.info('Uh? Not sure what you mean, interpreting with ai...')
     _allUnparsedCLAs = newArgs
+    success = false
   }
+
+  return { success, args: allUnparsedCLAs }
 }
 
+function setArgs(args) {
+  _allUnparsedCLAs = args
+}
+
+prepareParser()
+
 module.exports = {
-  modifyArgumentsParser,
   preParse,
+  setArgs,
 }
