@@ -77,10 +77,13 @@ function getScopesAndTasks(hre) {
   const nodes = getNodes(hre)
   const tasks = nodes.filter((node) => !node.isScope)
   const scopes = nodes.filter((node) => node.isScope)
+
   const taskDefinitions = tasks.reduce((map, task) => {
-    map[task._task] = task
+    const name = task._task || task.parentTaskDefinition._task
+    map[name] = task
     return map
   }, {})
+
   const scopesDefinitions = scopes.reduce((map, scope) => {
     map[scope.name] = scope
     return map

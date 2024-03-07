@@ -1,6 +1,7 @@
 const { task } = require('hardhat/config')
 const navigateFrom = require('../internal/navigate-from')
 const output = require('common/src/output')
+const { HelpPrinter } = require('hardhat/internal/cli/HelpPrinter')
 
 task('help', 'Jumps into the help navigator').setAction(
   async (args, hre, runSuper) => {
@@ -9,6 +10,7 @@ task('help', 'Jumps into the help navigator').setAction(
         (el) => el === '--help' || el === '-h' || el === 'help',
       )
       if (hasHelpOption) {
+        modifyHelpPrinter()
         return runSuper(args, hre, runSuper)
       }
 
@@ -23,3 +25,22 @@ task('help', 'Jumps into the help navigator').setAction(
     }
   },
 )
+
+// Modify HelpPrinter so that the --non-interactive flag is
+// shown as a global hardhat option.
+function modifyHelpPrinter() {
+  const originalPrintGlobalHelp = HelpPrinter.prototype.printGlobalHelp
+
+  HelpPrinter.prototype.printGlobalHelp = function (includeSubtasks = false) {
+    this._hardhatParamDefinitions.nonInteractive = {
+      name: '--non-interactive',
+      defaultValue: false,
+      description: 'Disable interactive parameter collection prompts',
+      type: 'boolean',
+      isOptional: true,
+      isFlag: true,
+      isVariadic: false,
+    }
+    return originalPrintGlobalHelp.call(this, includeSubtasks)
+  }
+}

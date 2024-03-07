@@ -35,7 +35,6 @@ module.exports = {
           'flatten',
           'test',
           'navigate',
-          'help',
           'run',
           'console',
         ],

@@ -37,10 +37,6 @@ function makeInteractive(task) {
   }
   debug.log(`Making task "${task.name}" interactive`, 'ui-deep')
 
-  // Inject global interactivity params
-  // TODO: Remove
-  // task.addFlag('nonInteractive', 'Disable interactivity', false)
-
   // Note:
   // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js,
   // that allows this environment extension code to run before hardhat parses cli arguments.
@@ -90,7 +86,9 @@ function makeInteractive(task) {
   // Override the action so that we can
   // collect parameters from the user before runnint it
   const action = async (args, hre, runSuper) => {
-    const { nonInteractive } = args
+    // Detect nonInteractive
+    let nonInteractive = !!hre.ethernaut?.ui?.nonInteractive
+    debug.log(`Detected nonInteractive: ${nonInteractive}`, 'ui')
 
     if (nonInteractive === false) {
       const collectedArgs = await collectArguments(args, task, _hre)
