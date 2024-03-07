@@ -36,6 +36,7 @@ module.exports = {
           'test',
           'navigate',
           'run',
+          'help',
           'console',
         ],
       },
