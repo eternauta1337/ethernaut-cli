@@ -2,6 +2,7 @@ const { extendEnvironment, extendConfig } = require('hardhat/config')
 const requireAll = require('common/src/require-all')
 const makeTasksInteractive = require('./internal/make-interactive')
 const spinner = require('common/src/spinner')
+const preParseUi = require('./internal/pre-parse-ui')
 
 requireAll(__dirname, 'tasks')
 
@@ -9,6 +10,8 @@ extendEnvironment((hre) => {
   makeTasksInteractive(hre)
 
   spinner.enable(!hre.hardhatArguments.verbose)
+
+  preParseUi(hre)
 })
 
 extendConfig((config, userConfig) => {

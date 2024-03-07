@@ -5,8 +5,8 @@ const { version } = require('./package.json')
 
 require('@nomicfoundation/hardhat-ethers')
 
-require('ethernaut-ai')
 require('ethernaut-ui')
+require('ethernaut-ai')
 require('ethernaut-util')
 require('ethernaut-util-ui')
 require('ethernaut-interact')

@@ -45,33 +45,35 @@ function prepareParser() {
 }
 
 function preParse(hre) {
-  debug.log(`Pre-parsing... ${JSON.stringify(process.argv, null, 2)}`, 'parse')
-
-  // Parse env variables
-  const envVariableArguments = getEnvHardhatArguments(
-    HARDHAT_PARAM_DEFINITIONS,
-    process.env,
-  )
   debug.log(
-    `envVariableArguments: ${JSON.stringify(envVariableArguments, null, 2)}`,
-    'parse',
+    `Pre-parsing... ${JSON.stringify(process.argv, null, 2)}`,
+    'parse-deep',
   )
 
-  // Parse hardhat arguments, scope and tasks
   const argumentsParser = new ArgumentsParser()
-  const { hardhatArguments, scopeOrTaskName, allUnparsedCLAs } =
-    argumentsParser.parseHardhatArguments(
-      HARDHAT_PARAM_DEFINITIONS,
-      envVariableArguments,
-      process.argv.slice(2),
-    )
-  debug.log(
-    `hardhatArguments: ${JSON.stringify(hardhatArguments, null, 2)}`,
-    'parse',
-  )
-  debug.log(`scopeOrTaskName: ${scopeOrTaskName}`, 'parse')
-  debug.log(`allUnparsedCLAs: ${allUnparsedCLAs}`, 'parse')
+  const allUnparsedCLAs = getUnparsedCLAs(argumentsParser)
 
+  const { taskDefinitions, scopesDefinitions } = getScopesAndTasks(hre)
+
+  let success
+  try {
+    let { scopeName, taskName, unparsedCLAs } =
+      argumentsParser.parseScopeAndTaskNames(
+        allUnparsedCLAs,
+        taskDefinitions,
+        scopesDefinitions,
+      )
+    debug.log(`Pre-parse ok: ${scopeName} ${taskName} ${unparsedCLAs}`, 'parse')
+    success = true
+  } catch (err) {
+    debug.log(`Pre-parse failed: ${err}`, 'parse')
+    success = false
+  }
+
+  return { success, args: allUnparsedCLAs }
+}
+
+function getScopesAndTasks(hre) {
   const nodes = getNodes(hre)
   const tasks = nodes.filter((node) => !node.isScope)
   const scopes = nodes.filter((node) => node.isScope)
@@ -84,30 +86,38 @@ function preParse(hre) {
     return map
   }, {})
 
-  let success
+  return { taskDefinitions, scopesDefinitions }
+}
 
-  try {
-    let { scopeName, taskName, unparsedCLAs } =
-      argumentsParser.parseScopeAndTaskNames(
-        allUnparsedCLAs,
-        taskDefinitions,
-        scopesDefinitions,
+function getUnparsedCLAs(argumentsParser) {
+  if (_allUnparsedCLAs === undefined) {
+    // Parse env variables
+    const envVariableArguments = getEnvHardhatArguments(
+      HARDHAT_PARAM_DEFINITIONS,
+      process.env,
+    )
+    debug.log(
+      `envVariableArguments: ${JSON.stringify(envVariableArguments, null, 2)}`,
+      'parse-deep',
+    )
+
+    // Parse hardhat arguments, scope and tasks
+    const { hardhatArguments, scopeOrTaskName, allUnparsedCLAs } =
+      argumentsParser.parseHardhatArguments(
+        HARDHAT_PARAM_DEFINITIONS,
+        envVariableArguments,
+        process.argv.slice(2),
       )
-    debug.log(`Pre-parse ok: ${scopeName} ${taskName} ${unparsedCLAs}`, 'parse')
-    success = true
-  } catch (err) {
-    debug.log(`Pre-parse failed: ${err}`, 'parse')
-    const newArgs = [
-      'ai',
-      'interpret',
-      '--new-thread',
-      allUnparsedCLAs.join(' '),
-    ]
-    _allUnparsedCLAs = newArgs
-    success = false
+    debug.log(
+      `hardhatArguments: ${JSON.stringify(hardhatArguments, null, 2)}`,
+      'parse-deep',
+    )
+    debug.log(`scopeOrTaskName: ${scopeOrTaskName}`, 'parse-deep')
+    debug.log(`allUnparsedCLAs: ${allUnparsedCLAs}`, 'parse-deep')
+    return allUnparsedCLAs
+  } else {
+    return _allUnparsedCLAs
   }
-
-  return { success, args: allUnparsedCLAs }
 }
 
 function setArgs(args) {
