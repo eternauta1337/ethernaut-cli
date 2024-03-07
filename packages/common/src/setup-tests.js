@@ -15,6 +15,8 @@ function loadProject(projectName = 'basic-project') {
     process.chdir(projectPath)
   }
 
+  global.testing = true
+
   global.hre = require('hardhat')
 }
 

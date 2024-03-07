@@ -3,6 +3,8 @@ const debug = require('common/src/debug')
 const output = require('common/src/output')
 
 module.exports = function preParseAi(hre) {
+  if (global.testing) return
+
   debug.log('Ai pre parse...', 'parse')
 
   const { success, args } = preParse(hre)

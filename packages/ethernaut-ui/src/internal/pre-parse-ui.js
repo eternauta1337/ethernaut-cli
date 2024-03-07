@@ -2,6 +2,8 @@ const { preParse, setArgs } = require('common/src/pre-parse')
 const debug = require('common/src/debug')
 
 module.exports = function preParseUi(hre) {
+  if (global.testing) return
+
   debug.log('Ui pre parse...', 'parse')
 
   const { args } = preParse(hre)
