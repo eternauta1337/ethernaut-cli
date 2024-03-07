@@ -38,7 +38,8 @@ function makeInteractive(task) {
   debug.log(`Making task "${task.name}" interactive`, 'ui-deep')
 
   // Inject global interactivity params
-  task.addFlag('nonInteractive', 'Disable interactivity', false)
+  // TODO: Remove
+  // task.addFlag('nonInteractive', 'Disable interactivity', false)
 
   // Note:
   // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js,
