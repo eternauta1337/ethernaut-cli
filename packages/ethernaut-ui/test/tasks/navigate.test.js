@@ -17,7 +17,7 @@ describe('navigate', function () {
     it('displays the util scope', async function () {
       assert.equal(
         findLineWith('[util]', terminal.output),
-        'A collection of tools for the Ethernaut CLI',
+        'Simple, everyday utilities for Ethereum devs',
       )
     })
 

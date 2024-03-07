@@ -38,6 +38,10 @@ describe('help', function () {
       })
 
       itShowsHelp()
+
+      it('shows the non interactive flag', async function () {
+        terminal.has('--non-interactive')
+      })
     })
 
     describe('with no scope or task', function () {
@@ -46,6 +50,10 @@ describe('help', function () {
       })
 
       itShowsHelp()
+
+      it('shows the non interactive flag', async function () {
+        terminal.has('--non-interactive')
+      })
     })
 
     describe('with a scope', function () {

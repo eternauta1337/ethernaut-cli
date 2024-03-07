@@ -15,10 +15,6 @@ describe('sample task', function () {
     it('shows param', async function () {
       terminal.has('Sample param')
     })
-
-    it('shows the non interactive flag', async function () {
-      terminal.has('--non-interactive')
-    })
   })
 
   describe('when using --non-interactive', function () {
