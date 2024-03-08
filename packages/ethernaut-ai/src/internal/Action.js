@@ -1,6 +1,6 @@
 const debug = require('common/src/debug')
-const camelToKebabCase = require('common/src/kebab')
 const chalk = require('chalk')
+const toCliSyntax = require('common/src/syntax')
 
 class Action {
   /**
@@ -51,6 +51,12 @@ class Action {
   async execute(hre, noConfirm = false) {
     let collectedOutput = ''
 
+    // Disable global interactivity setting
+    const prevNonInteractive = hre.ethernaut?.ui?.nonInteractive || false
+    if (!hre.ethernaut) hre.ethernaut = {}
+    if (!hre.ethernaut.ui) hre.ethernaut.ui = {}
+    hre.ethernaut.ui.nonInteractive = true
+
     if (noConfirm) {
       this.args.noConfirm = true
     }
@@ -76,6 +82,11 @@ class Action {
       collectedOutput += await hre.run(this.taskName, this.args)
     }
 
+    // Restore global interactivity setting
+    if (prevNonInteractive !== undefined) {
+      hre.ethernaut.ui.nonInteractive = prevNonInteractive
+    }
+
     return {
       tool_call_id: this.id,
       output: collectedOutput,
@@ -83,65 +94,12 @@ class Action {
   }
 
   getDescription() {
-    const cliSyntax = this.toCliSyntax()
+    const cliSyntax = toCliSyntax(this.task, this.args)
     const description = chalk.dim(
       `"${this.taskName}" task: ${this.task.description}`,
     )
 
     return `${cliSyntax}\n${description}`
-  }
-
-  /**
-   * Converts the tool call to cli syntax like '<scope> <task> --option1 "value1" --option2 "value2"'
-   */
-  toCliSyntax() {
-    // Function name can be '<scope>.<task>' or just '<task>
-    // For print out, replace '.' with ' '.
-    const name = this.function.name.replace('.', ' ')
-    debug.log(`Building cli syntax for ${name}`, 'ai')
-    debug.log(
-      `OpenAI function: ${JSON.stringify(this.function, null, 2)}`,
-      'ai',
-    )
-
-    // The first token is task name (with scope if present)
-    const tokens = ['ethernaut', name]
-
-    // Arguments and options are mixed in the tool call definition,
-    // but option names are marked starting with an underscore.
-    const argsAndOpts = JSON.parse(this.function.arguments)
-    Object.entries(argsAndOpts).forEach(([name, value]) => {
-      let isOption
-      let paramDef = Object.values(this.task.paramDefinitions).find(
-        (p) => p.name === name,
-      )
-      if (paramDef) isOption = true
-      else
-        paramDef = this.task.positionalParamDefinitions.find(
-          (p) => p.name === name,
-        )
-      if (!paramDef) {
-        throw new Error(`No definition found for parameter ${name}`)
-      }
-
-      debug.log(`Processing ${name}=${value}`, 'ai')
-      const isFlag = paramDef.isFlag
-      debug.log(`isOption: ${isOption}, isFlag: ${isFlag}`, 'ai')
-
-      if (isOption) {
-        name = `--${camelToKebabCase(name)}`
-        if (!isFlag || value === 'true') {
-          tokens.push(name)
-        }
-      }
-
-      if (!isFlag) {
-        tokens.push(`${value}`)
-      }
-    })
-    debug.log(`Tokens: ${tokens}`, 'ai')
-
-    return tokens.join(' ')
   }
 }
 

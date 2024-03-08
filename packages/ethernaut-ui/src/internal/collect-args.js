@@ -46,13 +46,13 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
 
   let collectedArg
 
-  // Is the parameter already provided,
-  // but is not the default value injected by hardhat?
-  // If so, skip collection.
+  // Skip collection if the parameter was provided by the user.
+  // However! The provided value might be the default value injected by hardhat.
+  // In that case, don't skip.
   if (providedArg) {
-    const isInjectedDefault =
-      providedArg === paramDef.defaultValue && parsedArg === undefined
-    if (!isInjectedDefault) {
+    const isDefault = providedArg === paramDef.defaultValue
+    const isInjected = parsedArg === undefined
+    if (!(isDefault && isInjected)) {
       debug.log('Value was provided by the user, skipping autocompletion', 'ui')
       return undefined
     }
