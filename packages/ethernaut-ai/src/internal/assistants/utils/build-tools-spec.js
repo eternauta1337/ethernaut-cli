@@ -26,24 +26,29 @@ function collectParameterSpecs(task) {
   const properties = {}
   const required = []
 
-  for (const param of task.positionalParamDefinitions) {
-    properties[param.name] = {
-      type: 'string',
-      description: param.description,
-    }
-    if (!param.isOptional) {
-      required.push(param.name)
-    }
-  }
+  const paramDefinitions = task.positionalParamDefinitions.concat(
+    Object.values(task.paramDefinitions),
+  )
 
-  for (const param of Object.values(task.paramDefinitions)) {
-    const isFlag = param.isFlag
-    const name = `_${isFlag ? '$' : ''}${param.name}`
+  for (const param of paramDefinitions) {
+    const name = param.name
+
     properties[name] = {
       type: 'string',
       description: param.description,
     }
-    if (!param.isOptional) {
+
+    // ethernaut-ui makes all parameters optional,
+    // but injects an "originallyOptional" property.
+    // So, prioritize the "originallyOptional" property.
+    let isOptional = false
+    if ('originallyOptional' in param) {
+      isOptional = param.originallyOptional
+    } else {
+      isOptional = param.isOptional
+    }
+
+    if (!isOptional) {
       required.push(name)
     }
   }

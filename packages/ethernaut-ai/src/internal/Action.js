@@ -44,12 +44,9 @@ class Action {
   parseArgs() {
     this.args = JSON.parse(this.function.arguments)
     Object.entries(this.args).forEach(([name, value]) => {
-      if (name.includes('_')) {
-        value = value === 'true' ? true : value
-        value = value === 'false' ? false : value
-        const cleanName = name.replace('_', '').replace('$', '')
-        this.args[cleanName] = value
-      }
+      value = value === 'true' ? true : value
+      value = value === 'false' ? false : value
+      this.args[name] = value
     })
   }
 
@@ -116,13 +113,24 @@ class Action {
     // but option names are marked starting with an underscore.
     const argsAndOpts = JSON.parse(this.function.arguments)
     Object.entries(argsAndOpts).forEach(([name, value]) => {
+      let isOption
+      let paramDef = Object.values(this.task.paramDefinitions).find(
+        (p) => p.name === name,
+      )
+      if (paramDef) isOption = true
+      else
+        paramDef = this.task.positionalParamDefinitions.find(
+          (p) => p.name === name,
+        )
+      if (!paramDef) {
+        throw new Error(`No definition found for parameter ${name}`)
+      }
+
       debug.log(`Processing ${name}=${value}`, 'ai')
-      const isOption = name.includes('_')
-      const isFlag = name.includes('$')
+      const isFlag = paramDef.isFlag
       debug.log(`isOption: ${isOption}, isFlag: ${isFlag}`, 'ai')
 
       if (isOption) {
-        name = isFlag ? name.substring(2) : name.substring(1) // Remove underscore
         name = `--${camelToKebabCase(name)}`
         if (!isFlag || value === 'true') {
           tokens.push(name)
