@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
   "author": "theethernaut",
@@ -37,7 +37,7 @@
     "chalk-animation": "^1.6.0",
     "dotenv": "^16.4.1",
     "ethernaut-common": "1.0.0-alpha.2",
-    "ethernaut-ai": "1.0.0-alpha.2",
+    "ethernaut-ai": "1.0.0-alpha.3",
     "ethernaut-challenges": "1.0.0-alpha.2",
     "ethernaut-interact": "1.0.0-alpha.2",
     "ethernaut-interact-ui": "1.0.0-alpha.2",
