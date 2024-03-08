@@ -5,20 +5,15 @@ const { isUrl } = require('common/src/url')
 const storage = require('../internal/storage')
 const applyEnvVars = require('../internal/apply-env-vars')
 
-require('../scopes/network')
+const task = require('../scopes/network')
   .task('node', 'Starts a local development chain, potentially with a fork.')
-  .addOptionalParam(
+  .addParam(
     'fork',
     'The alias or url of the network to fork',
     'none',
     types.string,
   )
-  .addOptionalParam(
-    'port',
-    'The port to run the local chain on',
-    '8545',
-    types.string,
-  )
+  .addParam('port', 'The port to run the local chain on', '8545', types.string)
   .setAction(async ({ fork, port }) => {
     try {
       const forkUrl = getForkUrl(fork)
@@ -69,3 +64,6 @@ function startAnvil(forkUrl, port) {
     execSync(`anvil --fork-url ${forkUrl} --port ${port}`, { stdio: 'inherit' })
   }
 }
+
+task.paramDefinitions.fork.isOptional = false
+task.paramDefinitions.port.isOptional = false

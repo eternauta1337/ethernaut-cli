@@ -3,7 +3,7 @@ const output = require('common/src/output')
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney']
 
-require('../scopes/util')
+const task = require('../scopes/util')
   .task(
     'unit',
     `Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be one of ${units.join(
@@ -11,8 +11,8 @@ require('../scopes/util')
     )}.`,
   )
   .addPositionalParam('value', 'The value to convert', undefined, types.string)
-  .addOptionalParam('from', 'The unit to convert from', 'ether', types.string)
-  .addOptionalParam('to', 'The unit to convert to', 'wei', types.string)
+  .addParam('from', 'The unit to convert from', 'ether', types.string)
+  .addParam('to', 'The unit to convert to', 'wei', types.string)
   .setAction(async ({ value, from, to }, hre) => {
     try {
       const valueWei = hre.ethers.parseUnits(value, from)
@@ -26,6 +26,9 @@ require('../scopes/util')
       return output.errorBox(err)
     }
   })
+
+task.paramDefinitions.from.isOptional = false
+task.paramDefinitions.to.isOptional = false
 
 module.exports = {
   units,
