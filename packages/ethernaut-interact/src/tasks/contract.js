@@ -37,7 +37,7 @@ require('../scopes/interact')
     undefined,
     types.string,
   )
-  .addOptionalParam(
+  .addParam(
     'params',
     'The parameters to use in the function call. If the call requires multiple parameters, separate them with a comma. E.g. "0x123,42"',
     undefined,
