@@ -8,13 +8,13 @@ const { types } = require('hardhat/config')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')
-  .addOptionalParam(
+  .addParam(
     'address',
     'The address that will receive the ether',
     undefined,
     types.string,
   )
-  .addOptionalParam(
+  .addParam(
     'value',
     'The amount of ether to send with the transaction. Warning! The value is in ether, not wei.',
     undefined,
