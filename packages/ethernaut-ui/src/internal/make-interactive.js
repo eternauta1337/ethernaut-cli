@@ -2,8 +2,8 @@ const { task: hreTask } = require('hardhat/config')
 const getNodes = require('common/src/get-nodes')
 const debug = require('common/src/debug')
 const output = require('common/src/output')
-const camelToKebabCase = require('common/src/kebab')
 const collectArguments = require('./collect-args')
+const toCliSyntax = require('common/src/syntax')
 
 let _hre
 
@@ -94,7 +94,7 @@ function makeInteractive(task) {
 
       // If parameters were collected, print out the call
       if (Object.values(collectedArgs).length > 1) {
-        output.info(toCliSyntax(args, task))
+        output.info(toCliSyntax(task, args))
       }
     }
 
@@ -109,30 +109,4 @@ function makeInteractive(task) {
   } else {
     hreTask(task.name, task.description, action)
   }
-}
-
-function toCliSyntax(args, task) {
-  const name = task.scope ? `${task.scope} ${task.name}` : task.name
-  const printArgs = []
-  Object.entries(args).forEach(([argName, value]) => {
-    const isPositional = task.positionalParamDefinitions.some(
-      (p) => p.name === argName,
-    )
-
-    if (isPositional) {
-      printArgs.push(value)
-    } else {
-      const isFlag = task.paramDefinitions[argName]?.isFlag
-      argName = camelToKebabCase(argName)
-      if (isFlag) {
-        if (value === true) printArgs.push(`--${argName}`)
-      } else {
-        if (value !== undefined) printArgs.push(`--${argName} '${value}'`)
-      }
-    }
-  })
-
-  const printStr = printArgs.join(' ')
-
-  return `ethernaut ${name} ${printStr}`
 }
