@@ -33,8 +33,8 @@
   "dependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "chalk-animation": "^1.6.0",
-    "common": "../common",
     "dotenv": "^16.4.1",
+    "common": "../common",
     "ethernaut-ai": "../ethernaut-ai",
     "ethernaut-challenges": "../ethernaut-challenges",
     "ethernaut-interact": "../ethernaut-interact",

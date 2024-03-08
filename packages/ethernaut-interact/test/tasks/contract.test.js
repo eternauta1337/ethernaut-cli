@@ -111,7 +111,7 @@ describe('contract', function () {
 
           it('incremented the counter', async function () {
             await terminal.run(
-              `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn counter`,
+              `npx hardhat interact contract --address ${await sample.getAddress()} --abi ${abiPath} --fn counter --params ''`,
             )
             terminal.has('counter() => 42')
           })
