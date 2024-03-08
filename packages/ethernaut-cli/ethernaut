@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-npx hardhat "$@"
+execDir=$(pwd)
+fileDir=$(dirname $0)
+cd $fileDir
+cd ../lib/node_modules/ethernaut-cli
+/usr/bin/env npx hardhat "$@"
+cd $execDir

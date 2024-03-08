@@ -13,7 +13,7 @@ class Thread {
   async post(message) {
     await this.invalidateId()
 
-    await openai.beta.threads.messages.create(this.id, {
+    await openai().beta.threads.messages.create(this.id, {
       role: 'user',
       content: message,
     })
@@ -22,7 +22,7 @@ class Thread {
   async stop() {
     await this.invalidateId()
 
-    const runs = await openai.beta.threads.runs.list(this.id)
+    const runs = await openai().beta.threads.runs.list(this.id)
     if (!runs) return
 
     const activeRuns = runs.body.data.filter(
@@ -34,12 +34,12 @@ class Thread {
     if (!activeRuns || activeRuns.length === 0) return
 
     for (const run of activeRuns) {
-      await openai.beta.threads.runs.cancel(this.id, run.id)
+      await openai().beta.threads.runs.cancel(this.id, run.id)
     }
   }
 
   async getMessages() {
-    return await openai.beta.threads.messages.list(this.id)
+    return await openai().beta.threads.messages.list(this.id)
   }
 
   async getLastMessage(runId, role = 'assistant') {
@@ -64,7 +64,7 @@ class Thread {
 
   async invalidateId() {
     if (this.needsUpdate()) {
-      const { id } = await openai.beta.threads.create()
+      const { id } = await openai().beta.threads.create()
 
       storage.storeThreadInfo(this.name, id)
 

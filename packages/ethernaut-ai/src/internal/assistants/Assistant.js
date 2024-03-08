@@ -29,13 +29,13 @@ class Assistant extends EventEmitter {
       params.model = model
     }
 
-    this.run = await openai.beta.threads.runs.create(thread.id, params)
+    this.run = await openai().beta.threads.runs.create(thread.id, params)
 
     return await this.processRun()
   }
 
   async processRun() {
-    const runInfo = await openai.beta.threads.runs.retrieve(
+    const runInfo = await openai().beta.threads.runs.retrieve(
       this.thread.id,
       this.run.id,
     )
@@ -101,10 +101,10 @@ class Assistant extends EventEmitter {
     debug.log(`Reporting output: ${JSON.stringify(outputs)}`, 'ai-deep')
 
     if (!outputs) {
-      await openai.beta.threads.runs.cancel(this.thread.id, this.run.id)
+      await openai().beta.threads.runs.cancel(this.thread.id, this.run.id)
     } else {
       debug.log(`Outputs reported: ${outputs.length}`, 'ai')
-      await openai.beta.threads.runs.submitToolOutputs(
+      await openai().beta.threads.runs.submitToolOutputs(
         this.thread.id,
         this.run.id,
         {
@@ -123,7 +123,7 @@ class Assistant extends EventEmitter {
       if (oldId) storage.deleteAssistantConfig(oldId)
 
       // Get a new id and store the new config file.
-      const { id } = await openai.beta.assistants.create(this.config)
+      const { id } = await openai().beta.assistants.create(this.config)
       storage.storeAssistantConfig(id, this.config)
 
       // Store the info as well.
