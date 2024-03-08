@@ -7,6 +7,7 @@
     "chain": "packages/ethernaut-cli/ethernaut network node --fork 'none' --port 8545",
     "build": "npm run build --workspaces && node ./scripts/fix-hardhat.js",
     "compile": "npm run compile --workspaces",
+    "publish": "npm run publish --workspaces",
     "lint": "eslint 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "npm run test --workspaces"
