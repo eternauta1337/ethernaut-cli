@@ -9,11 +9,9 @@ class Action {
    *   id: '...',
    *   function: {
    *     name: '...',
-   *     arguments: '{"value":"...", "_fix":"..."}'
+   *     arguments: '{"value":"...", "fix":"..."}'
    *   }
    * }
-   *
-   * Optional arguments are prefixed with an underscore.
    */
   constructor(toolCall, hre) {
     this.hre = hre
