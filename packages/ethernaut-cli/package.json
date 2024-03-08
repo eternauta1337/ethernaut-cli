@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.6",
   "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
   "author": "theethernaut",
@@ -19,13 +19,14 @@
     "interactive",
     "ai"
   ],
-  "bin": "./ethernaut",
+  "bin": {
+    "ethernaut": "./ethernaut"
+  },
   "files": [
     "hardhat.config.js",
     "ethernaut"
   ],
   "scripts": {
-    "publish": "npm publish",
     "build": "echo 'No build step'",
     "compile": "echo 'No compile step'",
     "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'",

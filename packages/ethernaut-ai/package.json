@@ -6,7 +6,6 @@
   "scripts": {
     "build": "npm run install:test",
     "compile": "echo 'No compile step'",
-    "publish": "npm publish",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
     "test": "nyc mocha --exit --timeout 120000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
