@@ -15,7 +15,11 @@
     "axios": "^1.6.7",
     "string-similarity": "^4.0.4"
   },
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
+  },
   "devDependencies": {
+    "hardhat": "^2.20.0",
     "nyc": "^15.1.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.4",
   "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
   "author": "theethernaut",
@@ -24,6 +24,12 @@
     "hardhat.config.js",
     "ethernaut"
   ],
+  "scripts": {
+    "build": "echo 'No build step'",
+    "compile": "echo 'No compile step'",
+    "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'",
+    "test-integration": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.integration.js' --ignore '../../fixture-projects/**/*'"
+  },
   "dependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "chalk-animation": "^1.6.0",
@@ -41,15 +47,13 @@
     "ethernaut-wallet": "../ethernaut-wallet",
     "ethernaut-wallet-ui": "../ethernaut-wallet-ui",
     "figlet": "^1.7.0",
-    "hardhat": "^2.19.4"
+    "hardhat": "^2.20.0"
   },
-  "scripts": {
-    "build": "echo 'No build step'",
-    "compile": "echo 'No compile step'",
-    "test": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'",
-    "test-integration": "nyc mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.integration.js' --ignore '../../fixture-projects/**/*'"
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
   },
   "devDependencies": {
+    "hardhat": "^2.20.0",
     "nyc": "^15.1.0"
   }
 }

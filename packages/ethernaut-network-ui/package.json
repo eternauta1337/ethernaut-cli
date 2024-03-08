@@ -11,6 +11,9 @@
   },
   "author": "theethernaut",
   "license": "ISC",
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
+  },
   "devDependencies": {
     "hardhat": "^2.20.0",
     "mocha": "^10.3.0",

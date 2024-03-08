@@ -15,7 +15,11 @@
     "chalk": "^2.4.2",
     "openai": "^4.26.0"
   },
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
+  },
   "devDependencies": {
+    "hardhat": "^2.20.0",
     "nyc": "^15.1.0"
   }
 }

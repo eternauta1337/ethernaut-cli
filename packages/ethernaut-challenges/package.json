@@ -10,7 +10,11 @@
     "extract": "node ./scripts/extract.js",
     "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
+  },
   "devDependencies": {
+    "hardhat": "^2.20.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@openzeppelin/contracts-upgradeable": "^4.8.0",
     "ethers": "^6.11.1",
