@@ -1,7 +1,6 @@
 {
-  "name": "ethernaut-cli-monorepo",
-  "version": "1.0.0",
-  "private": true,
+  "name": "ethernaut-cli",
+  "version": "1.0.0-alpha.1",
   "scripts": {
     "count": "git ls-files --exclude-standard ':!:package-lock.json' ':!:*.md' ':!:packages/ethernaut-challenges/contracts/*' ':!:packages/ethernaut-challenges/abis/*' ':!:packages/ethernaut-challenges/gamedata/*' ':!:packages/common/data/*' | xargs wc -l",
     "chain": "packages/ethernaut-cli/ethernaut network node --fork 'none' --port 8545",
