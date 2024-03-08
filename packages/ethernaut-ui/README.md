@@ -8,12 +8,19 @@ Intuitive navigation and interactive param collection for hardhat tasks
 
 ### Interactivity
 
-This plugin traverses all hardhat tasks found in the hardhat runtime environment and makes them interactive. This means that when a task is called without one of its parameters, it will display an enquirer prompt to collect the value.
+This plugin traverses all hardhat tasks found in the hardhat runtime environment and makes them interactive.
+
+What is "interactive"? Interactive means that enquirer prompts will be used to collect missing required parameters. E.g. if the `bytes` task is ran without its `value` parameter, the following prompt will be presented:
+
+```
+? Enter value (The value to convert): ›
+```
 
 Things to know:
 
 - Interactivity can be disabled with the global --non-interactive flag
-- Required parameters are also optional in interactive mode
+- Optional parameters and flags are not collected
+- There is a bug in hardhat where giving a default parameter to a non-optional parameter makes it optional. The solution used is to set it back to optional right after creation. See the create task in ethernaut-wallet.
 - You can define custom prompts for parameters (see ethernaut-interact-ui)
 - You can also define suggestions for parameters. Default values are suggested otherwise.
 
