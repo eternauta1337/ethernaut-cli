@@ -237,7 +237,7 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet-ui && npm t
-  ethernaut-cli:
+  ethernaut-cli-hh:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -251,4 +251,4 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-cli && npm t
+      - run: cd packages/ethernaut-cli-hh && npm t

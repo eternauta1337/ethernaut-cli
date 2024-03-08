@@ -85,7 +85,7 @@ All the plugins combined conform the ethernaut-cli experience, and each is liste
 
 Apart from plugins, the following packages can also be found on this monorepo
 
-| Title                                                   | Description                                                                                    |
-| ------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| [ethernaut-cli](packages/title/README.md#ethernaut-cli) | Hardhat project that combines all the plugins above and produces the ethernaut-cli binary, etc |
-| [common](packages/title/README.md#common)               | Simple utilities used across all packages in the monorepo                                      |
+| Title                                                      | Description                                                                                    |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| [ethernaut-cli](packages/title/README.md#ethernaut-cli-hh) | Hardhat project that combines all the plugins above and produces the ethernaut-cli binary, etc |
+| [common](packages/title/README.md#common)                  | Simple utilities used across all packages in the monorepo                                      |
