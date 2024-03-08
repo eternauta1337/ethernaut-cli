@@ -1,5 +1,5 @@
 const storage = require('../storage')
-const openai = require('../openai').openai
+const openai = require('../openai')
 
 class Thread {
   constructor(name = 'default', newThread) {

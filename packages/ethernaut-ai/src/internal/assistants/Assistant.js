@@ -1,6 +1,6 @@
 const hashStr = require('ethernaut-common/src/hash-str')
 const storage = require('../storage')
-const openai = require('../openai').openai
+const openai = require('../openai')
 const debug = require('ethernaut-common/src/debug')
 const EventEmitter = require('events')
 
