@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { Terminal } = require('common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/terminal')
 const storage = require('ethernaut-network/src/internal/storage')
 
 describe('remove', function () {

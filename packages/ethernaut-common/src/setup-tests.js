@@ -1,6 +1,6 @@
 const path = require('path')
-const output = require('common/src/output')
-const spinner = require('common/src/spinner')
+const output = require('ethernaut-common/src/output')
+const spinner = require('ethernaut-common/src/spinner')
 
 async function muteOutput() {
   output.mute(true)

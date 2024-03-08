@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 const storage = require('../internal/storage')
-const { validateVarName } = require('common/src/name')
+const { validateVarName } = require('ethernaut-common/src/name')
 
 require('../scopes/network')
   .task('add', 'Adds a network to the cli')

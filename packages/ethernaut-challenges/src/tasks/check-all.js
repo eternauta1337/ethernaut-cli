@@ -1,7 +1,7 @@
 const helper = require('../internal/helper')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
-const { getNetworkName } = require('common/src/network')
+const { getNetworkName } = require('ethernaut-common/src/network')
 
 require('../scopes/challenges')
   .task(

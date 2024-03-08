@@ -1,8 +1,8 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 const storage = require('../internal/storage')
-const { chains } = require('common/src/chains')
-const { isUrl } = require('common/src/url')
+const { chains } = require('ethernaut-common/src/chains')
+const { isUrl } = require('ethernaut-common/src/url')
 
 require('../scopes/network')
   .task('info', 'Provides information about a network')

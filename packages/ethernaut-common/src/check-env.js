@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const prompt = require('common/src/prompt')
+const prompt = require('ethernaut-common/src/prompt')
 const dotenv = require('dotenv')
-const debug = require('common/src/debug')
+const debug = require('ethernaut-common/src/debug')
 
 async function checkEnvVar(varName, message) {
   if (process.env[varName]) {

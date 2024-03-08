@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
   .task('bytes', 'Converts strings to bytes32')

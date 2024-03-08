@@ -3,7 +3,7 @@ const path = require('path')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('common/src/create-file')
+} = require('ethernaut-common/src/create-file')
 
 /**
  * Stores data like this:

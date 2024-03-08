@@ -1,4 +1,4 @@
-const prompt = require('common/src/prompt')
+const prompt = require('ethernaut-common/src/prompt')
 const storage = require('ethernaut-network/src/internal/storage')
 
 module.exports = async function promptFork({ fork, paramDefault }) {

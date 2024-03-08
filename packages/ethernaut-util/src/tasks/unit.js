@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 
 const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney']
 

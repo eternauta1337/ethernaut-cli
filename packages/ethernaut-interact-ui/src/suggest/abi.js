@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const { getNetworkName } = require('common/src/network')
+const { getNetworkName } = require('ethernaut-common/src/network')
 const similarity = require('string-similarity')
 const storage = require('ethernaut-interact/src/internal/storage')
-const debug = require('common/src/debug')
+const debug = require('ethernaut-common/src/debug')
 
 module.exports = async function suggestAbi({ abi, hre, address }) {
   try {

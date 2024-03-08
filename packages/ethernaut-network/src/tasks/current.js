@@ -1,4 +1,4 @@
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 const storage = require('../internal/storage')
 
 require('../scopes/network')

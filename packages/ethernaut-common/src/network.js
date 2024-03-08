@@ -1,5 +1,5 @@
-const { chains } = require('common/src/chains')
-const debug = require('common/src/debug')
+const { chains } = require('ethernaut-common/src/chains')
+const debug = require('ethernaut-common/src/debug')
 
 async function getNetworkName(hre) {
   // Get the chain id from the ethers provider

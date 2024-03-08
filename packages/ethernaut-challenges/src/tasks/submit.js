@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
-const debug = require('common/src/debug')
+const output = require('ethernaut-common/src/output')
+const debug = require('ethernaut-common/src/debug')
 const getEthernautContract = require('../internal/ethernaut-contract')
 
 require('../scopes/challenges')

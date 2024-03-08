@@ -1,4 +1,4 @@
-const camelToKebabCase = require('common/src/kebab')
+const camelToKebabCase = require('ethernaut-common/src/kebab')
 
 module.exports = function toCliSyntax(task, args) {
   const tokens = ['ethernaut']

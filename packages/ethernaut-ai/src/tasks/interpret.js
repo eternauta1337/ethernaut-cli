@@ -2,11 +2,11 @@ const { types } = require('hardhat/config')
 const Interpreter = require('../internal/assistants/Interpreter')
 const Explainer = require('../internal/assistants/Explainer')
 const Thread = require('../internal/threads/Thread')
-const output = require('common/src/output')
-const debug = require('common/src/debug')
-const spinner = require('common/src/spinner')
-const prompt = require('common/src/prompt')
-const checkEnvVar = require('common/src/check-env')
+const output = require('ethernaut-common/src/output')
+const debug = require('ethernaut-common/src/debug')
+const spinner = require('ethernaut-common/src/spinner')
+const prompt = require('ethernaut-common/src/prompt')
+const checkEnvVar = require('ethernaut-common/src/check-env')
 
 let _noConfirm
 let _thread

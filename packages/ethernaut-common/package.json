@@ -1,8 +1,7 @@
 {
-  "name": "common",
-  "version": "1.0.0",
+  "name": "ethernaut-common",
+  "version": "1.0.0-alpha.1",
   "description": "Simple utilities used across all packages in the monorepo",
-  "private": true,
   "author": "theethernaut",
   "scripts": {
     "build": "npm run install:test",

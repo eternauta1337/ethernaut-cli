@@ -1,6 +1,6 @@
-const { preParse, setArgs } = require('common/src/pre-parse')
-const debug = require('common/src/debug')
-const output = require('common/src/output')
+const { preParse, setArgs } = require('ethernaut-common/src/pre-parse')
+const debug = require('ethernaut-common/src/debug')
+const output = require('ethernaut-common/src/output')
 
 module.exports = function preParseAi(hre) {
   if (global.testing) return

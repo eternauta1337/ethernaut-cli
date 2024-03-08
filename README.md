@@ -88,4 +88,4 @@ Apart from plugins, the following packages can also be found on this monorepo
 | Title                                                   | Description                                                                                    |
 | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | [ethernaut-cli](packages/title/README.md#ethernaut-cli) | Hardhat project that combines all the plugins above and produces the ethernaut-cli binary, etc |
-| [common](packages/title/README.md#common)               | Simple utilities used across all packages in the monorepo                                      |
+| [common](packages/title/README.md#ethernaut-common)     | Simple utilities used across all packages in the monorepo                                      |

@@ -1,5 +1,5 @@
-const debug = require('common/src/debug')
-const prompt = require('common/src/prompt')
+const debug = require('ethernaut-common/src/debug')
+const prompt = require('ethernaut-common/src/prompt')
 
 let _hre
 

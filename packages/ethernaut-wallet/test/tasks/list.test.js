@@ -1,4 +1,4 @@
-const { Terminal } = require('common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/terminal')
 const storage = require('../../src/internal/storage')
 
 describe('list', function () {

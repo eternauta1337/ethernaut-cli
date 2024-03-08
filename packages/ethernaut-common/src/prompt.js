@@ -1,6 +1,6 @@
 const { prompt } = require('enquirer')
-const suggestDef = require('common/src/enquirer-suggest')
-const spinner = require('common/src/spinner')
+const suggestDef = require('ethernaut-common/src/enquirer-suggest')
+const spinner = require('ethernaut-common/src/spinner')
 
 module.exports = async function ({
   type,

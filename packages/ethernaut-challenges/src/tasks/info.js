@@ -2,9 +2,9 @@ const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
 const fs = require('fs')
 const path = require('path')
-const output = require('common/src/output')
-const debug = require('common/src/debug')
-const { getNetworkName } = require('common/src/network')
+const output = require('ethernaut-common/src/output')
+const debug = require('ethernaut-common/src/debug')
+const { getNetworkName } = require('ethernaut-common/src/network')
 
 require('../scopes/challenges')
   .task(

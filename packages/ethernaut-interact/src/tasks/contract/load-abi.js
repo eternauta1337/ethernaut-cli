@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const debug = require('common/src/debug')
+const debug = require('ethernaut-common/src/debug')
 
 module.exports = function loadAbi(abiPath) {
   if (!abiPath) return undefined

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const debug = require('common/src/debug')
+const debug = require('ethernaut-common/src/debug')
 
 class EtherscanApi {
   constructor(apiKey, baseUrl) {

@@ -1,10 +1,10 @@
 const storage = require('ethernaut-interact/src/internal/storage')
 const EtherscanApi = require('ethernaut-interact/src/internal/etherscan')
-const prompt = require('common/src/prompt')
-const spinner = require('common/src/spinner')
-const debug = require('common/src/debug')
-const { getNetworkName } = require('common/src/network')
-const checkEnvVar = require('common/src/check-env')
+const prompt = require('ethernaut-common/src/prompt')
+const spinner = require('ethernaut-common/src/spinner')
+const debug = require('ethernaut-common/src/debug')
+const { getNetworkName } = require('ethernaut-common/src/network')
+const checkEnvVar = require('ethernaut-common/src/check-env')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',

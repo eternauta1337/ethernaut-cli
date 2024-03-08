@@ -1,5 +1,5 @@
 const getBalance = require('./get-balance')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 
 module.exports = async function printTxSummary({
   signer,

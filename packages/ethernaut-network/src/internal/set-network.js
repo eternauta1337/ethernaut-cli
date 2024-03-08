@@ -5,7 +5,7 @@ const {
 const {
   HardhatEthersProvider,
 } = require('@nomicfoundation/hardhat-ethers/internal/hardhat-ethers-provider')
-const debug = require('common/src/debug')
+const debug = require('ethernaut-common/src/debug')
 const applyEnvVars = require('./apply-env-vars')
 
 async function setActiveNetwork(hre) {

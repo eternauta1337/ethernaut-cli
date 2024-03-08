@@ -1,7 +1,7 @@
 const { types } = require('hardhat/config')
-const output = require('common/src/output')
+const output = require('ethernaut-common/src/output')
 const { execSync } = require('child_process')
-const { isUrl } = require('common/src/url')
+const { isUrl } = require('ethernaut-common/src/url')
 const storage = require('../internal/storage')
 const applyEnvVars = require('../internal/apply-env-vars')
 

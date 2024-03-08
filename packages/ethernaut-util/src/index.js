@@ -1,6 +1,6 @@
 const { extendEnvironment } = require('hardhat/config')
-const requireAll = require('common/src/require-all')
-const spinner = require('common/src/spinner')
+const requireAll = require('ethernaut-common/src/require-all')
+const spinner = require('ethernaut-common/src/spinner')
 
 requireAll(__dirname, 'tasks')
 

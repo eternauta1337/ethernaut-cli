@@ -1,6 +1,6 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config')
-const requireAll = require('common/src/require-all')
-const spinner = require('common/src/spinner')
+const requireAll = require('ethernaut-common/src/require-all')
+const spinner = require('ethernaut-common/src/spinner')
 const storage = require('./internal/storage')
 const preParseAi = require('./internal/pre-parse-ai')
 

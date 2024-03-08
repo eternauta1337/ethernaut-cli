@@ -1,5 +1,5 @@
 const { units } = require('ethernaut-util/src/tasks/unit')
-const prompt = require('common/src/prompt')
+const prompt = require('ethernaut-common/src/prompt')
 
 module.exports = async function promptUnit({
   paramName,

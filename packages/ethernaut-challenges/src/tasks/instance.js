@@ -1,10 +1,10 @@
 const { types } = require('hardhat/config')
 const helper = require('../internal/helper')
-const output = require('common/src/output')
-const { getNetworkName } = require('common/src/network')
+const output = require('ethernaut-common/src/output')
+const { getNetworkName } = require('ethernaut-common/src/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
-const spinner = require('common/src/spinner')
-const debug = require('common/src/debug')
+const spinner = require('ethernaut-common/src/spinner')
+const debug = require('ethernaut-common/src/debug')
 
 require('../scopes/challenges')
   .task(

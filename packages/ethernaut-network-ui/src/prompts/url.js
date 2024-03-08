@@ -1,5 +1,5 @@
-const { chains } = require('common/src/chains')
-const prompt = require('common/src/prompt')
+const { chains } = require('ethernaut-common/src/chains')
+const prompt = require('ethernaut-common/src/prompt')
 
 const strategies = {
   KNOWN: 'Known networks',
