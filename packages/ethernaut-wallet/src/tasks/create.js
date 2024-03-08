@@ -4,7 +4,7 @@ const storage = require('../internal/storage')
 const { validateVarName } = require('common/src/name')
 const { getWallet, generatePk } = require('../internal/signers')
 
-require('../scopes/wallet')
+const task = require('../scopes/wallet')
   .task('create', 'Creates a new wallet')
   .addPositionalParam(
     'alias',
@@ -58,3 +58,5 @@ require('../scopes/wallet')
       return output.errorBox(err)
     }
   })
+
+task.paramDefinitions.pk.isOptional = false

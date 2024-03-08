@@ -49,7 +49,7 @@ function makeInteractive(task) {
     Object.values(task.paramDefinitions),
   )
 
-  // Make all parameters optional so that hardhat doesnt
+  // Make all parameters optional so that hardhat doesn't
   // throw when required task arguments are not provided.
   // We want to collect them interactively.
   for (let paramDef of paramDefinitions) {
@@ -78,8 +78,6 @@ function makeInteractive(task) {
   })
   for (let paramDef of paramDefinitions) {
     debug.log(`  Modifying parser for param "${paramDef.name}"`, 'ui-deep')
-    paramDef.originallyOptional = paramDef.isOptional
-    paramDef.isOptional = true
     paramDef.type = special(paramDef.type, paramDef)
   }
 

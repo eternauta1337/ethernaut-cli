@@ -16,6 +16,8 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
 
   const collectedArgs = {}
   for (let paramDef of paramDefinitions) {
+    if (paramDef.originallyOptional) continue
+
     const providedArg = providedArgs[paramDef.name]
     const parsedArg = paramDef.parsedValue
     const argsSoFar = { ...providedArgs, ...collectedArgs }
