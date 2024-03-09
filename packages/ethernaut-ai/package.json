@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-ai",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.2",
   "description": "AI assistant that interprets user input and executes hardhat tasks",
   "main": "src/index.js",
   "scripts": {
@@ -21,5 +21,6 @@
   "devDependencies": {
     "hardhat": "^2.20.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }

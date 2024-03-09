@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-network-ui",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.2",
   "description": "Ui extensions for the ethernaut-network package",
   "main": "src/index.js",
   "scripts": {
@@ -11,6 +11,9 @@
   },
   "author": "theethernaut",
   "license": "ISC",
+  "dependencies": {
+    "ethernaut-network": "^1.0.2"
+  },
   "peerDependencies": {
     "hardhat": "^2.20.0"
   },
@@ -22,5 +25,6 @@
   "directories": {
     "test": "test"
   },
-  "keywords": []
+  "keywords": [],
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }

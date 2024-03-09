@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-ui",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.2",
   "description": "Intuitive navigation and interactive param collection for hardhat tasks",
   "main": "src/index.js",
   "scripts": {
@@ -24,5 +24,6 @@
     "mocha": "^10.3.0",
     "node-pty": "^1.0.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }

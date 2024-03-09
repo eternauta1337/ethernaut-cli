@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-common",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.2",
   "description": "Simple utilities used across all packages in the monorepo",
   "author": "theethernaut",
   "scripts": {
@@ -20,5 +20,6 @@
     "mocha": "^10.3.0",
     "node-pty": "^1.0.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }

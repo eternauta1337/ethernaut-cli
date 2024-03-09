@@ -2,6 +2,12 @@
 execDir=$(pwd)
 fileDir=$(dirname $0)
 cd $fileDir
-cd ../lib/node_modules/ethernaut-cli
+
+# Check if hardhat.config.js exists in the current directory
+if [ ! -f hardhat.config.js ]; then
+  # If not, change directory to the global npm package location
+  cd ../lib/node_modules/ethernaut-cli
+fi
+
 /usr/bin/env npx hardhat "$@"
 cd $execDir

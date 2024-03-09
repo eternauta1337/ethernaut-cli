@@ -7,6 +7,8 @@ for Ethereum hackers.
 
 `npm i -g ethernaut-cli`
 
+Warning! This software is still in alpha, and very experimental rn.
+
 ## Intuitive navigation
 
 No more man pages. No more --help.

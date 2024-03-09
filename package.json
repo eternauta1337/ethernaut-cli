@@ -2,25 +2,26 @@
   "name": "ethernaut-cli-monorepo",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "count": "git ls-files --exclude-standard ':!:package-lock.json' ':!:*.md' ':!:packages/ethernaut-challenges/contracts/*' ':!:packages/ethernaut-challenges/abis/*' ':!:packages/ethernaut-challenges/gamedata/*' ':!:packages/ethernaut-common/data/*' | xargs wc -l",
     "chain": "packages/ethernaut-cli/ethernaut network node --fork 'none' --port 8545",
-    "build": "npm run build --workspaces && node ./scripts/fix-hardhat.js",
-    "compile": "npm run compile --workspaces",
-    "publish": "npm run publish --workspaces",
+    "build": "lerna run build && node ./scripts/fix-hardhat.js",
+    "compile": "lerna run compile",
+    "publish": "lerna publish",
     "lint": "eslint 'packages/**/*.js'",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "npm run test --workspaces"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-mocha": "^10.3.0",
     "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
+    "lerna": "^8.1.2",
     "prettier": "^3.2.5"
   }
 }
