@@ -11,6 +11,9 @@
   },
   "author": "theethernaut",
   "license": "ISC",
+  "dependencies": {
+    "ethernaut-interact": "../ethernaut-interact"
+  },
   "peerDependencies": {
     "hardhat": "^2.20.0"
   },

@@ -11,6 +11,9 @@
   },
   "author": "theethernaut",
   "license": "ISC",
+  "dependencies": {
+    "ethernaut-wallet": "../ethernaut-wallet"
+  },
   "peerDependencies": {
     "hardhat": "^2.20.0"
   },
