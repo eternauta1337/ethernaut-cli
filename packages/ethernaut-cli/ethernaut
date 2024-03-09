@@ -3,6 +3,17 @@ execDir=$(pwd)
 fileDir=$(dirname $0)
 cd $fileDir
 
+# Check if --version is in argv
+for arg in "$@"
+do
+    if [ "$arg" == "--version" ] || [ "$arg" == "-v" ]; then
+        # Print the package.json version
+        version=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+        echo "ethernaut-cli v$version"
+        exit 0
+    fi
+done
+
 # Check if hardhat.config.js exists in the current directory
 if [ ! -f hardhat.config.js ]; then
   # If not, change directory to the global npm package location
