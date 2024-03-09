@@ -21,5 +21,6 @@
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "hardhat": "^2.20.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "gitHead": "f6e571c4cffbfe06a45cd681c9c40b5617360790"
 }
