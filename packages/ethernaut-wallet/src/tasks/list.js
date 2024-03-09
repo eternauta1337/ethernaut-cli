@@ -6,10 +6,12 @@ require('../scopes/wallet')
   .setAction(async () => {
     try {
       const signers = storage.readSigners()
+      const activeSigner = signers.activeSigner
       const strs = []
       Object.entries(signers).forEach(([name, signer]) => {
         if (name === 'activeSigner') return
-        strs.push(`- ${name} (${signer.address})`)
+        const active = activeSigner === name ? '>' : '-'
+        strs.push(`${active} ${name} (${signer.address})`)
       })
       output.resultBox(strs.join('\n'))
     } catch (err) {

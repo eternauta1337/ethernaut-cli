@@ -6,10 +6,12 @@ require('../scopes/network')
   .setAction(async () => {
     try {
       const networks = storage.readNetworks()
+      const activeNetwork = networks.activeNetwork
       const strs = []
       Object.entries(networks).forEach(([name, network]) => {
         if (name === 'activeNetwork') return
-        strs.push(`- ${name} (${network.url})`)
+        const active = activeNetwork === name ? '>' : '-'
+        strs.push(`${active} ${name} (${network.url})`)
       })
       output.resultBox(strs.join('\n'))
     } catch (err) {

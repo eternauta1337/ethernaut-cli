@@ -8,6 +8,7 @@ describe('list', function () {
     const signers = storage.readSigners()
     if (!('test__3' in signers)) signers.test__3 = { address: 'poop1' }
     if (!('test__4' in signers)) signers.test__4 = { address: 'poop2' }
+    signers.activeSigner = 'test__4'
     storage.storeSigners(signers)
   })
 
@@ -25,7 +26,7 @@ describe('list', function () {
 
     it('prints the signers', async function () {
       terminal.has('- test__3 (poop1)')
-      terminal.has('- test__4 (poop2)')
+      terminal.has('> test__4 (poop2)')
     })
   })
 })
