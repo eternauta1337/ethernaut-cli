@@ -7,7 +7,8 @@ describe('list', function () {
   before('add some networks', async function () {
     const networks = storage.readNetworks()
     if (!('test__3' in networks)) networks.test__3 = { url: 'poop' }
-    if (!('test__4' in networks)) networks.test__4 = { url: 'poop' }
+    if (!('test__4' in networks))
+      networks.test__4 = { url: 'http://www.google.com' }
     networks.activeNetwork = 'test__4'
     storage.storeNetworks(networks)
   })
@@ -26,7 +27,7 @@ describe('list', function () {
 
     it('prints the networks', async function () {
       terminal.has('- test__3 (poop)')
-      terminal.has('> test__4 (poop)')
+      terminal.has('> test__4 (http://www.google.com)')
     })
   })
 })
