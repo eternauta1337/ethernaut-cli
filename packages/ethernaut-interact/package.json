@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-interact",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tasks for sending transactions and interacting with contracts",
   "main": "src/index.js",
   "scripts": {
