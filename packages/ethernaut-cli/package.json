@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Swiss army knife command line application for Ethereum devs",
   "license": "ISC",
   "author": "theethernaut",
@@ -36,9 +36,9 @@
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "chalk-animation": "^1.6.0",
     "dotenv": "^16.4.1",
-    "ethernaut-common": "../ethernaut-common",
     "ethernaut-ai": "../ethernaut-ai",
     "ethernaut-challenges": "../ethernaut-challenges",
+    "ethernaut-common": "../ethernaut-common",
     "ethernaut-interact": "../ethernaut-interact",
     "ethernaut-interact-ui": "../ethernaut-interact-ui",
     "ethernaut-network": "../ethernaut-network",

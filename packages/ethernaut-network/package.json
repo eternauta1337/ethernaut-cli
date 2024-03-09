@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-network",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tasks for interacting with different networks",
   "main": "src/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
     "hardhat": "^2.20.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "hardhat": "^2.20.0",
-    "nyc": "^15.1.0",
-    "@nomicfoundation/hardhat-ethers": "^3.0.5"
+    "nyc": "^15.1.0"
   }
 }

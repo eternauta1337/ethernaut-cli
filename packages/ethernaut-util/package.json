@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-util",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple, everyday utilities for Ethereum devs",
   "main": "src/index.js",
   "scripts": {

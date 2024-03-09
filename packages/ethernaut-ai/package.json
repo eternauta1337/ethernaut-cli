@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI assistant that interprets user input and executes hardhat tasks",
   "main": "src/index.js",
   "scripts": {
