@@ -35,6 +35,10 @@ require('../scopes/network')
         url,
       }
 
+      if (Object.keys(networks).length === 1) {
+        networks.activeNetwork = alias
+      }
+
       storage.storeNetworks(networks)
 
       output.resultBox(`Added network ${alias} with provider ${url}`)
