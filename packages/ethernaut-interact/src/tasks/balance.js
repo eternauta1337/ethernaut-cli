@@ -36,7 +36,7 @@ async function getETHBalance(address, hre) {
 }
 
 async function getTokenBalance(address, token, hre) {
-  const contract = await getContract('ERC20', token, hre)
+  const contract = await getContract('erc20', token, hre)
 
   const rawBalance = await contract.balanceOf(address)
   const decimals = await contract.decimals()
