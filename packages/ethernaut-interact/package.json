@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-interact",
   "version": "1.0.3",
-  "description": "Tasks for sending transactions and interacting with contracts",
+  "description": "Tasks for interacting with a network, including sending eth, interacting with contracts, etc",
   "main": "src/index.js",
   "scripts": {
     "build": "npm run install:test",

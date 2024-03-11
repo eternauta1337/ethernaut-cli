@@ -34,6 +34,24 @@ This plugin doesn't depend on any other plugins.
 
 This plugin adds the following tasks:
 
+### balance
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact balance [--token <SPECIAL>] [address]
+
+OPTIONS:
+
+  --token       The token address or ETH (default: "ETH")
+
+POSITIONAL ARGUMENTS:
+
+  address       The address whose balance will be queried
+
+balance: Queries the ETH or TOKEN balance of an address
+
+For global options help run: hardhat help
+```
+
 ### contract
 
 ```
