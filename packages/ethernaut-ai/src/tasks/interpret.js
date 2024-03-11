@@ -14,6 +14,12 @@ let _interpreter
 let _explainer
 let _query
 
+const options = {
+  EXECUTE: 'execute',
+  EXPLAIN: 'explain',
+  CANCEL: 'cancel',
+}
+
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
   .addPositionalParam(
@@ -76,7 +82,7 @@ async function processActions(actions, actionDescriptions) {
 
   const outputs = []
   switch (await promptUser()) {
-    case 'execute':
+    case options.EXECUTE:
       spinner.progress('Executing...', 'ai')
       for (let action of actions) {
         // TODO: Not sure why this might be needed...
@@ -87,7 +93,7 @@ async function processActions(actions, actionDescriptions) {
       spinner.progress('Analyzing...', 'ai')
       await _interpreter.reportToolOutputs(outputs)
       break
-    case 'explain':
+    case options.EXPLAIN:
       spinner.progress('Analyzing...', 'ai')
       output.infoBox(
         await _explainer.explain(_query, actionDescriptions),
@@ -95,7 +101,7 @@ async function processActions(actions, actionDescriptions) {
       )
       processActions(actions, actionDescriptions)
       break
-    case 'skip':
+    case options.CANCEL:
       spinner.progress('Exiting...', 'ai')
       await _interpreter.reportToolOutputs(undefined)
       break
@@ -108,6 +114,6 @@ async function promptUser() {
   return await prompt({
     type: 'select',
     message: 'How would you like to proceed?',
-    choices: ['execute', 'explain', 'skip'],
+    choices: Object.values(options),
   })
 }
