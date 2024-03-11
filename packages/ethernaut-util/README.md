@@ -46,6 +46,20 @@ bytes: Converts strings to bytes32
 For global options help run: hardhat help
 ```
 
+### checksum
+
+```
+Usage: hardhat [GLOBAL OPTIONS] util checksum [address]
+
+POSITIONAL ARGUMENTS:
+
+  address       The address whose checksum will be computed. If the address contains mixed case characters, its checksum will be validated.
+
+checksum: Computes or validates the checksum of an address
+
+For global options help run: hardhat help
+```
+
 ### string
 
 ```
