@@ -15,13 +15,22 @@ require('../scopes/interact')
     undefined,
     types.string,
   )
-  .setAction(async ({ name }, hre) => {
+  .addOptionalParam(
+    'chainId',
+    'The chain id of the network where the token is deployed',
+    undefined,
+    types.string,
+  )
+  .setAction(async ({ name, chainId }, hre) => {
     try {
       // Id network
-      const network = (await hre.ethers.provider.getNetwork()).toJSON()
-      const chainId = Number(network.chainId)
+      if (!chainId) {
+        const network = (await hre.ethers.provider.getNetwork()).toJSON()
+        chainId = Number(network.chainId)
+      } else {
+        chainId = Number(chainId)
+      }
       const chainInfo = chains.find((c) => c.chainId === chainId)
-      console.log('>', chainId)
 
       // Filter candidates by network
       const candidates = tokens.filter((t) => {
