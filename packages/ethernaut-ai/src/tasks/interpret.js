@@ -22,12 +22,7 @@ require('../scopes/ai')
     undefined,
     types.string,
   )
-  .addOptionalParam(
-    'model',
-    'The model to use',
-    'assistant-defined',
-    types.string,
-  )
+  .addOptionalParam('model', 'The model to use', undefined, types.string)
   .addFlag('noConfirm', 'Always execute the command without prompting')
   .addFlag('newThread', 'Start a new thread')
   .setAction(async ({ query, newThread, noConfirm, model }, hre) => {
@@ -62,7 +57,6 @@ require('../scopes/ai')
       _explainer.on('building_assistant', buildingAssistantLIstener)
 
       spinner.progress('Thinking...', 'ai')
-      model = model === 'assistant-defined' ? undefined : model
       const response = await _interpreter.process(_thread, model)
 
       spinner.success('Assistant done', 'ai')
