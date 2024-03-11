@@ -3,6 +3,7 @@ const os = require('os')
 const debug = require('ethernaut-common/src/debug')
 const assert = require('assert')
 const chalk = require('chalk')
+const wait = require('ethernaut-common/src/wait')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
@@ -23,7 +24,7 @@ class Terminal {
     this.shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
   }
 
-  async run(command, wait = 10000) {
+  async run(command, delay = 10000) {
     if (this.running) {
       throw new Error('Terminal is already running a command')
     }
@@ -53,15 +54,15 @@ class Terminal {
     this._write(`${command} && sleep 1 && exit\r`)
 
     const completion = this._waitForCompletion()
-    const delay = this.wait(wait)
-    await Promise.race([completion, delay])
+    const waitPromise = wait(delay)
+    await Promise.race([completion, waitPromise])
 
     this.running = false
   }
 
-  async input(command, wait = 200) {
+  async input(command, delay = 200) {
     this._write(command)
-    return this.wait(wait)
+    return wait(delay)
   }
 
   _waitForCompletion() {
@@ -76,14 +77,6 @@ class Terminal {
   _write(content) {
     this.output = ''
     this.process.write(content)
-  }
-
-  async wait(delay) {
-    return await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve()
-      }, delay)
-    })
   }
 
   stripAnsi(inputString) {

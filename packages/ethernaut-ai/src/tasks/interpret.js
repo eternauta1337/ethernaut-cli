@@ -7,6 +7,7 @@ const debug = require('ethernaut-common/src/debug')
 const spinner = require('ethernaut-common/src/spinner')
 const prompt = require('ethernaut-common/src/prompt')
 const checkEnvVar = require('ethernaut-common/src/check-env')
+const wait = require('ethernaut-common/src/wait')
 
 let _noConfirm
 let _thread
@@ -63,12 +64,18 @@ require('../scopes/ai')
       _explainer.on('building_assistant', buildingAssistantLIstener)
 
       spinner.progress('Thinking...', 'ai')
-      const response = await _interpreter.process(_thread, model)
+      const waitPromise = wait(120000)
+      const response = await Promise.race([
+        _interpreter.process(_thread, model),
+        waitPromise,
+      ])
 
       spinner.success('Assistant done', 'ai')
 
       if (response) {
         return output.resultBox(response, 'Assistant response')
+      } else {
+        throw new Error('No response from assistant')
       }
     } catch (err) {
       return output.errorBox(err)
@@ -95,16 +102,26 @@ async function processActions(actions, actionDescriptions) {
       break
     case options.EXPLAIN:
       spinner.progress('Analyzing...', 'ai')
-      output.infoBox(
-        await _explainer.explain(_query, actionDescriptions),
-        'Explanation',
-      )
-      processActions(actions, actionDescriptions)
+      await explain(actions, actionDescriptions)
       break
     case options.CANCEL:
       spinner.progress('Exiting...', 'ai')
       await _interpreter.reportToolOutputs(undefined)
       break
+  }
+}
+
+async function explain(actions, actionDescriptions) {
+  const waitPromise = wait(120000)
+  const response = await Promise.race([
+    await _explainer.explain(_query, actionDescriptions),
+    waitPromise,
+  ])
+  if (response) {
+    output.infoBox(response, 'Explanation')
+    processActions(actions, actionDescriptions)
+  } else {
+    throw new Error('No response from assistant')
   }
 }
 
