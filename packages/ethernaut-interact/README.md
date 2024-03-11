@@ -87,6 +87,20 @@ send: Sends ether to an address
 For global options help run: hardhat help
 ```
 
+### token-address
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact token-address [name]
+
+POSITIONAL ARGUMENTS:
+
+  name  The name or symbol of the token
+
+token-address: Tries to find the address of a token, given its name or symbol in the current network
+
+For global options help run: hardhat help
+```
+
 ## Environment extensions
 
 This plugin does not add any fields to the hre.
