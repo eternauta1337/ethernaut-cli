@@ -53,7 +53,9 @@ const task = require('../scopes/wallet')
 
       storage.storeSigners(signers)
 
-      output.resultBox(`Created new wallet ${alias} with address ${address}`)
+      return output.resultBox(
+        `Created new wallet ${alias} with address ${address}`,
+      )
     } catch (err) {
       return output.errorBox(err)
     }

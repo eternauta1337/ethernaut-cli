@@ -23,7 +23,7 @@ require('../scopes/network')
 
       storage.storeNetworks(networks)
 
-      output.resultBox(`Updated network ${alias} with url ${url}`)
+      return output.resultBox(`Updated network ${alias} with url ${url}`)
     } catch (err) {
       return output.errorBox(err)
     }

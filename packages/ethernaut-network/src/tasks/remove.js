@@ -26,7 +26,7 @@ require('../scopes/network')
 
       storage.storeNetworks(networks)
 
-      output.resultBox(`Removed network ${alias}`)
+      return output.resultBox(`Removed network ${alias}`)
     } catch (err) {
       return output.errorBox(err)
     }

@@ -26,7 +26,7 @@ require('../scopes/wallet')
 
       const signer = signers[alias]
 
-      output.resultBox(
+      return output.resultBox(
         `The current wallet is now "${alias}" with address ${signer.address}`,
       )
     } catch (err) {

@@ -42,7 +42,7 @@ require('../scopes/network')
       str += `Gas price: ${info.gasPrice} gwei\n`
       str += `Block number: ${info.blockNumber}`
 
-      output.resultBox(str)
+      return output.resultBox(str)
     } catch (err) {
       return output.errorBox(err)
     }

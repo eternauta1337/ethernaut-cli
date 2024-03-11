@@ -13,7 +13,7 @@ require('../scopes/network')
         const active = activeNetwork === name ? '>' : '-'
         strs.push(`${active} ${name} (${network.url})`)
       })
-      output.resultBox(strs.join('\n'))
+      return output.resultBox(strs.join('\n'))
     } catch (err) {
       return output.errorBox(err)
     }

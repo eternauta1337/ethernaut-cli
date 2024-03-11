@@ -34,7 +34,7 @@ require('../scopes/wallet')
       str += `Address: ${info.address}\n`
       str += `Balance: ${hre.ethers.formatEther(info.balance)} ETH`
 
-      output.resultBox(str)
+      return output.resultBox(str)
     } catch (err) {
       return output.errorBox(err)
     }

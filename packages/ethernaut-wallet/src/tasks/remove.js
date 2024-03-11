@@ -26,7 +26,7 @@ require('../scopes/wallet')
 
       storage.storeSigners(signers)
 
-      output.resultBox(`Removed signer ${alias}`)
+      return output.resultBox(`Removed signer ${alias}`)
     } catch (err) {
       return output.errorBox(err)
     }

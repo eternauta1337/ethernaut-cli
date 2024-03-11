@@ -7,7 +7,7 @@ require('../scopes/wallet')
     try {
       const signers = storage.readSigners()
       const signer = signers[signers.activeSigner]
-      output.resultBox(
+      return output.resultBox(
         `The current wallet is "${signers.activeSigner}" with address ${signer.address}`,
       )
     } catch (err) {

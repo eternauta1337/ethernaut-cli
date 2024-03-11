@@ -13,7 +13,7 @@ require('../scopes/wallet')
         const active = activeSigner === name ? '>' : '-'
         strs.push(`${active} ${name} (${signer.address})`)
       })
-      output.resultBox(strs.join('\n'))
+      return output.resultBox(strs.join('\n'))
     } catch (err) {
       return output.errorBox(err)
     }

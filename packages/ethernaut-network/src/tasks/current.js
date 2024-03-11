@@ -7,7 +7,7 @@ require('../scopes/network')
     try {
       const networks = storage.readNetworks()
       const network = networks[networks.activeNetwork]
-      output.resultBox(
+      return output.resultBox(
         `The current network is "${networks.activeNetwork}" with url ${network.url}`,
       )
     } catch (err) {

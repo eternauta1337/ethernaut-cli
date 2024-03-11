@@ -13,7 +13,7 @@ require('../scopes/wallet')
 
       const wallet = getWallet(signer.pk)
 
-      output.resultBox(wallet.signMessageSync(message))
+      return output.resultBox(wallet.signMessageSync(message))
     } catch (err) {
       return output.errorBox(err)
     }

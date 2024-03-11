@@ -24,7 +24,7 @@ require('../scopes/network')
       networks.activeNetwork = alias
       storage.storeNetworks(networks)
 
-      output.resultBox(`The active network is now "${alias}"`)
+      return output.resultBox(`The active network is now "${alias}"`)
     } catch (err) {
       return output.errorBox(err)
     }
