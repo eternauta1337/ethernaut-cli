@@ -21,6 +21,7 @@ require('../scopes/interact')
       const network = (await hre.ethers.provider.getNetwork()).toJSON()
       const chainId = Number(network.chainId)
       const chainInfo = chains.find((c) => c.chainId === chainId)
+      console.log('>', chainId)
 
       // Filter candidates by network
       const candidates = tokens.filter((t) => {
@@ -31,6 +32,10 @@ require('../scopes/interact')
 
         return nameMatch || symbolMatch
       })
+
+      if (!candidates || candidates.length === 0) {
+        throw new Error(`Cannot find token info for ${name}`)
+      }
 
       const nameMatches = similarity.findBestMatch(
         name,
