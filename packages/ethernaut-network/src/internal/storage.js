@@ -4,11 +4,12 @@ const {
   createFolderIfMissing,
   createFileIfMissing,
 } = require('ethernaut-common/src/create-file')
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
 /**
  * Stores data like this:
- * <hardhat-project>/
- *   artifacts/
+ * ~/
+ *   .ethernaut/
  *     network/
  *       networks.json
  *
@@ -39,7 +40,7 @@ function init() {
 }
 
 function getNetworkFolderPath() {
-  return path.join(process.cwd(), 'artifacts', 'network')
+  return path.join(getEthernautFolderPath(), 'network')
 }
 
 function getNetworksFilePath() {

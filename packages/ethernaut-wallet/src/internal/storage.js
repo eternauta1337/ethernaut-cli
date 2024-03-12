@@ -4,11 +4,12 @@ const {
   createFolderIfMissing,
   createFileIfMissing,
 } = require('ethernaut-common/src/create-file')
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
 /**
  * Stores data like this:
- * <hardhat-project>/
- *   artifacts/
+ * ~/
+ *   .ethernaut/
  *     signer/
  *       signers.json
  *
@@ -39,7 +40,7 @@ function init() {
 }
 
 function getSignerFolderPath() {
-  return path.join(process.cwd(), 'artifacts', 'signer')
+  return path.join(getEthernautFolderPath(), 'signer')
 }
 
 function getSignersFilePath() {

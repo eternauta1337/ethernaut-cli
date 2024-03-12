@@ -28,11 +28,7 @@ describe('info', function () {
     })
 
     it('shows abi path', async function () {
-      assert.ok(
-        levelInfo.includes(
-          'ethernaut-cli/packages/ethernaut-challenges/test/fixture-projects/basic-project/artifacts/interact/abis/Instance.json',
-        ),
-      )
+      assert.ok(levelInfo.includes('/.ethernaut/interact/abis/Instance.json'))
     })
 
     it('shows address', async function () {
@@ -71,11 +67,7 @@ describe('info', function () {
     })
 
     it('shows abi path', async function () {
-      assert.ok(
-        levelInfo.includes(
-          'ethernaut-cli/packages/ethernaut-challenges/test/fixture-projects/basic-project/artifacts/interact/abis/Fallback.json',
-        ),
-      )
+      assert.ok(levelInfo.includes('/.ethernaut/interact/abis/Fallback.json'))
     })
 
     it('shows address', async function () {

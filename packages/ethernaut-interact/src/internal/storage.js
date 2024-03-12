@@ -4,6 +4,7 @@ const {
   createFolderIfMissing,
   createFileIfMissing,
 } = require('ethernaut-common/src/create-file')
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
 /**
  * addresses.json schema:
@@ -69,7 +70,7 @@ function getAbisFilePath() {
 }
 
 function getInteractFilePath() {
-  return path.join(process.cwd(), 'artifacts', 'interact')
+  return path.join(getEthernautFolderPath(), 'interact')
 }
 
 function initStorage() {

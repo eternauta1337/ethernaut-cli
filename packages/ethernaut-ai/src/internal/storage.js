@@ -4,11 +4,12 @@ const {
   createFolderIfMissing,
   createFileIfMissing,
 } = require('ethernaut-common/src/create-file')
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
 /**
  * Stores data like this:
- * <hardhat-project>/
- *   artifacts/
+ * ~/
+ *   .ethernaut/
  *     ai/
  *       assistants/
  *         <openai-assistant-id>.json
@@ -145,7 +146,7 @@ function storeInfo(data) {
 }
 
 function getAiFolderPath() {
-  return path.join(process.cwd(), 'artifacts', 'ai')
+  return path.join(getEthernautFolderPath(), 'ai')
 }
 
 function getInfoFilePath() {

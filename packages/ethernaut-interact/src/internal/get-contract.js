@@ -1,3 +1,4 @@
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 const fs = require('fs')
 const path = require('path')
 
@@ -6,7 +7,7 @@ async function getContract(abiName, address, hre) {
 }
 
 function getAbi(abiName) {
-  const abisPath = path.join(process.cwd(), 'artifacts', 'interact', 'abis')
+  const abisPath = path.join(getEthernautFolderPath(), 'interact', 'abis')
   const filePath = path.join(abisPath, `${abiName}.json`)
 
   let abi = JSON.parse(fs.readFileSync(filePath, 'utf8'))

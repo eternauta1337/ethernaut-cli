@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
 function getGamedata() {
   const filePath = path.join(getGamedataPath(), 'gamedata.json')
@@ -51,7 +52,7 @@ function getAbi(abiName) {
 // ------------------------
 
 function getAbisPath() {
-  return path.join(process.cwd(), 'artifacts', 'interact', 'abis')
+  return path.join(getEthernautFolderPath(), 'interact', 'abis')
 }
 
 function getSourcesPath() {
