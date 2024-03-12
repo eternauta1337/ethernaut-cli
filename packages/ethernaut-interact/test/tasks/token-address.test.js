@@ -5,13 +5,13 @@ describe('token-address', function () {
 
   before('make call', async function () {
     await terminal.run(
-      'npx hardhat interact token-address USDT --chain-id 1',
+      'npx hardhat interact token-address usdt --chain 1',
       2000,
     )
   })
 
   it('shows the token name', async function () {
-    terminal.has('Token name: USDT')
+    terminal.has('Token name: usdt')
   })
 
   it('shows the network', async function () {
@@ -23,6 +23,6 @@ describe('token-address', function () {
   })
 
   it('shows the address', async function () {
-    terminal.has('Address: 0xdac17f958d2ee523a2206206994597c13d831ec7')
+    terminal.has('Address: 0xdAC17F958D2ee523a2206206994597C13D831ec7')
   })
 })

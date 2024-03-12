@@ -16,43 +16,32 @@ require('../scopes/interact')
     types.string,
   )
   .addOptionalParam(
-    'chainId',
-    'The chain id of the network where the token is deployed',
-    undefined,
+    'chain',
+    'The name or id of the network to search on. Use "0" to only search on the current network. Use "-1" to search on any network. Default is "0" (current network)',
+    '0',
     types.string,
   )
-  .setAction(async ({ name, chainId }, hre) => {
+  .setAction(async ({ name, chain }, hre) => {
     try {
-      // Id network
-      if (!chainId) {
-        const network = (await hre.ethers.provider.getNetwork()).toJSON()
-        chainId = Number(network.chainId)
-      } else {
-        chainId = Number(chainId)
-      }
-      const chainInfo = chains.find((c) => c.chainId === chainId)
+      const chainInfo = await identifyNetwork(chain, hre)
 
-      // Filter candidates by network
-      const candidates = tokens.filter((t) => {
-        if (t.chainId !== chainId) return false
+      let candidates = tokens
 
-        const nameMatch = t.name.includes(name)
-        const symbolMatch = t.symbol.includes(name)
-
-        return nameMatch || symbolMatch
-      })
-
-      if (!candidates || candidates.length === 0) {
-        throw new Error(`Cannot find token info for ${name}`)
+      // Filter candidates by network?
+      if (chainInfo.chainId > 0) {
+        candidates = tokens.filter((t) => t.chainId === chainInfo.chainId)
+        if (!candidates || candidates.length === 0) {
+          throw new Error(`Cannot find token info for ${name}`)
+        }
       }
 
       const nameMatches = similarity.findBestMatch(
-        name,
-        candidates.map((c) => c.name),
+        name.toLowerCase(),
+        candidates.map((c) => c.name.toLowerCase()),
       )
       const symbolMatches = similarity.findBestMatch(
-        name,
-        candidates.map((c) => c.symbol),
+        name.toLowerCase(),
+        candidates.map((c) => c.symbol.toLowerCase()),
       )
 
       if (!nameMatches && !symbolMatches) {
@@ -62,21 +51,28 @@ require('../scopes/interact')
       let match
 
       if (nameMatches && !symbolMatches) {
-        match = candidates.find((c) => c.name === nameMatches.bestMatch.target)
+        match = candidates.find(
+          (c) => c.name.toLowerCase() === nameMatches.bestMatch.target,
+        )
       } else if (!nameMatches && symbolMatches) {
         match = candidates.find(
-          (c) => c.symbol === symbolMatches.bestMatch.target,
+          (c) => c.symbol.toLowerCase() === symbolMatches.bestMatch.target,
         )
       } else {
         if (nameMatches.bestMatch.rating > symbolMatches.bestMatch.rating) {
           match = candidates.find(
-            (c) => c.name === nameMatches.bestMatch.target,
+            (c) => c.name.toLowerCase() === nameMatches.bestMatch.target,
           )
         } else {
           match = candidates.find(
-            (c) => c.symbol === symbolMatches.bestMatch.target,
+            (c) => c.symbol.toLowerCase() === symbolMatches.bestMatch.target,
           )
         }
+      }
+
+      if (chainInfo.name === 'Any network') {
+        const tokenChain = chains.find((c) => c.chainId === match.chainId)
+        chainInfo.name = tokenChain.name
       }
 
       let str = ''
@@ -91,3 +87,41 @@ require('../scopes/interact')
       return output.errorBox(error)
     }
   })
+
+async function identifyNetwork(chain, hre) {
+  const isNumber = !isNaN(chain)
+
+  // -1 means any network, 0 means current network, 1+ means chainId
+  if (isNumber) {
+    const chainId = Number(chain)
+    if (chainId === 0) {
+      const network = (await hre.ethers.provider.getNetwork()).toJSON()
+      return {
+        chainId: Number(network.chainId),
+        name: chains.find((c) => c.chainId === Number(network.chainId)).name,
+      }
+    } else if (chainId > 0) {
+      return {
+        chainId,
+        name: chains.find((c) => c.chainId === chainId).name,
+      }
+    } else {
+      return {
+        chainId: -1,
+        name: 'Any network',
+      }
+    }
+  } else {
+    // Translate network name to chainId
+    const chainInfo = chains.find(
+      (c) => c.name.toLowerCase() === chain.toLowerCase(),
+    )
+    if (!chainInfo) {
+      throw new Error(`Cannot find network ${chain}`)
+    }
+    return {
+      chainId: chainInfo.chainId,
+      name: chainInfo.name,
+    }
+  }
+}
