@@ -6,7 +6,7 @@ const units = ['ether', 'wei', 'kwei', 'mwei', 'gwei', 'szabo', 'finney']
 const task = require('../scopes/util')
   .task(
     'unit',
-    `Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be one of ${units.join(
+    `Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be a number, or one of ${units.join(
       ',',
     )}.`,
   )
@@ -15,6 +15,9 @@ const task = require('../scopes/util')
   .addParam('to', 'The unit to convert to', 'wei', types.string)
   .setAction(async ({ value, from, to }, hre) => {
     try {
+      if (!isNaN(from)) from = Number(from)
+      if (!isNaN(to)) to = Number(to)
+
       const valueWei = hre.ethers.parseUnits(value, from)
       let result = hre.ethers.formatUnits(valueWei, to)
 
