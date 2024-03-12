@@ -55,6 +55,10 @@ function getAddressesFilePath() {
   return path.join(getInteractFilePath(), 'addresses.json')
 }
 
+function findAbi(name) {
+  return path.join(getAbisFilePath(), `${name}.json`)
+}
+
 function storeAbi(name, abi) {
   initStorage()
 
@@ -92,6 +96,7 @@ function readAbiFiles() {
 }
 
 module.exports = {
+  findAbi,
   storeAbi,
   rememberAbiAndAddress,
   readAddresses,

@@ -1,0 +1,3 @@
+{
+  "additionalInstructions": "When tasked to retrieve information from an ERC20 token, or interact with it, use the token task. When doing so, and working with numbers, make sure to take into consideration the token's decimals. This value can be obtained by calling the 'decimals' function of the token contract. With the value, you can use the unit task with parameters from='wei', to=<decimals> to obtain a human readable number."
+}
