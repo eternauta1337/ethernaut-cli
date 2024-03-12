@@ -35,7 +35,7 @@ require('../scopes/network')
         url,
       }
 
-      if (Object.keys(networks).length === 1) {
+      if (networks.activeNetwork === 'localhost' && !networks.localhost) {
         networks.activeNetwork = alias
       }
 
