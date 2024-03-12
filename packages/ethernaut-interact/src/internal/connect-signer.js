@@ -3,7 +3,7 @@ const warnWithPrompt = require('../internal/warn-prompt')
 const getBalance = require('../internal/get-balance')
 const debug = require('ethernaut-common/src/debug')
 
-module.exports = async function conenctSigner(noConfirm) {
+module.exports = async function connectSigner(noConfirm) {
   spinner.progress('Connecting signer', 'interact')
 
   const signers = await hre.ethers.getSigners()
