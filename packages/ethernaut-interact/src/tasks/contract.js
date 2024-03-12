@@ -79,12 +79,9 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
 
   const network = await getNetworkName(hre)
 
-  const signer = await connectSigner(noConfirm)
-
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact')
   let contract = await hre.ethers.getContractAt(_abi, address)
-  contract = contract.connect(signer)
   spinner.success('Contract instantiated', 'interact')
   debug.log(`Instantiated contract: ${contract.target}`, 'interact')
 
@@ -110,6 +107,9 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   if (isReadOnly) {
     return await executeRead(contract, sig, params)
   } else {
+    const signer = await connectSigner(noConfirm)
+    contract = contract.connect(signer)
+
     return await executeWrite(
       signer,
       contract,

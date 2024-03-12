@@ -7,6 +7,12 @@ module.exports = async function connectSigner(noConfirm) {
   spinner.progress('Connecting signer', 'interact')
 
   const signers = await hre.ethers.getSigners()
+  if (signers.length === 0) {
+    throw new Error(
+      'No signers available - If you are using the ethernaut-cli, please add one with `ethernaut wallet create`',
+    )
+  }
+
   debug.log(`Signers: ${signers.map((s) => s.address).join(', ')}`, 'interact')
 
   const signer = signers[0]
