@@ -8,6 +8,8 @@ class EtherscanApi {
   }
 
   async getContractCode(address) {
+    debug.log(`Fetching contract code for ${address}`, 'etherscan')
+
     const result = await this.createRequest({
       module: 'contract',
       action: 'getsourcecode',
@@ -37,7 +39,7 @@ class EtherscanApi {
   }
 
   async createRequest(params = {}) {
-    const url = `${this.baseUrl}/api`
+    const url = this.baseUrl
     const serializedParams = this.serializeParams({
       ...params,
       apiKey: this.apiKey,

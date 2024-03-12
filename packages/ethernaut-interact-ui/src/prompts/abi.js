@@ -3,7 +3,7 @@ const EtherscanApi = require('ethernaut-interact/src/internal/etherscan')
 const prompt = require('ethernaut-common/src/prompt')
 const spinner = require('ethernaut-common/src/spinner')
 const debug = require('ethernaut-common/src/debug')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const { getChainId } = require('ethernaut-common/src/network')
 const checkEnvVar = require('ethernaut-common/src/check-env')
 
 const strategies = {
@@ -14,10 +14,10 @@ const strategies = {
 
 module.exports = async function promptAbi({ abi, hre, address }) {
   try {
-    const network = await getNetworkName(hre)
+    const chainId = await getChainId(hre)
 
     // Let the user select a strategy
-    const choice = await selectStrategy({ address, network })
+    const choice = await selectStrategy(address, chainId)
     debug.log(`Chosen strategy: ${choice}`, 'interact')
 
     // Execute the chosen strategy
@@ -26,7 +26,7 @@ module.exports = async function promptAbi({ abi, hre, address }) {
         abi = await browseKnownAbis()
         break
       case strategies.ETHERSCAN:
-        abi = await getAbiFromEtherscan(address, network)
+        abi = await getAbiFromEtherscan(address, chainId)
         break
       case strategies.MANUAL:
       // Do nothing
@@ -35,7 +35,7 @@ module.exports = async function promptAbi({ abi, hre, address }) {
     // Remember anything?
     // Note: The abi file is stored below when fetching from Etherscan
     if (abi && address) {
-      storage.rememberAbiAndAddress(abi, address, network)
+      storage.rememberAbiAndAddress(abi, address, chainId)
     }
 
     return abi
@@ -44,7 +44,26 @@ module.exports = async function promptAbi({ abi, hre, address }) {
   }
 }
 
-async function selectStrategy({ address }) {
+// TODO: Does etherscan support other networks?
+// Where can I find a complete list of endpoints?
+function getEtherscanUrl(chainId) {
+  switch (chainId) {
+    case 1: // Mainnet
+      return 'https://api.etherscan.io/api'
+    case 5: // Goerli
+      return 'https://api-goerli.etherscan.io/api'
+    case 10: // Optimism mainnet
+      return 'https://api-optimistic.etherscan.io/api'
+    case 420: // Optimism goerli
+      return 'https://api-goerli-optimistic.etherscan.io/api'
+    case 11155111: // Sepolia
+      return 'https://api-sepolia.etherscan.io/api'
+    default:
+      return undefined
+  }
+}
+
+async function selectStrategy(address, chainId) {
   // Collect available choices since
   // not all strategies might be available
   const choices = [strategies.MANUAL]
@@ -59,7 +78,8 @@ async function selectStrategy({ address }) {
   }
 
   // Fetch from Etherscan?
-  if (address) {
+  const etherscanUrl = getEtherscanUrl(chainId)
+  if (address && etherscanUrl) {
     choices.push(strategies.ETHERSCAN)
   } else {
     debug.log('Cannot fetch from Etherscan', 'interact')
@@ -111,7 +131,7 @@ async function browseKnownAbis() {
   })
 }
 
-async function getAbiFromEtherscan(address, network) {
+async function getAbiFromEtherscan(address, chainId) {
   await checkEnvVar(
     'ETHERSCAN_API_KEY',
     'This key is required to fetch ABIs from Etherscan',
@@ -119,11 +139,12 @@ async function getAbiFromEtherscan(address, network) {
 
   spinner.progress('Fetching ABI from Etherscan...', 'etherscan')
 
-  const networkComp = network === 'mainnet' ? '' : `-${network}`
+  const etherscanUrl = getEtherscanUrl(chainId)
+  debug.log(`Etherscan URL: ${etherscanUrl}`, 'etherscan')
 
   const etherscan = new EtherscanApi(
     process.env.ETHERSCAN_API_KEY,
-    `https://api${networkComp}.etherscan.io`,
+    etherscanUrl,
   )
 
   try {

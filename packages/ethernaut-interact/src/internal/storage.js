@@ -37,16 +37,16 @@ function storeAddresses(data) {
   fs.writeFileSync(getAddressesFilePath(), JSON.stringify(data, null, 2))
 }
 
-function rememberAbiAndAddress(abi, address, network) {
+function rememberAbiAndAddress(abi, address, chainId) {
   initStorage()
 
   const addresses = readAddresses()
 
-  if (!addresses[network]) {
-    addresses[network] = {}
+  if (!addresses[chainId]) {
+    addresses[chainId] = {}
   }
 
-  addresses[network][address] = abi
+  addresses[chainId][address] = abi
 
   storeAddresses(addresses)
 }

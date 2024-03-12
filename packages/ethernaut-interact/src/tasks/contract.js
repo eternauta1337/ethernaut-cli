@@ -14,7 +14,7 @@ const spinner = require('ethernaut-common/src/spinner')
 const debug = require('ethernaut-common/src/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const { getChainId } = require('ethernaut-common/src/network')
 
 require('../scopes/interact')
   .task('contract', 'Interacts with a contract')
@@ -77,7 +77,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   const _abi = loadAbi(abi)
   debug.log(_abi, 'interact-deep')
 
-  const network = await getNetworkName(hre)
+  const chainId = await getChainId(hre)
 
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact')
@@ -99,7 +99,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
 
   // Remember this interaction
   // TODO: Only if successful?
-  storage.rememberAbiAndAddress(abi, address, network)
+  storage.rememberAbiAndAddress(abi, address, chainId)
 
   // Execute read or write
   const isReadOnly =
