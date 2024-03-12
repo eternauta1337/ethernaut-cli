@@ -81,7 +81,7 @@ async function selectStrategy({ address }) {
   }
 
   // Show prompt
-  debug.log(`Prompting for stragtegy - choices: ${choices}`, 'interact')
+  debug.log(`Prompting for strategy - choices: ${choices}`, 'interact')
 
   return await prompt({
     type: 'select',
