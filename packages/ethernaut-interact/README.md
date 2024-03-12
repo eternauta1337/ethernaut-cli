@@ -90,7 +90,11 @@ For global options help run: hardhat help
 ### token-address
 
 ```
-Usage: hardhat [GLOBAL OPTIONS] interact token-address [name]
+Usage: hardhat [GLOBAL OPTIONS] interact token-address [--chain <SPECIAL>] [name]
+
+OPTIONS:
+
+  --chain       The name or id of the network to search on. Use "0" to only search on the current network. Use "-1" to search on any network. Default is "0" (current network) (default: "0")
 
 POSITIONAL ARGUMENTS:
 
