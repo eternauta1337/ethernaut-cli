@@ -29,6 +29,20 @@ describe('unit', function () {
     )
   })
 
+  it('converts to 6 decimals', async function () {
+    assert.equal(
+      await hre.run(
+        { scope: 'util', task: 'unit' },
+        {
+          value: '6500000000',
+          from: 'wei',
+          to: '6',
+        },
+      ),
+      '6500',
+    )
+  })
+
   it('converts 12 szabo to mwei', async function () {
     assert.equal(
       await hre.run(
