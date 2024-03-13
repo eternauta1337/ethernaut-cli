@@ -19,7 +19,7 @@ require('ethernaut-challenges')
 
 const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
-console.log(`v${version}`)
+console.log(`v${version} - Warning!!! ALPHA version. Use at your own risk.`)
 
 module.exports = {
   solidity: '0.8.19',

@@ -1,7 +1,7 @@
 {
   "name": "ethernaut-cli",
   "version": "1.0.10",
-  "description": "Swiss army knife command line application for Ethereum devs",
+  "description": "Ai agent cli with web3 capabilities",
   "license": "ISC",
   "author": "theethernaut",
   "repository": {

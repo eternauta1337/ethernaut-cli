@@ -1,13 +1,26 @@
 # ethernaut-cli
 
-Ethereum swiss army ~knife~ ~superweapon~ ~cli~ ~tool~ thing?
-for Ethereum hackers.
+The ethernaut-cli is basically an ai agent that is given access to web3 actions through hardhat tasks. It is a cli meant to be installed globally, and used like:
+
+`ethernaut what is the total supply of USDC`
+
+or
+
+`ethernaut complete level 2 of the ethernaut challenges`
+
+It can also be used as a regular cli:
+
+`ethernaut util unit 5 --from ether --to wei`
+
+And also features an interactive mode that allows easy navigation of tasks and collection of task arguments.
 
 ## Installation
 
 `npm i -g ethernaut-cli`
 
-Warning! This software is still in alpha, and very experimental rn.
+Warning!!! This software is in alpha, and very experimental atm.
+
+![danger](https://giphy.com/embed/X8t6i3zOvLfGw)
 
 ## Intuitive navigation
 
