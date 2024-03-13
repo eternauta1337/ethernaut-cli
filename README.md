@@ -20,7 +20,7 @@ And also features an interactive mode that allows easy navigation of tasks and c
 
 Warning!!! This software is in alpha, and very experimental atm.
 
-![danger](https://giphy.com/embed/X8t6i3zOvLfGw)
+![danger](https://media.giphy.com/media/X8t6i3zOvLfGw/giphy.gif?cid=790b7611j0imei4nyl4pp57rhrk4bjb60d4z2vwc8suct6i1&ep=v1_gifs_search&rid=giphy.gif&ct=g)
 
 ## Intuitive navigation
 
