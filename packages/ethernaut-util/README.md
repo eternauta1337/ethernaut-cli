@@ -81,14 +81,14 @@ Usage: hardhat [GLOBAL OPTIONS] util unit [--from <SPECIAL>] [--to <SPECIAL>] [v
 
 OPTIONS:
 
-  --from                The unit to convert from (default: "ether")
-  --to                  The unit to convert to (default: "wei")
+  --from        The unit to convert from (default: "ether")
+  --to          The unit to convert to (default: "wei")
 
 POSITIONAL ARGUMENTS:
 
   value The value to convert
 
-unit: Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be one of ether,wei,kwei,mwei,gwei,szabo,finney.
+unit: Converts between different units of Ether. E.g. 1 ether is 1000000000000000000 wei. Units can be a number, or one of ether,wei,kwei,mwei,gwei,szabo,finney.
 
 For global options help run: hardhat help
 ```
