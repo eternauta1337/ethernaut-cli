@@ -11,6 +11,8 @@ Ui extensions for the ethernaut-interact package
 - abi: Presents multiple strategies for specifying a path to the abi of the contract including downloading the abi from etherscan, browsing common abis, etc
 - fn: Builds function signatures from the abi
 - params: Specialized prompts for collecting smart contract function parameters
+- fnERC20: As fn but specific to ERC20 tokens
+- paramsERC20: As params but specific to ERC20 tokens
 
 #### Suggestions
 

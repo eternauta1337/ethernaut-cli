@@ -87,6 +87,24 @@ send: Sends ether to an address
 For global options help run: hardhat help
 ```
 
+### token
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact token [--address <SPECIAL>] [--fn <SPECIAL>] [--no-confirm] [--params <SPECIAL>] [--value <SPECIAL>]
+
+OPTIONS:
+
+  --address     The address of the token
+  --fn          The function of the token to call
+  --no-confirm  Skip confirmation prompts, avoiding any type of interactivity
+  --params      The parameters to use in the function call. If the call requires multiple parameters, separate them with a comma. E.g. "0x123,42"
+  --value       The amount of ether to send with the transaction
+
+token: Interacts with any ERC20 token
+
+For global options help run: hardhat help
+```
+
 ### token-address
 
 ```
