@@ -22,7 +22,7 @@ require('../scopes/interact')
     'Skip confirmation prompts, avoiding any type of interactivity',
   )
   .setAction(async ({ address, fn, params, value, noConfirm }) => {
-    const abi = storage.findAbi('ERC20')
+    const abi = storage.findAbi('erc20')
 
     return await hre.run(
       { scope: 'interact', task: 'contract' },
