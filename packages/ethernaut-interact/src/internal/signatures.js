@@ -49,6 +49,12 @@ function getPopulatedFunctionSignature(fnAbi, params) {
   return str
 }
 
+function getEventSignature(eventAbi) {
+  return `${eventAbi.name}(${(eventAbi.inputs || [])
+    .map((input) => `${input.type} ${input.name}`)
+    .join(',')})`
+}
+
 function getFullEventSignature(eventAbi, event) {
   let i = 0
 
@@ -70,4 +76,5 @@ module.exports = {
   getFunctionSignature,
   getPopulatedFunctionSignature,
   getFullEventSignature,
+  getEventSignature,
 }

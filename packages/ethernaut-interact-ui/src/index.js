@@ -10,6 +10,8 @@ const fnPrompt = require('./prompts/fn')
 const paramsPrompt = require('./prompts/params')
 const fnERC20Prompt = require('./prompts/fnERC20')
 const paramsERC20Prompt = require('./prompts/paramsERC20')
+const eventPrompt = require('./prompts/event')
+const paramsLogPrompt = require('./prompts/params-log')
 
 extendEnvironment((hre) => {
   const contract = hre.scopes.interact.tasks.contract
@@ -23,4 +25,11 @@ extendEnvironment((hre) => {
   token.paramDefinitions.address.suggest = addressSuggest
   token.paramDefinitions.fn.prompt = fnERC20Prompt
   token.paramDefinitions.params.prompt = paramsERC20Prompt
+
+  const logs = hre.scopes.interact.tasks.logs
+  logs.paramDefinitions.abi.prompt = abiPrompt
+  logs.paramDefinitions.abi.suggest = abiSuggest
+  logs.paramDefinitions.address.suggest = addressSuggest
+  logs.paramDefinitions.event.prompt = eventPrompt
+  logs.paramDefinitions.params.prompt = paramsLogPrompt
 })

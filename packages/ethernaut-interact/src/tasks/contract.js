@@ -77,8 +77,6 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   const _abi = loadAbi(abi)
   debug.log(_abi, 'interact-deep')
 
-  const chainId = await getChainId(hre)
-
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact')
   let contract = await hre.ethers.getContractAt(_abi, address)
@@ -98,7 +96,7 @@ async function interact({ abi, address, fn, params, value, noConfirm }) {
   }
 
   // Remember this interaction
-  // TODO: Only if successful?
+  const chainId = await getChainId(hre)
   storage.rememberAbiAndAddress(abi, address, chainId)
 
   // Execute read or write

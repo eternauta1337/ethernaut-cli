@@ -40,6 +40,8 @@ function storeAddresses(data) {
 function rememberAbiAndAddress(abi, address, chainId) {
   initStorage()
 
+  address = address.toLowerCase()
+
   const addresses = readAddresses()
 
   if (!addresses[chainId]) {
