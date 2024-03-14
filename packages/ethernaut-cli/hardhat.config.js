@@ -8,6 +8,7 @@ require('@nomicfoundation/hardhat-ethers')
 
 require('ethernaut-ui')
 require('ethernaut-ai')
+require('ethernaut-ai-ui')
 require('ethernaut-util')
 require('ethernaut-util-ui')
 require('ethernaut-interact')

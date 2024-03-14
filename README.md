@@ -56,6 +56,8 @@ But after you've interacted with the contract, it already has the abi, so the ab
 
 ![Abi suggestion](demos/custom1.gif)
 
+Another example is the extension for the model param in `ethernaut ai config --model`, which queries the openai API and presents a list of available models.
+
 ## Natural language to cli commands
 
 If that wasn't easy enough, just type whatever you want and AI will kick in to try to make sense of what you typed, and the right command or sequence of commands will be executed.
@@ -85,6 +87,7 @@ All the plugins combined conform the ethernaut-cli experience, and each is liste
 | Title                                                                   | Description                                                             |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | [ethernaut-ai](packages/title/README.md#ethernaut-ai)                   | AI assistant that interprets user input and executes hardhat tasks      |
+| [ethernaut-ai-ui](packages/title/README.md#ethernaut-ai-ui)             | Ui extensions for the ethernaut-ai package                              |
 | [ethernaut-challenges](packages/title/README.md#ethernaut-challenges)   | Tasks for playing the Open Zeppelin Ethernaut challenges from the CLI   |
 | [ethernaut-interact](packages/title/README.md#ethernaut-interact)       | Tasks for sending transactions and interacting with contracts           |
 | [ethernaut-interact-ui](packages/title/README.md#ethernaut-interact-ui) | Ui extensions for the ethernaut-interact package                        |

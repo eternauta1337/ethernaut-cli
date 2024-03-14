@@ -1,0 +1,30 @@
+{
+  "name": "ethernaut-ai-ui",
+  "version": "1.0.0",
+  "description": "Ui extensions for the ethernaut-ai package",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm run install:test",
+    "compile": "echo 'No compile step'",
+    "install:test": "cd test/fixture-projects/basic-project && npm install",
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+  },
+  "author": "theethernaut",
+  "license": "ISC",
+  "dependencies": {
+    "ethernaut-network": "^1.0.10"
+  },
+  "peerDependencies": {
+    "hardhat": "^2.20.0"
+  },
+  "devDependencies": {
+    "hardhat": "^2.20.0",
+    "mocha": "^10.3.0",
+    "nyc": "^15.1.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
+}

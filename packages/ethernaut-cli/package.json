@@ -37,6 +37,7 @@
     "chalk-animation": "^1.6.0",
     "dotenv": "^16.4.1",
     "ethernaut-ai": "^1.0.9",
+    "ethernaut-ai-ui": "^1.0.0",
     "ethernaut-challenges": "^1.0.9",
     "ethernaut-common": "^1.0.10",
     "ethernaut-interact": "^1.0.10",
