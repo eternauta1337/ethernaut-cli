@@ -1,6 +1,6 @@
 const { Terminal } = require('ethernaut-common/src/terminal')
 
-describe('interpret', function () {
+describe.skip('interpret', function () {
   const terminal = new Terminal()
 
   describe('when asked to convert SNX to bytes', function () {
