@@ -16,7 +16,7 @@ require('../scopes/interact')
   )
   .addParam(
     'abi',
-    'The path to a json file specifying the abi of the contract',
+    'The absolute path to a json file specifying the ABI of the contract. Must include the .json extension.',
     undefined,
     types.string,
   )
@@ -68,6 +68,7 @@ require('../scopes/interact')
 
         output.info(`Found ${logs.length} logs`)
 
+        let strs = []
         logs.forEach((log, idx) => {
           log = contract.interface.parseLog(log)
           debug.log(event, 'interact-deep')
@@ -78,8 +79,10 @@ require('../scopes/interact')
 
           const sig = getFullEventSignature(logAbi, log)
 
-          output.resultBox(sig, `Log ${idx + 1}`)
+          strs.push(output.resultBox(sig, `Log ${idx + 1}`))
         })
+
+        return strs.join('\n')
       } catch (err) {
         return output.errorBox(err)
       }
