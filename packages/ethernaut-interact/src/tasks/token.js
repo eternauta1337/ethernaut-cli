@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config')
 const storage = require('../internal/storage')
+const interact = require('../internal/interact')
 
 require('../scopes/interact')
   .task('token', 'Interacts with any ERC20 token')
@@ -24,8 +25,5 @@ require('../scopes/interact')
   .setAction(async ({ address, fn, params, value, noConfirm }) => {
     const abi = storage.findAbi('erc20')
 
-    return await hre.run(
-      { scope: 'interact', task: 'contract' },
-      { abi, address, fn, params, value, noConfirm },
-    )
+    return await interact({ abi, address, fn, params, value, noConfirm })
   })
