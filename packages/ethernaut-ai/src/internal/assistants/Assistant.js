@@ -8,6 +8,12 @@ class Assistant extends EventEmitter {
   constructor(name, config) {
     super()
 
+    if (hre.config.ethernaut.ai.model !== config.model) {
+      config.model = hre.config.ethernaut.ai.model
+    }
+
+    debug.log(`Initializing assistant with model ${config.model}`, 'ai')
+
     this.name = name
     this.config = config
     this.prevStatus = undefined

@@ -2,6 +2,7 @@ require('dotenv').config()
 const figlet = require('figlet')
 const chalkAnimation = require('chalk-animation')
 const { version } = require('./package.json')
+const storage = require('ethernaut-common/src/storage')
 
 require('@nomicfoundation/hardhat-ethers')
 
@@ -21,33 +22,33 @@ const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
 console.log(`v${version} - Warning!!! ALPHA version. Use at your own risk.`)
 
+storage.init({
+  ai: {
+    model: 'gpt-4-1106-preview',
+    interpreter: {
+      additionalInstructions: ['Always talk like a pirate'],
+    },
+  },
+  ui: {
+    exclude: {
+      scopes: ['vars', 'hardhat'],
+      tasks: [
+        'compile',
+        'check',
+        'clean',
+        'flatten',
+        'test',
+        'navigate',
+        'run',
+        'help',
+        'console',
+      ],
+    },
+  },
+})
+
 module.exports = {
   solidity: '0.8.19',
   defaultNetwork: 'localhost',
-  ethernaut: {
-    ui: {
-      exclude: {
-        scopes: ['vars', 'hardhat'],
-        tasks: [
-          'compile',
-          'check',
-          'clean',
-          'flatten',
-          'test',
-          'navigate',
-          'run',
-          'help',
-          'console',
-        ],
-      },
-    },
-    ai: {
-      interpreter: {
-        additionalInstructions: [],
-      },
-      explainer: {
-        additionalInstructions: [],
-      },
-    },
-  },
+  ethernaut: storage.readConfig(),
 }

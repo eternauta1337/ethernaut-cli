@@ -18,6 +18,7 @@ extendConfig((config, userConfig) => {
   if (!config.ethernaut) config.ethernaut = {}
 
   config.ethernaut.ai = {
+    model: userConfig.ethernaut?.ai?.model || 'gpt-4-1106-preview',
     interpreter: {
       additionalInstructions:
         userConfig.ethernaut?.ai?.interpreter?.additionalInstructions.concat() ||
