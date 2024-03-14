@@ -29,7 +29,7 @@ storage.init({
   ai: {
     model: 'gpt-4-1106-preview',
     interpreter: {
-      additionalInstructions: ['Always talk like a pirate'],
+      additionalInstructions: [''],
     },
   },
   ui: {
