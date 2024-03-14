@@ -40,7 +40,7 @@ function warnBox(msg, title = 'Warning') {
 function errorBox(error) {
   debug.log(error)
 
-  box(error.stack, {
+  box(error.message, {
     title: 'Error',
     padding: 1,
     borderStyle: 'double',
