@@ -4,7 +4,7 @@ const prompt = require('ethernaut-common/src/prompt')
 const spinner = require('ethernaut-common/src/spinner')
 const debug = require('ethernaut-common/src/debug')
 const { getChainId } = require('ethernaut-common/src/network')
-const checkEnvVar = require('ethernaut-common/src/check-env')
+const { checkEnvVar } = require('ethernaut-common/src/check-env')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',

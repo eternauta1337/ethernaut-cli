@@ -1,6 +1,6 @@
 const prompt = require('ethernaut-common/src/prompt')
 const openai = require('ethernaut-ai/src/internal/openai')
-const checkEnvVar = require('ethernaut-common/src/check-env')
+const { checkEnvVar } = require('ethernaut-common/src/check-env')
 
 module.exports = async function promptModel() {
   await checkEnvVar(

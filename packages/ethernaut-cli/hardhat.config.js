@@ -1,8 +1,10 @@
-require('dotenv').config()
 const figlet = require('figlet')
 const chalkAnimation = require('chalk-animation')
 const { version } = require('./package.json')
 const storage = require('ethernaut-common/src/storage')
+const { refreshEnv } = require('ethernaut-common/src/check-env')
+
+refreshEnv()
 
 require('@nomicfoundation/hardhat-ethers')
 

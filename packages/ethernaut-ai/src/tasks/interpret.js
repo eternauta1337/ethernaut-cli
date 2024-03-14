@@ -6,7 +6,7 @@ const output = require('ethernaut-common/src/output')
 const debug = require('ethernaut-common/src/debug')
 const spinner = require('ethernaut-common/src/spinner')
 const prompt = require('ethernaut-common/src/prompt')
-const checkEnvVar = require('ethernaut-common/src/check-env')
+const { checkEnvVar } = require('ethernaut-common/src/check-env')
 const wait = require('ethernaut-common/src/wait')
 
 let _noConfirm

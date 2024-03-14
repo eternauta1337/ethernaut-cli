@@ -5,6 +5,12 @@ const dotenv = require('dotenv')
 const debug = require('ethernaut-common/src/debug')
 const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
 
+const envPath = path.join(getEthernautFolderPath(), '.env')
+
+function refreshEnv() {
+  require('dotenv').config({ path: envPath })
+}
+
 async function checkEnvVar(varName, message) {
   if (process.env[varName]) {
     debug.log(`Environment variable ${varName} found`)
@@ -13,7 +19,6 @@ async function checkEnvVar(varName, message) {
 
   debug.log(`Environment variable ${varName} not found - collecting it...`)
 
-  const envPath = path.join(getEthernautFolderPath(), '.env')
   if (!fs.existsSync(envPath)) {
     debug.log('No .env file found, creating one...')
     fs.writeFileSync(envPath, '')
@@ -31,4 +36,7 @@ async function checkEnvVar(varName, message) {
   }
 }
 
-module.exports = checkEnvVar
+module.exports = {
+  refreshEnv,
+  checkEnvVar,
+}
