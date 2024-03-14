@@ -16,7 +16,7 @@ module.exports = function preParseAi(hre) {
   } else {
     const newArgs = ['ai', 'interpret', '--new-thread', args.join(' ')]
     debug.log(`Modifying args to: ${newArgs}`, 'parse')
-    output.info('Uh? Not sure what you mean, interpreting with ai...')
+    output.info('Interpreting natural language query with ai...')
     setArgs(newArgs)
   }
 }
