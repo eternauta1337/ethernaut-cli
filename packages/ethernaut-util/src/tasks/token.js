@@ -4,9 +4,9 @@ const { chains } = require('ethernaut-common/src/chains')
 const { tokens } = require('ethernaut-common/src/tokens')
 const similarity = require('string-similarity')
 
-require('../scopes/interact')
+require('../scopes/util')
   .task(
-    'token-address',
+    'token',
     'Tries to find the address of a token, given its name or symbol in the current network',
   )
   .addPositionalParam(

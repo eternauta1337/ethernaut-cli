@@ -124,24 +124,6 @@ token: Interacts with any ERC20 token
 For global options help run: hardhat help
 ```
 
-### token-address
-
-```
-Usage: hardhat [GLOBAL OPTIONS] interact token-address [--chain <SPECIAL>] [name]
-
-OPTIONS:
-
-  --chain       The name or id of the network to search on. Use "0" to only search on the current network. Use "-1" to search on any network. Default is "0" (current network) (default: "0")
-
-POSITIONAL ARGUMENTS:
-
-  name  The name or symbol of the token
-
-token-address: Tries to find the address of a token, given its name or symbol in the current network
-
-For global options help run: hardhat help
-```
-
 ## Environment extensions
 
 This plugin does not add any fields to the hre.
