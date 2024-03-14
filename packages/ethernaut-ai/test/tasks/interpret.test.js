@@ -1,13 +1,14 @@
 const { Terminal } = require('ethernaut-common/src/terminal')
 
-describe.skip('interpret', function () {
+describe('interpret', function () {
   const terminal = new Terminal()
 
   describe('when asked to convert SNX to bytes', function () {
     describe('without prompting', function () {
       before('call interpret', async function () {
         await terminal.run(
-          'npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread --model "gpt-4"',
+          'npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread --model \'gpt-3.5-turbo\'',
+          20000,
         )
       })
 
@@ -29,8 +30,8 @@ describe.skip('interpret', function () {
     describe('with prompting', function () {
       before('run interpret', async function () {
         await terminal.run(
-          'npx hardhat ai interpret "what is SNX in bytes?" --new-thread --model "gpt-4"',
-          30000,
+          'npx hardhat ai interpret "what is SNX in bytes?" --new-thread --model \'gpt-3.5-turbo\'',
+          20000,
         )
       })
 
@@ -42,12 +43,12 @@ describe.skip('interpret', function () {
         terminal.has('How would you like to proceed?')
         terminal.has('execute')
         terminal.has('explain')
-        terminal.has('skip')
+        terminal.has('cancel')
       })
 
       describe('when the user continues', function () {
         before('press enter', async function () {
-          await terminal.input('\r', 30000)
+          await terminal.input('\r', 20000)
         })
 
         it('has an assistant response', async function () {
