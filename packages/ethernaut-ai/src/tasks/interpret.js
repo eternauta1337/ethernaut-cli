@@ -21,6 +21,8 @@ const options = {
   CANCEL: 'cancel',
 }
 
+const TIMEOUT = 600000
+
 require('../scopes/ai')
   .task('interpret', 'Interprets natural language into CLI commands')
   .addPositionalParam(
@@ -64,7 +66,7 @@ require('../scopes/ai')
       _explainer.on('building_assistant', buildingAssistantLIstener)
 
       spinner.progress('Thinking...', 'ai')
-      const waitPromise = wait(120000)
+      const waitPromise = wait(TIMEOUT)
       const response = await Promise.race([
         _interpreter.process(_thread, model),
         waitPromise,
@@ -112,7 +114,7 @@ async function processActions(actions, actionDescriptions) {
 }
 
 async function explain(actions, actionDescriptions) {
-  const waitPromise = wait(120000)
+  const waitPromise = wait(TIMEOUT)
   const response = await Promise.race([
     await _explainer.explain(_query, actionDescriptions),
     waitPromise,
