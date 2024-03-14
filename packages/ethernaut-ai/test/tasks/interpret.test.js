@@ -8,7 +8,7 @@ describe('interpret', function () {
       before('call interpret', async function () {
         await terminal.run(
           'npx hardhat ai interpret "what is SNX in bytes?" --no-confirm --new-thread --model \'gpt-3.5-turbo\'',
-          20000,
+          60000,
         )
       })
 
@@ -31,7 +31,7 @@ describe('interpret', function () {
       before('run interpret', async function () {
         await terminal.run(
           'npx hardhat ai interpret "what is SNX in bytes?" --new-thread --model \'gpt-3.5-turbo\'',
-          20000,
+          30000,
         )
       })
 
@@ -48,7 +48,7 @@ describe('interpret', function () {
 
       describe('when the user continues', function () {
         before('press enter', async function () {
-          await terminal.input('\r', 20000)
+          await terminal.input('\r', 30000)
         })
 
         it('has an assistant response', async function () {
