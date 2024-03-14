@@ -1,6 +1,6 @@
 const { types } = require('hardhat/config')
 const debug = require('ethernaut-common/src/debug')
-const loadAbi = require('./contract/load-abi')
+const loadAbi = require('../internal/load-abi')
 const output = require('ethernaut-common/src/output')
 const { getFullEventSignature } = require('../internal/signatures')
 const { getChainId } = require('ethernaut-common/src/network')

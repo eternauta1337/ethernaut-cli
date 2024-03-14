@@ -1,4 +1,4 @@
-const loadAbi = require('ethernaut-interact/src/tasks/contract/load-abi')
+const loadAbi = require('ethernaut-interact/src/internal/load-abi')
 const {
   getFunctionSignature,
   getPopulatedFunctionSignature,

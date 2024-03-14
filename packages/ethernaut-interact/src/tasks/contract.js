@@ -6,7 +6,7 @@ const {
   getPopulatedFunctionSignature,
   getFunctionSignature,
 } = require('../internal/signatures')
-const loadAbi = require('./contract/load-abi')
+const loadAbi = require('../internal/load-abi')
 const prompt = require('ethernaut-common/src/prompt')
 const storage = require('../internal/storage')
 const output = require('ethernaut-common/src/output')
