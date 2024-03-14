@@ -71,6 +71,25 @@ contract: Interacts with a contract
 For global options help run: hardhat help
 ```
 
+### logs
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact logs [--abi <SPECIAL>] [--address <SPECIAL>] [--event <SPECIAL>] [--from-block <SPECIAL>] [--params <SPECIAL>] [--to-block <SPECIAL>]
+
+OPTIONS:
+
+  --abi         The path to a json file specifying the abi of the contract
+  --address     The address of the contract that emits the logs
+  --event       The event to look for
+  --from-block  The block number to start searching from (default: 0)
+  --params      The parameters to use for filtering logs. If multiple parameters are used, separate them with a comma. E.g. "0x123,42"
+  --to-block    The block number to stop searching at (default: "latest")
+
+logs: Finds logs emitted by a contract
+
+For global options help run: hardhat help
+```
+
 ### send
 
 ```
