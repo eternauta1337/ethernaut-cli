@@ -1,10 +1,4 @@
 const storage = require('../internal/storage')
-const {
-  createProvider,
-} = require('hardhat/internal/core/providers/construction')
-const {
-  HardhatEthersProvider,
-} = require('@nomicfoundation/hardhat-ethers/internal/hardhat-ethers-provider')
 const debug = require('ethernaut-common/src/debug')
 const applyEnvVars = require('./apply-env-vars')
 
@@ -40,9 +34,9 @@ async function setNetwork(alias, hre) {
     network = hre.config.networks[alias]
   }
 
-  const provider = await createProvider(hre.config, alias)
-
-  hre.ethers.provider = new HardhatEthersProvider(provider, alias)
+  hre.ethers.provider = new hre.ethers.JsonRpcProvider(
+    hre.config.networks[alias].url,
+  )
 }
 
 function injectNetworkInConfig(alias, network, config) {
