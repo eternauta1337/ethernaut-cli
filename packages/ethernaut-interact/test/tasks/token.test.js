@@ -6,7 +6,7 @@ describe('contract', function () {
   describe('when interacting with a token', function () {
     let token
 
-    before('deploy sample contract', async function () {
+    before('deploy a token', async function () {
       const factory = await hre.ethers.getContractFactory('TestToken')
       token = await factory.deploy('Test Token', 'TEST', 16)
     })
