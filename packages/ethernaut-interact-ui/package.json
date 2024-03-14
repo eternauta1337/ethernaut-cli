@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-interact-ui",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Ui extensions for the ethernaut-interact package",
   "main": "src/index.js",
   "scripts": {
