@@ -4,36 +4,44 @@ const storage = require('../internal/storage')
 const similarity = require('string-similarity')
 
 require('../scopes/interact')
-  .task(
-    'abi',
-    'Looks for the absolute path to a known json file specifying the ABI of a contract.',
-  )
+  .task('abi', 'Prints out the absolute paths of the known ABIs')
   .addPositionalParam(
-    'name',
-    'A name to be used to find the ABI',
+    'filter',
+    'Some text to filter the list of known ABIs. Leave empty to list all. Results will be ordered by similarity to the filter text, so the first result will be the best match.',
     undefined,
     types.string,
   )
-  .setAction(async ({ name }) => {
+  .setAction(async ({ filter }) => {
     try {
-      const abis = storage.readAbiFiles()
+      let abis = storage.readAbiFiles()
+
+      if (filter) {
+        filter = filter.toLowerCase()
+        abis = abis.filter((a) => a.name.toLowerCase().includes(filter))
+      }
+
+      if (abis.length === 0) {
+        throw new Error('No ABIs found')
+      }
 
       const matches = similarity.findBestMatch(
-        name.toLowerCase(),
+        filter.toLowerCase(),
         abis.map((a) => a.name.toLowerCase()),
       )
 
-      if (!matches.bestMatch) {
-        throw new Error(`Cannot find ABI for ${name}`)
-      }
+      abis.sort((a, b) => {
+        const matchA = matches.ratings.find(
+          (match) => match.target === a.name.toLowerCase(),
+        )
+        const matchB = matches.ratings.find(
+          (match) => match.target === b.name.toLowerCase(),
+        )
+        return matchB.rating - matchA.rating
+      })
 
-      const match = abis.find(
-        (a) => a.name.toLowerCase() === matches.bestMatch.target,
-      )
+      const paths = abis.map((a) => a.path)
 
-      return output.resultBox(
-        `Found an ABI path that might match the name "${name}" at "${match.path}"`,
-      )
+      return output.resultBox(paths.join('\n'))
     } catch (err) {
       return output.errorBox(err)
     }
