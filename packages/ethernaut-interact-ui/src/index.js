@@ -22,14 +22,15 @@ extendEnvironment((hre) => {
   contract.paramDefinitions.params.prompt = paramsPrompt
 
   const token = hre.scopes.interact.tasks.token
-  token.paramDefinitions.address.suggest = addressSuggest
+  token.positionalParamDefinitions.find((p) => p.name === 'address').suggest =
+    addressSuggest
   token.paramDefinitions.fn.prompt = fnERC20Prompt
   token.paramDefinitions.params.prompt = paramsERC20Prompt
 
   const logs = hre.scopes.interact.tasks.logs
+  logs.paramDefinitions.address.suggest = addressSuggest
   logs.paramDefinitions.abi.prompt = abiPrompt
   logs.paramDefinitions.abi.suggest = abiSuggest
-  logs.paramDefinitions.address.suggest = addressSuggest
-  logs.paramDefinitions.event.prompt = eventPrompt
   logs.paramDefinitions.params.prompt = paramsLogPrompt
+  logs.paramDefinitions.event.prompt = eventPrompt
 })

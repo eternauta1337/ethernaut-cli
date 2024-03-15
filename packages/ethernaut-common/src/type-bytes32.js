@@ -20,6 +20,10 @@ module.exports = {
       if (typeof describe === 'function') {
         throw err
       }
+
+      return false
     }
+
+    return true
   },
 }

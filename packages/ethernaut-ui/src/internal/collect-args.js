@@ -15,7 +15,9 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
   )
 
   const collectedArgs = {}
-  for (let paramDef of paramDefinitions) {
+  for (let i = 0; i < paramDefinitions.length; i++) {
+    const paramDef = paramDefinitions[i]
+
     if (paramDef.originallyOptional) continue
 
     const providedArg = providedArgs[paramDef.name]
@@ -29,7 +31,14 @@ module.exports = async function collectArguments(providedArgs, task, hre) {
       argsSoFar,
     )
     if (collectedArg !== undefined) {
-      debug.log(`Collected ${paramDef.name}" with "${collectedArg}"`, 'ui')
+      debug.log(`Collected "${paramDef.name}" with "${collectedArg}"`, 'ui')
+
+      const isValid = paramDef.type.validate(paramDef.name, collectedArg)
+      debug.log(`Validation result for "${paramDef.name}": ${isValid}`, 'ui')
+      if (!isValid) {
+        i--
+        continue
+      }
 
       collectedArgs[paramDef.name] = collectedArg
     }
@@ -129,5 +138,5 @@ async function rawPrompt(paramDef, suggested) {
   if (result === 'false') return false
   if (result === 'true') return true
 
-  return result
+  return result === '' ? undefined : result
 }

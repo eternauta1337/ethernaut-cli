@@ -4,7 +4,12 @@ const interact = require('../internal/interact')
 
 require('../scopes/interact')
   .task('token', 'Interacts with any ERC20 token')
-  .addParam('address', 'The address of the token', undefined, types.string)
+  .addPositionalParam(
+    'address',
+    'The address of the token',
+    undefined,
+    types.address,
+  )
   .addParam('fn', 'The function of the token to call', undefined, types.string)
   .addOptionalParam(
     'value',
