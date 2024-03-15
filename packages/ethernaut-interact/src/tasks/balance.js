@@ -1,5 +1,5 @@
 const output = require('ethernaut-common/src/output')
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const { getContract } = require('../internal/get-contract')
 
 require('../scopes/interact')
@@ -8,9 +8,9 @@ require('../scopes/interact')
     'address',
     'The address whose balance will be queried',
     undefined,
-    types.string,
+    types.address,
   )
-  .addParam('token', 'The token address or ETH', 'ETH', types.string)
+  .addParam('token', 'The token address or ETH', 'ETH', types.address)
   .setAction(async ({ address, token }, hre) => {
     try {
       let balance

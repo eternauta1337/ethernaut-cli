@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 const interact = require('../internal/interact')
 
@@ -10,7 +10,7 @@ require('../scopes/interact')
     undefined,
     types.string,
   )
-  .addParam('address', 'The address of the contract', undefined, types.string)
+  .addParam('address', 'The address of the contract', undefined, types.address)
   .addParam(
     'fn',
     'The function of the contract to call',
@@ -19,9 +19,9 @@ require('../scopes/interact')
   )
   .addOptionalParam(
     'value',
-    'The amount of ether to send with the transaction',
+    'The amount of ether to send with the transaction. Note: This value is in ether not wei',
     undefined,
-    types.string,
+    types.int,
   )
   .addParam(
     'params',

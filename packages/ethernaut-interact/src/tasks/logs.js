@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const debug = require('ethernaut-common/src/debug')
 const loadAbi = require('../internal/load-abi')
 const output = require('ethernaut-common/src/output')
@@ -12,7 +12,7 @@ require('../scopes/interact')
     'address',
     'The address of the contract that emits the logs',
     undefined,
-    types.string,
+    types.address,
   )
   .addParam(
     'abi',

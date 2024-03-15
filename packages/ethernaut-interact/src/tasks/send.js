@@ -4,7 +4,7 @@ const getBalance = require('../internal/get-balance')
 const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
 const connectSigner = require('../internal/connect-signer')
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')
@@ -12,13 +12,13 @@ require('../scopes/interact')
     'address',
     'The address that will receive the ether',
     undefined,
-    types.string,
+    types.address,
   )
   .addParam(
     'value',
     'The amount of ether to send with the transaction. Warning! The value is in ether, not wei.',
     undefined,
-    types.string,
+    types.int,
   )
   .addFlag(
     'noConfirm',

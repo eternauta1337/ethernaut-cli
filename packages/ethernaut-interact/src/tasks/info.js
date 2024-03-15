@@ -1,4 +1,5 @@
 const output = require('ethernaut-common/src/output')
+const types = require('ethernaut-common/src/types')
 const { getChainId } = require('ethernaut-common/src/network')
 const {
   EtherscanApi,
@@ -14,6 +15,7 @@ require('../scopes/interact')
   .addPositionalParam(
     'address',
     'The address of the contract to get information about',
+    types.address,
   )
   .addFlag('abi', 'Show the ABI of the contract')
   .addFlag('source', 'Show the source of the contract')

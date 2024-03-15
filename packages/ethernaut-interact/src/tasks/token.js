@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const storage = require('../internal/storage')
 const interact = require('../internal/interact')
 
@@ -8,9 +8,9 @@ require('../scopes/interact')
   .addParam('fn', 'The function of the token to call', undefined, types.string)
   .addOptionalParam(
     'value',
-    'The amount of ether to send with the transaction',
+    'The amount of ether to send with the transaction, in ether not wei',
     undefined,
-    types.string,
+    types.int,
   )
   .addParam(
     'params',
