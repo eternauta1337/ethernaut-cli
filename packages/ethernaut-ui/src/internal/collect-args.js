@@ -134,8 +134,10 @@ async function rawPrompt(paramDef, suggested) {
     message: `Enter ${paramDef.name}${description}:`,
     initial: suggested,
   })
+  debug.log(`Raw prompt result for "${paramDef.name}": "${result}"`, 'ui')
 
-  result = paramDef.type.parse(result)
+  result = paramDef.type.parse(paramDef.name, result)
+  debug.log(`Parsed value for "${paramDef.name}": "${result}"`, 'ui')
 
   return result === '' ? undefined : result
 }
