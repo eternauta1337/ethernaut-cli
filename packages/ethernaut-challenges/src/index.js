@@ -4,12 +4,14 @@ const copyFiles = require('ethernaut-common/src/copy-files')
 const spinner = require('ethernaut-common/src/spinner')
 const path = require('path')
 const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
+const output = require('ethernaut-common/src/output')
 
 require('@nomicfoundation/hardhat-ethers')
 requireAll(__dirname, 'tasks')
 
 extendEnvironment((hre) => {
   spinner.enable(!hre.hardhatArguments.verbose)
+  output.setErrorVerbose(hre.hardhatArguments.verbose)
 
   copyFiles(
     path.resolve(__dirname, '..', 'abis'),

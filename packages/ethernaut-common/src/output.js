@@ -3,6 +3,7 @@ const boxen = require('boxen')
 const debug = require('./debug')
 
 let _muted = false
+let _errorVerbose = false
 
 function resultBox(msg, title = 'Result') {
   box(msg, {
@@ -40,7 +41,7 @@ function warnBox(msg, title = 'Warning') {
 function errorBox(error) {
   debug.log(error)
 
-  box(error.message, {
+  box(_errorVerbose ? error.stack : error.message, {
     title: 'Error',
     padding: 1,
     borderStyle: 'double',
@@ -103,6 +104,10 @@ function mute(value) {
   _muted = value
 }
 
+function setErrorVerbose(value) {
+  _errorVerbose = value
+}
+
 module.exports = {
   resultBox,
   infoBox,
@@ -112,4 +117,5 @@ module.exports = {
   info,
   warn,
   mute,
+  setErrorVerbose,
 }

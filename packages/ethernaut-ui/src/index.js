@@ -3,6 +3,7 @@ const requireAll = require('ethernaut-common/src/require-all')
 const makeTasksInteractive = require('./internal/make-interactive')
 const spinner = require('ethernaut-common/src/spinner')
 const preParseUi = require('./internal/pre-parse-ui')
+const output = require('ethernaut-common/src/output')
 
 requireAll(__dirname, 'tasks')
 
@@ -10,6 +11,7 @@ extendEnvironment((hre) => {
   makeTasksInteractive(hre)
 
   spinner.enable(!hre.hardhatArguments.verbose)
+  output.setErrorVerbose(hre.hardhatArguments.verbose)
 
   preParseUi(hre)
 })
