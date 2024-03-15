@@ -14,6 +14,10 @@ module.exports = {
       }
     } catch (err) {
       output.errorBoxStr(`"${argValue}" is not an ens`, `Invalid ${argName}`)
+
+      if (typeof describe === 'function') {
+        throw err
+      }
     }
   },
 }

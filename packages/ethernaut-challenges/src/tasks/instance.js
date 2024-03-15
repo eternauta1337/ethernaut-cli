@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const helper = require('../internal/helper')
 const output = require('ethernaut-common/src/output')
 const { getNetworkName } = require('ethernaut-common/src/network')
@@ -11,7 +11,7 @@ require('../scopes/challenges')
     'instance',
     'Creates an instance of a level, so that it can be played. The address of the instance is printed to the console. Use this address to interact with the contract using the ethernaut-cli contract command. Make sure to use the info command to get instructions on how to complete the level.',
   )
-  .addPositionalParam('level', 'The level number', undefined, types.string)
+  .addPositionalParam('level', 'The level number', undefined, types.int)
   .setAction(async ({ level }, hre) => {
     try {
       const instanceAddress = await createInstance(level, hre)

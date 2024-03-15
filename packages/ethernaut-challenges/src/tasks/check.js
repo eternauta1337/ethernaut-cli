@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const helper = require('../internal/helper')
 const output = require('ethernaut-common/src/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
@@ -9,7 +9,7 @@ require('../scopes/challenges')
     'check',
     'Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements',
   )
-  .addPositionalParam('level', 'The level number', undefined, types.string)
+  .addPositionalParam('level', 'The level number', undefined, types.int)
   .setAction(async ({ level }, hre) => {
     try {
       const completed = await checkLevel(level, hre)

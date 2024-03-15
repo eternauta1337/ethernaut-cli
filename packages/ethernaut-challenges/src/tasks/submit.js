@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 const debug = require('ethernaut-common/src/debug')
 const getEthernautContract = require('../internal/ethernaut-contract')
@@ -12,7 +12,7 @@ require('../scopes/challenges')
     'address',
     'The address of the instance to submit',
     undefined,
-    types.string,
+    types.address,
   )
   .setAction(async ({ address }, hre) => {
     try {

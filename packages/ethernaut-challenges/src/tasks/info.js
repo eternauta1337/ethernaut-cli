@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const helper = require('../internal/helper')
 const fs = require('fs')
 const path = require('path')
@@ -11,7 +11,7 @@ require('../scopes/challenges')
     'info',
     'Shows information about an open zeppelin challenges level. The info includes the level name, contract name, ABI path, address, and description. The ABI path can be used with the interact package call task to interact with the contract.',
   )
-  .addPositionalParam('level', 'The level number', undefined, types.string)
+  .addPositionalParam('level', 'The level number', undefined, types.int)
   .setAction(async ({ level }) => {
     try {
       const info = await getLevelInfo(level)

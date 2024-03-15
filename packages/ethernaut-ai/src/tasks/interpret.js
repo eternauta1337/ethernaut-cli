@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const Interpreter = require('../internal/assistants/Interpreter')
 const Explainer = require('../internal/assistants/Explainer')
 const Thread = require('../internal/threads/Thread')

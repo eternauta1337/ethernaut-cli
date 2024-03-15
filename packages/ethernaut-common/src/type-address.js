@@ -16,6 +16,10 @@ module.exports = {
         `"${argValue}" is not an address`,
         `Invalid ${argName}`,
       )
+
+      if (typeof describe === 'function') {
+        throw err
+      }
     }
   },
 }
