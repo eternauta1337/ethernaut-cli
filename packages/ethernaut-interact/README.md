@@ -104,6 +104,25 @@ logs: Finds logs emitted by a contract
 For global options help run: hardhat help
 ```
 
+### info
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact info [--abi] [--source] [address]
+
+OPTIONS:
+
+  --abi         Show the ABI of the contract
+  --source      Show the source of the contract
+
+POSITIONAL ARGUMENTS:
+
+  address       The address of the contract to get information about
+
+info: Retrieves information about a contract address using Etherscan, such as the contract name, ABI, and source code. Note: Additional contract metadata like the public label of an address requires a pro account, and is currently not implemented.
+
+For global options help run: hardhat help
+```
+
 ### send
 
 ```
