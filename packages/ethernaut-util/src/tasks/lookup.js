@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const addressType = require('ethernaut-common/src/type-address')
 const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
@@ -7,7 +7,7 @@ require('../scopes/util')
     'address',
     'The address to lookup',
     undefined,
-    types.string,
+    addressType,
   )
   .setAction(async ({ address }, hre) => {
     try {

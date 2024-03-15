@@ -38,6 +38,17 @@ function warnBox(msg, title = 'Warning') {
   return msg
 }
 
+function errorBoxStr(msg, title = 'Error') {
+  box(msg, {
+    title,
+    padding: 1,
+    borderStyle: 'double',
+    borderColor: 'red',
+  })
+
+  return msg
+}
+
 function errorBox(error) {
   debug.log(error)
 
@@ -113,6 +124,7 @@ module.exports = {
   infoBox,
   warnBox,
   errorBox,
+  errorBoxStr,
   copyBox,
   info,
   warn,

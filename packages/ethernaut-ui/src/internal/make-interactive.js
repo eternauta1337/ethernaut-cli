@@ -73,7 +73,7 @@ function makeInteractive(task) {
       return parsedValue
     },
     validate: (argName, argValue) => {
-      return originalType.validate(argName, argValue)
+      originalType.validate(argName, argValue)
     },
   })
   for (let paramDef of paramDefinitions) {
