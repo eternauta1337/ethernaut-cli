@@ -8,7 +8,7 @@ module.exports = {
   },
   validate: (argName, argValue) => {
     try {
-      types.int.validate(argName, argValue)
+      types.int.validate(argName, parseInt(argValue, 10))
     } catch (err) {
       output.errorBoxStr(`"${argValue}" is not an int`, `Invalid ${argName}`)
 
