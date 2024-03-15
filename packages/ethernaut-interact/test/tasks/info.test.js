@@ -3,10 +3,20 @@ const assert = require('assert')
 describe('info', function () {
   describe('when retrieving info about USDT', function () {
     let output
-    before('resolve', async function () {
+    let providerCache
+
+    before('use chain id 1', async function () {
+      providerCache = hre.ethers.provider
       hre.ethers.provider = new hre.ethers.JsonRpcProvider(
         'https://ethereum-rpc.publicnode.com',
       )
+    })
+
+    after('restore provider', async function () {
+      hre.ethers.provider = providerCache
+    })
+
+    before('call info', async function () {
       output = await hre.run(
         {
           scope: 'interact',
