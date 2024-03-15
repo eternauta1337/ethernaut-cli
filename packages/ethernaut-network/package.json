@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-network",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Tasks for interacting with different networks",
   "main": "src/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-interact-ui",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Ui extensions for the ethernaut-interact package",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "theethernaut",
   "license": "ISC",
   "dependencies": {
-    "ethernaut-interact": "^1.0.13"
+    "ethernaut-interact": "^1.0.14"
   },
   "peerDependencies": {
     "hardhat": "^2.20.0"
