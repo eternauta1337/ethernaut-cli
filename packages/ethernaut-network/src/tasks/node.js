@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 const { execSync } = require('child_process')
 const { isUrl } = require('ethernaut-common/src/url')
@@ -13,7 +13,7 @@ const task = require('../scopes/network')
     'none',
     types.string,
   )
-  .addParam('port', 'The port to run the local chain on', '8545', types.string)
+  .addParam('port', 'The port to run the local chain on', '8545', types.int)
   .setAction(async ({ fork, port }) => {
     try {
       const forkUrl = getForkUrl(fork)

@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 const storage = require('../internal/storage')
 const { validateVarName } = require('ethernaut-common/src/name')
