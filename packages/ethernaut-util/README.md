@@ -60,6 +60,34 @@ checksum: Computes or validates the checksum of an address
 For global options help run: hardhat help
 ```
 
+### lookup
+
+```
+Usage: hardhat [GLOBAL OPTIONS] util lookup [address]
+
+POSITIONAL ARGUMENTS:
+
+  address       The address to lookup
+
+lookup: Lookup the address of an ens name
+
+For global options help run: hardhat help
+```
+
+### resolve
+
+```
+Usage: hardhat [GLOBAL OPTIONS] util resolve [name]
+
+POSITIONAL ARGUMENTS:
+
+  name  The ens name to resolve
+
+resolve: Resolves an ens name to an address
+
+For global options help run: hardhat help
+```
+
 ### string
 
 ```
