@@ -35,7 +35,10 @@ function storeNetworks(networks) {
 function init() {
   createFolderIfMissing(getNetworkFolderPath())
   createFileIfMissing(getNetworksFilePath(), {
-    activeNetwork: 'localhost',
+    activeNetwork: 'mainnet',
+    mainnet: {
+      url: 'https://ethereum-rpc.publicnode.com',
+    },
   })
 }
 

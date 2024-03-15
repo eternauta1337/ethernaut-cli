@@ -14,6 +14,10 @@ require('../scopes/network')
     try {
       const networks = storage.readNetworks()
 
+      if (alias === 'mainnet') {
+        throw new Error('The mainnet network cannot be removed')
+      }
+
       if (!(alias in networks)) {
         throw new Error(`The network alias ${alias} does not exist`)
       }
@@ -21,7 +25,7 @@ require('../scopes/network')
       delete networks[alias]
 
       if (networks.activeNetwork === alias) {
-        networks.activeNetwork = 'localhost'
+        networks.activeNetwork = 'mainnet'
       }
 
       storage.storeNetworks(networks)
