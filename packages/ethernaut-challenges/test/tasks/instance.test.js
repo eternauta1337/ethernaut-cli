@@ -23,7 +23,7 @@ describe('instance', function () {
     before('run instance 1', async function () {
       output = await hre.run(
         { scope: 'challenges', task: 'instance' },
-        { level: '1' },
+        { level: 1 },
       )
     })
 
@@ -63,7 +63,7 @@ describe('instance', function () {
     before('run instance 2', async function () {
       output = await hre.run(
         { scope: 'challenges', task: 'instance' },
-        { level: '2' },
+        { level: 2 },
       )
     })
 

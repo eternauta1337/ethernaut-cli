@@ -13,7 +13,7 @@ describe('submit', function () {
     before('run instance 1', async function () {
       const output = await hre.run(
         { scope: 'challenges', task: 'instance' },
-        { level: '1' },
+        { level: 1 },
       )
       instanceAddress = extractAddress(output)
     })

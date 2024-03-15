@@ -34,7 +34,7 @@ describe('check-all', function () {
       before('get instance', async function () {
         output = await hre.run(
           { scope: 'challenges', task: 'instance' },
-          { level: '1' },
+          { level: 1 },
         )
         instanceAddress = extractAddress(output)
       })

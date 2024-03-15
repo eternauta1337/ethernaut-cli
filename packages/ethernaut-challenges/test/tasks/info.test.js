@@ -15,7 +15,7 @@ describe('info', function () {
     before('run info 1', async function () {
       levelInfo = await hre.run(
         { scope: 'challenges', task: 'info' },
-        { level: '1' },
+        { level: 1 },
       )
     })
 
@@ -54,7 +54,7 @@ describe('info', function () {
     before('run info 2', async function () {
       levelInfo = await hre.run(
         { scope: 'challenges', task: 'info' },
-        { level: '2' },
+        { level: 2 },
       )
     })
 
