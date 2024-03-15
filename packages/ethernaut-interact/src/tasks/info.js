@@ -15,6 +15,7 @@ require('../scopes/interact')
   .addPositionalParam(
     'address',
     'The address of the contract to get information about',
+    undefined,
     types.address,
   )
   .addFlag('abi', 'Show the ABI of the contract')
