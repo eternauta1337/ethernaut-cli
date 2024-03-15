@@ -47,6 +47,13 @@ const task = require('../scopes/wallet')
         pk,
       }
 
+      if (
+        signers.activeSigner === undefined ||
+        !signers[signers.activeSigner]
+      ) {
+        signers.activeSigner = alias
+      }
+
       if (signers.activeSigner === 'none') {
         signers.activeSigner = alias
       }
