@@ -29,13 +29,13 @@ require('../scopes/interact')
   )
   .addOptionalParam(
     'fromBlock',
-    'The block number to start searching from',
+    'The block number to start searching from. Defaults to 0 which is the genesis block. Use negative numbers to count from the latest block. E.g. -1 is the latest block, -2 is the block before that, etc.',
     0,
-    types.int,
+    types.string,
   )
   .addOptionalParam(
     'toBlock',
-    'The block number to stop searching at',
+    'The block number to stop searching at. Defaults to latest. Can also be negative.',
     'latest',
     types.string,
   )
@@ -53,6 +53,9 @@ require('../scopes/interact')
         debug.log(`params: ${params}`, 'interact')
         debug.log(`fromBlock: ${fromBlock}`, 'interact')
         debug.log(`toBlock: ${toBlock}`, 'interact')
+
+        fromBlock = parseInt(fromBlock)
+        toBlock = toBlock === 'latest' ? toBlock : parseInt(toBlock)
 
         const chainId = await getChainId(hre)
         storage.rememberAbiAndAddress(abi, address, chainId)
