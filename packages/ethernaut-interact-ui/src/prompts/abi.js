@@ -1,5 +1,8 @@
 const storage = require('ethernaut-interact/src/internal/storage')
-const EtherscanApi = require('ethernaut-interact/src/internal/etherscan')
+const {
+  EtherscanApi,
+  getEtherscanUrl,
+} = require('ethernaut-interact/src/internal/etherscan')
 const prompt = require('ethernaut-common/src/prompt')
 const spinner = require('ethernaut-common/src/spinner')
 const debug = require('ethernaut-common/src/debug')
@@ -41,25 +44,6 @@ module.exports = async function promptAbi({ abi, hre, address }) {
     return abi
   } catch (err) {
     debug.log(err, 'interact')
-  }
-}
-
-// TODO: Does etherscan support other networks?
-// Where can I find a complete list of endpoints?
-function getEtherscanUrl(chainId) {
-  switch (chainId) {
-    case 1: // Mainnet
-      return 'https://api.etherscan.io/api'
-    case 5: // Goerli
-      return 'https://api-goerli.etherscan.io/api'
-    case 10: // Optimism mainnet
-      return 'https://api-optimistic.etherscan.io/api'
-    case 420: // Optimism goerli
-      return 'https://api-goerli-optimistic.etherscan.io/api'
-    case 11155111: // Sepolia
-      return 'https://api-sepolia.etherscan.io/api'
-    default:
-      return undefined
   }
 }
 

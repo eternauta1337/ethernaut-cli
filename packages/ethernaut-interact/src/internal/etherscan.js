@@ -72,4 +72,23 @@ class EtherscanApi {
   }
 }
 
-module.exports = EtherscanApi
+// TODO: Does etherscan support other networks?
+// Where can I find a complete list of endpoints?
+function getEtherscanUrl(chainId) {
+  switch (chainId) {
+    case 1: // Mainnet
+      return 'https://api.etherscan.io/api'
+    case 5: // Goerli
+      return 'https://api-goerli.etherscan.io/api'
+    case 10: // Optimism mainnet
+      return 'https://api-optimistic.etherscan.io/api'
+    case 420: // Optimism goerli
+      return 'https://api-goerli-optimistic.etherscan.io/api'
+    case 11155111: // Sepolia
+      return 'https://api-sepolia.etherscan.io/api'
+    default:
+      return undefined
+  }
+}
+
+module.exports = { EtherscanApi, getEtherscanUrl }
