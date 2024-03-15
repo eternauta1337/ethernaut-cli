@@ -6,7 +6,13 @@ require('../scopes/util')
   .addPositionalParam('ens', 'The ens name to resolve', undefined, types.string)
   .setAction(async ({ ens }, hre) => {
     try {
-      return output.resultBox(await hre.ethers.provider.resolveName(ens))
+      const address = await hre.ethers.provider.resolveName(ens)
+
+      if (!address) {
+        throw new Error('Unable to resolve ens name')
+      }
+
+      return output.resultBox(address)
     } catch (err) {
       return output.errorBox(err)
     }
