@@ -13,7 +13,7 @@ const task = require('../scopes/network')
     'none',
     types.string,
   )
-  .addParam('port', 'The port to run the local chain on', '8545', types.int)
+  .addParam('port', 'The port to run the local chain on', 8545, types.int)
   .setAction(async ({ fork, port }) => {
     try {
       const forkUrl = getForkUrl(fork)

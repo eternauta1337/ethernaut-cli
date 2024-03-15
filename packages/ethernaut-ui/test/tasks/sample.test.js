@@ -27,7 +27,7 @@ describe('sample task', function () {
     })
   })
 
-  describe('when a default value is passed explicitely', function () {
+  describe('when a default value is passed explicitly', function () {
     before('call', async function () {
       await terminal.run('npx hardhat sample "default-value"', 1000)
     })

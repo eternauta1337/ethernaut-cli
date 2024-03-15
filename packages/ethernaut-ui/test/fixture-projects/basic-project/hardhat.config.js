@@ -3,10 +3,11 @@ require('@nomicfoundation/hardhat-ethers')
 require('../../../src/index')
 require('../../../../ethernaut-util/src/index')
 
+const types = require('ethernaut-common/src/types')
 const { task } = require('hardhat/config')
 
 const t = task('sample', 'Sample task')
-  .addPositionalParam('param', 'Sample param', 'default-value')
+  .addPositionalParam('param', 'Sample param', 'default-value', types.string)
   .setAction(async ({ param }) => {
     console.log(`Sample task: ${param}`)
   })
