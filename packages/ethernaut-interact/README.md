@@ -34,6 +34,20 @@ This plugin doesn't depend on any other plugins.
 
 This plugin adds the following tasks:
 
+### abi
+
+```
+Usage: hardhat [GLOBAL OPTIONS] interact abi [filter]
+
+POSITIONAL ARGUMENTS:
+
+  filter        Some text to filter the list of known ABIs. Leave empty to list all. Results will be ordered by similarity to the filter text, so the first result will be the best match.
+
+abi: Prints out the absolute paths of the known ABIs
+
+For global options help run: hardhat help
+```
+
 ### balance
 
 ```
