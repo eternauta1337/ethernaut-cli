@@ -1,3 +1,4 @@
+const types = require('ethernaut-common/src/types')
 const { task } = require('hardhat/config')
 const navigateFrom = require('../internal/navigate-from')
 const output = require('ethernaut-common/src/output')
@@ -6,6 +7,8 @@ task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam(
     'scope',
     'The group of tasks to navigate. Defaults to the root scope',
+    undefined,
+    types.string,
   )
   .setAction(async ({ scope }) => {
     try {

@@ -1,4 +1,4 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 const storage = require('../internal/storage')
 const { validateVarName } = require('ethernaut-common/src/name')
@@ -16,7 +16,7 @@ const task = require('../scopes/wallet')
     'pk',
     'The private key of the wallet or "random". Pass "random" or an empty string to generate a private key.',
     'random',
-    types.string,
+    types.bytes32,
   )
   .setAction(async ({ alias, pk }) => {
     try {
