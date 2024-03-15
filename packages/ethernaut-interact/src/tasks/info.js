@@ -7,7 +7,10 @@ const {
 const { checkEnvVar } = require('ethernaut-common/src/check-env')
 
 require('../scopes/interact')
-  .task('info', 'Find information about a contract address using Etherscan')
+  .task(
+    'info',
+    'Retrieves information about a contract address using Etherscan, such as the contract name, ABI, and source code. Note: Additional contract metadata like the public label of an address requires a pro account, and is currently not implemented.',
+  )
   .addPositionalParam(
     'address',
     'The address of the contract to get information about',
@@ -43,17 +46,27 @@ require('../scopes/interact')
       let strs = []
       strs.push(`Contract: ${info.ContractName}`)
       strs.push(`Address: ${address}`)
-      strs.push(`Implementation: ${info.Implementation}`)
 
-      if (abi) {
-        strs.push(`ABI: ${JSON.stringify(info.ABI, null, 2)}`)
+      let report = ''
+
+      if (info.Implementation) {
+        strs.push(`Implementation: ${info.Implementation}`)
       }
 
-      if (source) {
-        strs.push(`Source: ${info.SourceCode}`)
+      if (abi && info.ABI) {
+        report += output.infoBox(JSON.stringify(info.ABI, null, 2), 'ABI')
       }
 
-      return output.resultBox(strs.join('\n'))
+      if (source && info.SourceCode) {
+        // Not sure why the source code looks so broken
+        // inside a box, so showing it raw...
+        console.log(info.SourceCode)
+        report += info.SourceCode
+      }
+
+      report += output.resultBox(strs.join('\n'))
+
+      return report
     } catch (err) {
       return output.errorBox(err)
     }
