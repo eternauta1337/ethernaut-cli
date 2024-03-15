@@ -30,7 +30,7 @@ require('../scopes/interact')
   .addOptionalParam(
     'fromBlock',
     'The block number to start searching from. Defaults to 0 which is the genesis block. Use negative numbers to count from the latest block. E.g. -1 is the latest block, -2 is the block before that, etc.',
-    0,
+    '0',
     types.string,
   )
   .addOptionalParam(
