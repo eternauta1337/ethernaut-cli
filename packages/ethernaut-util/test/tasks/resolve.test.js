@@ -12,7 +12,7 @@ describe('resolve', function () {
           scope: 'util',
           task: 'resolve',
         },
-        { name: 'vitalik.eth' },
+        { ens: 'vitalik.eth' },
       )
     })
 

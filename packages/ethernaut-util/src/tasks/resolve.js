@@ -3,15 +3,10 @@ const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
   .task('resolve', 'Resolves an ens name to an address')
-  .addPositionalParam(
-    'name',
-    'The ens name to resolve',
-    undefined,
-    types.string,
-  )
-  .setAction(async ({ name }, hre) => {
+  .addPositionalParam('ens', 'The ens name to resolve', undefined, types.string)
+  .setAction(async ({ ens }, hre) => {
     try {
-      return output.resultBox(await hre.ethers.provider.resolveName(name))
+      return output.resultBox(await hre.ethers.provider.resolveName(ens))
     } catch (err) {
       return output.errorBox(err)
     }
