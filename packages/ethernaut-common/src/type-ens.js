@@ -14,7 +14,6 @@ module.exports = {
       }
     } catch (err) {
       output.errorBoxStr(`"${argValue}" is not an ens`, `Invalid ${argName}`)
-      process.exit(1)
     }
   },
 }

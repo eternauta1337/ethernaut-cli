@@ -41,14 +41,17 @@ describe('string', function () {
   })
 
   it('shows an error message when an invalid bytes value is passed', async function () {
-    assert.equal(
+    let error
+    try {
       await hre.run(
         { scope: 'util', task: 'string' },
         {
           value: 'abc',
         },
-      ),
-      'invalid BytesLike value (argument="bytes", value="abc", code=INVALID_ARGUMENT, version=6.11.1)',
-    )
+      )
+    } catch (err) {
+      error = err.message
+    }
+    assert.ok(error.includes('Invalid bytes32'), error)
   })
 })

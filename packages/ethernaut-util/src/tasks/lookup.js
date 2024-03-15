@@ -1,4 +1,4 @@
-const addressType = require('ethernaut-common/src/type-address')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
@@ -7,7 +7,7 @@ require('../scopes/util')
     'address',
     'The address to lookup',
     undefined,
-    addressType,
+    types.address,
   )
   .setAction(async ({ address }, hre) => {
     try {

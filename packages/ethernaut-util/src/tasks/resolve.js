@@ -1,9 +1,9 @@
-const ensType = require('ethernaut-common/src/type-ens')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
   .task('resolve', 'Resolves an ens name to an address')
-  .addPositionalParam('ens', 'The ens name to resolve', undefined, ensType)
+  .addPositionalParam('ens', 'The ens name to resolve', undefined, types.ens)
   .setAction(async ({ ens }, hre) => {
     try {
       const address = await hre.ethers.provider.resolveName(ens)

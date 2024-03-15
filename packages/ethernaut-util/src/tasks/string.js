@@ -1,9 +1,14 @@
-const { types } = require('hardhat/config')
+const types = require('ethernaut-common/src/types')
 const output = require('ethernaut-common/src/output')
 
 require('../scopes/util')
   .task('string', 'Converts bytes32 to string')
-  .addPositionalParam('value', 'The value to convert', undefined, types.string)
+  .addPositionalParam(
+    'value',
+    'The bytes32 value to convert',
+    undefined,
+    types.bytes32,
+  )
   .setAction(async ({ value }, hre) => {
     try {
       const strNullPadded = hre.ethers.toUtf8String(value)
