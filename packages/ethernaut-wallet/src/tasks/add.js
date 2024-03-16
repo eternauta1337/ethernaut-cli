@@ -5,7 +5,7 @@ const { validateVarName } = require('ethernaut-common/src/util/name')
 const { addSigner, generatePk } = require('../internal/signers')
 
 const task = require('../scopes/wallet')
-  .task('create', 'Creates a new wallet')
+  .task('add', 'Adds a wallet')
   .addPositionalParam(
     'alias',
     'The name of the wallet',

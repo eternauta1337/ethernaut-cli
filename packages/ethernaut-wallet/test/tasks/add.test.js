@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 const storage = require('ethernaut-wallet/src/internal/storage')
 
-describe('create', function () {
+describe('add', function () {
   const terminal = new Terminal()
 
   const demoSig = {
@@ -22,7 +22,7 @@ describe('create', function () {
 
   describe('when generating a random pk', function () {
     before('generate', async function () {
-      await terminal.run('npx hardhat wallet create  test__8 --pk random')
+      await terminal.run('npx hardhat wallet add  test__8 --pk random')
     })
 
     it('generates the signer', async function () {
@@ -32,7 +32,7 @@ describe('create', function () {
 
   describe('when all params are specified', function () {
     before('run add', async function () {
-      await terminal.run(`npx hardhat wallet create test__7 --pk ${demoSig.pk}`)
+      await terminal.run(`npx hardhat wallet add test__7 --pk ${demoSig.pk}`)
     })
 
     it('adds the signer', async function () {
