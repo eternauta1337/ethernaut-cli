@@ -69,7 +69,7 @@ describe('navigate', function () {
             terminal.has('unit')
           })
 
-          describe('when autocompleting for the unit util', function () {
+          describe('when auto completing for the unit util', function () {
             before('type u', async function () {
               await terminal.input('u', 200)
             })
@@ -82,7 +82,7 @@ describe('navigate', function () {
               terminal.has('unit')
             })
 
-            it('doesnt show the other utils', async function () {
+            it('does not show the other utils', async function () {
               terminal.notHas('bytes')
               terminal.notHas('string')
             })
@@ -92,7 +92,7 @@ describe('navigate', function () {
                 await terminal.input('n', 200)
               })
 
-              it('doesnt show the up nav', async function () {
+              it('does not show the up nav', async function () {
                 terminal.notHas('up')
               })
 

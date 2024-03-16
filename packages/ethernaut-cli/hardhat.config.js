@@ -34,7 +34,6 @@ module.exports = {
     ui: {
       exclude: [
         'vars/*',
-        'hardhat/*',
         'check',
         'compile',
         'clean',

@@ -23,6 +23,6 @@ extendConfig((config, userConfig) => {
   const localConfig = localStorage.readConfig()
 
   config.ethernaut.ui = {
-    exclude: localConfig.ui.exclude || userConfig.ethernaut?.ui?.exclude || [],
+    exclude: localConfig.ui?.exclude || userConfig.ethernaut?.ui?.exclude || [],
   }
 })
