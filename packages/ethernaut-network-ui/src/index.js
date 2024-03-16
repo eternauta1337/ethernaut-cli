@@ -11,8 +11,8 @@ extendEnvironment((hre) => {
   const add = hre.scopes.network.tasks.add
   add.paramDefinitions.url.prompt = promptUrl
 
-  const activate = hre.scopes.network.tasks.activate
-  activate.positionalParamDefinitions.find((p) => p.name === 'alias').prompt =
+  const set = hre.scopes.network.tasks.set
+  set.positionalParamDefinitions.find((p) => p.name === 'alias').prompt =
     promptAlias('Select a network to activate')
 
   const edit = hre.scopes.network.tasks.edit

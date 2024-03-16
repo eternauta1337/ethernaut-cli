@@ -4,7 +4,7 @@ const storage = require('../internal/storage')
 const { setNetwork } = require('../internal/set-network')
 
 require('../scopes/network')
-  .task('activate', 'Activates a network')
+  .task('set', 'Sets the active network')
   .addPositionalParam(
     'alias',
     'The name of the network',

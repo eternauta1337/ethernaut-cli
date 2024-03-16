@@ -34,7 +34,7 @@ This plugin doesn't depend on any other plugins.
 
 This plugins adds the following tasks to hardhat:
 
-- activate Activates a network
+- set Sets the active network
 - add Adds a network to the cli
 - current Prints the active network
 - edit Edits a network

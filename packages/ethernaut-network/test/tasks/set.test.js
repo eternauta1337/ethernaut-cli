@@ -2,7 +2,7 @@ const assert = require('assert')
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 const storage = require('../../src/internal/storage')
 
-describe('activate', function () {
+describe('set', function () {
   const terminal = new Terminal()
   let activeNetwork
 
@@ -30,7 +30,7 @@ describe('activate', function () {
 
   describe('when calling set', function () {
     before('call set', async function () {
-      await terminal.run('npx hardhat network activate test__1', 2000)
+      await terminal.run('npx hardhat network set test__1', 2000)
     })
 
     it('sets the active network', async function () {
