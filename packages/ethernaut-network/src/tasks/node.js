@@ -16,7 +16,7 @@ const task = require('../scopes/network')
   .addParam('port', 'The port to run the local chain on', 8545, types.int)
   .setAction(async ({ fork, port }) => {
     try {
-      const forkUrl = getForkUrl(fork)
+      const forkUrl = await getForkUrl(fork)
 
       port = Number(port) || 8545
 
@@ -32,7 +32,7 @@ const task = require('../scopes/network')
     }
   })
 
-function getForkUrl(fork) {
+async function getForkUrl(fork) {
   if (!fork || fork === 'none')
     return { url: undefined, unfoldedUrl: undefined }
 
@@ -50,7 +50,7 @@ function getForkUrl(fork) {
     urlInfo.url = network.url
   }
 
-  urlInfo.unfoldedUrl = applyEnvVars(urlInfo.url)
+  urlInfo.unfoldedUrl = await applyEnvVars(urlInfo.url)
 
   return urlInfo
 }
