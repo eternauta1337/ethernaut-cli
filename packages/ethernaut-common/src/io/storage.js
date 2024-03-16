@@ -7,6 +7,8 @@ const {
 } = require('ethernaut-common/src/io/create-file')
 
 function readConfig() {
+  init()
+
   const data = fs.readFileSync(getConfigPath())
 
   return JSON.parse(data)
