@@ -6,7 +6,6 @@ require('../scopes/wallet')
   .setAction(async () => {
     try {
       const signers = storage.readSigners()
-      console.log(signers)
       if (Object.keys(signers).length < 2) {
         throw new Error(
           'No wallets found. Please use the create task to add one.',

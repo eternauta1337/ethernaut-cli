@@ -15,6 +15,10 @@ async function setSigner(alias) {
 }
 
 function getWallet(hre, pk) {
+  if (pk === undefined) {
+    throw new Error('No private key available for this wallet')
+  }
+
   return new hre.ethers.Wallet(pk, hre.ethers.provider)
 }
 

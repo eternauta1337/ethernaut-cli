@@ -46,13 +46,17 @@ module.exports = async function interact({
 
   // Instantiate the contract
   spinner.progress('Preparing contract', 'interact')
-  let contract = await hre.ethers.getContractAt(_abi, address)
+  let contract = await hre.ethers.getContractAt(
+    _abi,
+    address,
+    hre.ethers.provider,
+  )
   spinner.success('Contract instantiated', 'interact')
   debug.log(`Instantiated contract: ${contract.target}`, 'interact')
 
   // Id the function to call
   const fnName = fn.split('(')[0]
-  const abiFn = _abi.find((abiFn) => abiFn.name?.includes(fnName))
+  const abiFn = _abi.find((abiFn) => abiFn.name === fnName)
   const sig = getFunctionSignature(abiFn)
 
   // Double check params
