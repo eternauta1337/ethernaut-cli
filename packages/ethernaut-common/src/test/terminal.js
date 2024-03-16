@@ -42,6 +42,7 @@ class Terminal {
     }
 
     this.listener = this.process.onData((data) => {
+      if (data === undefined) return
       const txt = this.stripAnsi(data.toString())
       this.history += txt
       this.output += txt
