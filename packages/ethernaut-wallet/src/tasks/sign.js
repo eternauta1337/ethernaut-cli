@@ -11,7 +11,7 @@ require('../scopes/wallet')
       const signers = storage.readSigners()
       const signer = signers[signers.activeSigner]
 
-      const wallet = getWallet(signer.pk)
+      const wallet = getWallet(hre, signer.pk)
 
       return output.resultBox(wallet.signMessageSync(message))
     } catch (err) {

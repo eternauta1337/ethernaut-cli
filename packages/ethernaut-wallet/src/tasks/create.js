@@ -37,7 +37,7 @@ const task = require('../scopes/wallet')
         output.info('Generated random private key')
       }
 
-      const address = addSigner(alias, pk)
+      const address = addSigner(hre, alias, pk)
 
       return output.resultBox(
         `Created new wallet ${alias} with address ${address}`,

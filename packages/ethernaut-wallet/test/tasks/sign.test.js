@@ -2,7 +2,7 @@ const { Terminal } = require('ethernaut-common/src/test/terminal')
 const storage = require('../../src/internal/storage')
 const { getWallet } = require('../../src/internal/signers')
 
-describe('info', function () {
+describe('sign', function () {
   const terminal = new Terminal()
 
   const demoSig = {
@@ -32,7 +32,7 @@ describe('info', function () {
       it('prints the expected signature', async function () {
         terminal.has('Result')
 
-        const wallet = getWallet(demoSig.pk)
+        const wallet = getWallet(hre, demoSig.pk)
         const sig = wallet.signMessageSync('hello')
         terminal.has(sig.slice(0, 15))
       })

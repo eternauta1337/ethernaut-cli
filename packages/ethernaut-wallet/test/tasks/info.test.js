@@ -9,7 +9,7 @@ describe('info', function () {
     pk: '0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97',
   }
 
-  describe('when queryig info about a signer', function () {
+  describe('when querying info about a signer', function () {
     before('add test signers', async function () {
       const signers = storage.readSigners()
       if (!('test__3' in signers)) signers.test__3 = demoSig
