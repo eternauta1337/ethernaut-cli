@@ -31,7 +31,7 @@ async function checkEnvVar(varName, message) {
       message: `Please provide a value for ${varName}${message ? `. ${message}` : ''}`,
     })
     debug.log(`Saved environment variable ${varName} in .env file...`)
-    fs.appendFileSync(envPath, `\n${varName}=${varValue}`)
+    fs.appendFileSync(envPath, `${varName}=${varValue}`)
     require('dotenv').config({ path: envPath })
   }
 }

@@ -29,7 +29,7 @@ async function setNetwork(alias, hre) {
   let network
   if (alias !== 'localhost') {
     network = networks[alias]
-    injectNetworkInConfig(alias, network, hre.config)
+    await injectNetworkInConfig(alias, network, hre.config)
   } else {
     network = hre.config.networks[alias]
   }
@@ -39,7 +39,7 @@ async function setNetwork(alias, hre) {
   )
 }
 
-function injectNetworkInConfig(alias, network, config) {
+async function injectNetworkInConfig(alias, network, config) {
   if (config.networks[alias]) return
 
   config.networks[alias] = {
@@ -49,7 +49,7 @@ function injectNetworkInConfig(alias, network, config) {
     gasMultiplier: 1,
     httpHeaders: {},
     timeout: 40000,
-    url: applyEnvVars(network.url),
+    url: await applyEnvVars(network.url),
   }
 }
 

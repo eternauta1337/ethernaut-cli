@@ -2,6 +2,8 @@ const { prompt } = require('enquirer')
 const suggestDef = require('ethernaut-common/src/ui/suggest')
 const spinner = require('ethernaut-common/src/ui/spinner')
 
+let _promises = []
+
 module.exports = async function ({
   type,
   suggest,
@@ -16,7 +18,11 @@ module.exports = async function ({
   // always stop when a prompt is coming...
   spinner.stop()
 
-  const { response } = await prompt({
+  // Allows prompts to be generated with sync code,
+  // and this fn will still be able to present them asynchronously
+  await waitInLine()
+
+  const promise = prompt({
     type: type || 'input',
     name: 'response',
     message,
@@ -31,5 +37,32 @@ module.exports = async function ({
     process.exit(0)
   })
 
+  _promises.push(promise)
+
+  const { response } = await promise
+  _promises.pop()
+
   return response
+}
+
+async function waitInLine() {
+  return new Promise((resolve) => {
+    let id
+
+    function check() {
+      if (_promises.length === 0) {
+        clearInterval(id)
+        resolve()
+
+        return true
+      }
+
+      return false
+    }
+    const checked = check()
+
+    if (!checked) {
+      id = setInterval(check, 1000)
+    }
+  })
 }
