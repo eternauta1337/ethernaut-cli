@@ -1,4 +1,4 @@
-const { Terminal } = require('ethernaut-common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
 
 describe('sample task', function () {
   const terminal = new Terminal()

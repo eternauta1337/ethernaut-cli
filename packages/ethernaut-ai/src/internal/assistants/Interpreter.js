@@ -1,7 +1,7 @@
 const buildToolsSpec = require('./utils/build-tools-spec')
 const Assistant = require('./Assistant')
 const Action = require('../Action')
-const debug = require('ethernaut-common/src/debug')
+const debug = require('ethernaut-common/src/util/debug')
 
 class Interpreter extends Assistant {
   constructor(hre) {

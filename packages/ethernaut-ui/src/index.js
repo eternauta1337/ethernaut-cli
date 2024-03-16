@@ -1,9 +1,9 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config')
-const requireAll = require('ethernaut-common/src/require-all')
+const requireAll = require('ethernaut-common/src/io/require-all')
 const makeTasksInteractive = require('./internal/make-interactive')
-const spinner = require('ethernaut-common/src/spinner')
+const spinner = require('ethernaut-common/src/ui/spinner')
 const preParseUi = require('./internal/pre-parse-ui')
-const output = require('ethernaut-common/src/output')
+const output = require('ethernaut-common/src/ui/output')
 
 requireAll(__dirname, 'tasks')
 

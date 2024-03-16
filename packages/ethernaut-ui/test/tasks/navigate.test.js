@@ -1,6 +1,6 @@
 const assert = require('assert')
-const { Terminal, keys } = require('ethernaut-common/src/terminal')
-const { findLineWith } = require('ethernaut-common/src/strings')
+const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
+const { findLineWith } = require('ethernaut-common/src/util/strings')
 
 describe('navigate', function () {
   const terminal = new Terminal()

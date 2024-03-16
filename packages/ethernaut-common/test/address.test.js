@@ -1,5 +1,9 @@
 const assert = require('assert')
-const { isAddress, containsAddress, extractAddress } = require('../src/address')
+const {
+  isAddress,
+  containsAddress,
+  extractAddress,
+} = require('../src/util/address')
 
 describe('address', function () {
   describe('isAddress', function () {

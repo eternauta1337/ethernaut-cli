@@ -1,4 +1,4 @@
-const { Terminal } = require('ethernaut-common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
 const getBalance = require('../../src/internal/get-balance')
 
 describe('balance', function () {

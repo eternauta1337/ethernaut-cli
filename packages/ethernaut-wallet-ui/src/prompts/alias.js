@@ -1,4 +1,4 @@
-const prompt = require('ethernaut-common/src/prompt')
+const prompt = require('ethernaut-common/src/ui/prompt')
 const storage = require('ethernaut-wallet/src/internal/storage')
 
 module.exports = (message = 'Select a wallet') => {

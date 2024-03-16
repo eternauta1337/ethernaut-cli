@@ -1,4 +1,4 @@
-const spinner = require('ethernaut-common/src/spinner')
+const spinner = require('ethernaut-common/src/ui/spinner')
 
 module.exports = async function findLevelCompletedEvents(
   ethernaut,

@@ -4,7 +4,7 @@ const os = require('os')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('ethernaut-common/src/create-file')
+} = require('ethernaut-common/src/util/create-file')
 
 function readConfig() {
   const data = fs.readFileSync(getConfigPath())

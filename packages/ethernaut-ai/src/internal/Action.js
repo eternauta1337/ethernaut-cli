@@ -1,6 +1,6 @@
-const debug = require('ethernaut-common/src/debug')
+const debug = require('ethernaut-common/src/util/debug')
 const chalk = require('chalk')
-const toCliSyntax = require('ethernaut-common/src/syntax')
+const toCliSyntax = require('ethernaut-common/src/ui/syntax')
 
 class Action {
   /**

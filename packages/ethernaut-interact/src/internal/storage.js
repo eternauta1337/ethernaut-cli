@@ -3,8 +3,8 @@ const path = require('path')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('ethernaut-common/src/create-file')
-const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
+} = require('ethernaut-common/src/util/create-file')
+const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
 
 /**
  * addresses.json schema:

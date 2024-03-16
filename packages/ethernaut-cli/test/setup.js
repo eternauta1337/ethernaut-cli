@@ -1,4 +1,4 @@
-const { loadProject, muteOutput } = require('ethernaut-common/src/setup-tests')
+const { loadProject, muteOutput } = require('ethernaut-common/src/test/setup')
 
 muteOutput()
 loadProject('./')

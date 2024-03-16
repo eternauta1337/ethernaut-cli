@@ -1,10 +1,10 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const helper = require('../internal/helper')
-const output = require('ethernaut-common/src/output')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const output = require('ethernaut-common/src/ui/output')
+const { getNetworkName } = require('ethernaut-common/src/util/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
-const spinner = require('ethernaut-common/src/spinner')
-const debug = require('ethernaut-common/src/debug')
+const spinner = require('ethernaut-common/src/ui/spinner')
+const debug = require('ethernaut-common/src/util/debug')
 
 require('../scopes/challenges')
   .task(

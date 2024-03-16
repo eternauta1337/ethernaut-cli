@@ -3,11 +3,11 @@ const {
   EtherscanApi,
   getEtherscanUrl,
 } = require('ethernaut-interact/src/internal/etherscan')
-const prompt = require('ethernaut-common/src/prompt')
-const spinner = require('ethernaut-common/src/spinner')
-const debug = require('ethernaut-common/src/debug')
-const { getChainId } = require('ethernaut-common/src/network')
-const { checkEnvVar } = require('ethernaut-common/src/check-env')
+const prompt = require('ethernaut-common/src/ui/prompt')
+const spinner = require('ethernaut-common/src/ui/spinner')
+const debug = require('ethernaut-common/src/util/debug')
+const { getChainId } = require('ethernaut-common/src/util/network')
+const { checkEnvVar } = require('ethernaut-common/src/io/env')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',

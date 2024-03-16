@@ -1,10 +1,10 @@
-const output = require('ethernaut-common/src/output')
-const confirm = require('ethernaut-common/src/confirm')
+const output = require('ethernaut-common/src/ui/output')
+const confirm = require('ethernaut-common/src/ui/confirm')
 const getBalance = require('../internal/get-balance')
 const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
 const connectSigner = require('../internal/connect-signer')
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')

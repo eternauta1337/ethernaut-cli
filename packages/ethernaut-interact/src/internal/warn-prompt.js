@@ -1,5 +1,5 @@
-const prompt = require('ethernaut-common/src/prompt')
-const output = require('ethernaut-common/src/output')
+const prompt = require('ethernaut-common/src/ui/prompt')
+const output = require('ethernaut-common/src/ui/output')
 
 module.exports = async function warnWithPrompt(message) {
   output.warn(message)

@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
-const prompt = require('ethernaut-common/src/prompt')
+const prompt = require('ethernaut-common/src/ui/prompt')
 const dotenv = require('dotenv')
-const debug = require('ethernaut-common/src/debug')
-const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
+const debug = require('ethernaut-common/src/util/debug')
+const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
 
 const envPath = path.join(getEthernautFolderPath(), '.env')
 

@@ -1,8 +1,8 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
-const { chains } = require('ethernaut-common/src/chains')
-const { isUrl } = require('ethernaut-common/src/url')
+const { chains } = require('ethernaut-common/src/data/chains')
+const { isUrl } = require('ethernaut-common/src/util/url')
 
 require('../scopes/network')
   .task('info', 'Provides information about a network')

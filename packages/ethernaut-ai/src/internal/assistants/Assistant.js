@@ -1,7 +1,7 @@
-const hashStr = require('ethernaut-common/src/hash-str')
+const hashStr = require('ethernaut-common/src/util/hash-str')
 const storage = require('../storage')
 const openai = require('../openai')
-const debug = require('ethernaut-common/src/debug')
+const debug = require('ethernaut-common/src/util/debug')
 const EventEmitter = require('events')
 
 class Assistant extends EventEmitter {

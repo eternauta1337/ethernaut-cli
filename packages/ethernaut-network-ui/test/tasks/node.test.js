@@ -1,4 +1,4 @@
-const { Terminal, keys } = require('ethernaut-common/src/terminal')
+const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
 const storage = require('ethernaut-network/src/internal/storage')
 
 describe('node ui', function () {

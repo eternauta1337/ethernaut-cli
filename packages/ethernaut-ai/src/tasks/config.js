@@ -1,6 +1,6 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
-const storage = require('ethernaut-common/src/storage')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
+const storage = require('ethernaut-common/src/io/storage')
 
 require('../scopes/ai')
   .task('config', 'Configures ai scope parameters')

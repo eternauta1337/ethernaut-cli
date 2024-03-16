@@ -1,5 +1,5 @@
-const output = require('ethernaut-common/src/output')
-const types = require('ethernaut-common/src/types')
+const output = require('ethernaut-common/src/ui/output')
+const types = require('ethernaut-common/src/validation/types')
 const { getContract } = require('../internal/get-contract')
 
 require('../scopes/interact')

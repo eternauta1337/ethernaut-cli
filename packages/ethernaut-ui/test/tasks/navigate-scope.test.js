@@ -1,4 +1,4 @@
-const { Terminal, keys } = require('ethernaut-common/src/terminal')
+const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
 
 describe('navigate scope', function () {
   const terminal = new Terminal()

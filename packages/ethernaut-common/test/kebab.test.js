@@ -1,4 +1,4 @@
-const camelToKebabCase = require('../src/kebab')
+const camelToKebabCase = require('../src/util/kebab')
 const assert = require('assert')
 
 describe('kebab', function () {

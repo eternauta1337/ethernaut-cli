@@ -1,9 +1,9 @@
-const spinner = require('ethernaut-common/src/spinner')
-const output = require('ethernaut-common/src/output')
-const debug = require('ethernaut-common/src/debug')
+const spinner = require('ethernaut-common/src/ui/spinner')
+const output = require('ethernaut-common/src/ui/output')
+const debug = require('ethernaut-common/src/util/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
-const { getChainId } = require('ethernaut-common/src/network')
+const { getChainId } = require('ethernaut-common/src/util/network')
 const getBalance = require('../internal/get-balance')
 const mineTx = require('../internal/mine-tx')
 const {
@@ -11,7 +11,7 @@ const {
   getFunctionSignature,
 } = require('../internal/signatures')
 const loadAbi = require('../internal/load-abi')
-const prompt = require('ethernaut-common/src/prompt')
+const prompt = require('ethernaut-common/src/ui/prompt')
 const storage = require('../internal/storage')
 const path = require('path')
 

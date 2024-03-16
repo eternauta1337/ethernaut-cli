@@ -1,8 +1,8 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const helper = require('../internal/helper')
-const output = require('ethernaut-common/src/output')
+const output = require('ethernaut-common/src/ui/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const { getNetworkName } = require('ethernaut-common/src/util/network')
 
 require('../scopes/challenges')
   .task(

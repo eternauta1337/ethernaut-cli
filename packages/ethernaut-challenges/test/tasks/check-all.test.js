@@ -1,6 +1,6 @@
 const assert = require('assert')
-const { findLineWith } = require('ethernaut-common/src/strings')
-const { extractAddress } = require('ethernaut-common/src/address')
+const { findLineWith } = require('ethernaut-common/src/util/strings')
+const { extractAddress } = require('ethernaut-common/src/util/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
 

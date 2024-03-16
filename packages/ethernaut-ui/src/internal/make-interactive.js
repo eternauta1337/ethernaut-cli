@@ -1,9 +1,9 @@
 const { task: hreTask } = require('hardhat/config')
-const getNodes = require('ethernaut-common/src/get-nodes')
-const debug = require('ethernaut-common/src/debug')
-const output = require('ethernaut-common/src/output')
+const getNodes = require('ethernaut-common/src/tasks/get-nodes')
+const debug = require('ethernaut-common/src/util/debug')
+const output = require('ethernaut-common/src/ui/output')
 const collectArguments = require('./collect-args')
-const toCliSyntax = require('ethernaut-common/src/syntax')
+const toCliSyntax = require('ethernaut-common/src/ui/syntax')
 
 let _hre
 

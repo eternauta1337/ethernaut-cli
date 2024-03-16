@@ -1,5 +1,5 @@
-const { chains } = require('ethernaut-common/src/chains')
-const debug = require('ethernaut-common/src/debug')
+const { chains } = require('ethernaut-common/src/data/chains')
+const debug = require('ethernaut-common/src/util/debug')
 
 async function getNetworkName(hre) {
   const chainId = await getChainId(hre)

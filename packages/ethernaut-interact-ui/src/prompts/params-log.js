@@ -1,6 +1,6 @@
 const loadAbi = require('ethernaut-interact/src/internal/load-abi')
-const debug = require('ethernaut-common/src/debug')
-const prompt = require('ethernaut-common/src/prompt')
+const debug = require('ethernaut-common/src/util/debug')
+const prompt = require('ethernaut-common/src/ui/prompt')
 
 module.exports = async function promptParamsLog({ abi, event }) {
   if (!abi) return

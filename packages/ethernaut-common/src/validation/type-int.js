@@ -1,5 +1,5 @@
 const { types } = require('hardhat/config')
-const output = require('./output')
+const output = require('../ui/output')
 
 module.exports = {
   name: 'int',

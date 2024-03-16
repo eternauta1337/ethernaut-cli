@@ -1,5 +1,5 @@
-const getNodes = require('ethernaut-common/src/get-nodes')
-const flattenTasks = require('ethernaut-common/src/flatten-tasks')
+const getNodes = require('ethernaut-common/src/tasks/get-nodes')
+const flattenTasks = require('ethernaut-common/src/tasks/flatten')
 
 module.exports = function buildDocs(hre) {
   const docs = []

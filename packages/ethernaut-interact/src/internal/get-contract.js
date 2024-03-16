@@ -1,4 +1,4 @@
-const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
+const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
 const fs = require('fs')
 const path = require('path')
 

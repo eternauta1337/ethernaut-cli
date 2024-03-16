@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { getEthernautFolderPath } = require('ethernaut-common/src/storage')
+const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
 
 function getGamedata() {
   const filePath = path.join(getGamedataPath(), 'gamedata.json')

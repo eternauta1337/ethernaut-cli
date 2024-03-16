@@ -1,6 +1,6 @@
 const assert = require('assert')
 const getBalance = require('../../src/internal/get-balance')
-const { Terminal } = require('ethernaut-common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
 const path = require('path')
 
 describe('contract', function () {

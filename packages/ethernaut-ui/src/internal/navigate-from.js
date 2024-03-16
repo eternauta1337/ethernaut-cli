@@ -1,5 +1,5 @@
-const prompt = require('ethernaut-common/src/prompt')
-const getNodes = require('ethernaut-common/src/get-nodes')
+const prompt = require('ethernaut-common/src/ui/prompt')
+const getNodes = require('ethernaut-common/src/tasks/get-nodes')
 const chalk = require('chalk')
 
 module.exports = async function navigateFrom(node, hre) {

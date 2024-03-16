@@ -1,5 +1,5 @@
 const { version } = require('../package.json')
-const { Terminal } = require('ethernaut-common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
 
 describe('version', function () {
   const terminal = new Terminal()

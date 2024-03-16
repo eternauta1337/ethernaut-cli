@@ -1,5 +1,5 @@
-const { preParse, setArgs } = require('ethernaut-common/src/pre-parse')
-const debug = require('ethernaut-common/src/debug')
+const { preParse, setArgs } = require('ethernaut-common/src/tasks/pre-parse')
+const debug = require('ethernaut-common/src/util/debug')
 
 module.exports = function preParseUi(hre) {
   if (global.testing) return

@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { extractAddress } = require('ethernaut-common/src/address')
+const { extractAddress } = require('ethernaut-common/src/util/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
 

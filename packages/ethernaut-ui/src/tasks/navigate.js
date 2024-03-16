@@ -1,7 +1,7 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const { task } = require('hardhat/config')
 const navigateFrom = require('../internal/navigate-from')
-const output = require('ethernaut-common/src/output')
+const output = require('ethernaut-common/src/ui/output')
 
 task('navigate', 'Navigates tasks with enquirer')
   .addOptionalPositionalParam(

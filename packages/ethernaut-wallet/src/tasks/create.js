@@ -1,7 +1,7 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
-const { validateVarName } = require('ethernaut-common/src/name')
+const { validateVarName } = require('ethernaut-common/src/util/name')
 const { getWallet, generatePk } = require('../internal/signers')
 
 const task = require('../scopes/wallet')

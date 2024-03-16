@@ -1,6 +1,6 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
-const debug = require('ethernaut-common/src/debug')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
+const debug = require('ethernaut-common/src/util/debug')
 const getEthernautContract = require('../internal/ethernaut-contract')
 
 require('../scopes/challenges')

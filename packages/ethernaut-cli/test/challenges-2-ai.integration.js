@@ -1,5 +1,5 @@
-const { Terminal } = require('ethernaut-common/src/terminal')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
+const { getNetworkName } = require('ethernaut-common/src/util/network')
 
 describe('completing level 2 of ethernaut with ai', function () {
   const terminal = new Terminal()

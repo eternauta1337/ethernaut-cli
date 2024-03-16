@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { Terminal } = require('ethernaut-common/src/terminal')
+const { Terminal } = require('ethernaut-common/src/test/terminal')
 const storage = require('ethernaut-wallet/src/internal/storage')
 
 describe('create', function () {

@@ -1,7 +1,7 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
-const { chains } = require('ethernaut-common/src/chains')
-const { tokens } = require('ethernaut-common/src/tokens')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
+const { chains } = require('ethernaut-common/src/data/chains')
+const { tokens } = require('ethernaut-common/src/data/tokens')
 const similarity = require('string-similarity')
 
 require('../scopes/util')

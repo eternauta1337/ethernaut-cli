@@ -1,9 +1,9 @@
-const types = require('ethernaut-common/src/types')
-const debug = require('ethernaut-common/src/debug')
+const types = require('ethernaut-common/src/validation/types')
+const debug = require('ethernaut-common/src/util/debug')
 const loadAbi = require('../internal/load-abi')
-const output = require('ethernaut-common/src/output')
+const output = require('ethernaut-common/src/ui/output')
 const { getFullEventSignature } = require('../internal/signatures')
-const { getChainId } = require('ethernaut-common/src/network')
+const { getChainId } = require('ethernaut-common/src/util/network')
 const storage = require('../internal/storage')
 
 require('../scopes/interact')

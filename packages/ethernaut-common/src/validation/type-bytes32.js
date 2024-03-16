@@ -1,19 +1,21 @@
 const { types } = require('hardhat/config')
-const output = require('./output')
+const { isBytes32 } = require('../util/bytes')
+const output = require('../ui/output')
 
 module.exports = {
-  name: 'ens',
+  name: 'bytes32',
   parse: types.string.parse,
   validate: (argName, argValue) => {
     try {
       types.string.validate(argName, argValue)
-
-      const isEns = argValue.endsWith('.eth')
-      if (!isEns) {
-        throw new Error('Invalid ens')
+      if (!isBytes32(argValue)) {
+        throw new Error('Invalid bytes32')
       }
     } catch (err) {
-      output.errorBoxStr(`"${argValue}" is not an ens`, `Invalid ${argName}`)
+      output.errorBoxStr(
+        `"${argValue}" is not a bytes32 value`,
+        `Invalid ${argName}`,
+      )
 
       if (typeof describe === 'function') {
         throw err

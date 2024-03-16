@@ -1,9 +1,9 @@
 const pty = require('node-pty')
 const os = require('os')
-const debug = require('ethernaut-common/src/debug')
+const debug = require('ethernaut-common/src/util/debug')
 const assert = require('assert')
 const chalk = require('chalk')
-const wait = require('ethernaut-common/src/wait')
+const wait = require('ethernaut-common/src/util/wait')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g

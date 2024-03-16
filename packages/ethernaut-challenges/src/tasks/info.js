@@ -1,10 +1,10 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const helper = require('../internal/helper')
 const fs = require('fs')
 const path = require('path')
-const output = require('ethernaut-common/src/output')
-const debug = require('ethernaut-common/src/debug')
-const { getNetworkName } = require('ethernaut-common/src/network')
+const output = require('ethernaut-common/src/ui/output')
+const debug = require('ethernaut-common/src/util/debug')
+const { getNetworkName } = require('ethernaut-common/src/util/network')
 
 require('../scopes/challenges')
   .task(

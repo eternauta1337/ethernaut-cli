@@ -1,6 +1,6 @@
 const Spinnies = require('spinnies')
 const cliSpinners = require('cli-spinners')
-const debug = require('ethernaut-common/src/debug')
+const debug = require('ethernaut-common/src/util/debug')
 
 let _enabled = true
 let _channelErrors = {}

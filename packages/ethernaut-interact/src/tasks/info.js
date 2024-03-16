@@ -1,11 +1,11 @@
-const output = require('ethernaut-common/src/output')
-const types = require('ethernaut-common/src/types')
-const { getChainId } = require('ethernaut-common/src/network')
+const output = require('ethernaut-common/src/ui/output')
+const types = require('ethernaut-common/src/validation/types')
+const { getChainId } = require('ethernaut-common/src/util/network')
 const {
   EtherscanApi,
   getEtherscanUrl,
 } = require('ethernaut-interact/src/internal/etherscan')
-const { checkEnvVar } = require('ethernaut-common/src/check-env')
+const { checkEnvVar } = require('ethernaut-common/src/io/env')
 
 require('../scopes/interact')
   .task(

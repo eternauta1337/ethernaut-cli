@@ -1,7 +1,7 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
 const { execSync } = require('child_process')
-const { isUrl } = require('ethernaut-common/src/url')
+const { isUrl } = require('ethernaut-common/src/util/url')
 const storage = require('../internal/storage')
 const applyEnvVars = require('../internal/apply-env-vars')
 

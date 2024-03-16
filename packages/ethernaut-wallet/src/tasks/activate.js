@@ -1,5 +1,5 @@
-const types = require('ethernaut-common/src/types')
-const output = require('ethernaut-common/src/output')
+const types = require('ethernaut-common/src/validation/types')
+const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { setSigner } = require('../internal/signers')
 

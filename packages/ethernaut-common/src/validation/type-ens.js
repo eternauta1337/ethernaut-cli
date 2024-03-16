@@ -1,21 +1,20 @@
 const { types } = require('hardhat/config')
-const { isAddress } = require('./address')
-const output = require('./output')
+const output = require('../ui/output')
 
 module.exports = {
-  name: 'address',
+  name: 'ens',
   parse: types.string.parse,
   validate: (argName, argValue) => {
     try {
       types.string.validate(argName, argValue)
-      if (!isAddress(argValue)) {
-        throw new Error('Invalid address')
+
+      const isEns = argValue.endsWith('.eth')
+      if (!isEns) {
+        throw new Error('Invalid ens')
       }
     } catch (err) {
-      output.errorBoxStr(
-        `"${argValue}" is not an address`,
-        `Invalid ${argName}`,
-      )
+      output.errorBoxStr(`"${argValue}" is not an ens`, `Invalid ${argName}`)
+
       if (typeof describe === 'function') {
         throw err
       }

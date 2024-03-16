@@ -3,7 +3,7 @@ require('@nomicfoundation/hardhat-ethers')
 require('../../../src/index')
 require('../../../../ethernaut-util/src/index')
 
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const { task } = require('hardhat/config')
 
 const t = task('sample', 'Sample task')

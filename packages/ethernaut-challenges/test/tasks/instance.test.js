@@ -2,7 +2,7 @@ const assert = require('assert')
 const {
   containsAddress,
   extractAddress,
-} = require('ethernaut-common/src/address')
+} = require('ethernaut-common/src/util/address')
 const helper = require('../../src/internal/helper')
 const deploy = require('../helpers/deploy')
 

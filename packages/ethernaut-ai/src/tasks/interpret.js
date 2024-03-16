@@ -1,13 +1,13 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const Interpreter = require('../internal/assistants/Interpreter')
 const Explainer = require('../internal/assistants/Explainer')
 const Thread = require('../internal/threads/Thread')
-const output = require('ethernaut-common/src/output')
-const debug = require('ethernaut-common/src/debug')
-const spinner = require('ethernaut-common/src/spinner')
-const prompt = require('ethernaut-common/src/prompt')
-const { checkEnvVar } = require('ethernaut-common/src/check-env')
-const wait = require('ethernaut-common/src/wait')
+const output = require('ethernaut-common/src/ui/output')
+const debug = require('ethernaut-common/src/util/debug')
+const spinner = require('ethernaut-common/src/ui/spinner')
+const prompt = require('ethernaut-common/src/ui/prompt')
+const { checkEnvVar } = require('ethernaut-common/src/io/env')
+const wait = require('ethernaut-common/src/util/wait')
 
 let _noConfirm
 let _thread

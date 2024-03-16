@@ -1,4 +1,4 @@
-const types = require('ethernaut-common/src/types')
+const types = require('ethernaut-common/src/validation/types')
 const storage = require('../internal/storage')
 const interact = require('../internal/interact')
 

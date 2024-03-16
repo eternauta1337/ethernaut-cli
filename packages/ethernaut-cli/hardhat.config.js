@@ -1,8 +1,8 @@
 const figlet = require('figlet')
 const chalkAnimation = require('chalk-animation')
 const { version } = require('./package.json')
-const storage = require('ethernaut-common/src/storage')
-const { refreshEnv } = require('ethernaut-common/src/check-env')
+const storage = require('ethernaut-common/src/io/storage')
+const { refreshEnv } = require('ethernaut-common/src/io/env')
 
 refreshEnv()
 
