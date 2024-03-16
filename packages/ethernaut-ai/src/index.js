@@ -4,6 +4,7 @@ const spinner = require('ethernaut-common/src/ui/spinner')
 const storage = require('./internal/storage')
 const preParseAi = require('./internal/pre-parse-ai')
 const output = require('ethernaut-common/src/ui/output')
+const localStorage = require('ethernaut-common/src/io/storage')
 
 requireAll(__dirname, 'tasks')
 
@@ -19,15 +20,22 @@ extendEnvironment((hre) => {
 extendConfig((config, userConfig) => {
   if (!config.ethernaut) config.ethernaut = {}
 
+  const localConfig = localStorage.readConfig()
+
   config.ethernaut.ai = {
-    model: userConfig.ethernaut?.ai?.model || 'gpt-4-1106-preview',
+    model:
+      localConfig.ai?.model ||
+      userConfig.ethernaut?.ai?.model ||
+      'gpt-4-1106-preview',
     interpreter: {
       additionalInstructions:
-        userConfig.ethernaut?.ai?.interpreter?.additionalInstructions.concat() ||
+        localConfig.ai?.interpreter?.additionalInstructions.concat() ||
+        userConfig.ethernaut?.ai?.interpreter?.additionalInstructions?.concat() ||
         [],
     },
     explainer: {
       additionalInstructions:
+        localConfig.ai?.explainer?.additionalInstructions?.concat() ||
         userConfig.ethernaut?.ai?.explainer?.additionalInstructions.concat() ||
         [],
     },

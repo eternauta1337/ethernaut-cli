@@ -31,12 +31,6 @@ module.exports = {
   solidity: '0.8.19',
   defaultNetwork: 'localhost',
   ethernaut: {
-    ai: {
-      model: 'gpt-4-1106-preview',
-      interpreter: {
-        additionalInstructions: [''],
-      },
-    },
     ui: {
       exclude: [
         'vars/*',
