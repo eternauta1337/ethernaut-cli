@@ -7,7 +7,7 @@ const { getChainId } = require('ethernaut-common/src/util/network')
 const getBalance = require('../internal/get-balance')
 const mineTx = require('../internal/mine-tx')
 const {
-  getPopulatedFunctionSignature,
+  getFullFunctionSignature,
   getFunctionSignature,
 } = require('../internal/signatures')
 const loadAbi = require('../internal/load-abi')
@@ -142,10 +142,7 @@ async function executeWrite(
     signer,
     to: address,
     value: value,
-    description: `${contractName}.${getPopulatedFunctionSignature(
-      abiFn,
-      params,
-    )}`,
+    description: `${contractName}.${getFullFunctionSignature(abiFn, params)}`,
   })
 
   // Prompt the user for confirmation

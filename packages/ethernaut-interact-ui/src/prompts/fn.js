@@ -1,7 +1,7 @@
 const loadAbi = require('ethernaut-interact/src/internal/load-abi')
 const {
   getFunctionSignature,
-  getPopulatedFunctionSignature,
+  getFullFunctionSignature,
 } = require('ethernaut-interact/src/internal/signatures')
 const debug = require('ethernaut-common/src/ui/debug')
 const prompt = require('ethernaut-common/src/ui/prompt')
@@ -14,7 +14,7 @@ module.exports = async function promptFn({ abi }) {
     const isFunction = (fn) => fn.type === 'function'
     const abiFns = _abi.filter((el) => isFunction(el))
     const choices = abiFns.map((fn) => ({
-      title: getPopulatedFunctionSignature(fn),
+      title: getFullFunctionSignature(fn),
       value: getFunctionSignature(fn),
     }))
 

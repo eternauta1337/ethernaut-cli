@@ -4,7 +4,7 @@ function getFunctionSignature(fnAbi) {
     .join(',')})`
 }
 
-function getPopulatedFunctionSignature(fnAbi, params) {
+function getFullFunctionSignature(fnAbi, params) {
   const multiline = !!params && params.length > 0
 
   const isWriteCall =
@@ -74,7 +74,7 @@ function getFullEventSignature(eventAbi, event) {
 
 module.exports = {
   getFunctionSignature,
-  getPopulatedFunctionSignature,
+  getFullFunctionSignature,
   getFullEventSignature,
   getEventSignature,
 }
