@@ -5,8 +5,8 @@ require('ethernaut-ui/src/index')
 require('ethernaut-wallet/src/index')
 
 extendEnvironment((hre) => {
-  const activate = hre.scopes.wallet.tasks.activate
-  activate.positionalParamDefinitions.find((p) => p.name === 'alias').prompt =
+  const set = hre.scopes.wallet.tasks.set
+  set.positionalParamDefinitions.find((p) => p.name === 'alias').prompt =
     promptAlias('Select a wallet to activate')
 
   const info = hre.scopes.wallet.tasks.info

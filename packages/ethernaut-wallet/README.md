@@ -34,7 +34,7 @@ import 'ethernaut-wallet'
 
 This plugins adds the following tasks to hardhat:
 
-- activate Activates a wallet
+- set Sets the active wallet
 - add Adds a new wallet
 - current Shows which wallet is active
 - info Shows information about a wallet

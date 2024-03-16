@@ -4,7 +4,7 @@ const storage = require('../internal/storage')
 const { setSigner } = require('../internal/signers')
 
 require('../scopes/wallet')
-  .task('activate', 'Activates a wallet')
+  .task('set', 'Sets the active wallet')
   .addPositionalParam(
     'alias',
     'The name of the wallet',
