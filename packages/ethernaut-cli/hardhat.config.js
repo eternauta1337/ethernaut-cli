@@ -25,32 +25,33 @@ const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
 console.log(`v${version} - Warning!!! ALPHA version. Use at your own risk.`)
 
-storage.init({
-  ai: {
-    model: 'gpt-4-1106-preview',
-    interpreter: {
-      additionalInstructions: [''],
+storage.init()
+
+module.exports = {
+  solidity: '0.8.19',
+  defaultNetwork: 'localhost',
+  ethernaut: {
+    ai: {
+      model: 'gpt-4-1106-preview',
+      interpreter: {
+        additionalInstructions: [''],
+      },
     },
-  },
-  ui: {
-    exclude: {
-      scopes: ['vars', 'hardhat'],
-      tasks: [
+    ui: {
+      exclude: [
+        'vars/*',
+        'hardhat/*',
+        'check',
         'compile',
         'clean',
         'flatten',
         'test',
         'navigate',
         'run',
+        'node',
         'help',
         'console',
       ],
     },
   },
-})
-
-module.exports = {
-  solidity: '0.8.19',
-  defaultNetwork: 'localhost',
-  ethernaut: storage.readConfig(),
 }

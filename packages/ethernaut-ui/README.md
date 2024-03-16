@@ -75,10 +75,11 @@ This plugin extends the `HardhatUserConfig`'s `ProjectPathsUserConfig` object wi
 
 ```
 config.ethernaut.ui = {
-  exclude: {
-    scopes: []
-    task: ['compile'] // Don't show the compile task
-  },
+  exclude: [
+    'some-task',
+    'some-scope/another-task',
+    'another-scope/*'
+  ]
 }
 ```
 

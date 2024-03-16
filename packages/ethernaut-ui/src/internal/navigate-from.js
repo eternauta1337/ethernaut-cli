@@ -5,14 +5,23 @@ const chalk = require('chalk')
 module.exports = async function navigateFrom(node, hre) {
   let children = getNodes(node).sort((a, b) => b.isScope - a.isScope)
 
-  const exclude = [
-    ...hre.config.ethernaut.ui.exclude.scopes,
-    ...hre.config.ethernaut.ui.exclude.tasks,
-  ]
-  children = children.filter((node) => !exclude.includes(node.name))
+  const exclude = hre.config.ethernaut.ui.exclude
+  children = children.filter((node) => {
+    if (node.isScope) {
+      return !exclude.includes(`${node.name}/*`)
+    }
+
+    const subnode = node.parentTaskDefinition || node
+
+    if (subnode._scope) {
+      return !exclude.includes(`${subnode._scope}/${subnode._task}`)
+    }
+
+    return !exclude.includes(subnode._task)
+  })
 
   const choices = children.map((node) => {
-    // Cap desciption to 1 sentence and 150 characters
+    // Cap description to 1 sentence and 150 characters
     const description = node.description?.split('.')[0].substring(0, 150) || ''
 
     return {
