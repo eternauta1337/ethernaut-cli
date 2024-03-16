@@ -6,7 +6,7 @@ describe('abi', function () {
 
     before('run ', async function () {
       output = await hre.run(
-        { scope: 'interact', task: 'abi' },
+        { scope: 'interact', task: 'find-abi' },
         { filter: 'erc20' },
       )
     })

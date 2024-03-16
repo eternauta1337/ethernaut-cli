@@ -104,4 +104,5 @@ module.exports = {
   readAddresses,
   readAbiFiles,
   findAddressWithAbi,
+  getAbisFilePath,
 }

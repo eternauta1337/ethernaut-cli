@@ -34,7 +34,7 @@ This plugin doesn't depend on any other plugins.
 
 This plugin adds the following tasks:
 
-- abi Prints out the absolute paths of the known ABIs
+- find-abi Prints out the absolute paths of the known ABIs
 - balance Queries the ETH or TOKEN balance of an address
 - contract Interacts with a contract
 - info Retrieves information about a contract address using Etherscan, such as the contract name, ABI, and source code
