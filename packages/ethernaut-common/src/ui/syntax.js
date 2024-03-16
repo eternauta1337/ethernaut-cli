@@ -1,5 +1,5 @@
 const camelToKebabCase = require('ethernaut-common/src/util/kebab')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 module.exports = function toCliSyntax(task, args) {
   debug.log(

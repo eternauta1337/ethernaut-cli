@@ -1,5 +1,5 @@
 const types = require('ethernaut-common/src/validation/types')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const loadAbi = require('../internal/load-abi')
 const output = require('ethernaut-common/src/ui/output')
 const { getFullEventSignature } = require('../internal/signatures')

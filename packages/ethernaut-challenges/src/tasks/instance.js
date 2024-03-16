@@ -4,7 +4,7 @@ const output = require('ethernaut-common/src/ui/output')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
 const spinner = require('ethernaut-common/src/ui/spinner')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 require('../scopes/challenges')
   .task(

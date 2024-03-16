@@ -1,5 +1,5 @@
 const output = require('ethernaut-common/src/ui/output')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const { getFullEventSignature } = require('./signatures')
 
 module.exports = async function printTxReceipt(receipt, contract) {

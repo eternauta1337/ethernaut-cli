@@ -1,4 +1,4 @@
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 module.exports = function applyEnvVars(url) {
   // Match https://some-url/${SOME_API_KEY}

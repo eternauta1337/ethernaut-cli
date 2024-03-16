@@ -1,4 +1,4 @@
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const chalk = require('chalk')
 const toCliSyntax = require('ethernaut-common/src/ui/syntax')
 

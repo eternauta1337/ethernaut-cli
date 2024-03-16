@@ -3,7 +3,7 @@ const {
   getFunctionSignature,
   getPopulatedFunctionSignature,
 } = require('ethernaut-interact/src/internal/signatures')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const prompt = require('ethernaut-common/src/ui/prompt')
 
 module.exports = async function promptFn({ abi }) {

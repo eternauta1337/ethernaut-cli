@@ -1,5 +1,5 @@
 const storage = require('ethernaut-interact/src/internal/storage')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
 
 module.exports = async function suggestAddress({ abi, address, hre }) {

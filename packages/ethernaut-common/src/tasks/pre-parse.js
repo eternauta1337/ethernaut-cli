@@ -6,7 +6,7 @@ const {
 } = require('hardhat/internal/core/params/hardhat-params')
 const { ArgumentsParser } = require('hardhat/internal/cli/ArgumentsParser')
 const getNodes = require('ethernaut-common/src/tasks/get-nodes')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 let _allUnparsedCLAs
 

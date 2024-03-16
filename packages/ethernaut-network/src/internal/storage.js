@@ -3,7 +3,7 @@ const path = require('path')
 const {
   createFolderIfMissing,
   createFileIfMissing,
-} = require('ethernaut-common/src/util/create-file')
+} = require('ethernaut-common/src/io/create-file')
 const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
 
 /**

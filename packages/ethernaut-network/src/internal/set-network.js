@@ -1,5 +1,5 @@
 const storage = require('../internal/storage')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const applyEnvVars = require('./apply-env-vars')
 
 async function setActiveNetwork(hre) {

@@ -5,7 +5,7 @@ const {
 } = require('ethernaut-interact/src/internal/etherscan')
 const prompt = require('ethernaut-common/src/ui/prompt')
 const spinner = require('ethernaut-common/src/ui/spinner')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const { getChainId } = require('ethernaut-common/src/util/network')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
 

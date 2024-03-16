@@ -1,6 +1,6 @@
 const pty = require('node-pty')
 const os = require('os')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const assert = require('assert')
 const chalk = require('chalk')
 const wait = require('ethernaut-common/src/util/wait')

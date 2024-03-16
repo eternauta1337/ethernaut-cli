@@ -1,6 +1,6 @@
 const spinner = require('ethernaut-common/src/ui/spinner')
 const output = require('ethernaut-common/src/ui/output')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const connectSigner = require('../internal/connect-signer')
 const printTxSummary = require('../internal/print-tx-summary')
 const { getChainId } = require('ethernaut-common/src/util/network')

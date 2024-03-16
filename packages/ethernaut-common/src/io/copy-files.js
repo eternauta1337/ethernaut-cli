@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 module.exports = function copyFiles(src, dst) {
   debug.log(`>>> Copying files from ${src} to ${dst}`, 'common')

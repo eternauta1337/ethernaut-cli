@@ -1,5 +1,5 @@
 const { preParse, setArgs } = require('ethernaut-common/src/tasks/pre-parse')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const output = require('ethernaut-common/src/ui/output')
 
 module.exports = function preParseAi(hre) {

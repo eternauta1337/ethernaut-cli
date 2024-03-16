@@ -1,5 +1,5 @@
 const spinner = require('ethernaut-common/src/ui/spinner')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const printTxReceipt = require('./print-tx-receipt')
 
 module.exports = async function mineTx(tx, contract) {

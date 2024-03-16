@@ -1,7 +1,7 @@
 const spinner = require('ethernaut-common/src/ui/spinner')
 const warnWithPrompt = require('../internal/warn-prompt')
 const getBalance = require('../internal/get-balance')
-const debug = require('ethernaut-common/src/util/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 
 module.exports = async function connectSigner(noConfirm) {
   spinner.progress('Connecting signer', 'interact')

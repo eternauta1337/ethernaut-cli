@@ -1,6 +1,6 @@
 const { extendEnvironment, extendConfig } = require('hardhat/config')
 const requireAll = require('ethernaut-common/src/io/require-all')
-const copyFiles = require('ethernaut-common/src/util/copy-files')
+const copyFiles = require('ethernaut-common/src/io/copy-files')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const path = require('path')
 const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
