@@ -21,7 +21,7 @@ task('help', 'Jumps into the help navigator').setAction(
         await navigateFrom(hre, hre)
       }
     } catch (err) {
-      output.errorBox(err)
+      return output.errorBox(err)
     }
   },
 )

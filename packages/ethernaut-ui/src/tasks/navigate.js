@@ -14,6 +14,6 @@ task('navigate', 'Navigates tasks and scopes with enquirer')
     try {
       await navigateFrom(hre.scopes[scope] || hre, hre)
     } catch (err) {
-      output.errorBox(err)
+      return output.errorBox(err)
     }
   })
