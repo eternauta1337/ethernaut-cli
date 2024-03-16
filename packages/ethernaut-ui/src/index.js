@@ -4,6 +4,7 @@ const makeTasksInteractive = require('./internal/make-interactive')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const preParseUi = require('./internal/pre-parse-ui')
 const output = require('ethernaut-common/src/ui/output')
+const localStorage = require('ethernaut-common/src/io/storage')
 
 requireAll(__dirname, 'tasks')
 
@@ -19,7 +20,9 @@ extendEnvironment((hre) => {
 extendConfig((config, userConfig) => {
   if (!config.ethernaut) config.ethernaut = {}
 
+  const localConfig = localStorage.readConfig()
+
   config.ethernaut.ui = {
-    exclude: userConfig.ethernaut?.ui?.exclude || [],
+    exclude: localConfig.ui.exclude || userConfig.ethernaut?.ui?.exclude || [],
   }
 })
