@@ -30,6 +30,14 @@ No other plugins are required.
 
 ## Tasks
 
+This plugins adds the following tasks to hardhat:
+
+- check-all Checks all levels that have been completed and submitted by the player
+- check Checks if the player has completed the specified level by submitting an instance modified as per the levels requirements
+- info Shows information about an open zeppelin challenges level
+- instance Creates an instance of a level, so that it can be played
+- submit Submits an instance created by the instance task, and later manipulated as required by the level
+
 ### info
 
 ```

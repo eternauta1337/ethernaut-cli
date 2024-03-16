@@ -32,99 +32,15 @@ import 'ethernaut-wallet'
 
 ## Tasks
 
-### activate
+This plugins adds the following tasks to hardhat:
 
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet activate [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the wallet
-
-activate: Activates a wallet
-
-For global options help run: hardhat help
-```
-
-### create
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet create [--pk <SPECIAL>] [alias]
-
-OPTIONS:
-
-  --pk                  The private key of the wallet or "random". Pass "random" or an empty string to generate a private key. (default: "random")
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the wallet
-
-create: Creates a new wallet
-
-For global options help run: hardhat help
-```
-
-### current
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet current
-
-current: Shows which wallet is active
-
-For global options help run: hardhat help
-```
-
-### info
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet info [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the wallet
-
-info: Shows information about a wallet
-
-For global options help run: hardhat help
-```
-
-### list
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet list
-
-list: Lists all wallets
-
-For global options help run: hardhat help
-```
-
-### remove
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet remove [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the wallet
-
-remove: Removes a wallet
-
-For global options help run: hardhat help
-```
-
-### sign
-
-```
-Usage: hardhat [GLOBAL OPTIONS] wallet sign [message]
-
-POSITIONAL ARGUMENTS:
-
-  message       The message to sign
-
-sign: Signs a message with the active wallet
-
-For global options help run: hardhat help
-```
+- activate Activates a wallet
+- create Creates a new wallet
+- current Shows which wallet is active
+- info Shows information about a wallet
+- list Lists all wallets
+- remove Removes a wallet
+- sign Signs a message with the active wallet
 
 ## Environment extensions
 

@@ -32,118 +32,16 @@ This plugin doesn't depend on any other plugins.
 
 ## Tasks
 
-### activate
+This plugins adds the following tasks to hardhat:
 
-```
-Usage: hardhat [GLOBAL OPTIONS] network activate [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the network
-
-activate: Activates a network
-
-For global options help run: hardhat help
-```
-
-### add
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network add [--url <SPECIAL>] [alias]
-
-OPTIONS:
-
-  --url                 The url of the network provider, e.g. https://ethereum-rpc.publicnode.com. Note: Environment variables may be included, e.g. https://eth-mainnet.alchemyapi.io/v2/${INFURA_API_KEY}. Make sure to specify these in your .env file.
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the network
-
-add: Adds a network to the cli
-
-For global options help run: hardhat help
-```
-
-### current
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network current
-
-current: Prints the active network
-
-For global options help run: hardhat help
-```
-
-### edit
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network edit [--url <SPECIAL>] [alias]
-
-OPTIONS:
-
-  --url                 The network url
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the network
-
-edit: Edits a network
-
-For global options help run: hardhat help
-```
-
-### info
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network info [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name or url of the network
-
-info: Provides information about a network
-
-For global options help run: hardhat help
-```
-
-### list
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network list
-
-list: Prints all networks
-
-For global options help run: hardhat help
-```
-
-### node
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network node [--fork <SPECIAL>] [--port <SPECIAL>]
-
-OPTIONS:
-
-  --fork                The alias or url of the network to fork (default: "none")
-  --port                The port to run the local chain on (default: "8545")
-
-node: Starts a local development chain, potentially with a fork.
-
-For global options help run: hardhat help
-```
-
-### remove
-
-```
-Usage: hardhat [GLOBAL OPTIONS] network remove [alias]
-
-POSITIONAL ARGUMENTS:
-
-  alias The name of the network
-
-remove: Removes a network from the cli
-
-For global options help run: hardhat help
-```
+- activate Activates a network
+- add Adds a network to the cli
+- current Prints the active network
+- edit Edits a network
+- info Provides information about a network
+- list Prints all networks
+- node Starts a local development chain, potentially with a fork
+- remove Removes a network from the cli
 
 ## Environment extensions
 

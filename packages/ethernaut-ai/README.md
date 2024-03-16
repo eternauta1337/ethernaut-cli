@@ -40,25 +40,10 @@ No other plugins are required.
 
 ## Tasks
 
-This plugin adds the _interpret_ task to Hardhat:
+This plugin adds the following tasks to hardhat:
 
-```
-Usage: hardhat [GLOBAL OPTIONS] ai interpret [--model <SPECIAL>] [--new-thread] [--no-confirm] [query]
-
-OPTIONS:
-
-  --model               The model to use (default: "assistant-defined")
-  --new-thread          Start a new thread
-  --no-confirm          Always execute the command without prompting
-
-POSITIONAL ARGUMENTS:
-
-  query The natural language query to convert to CLI commands
-
-interpret: Interprets natural language into CLI commands
-
-For global options help run: hardhat help
-```
+- config Configures ai scope parameters
+- interpret Interprets natural language into CLI commands
 
 ## Environment extensions
 

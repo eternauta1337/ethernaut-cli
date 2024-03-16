@@ -3,7 +3,7 @@ const { task } = require('hardhat/config')
 const navigateFrom = require('../internal/navigate-from')
 const output = require('ethernaut-common/src/ui/output')
 
-task('navigate', 'Navigates tasks with enquirer')
+task('navigate', 'Navigates tasks and scopes with enquirer')
   .addOptionalPositionalParam(
     'scope',
     'The group of tasks to navigate. Defaults to the root scope',

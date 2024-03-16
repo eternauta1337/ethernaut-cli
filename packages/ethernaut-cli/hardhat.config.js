@@ -37,7 +37,6 @@ storage.init({
       scopes: ['vars', 'hardhat'],
       tasks: [
         'compile',
-        'check',
         'clean',
         'flatten',
         'test',
