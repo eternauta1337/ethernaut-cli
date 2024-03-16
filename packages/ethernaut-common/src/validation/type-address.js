@@ -8,7 +8,10 @@ module.exports = {
   validate: (argName, argValue) => {
     try {
       types.string.validate(argName, argValue)
-      if (!isAddress(argValue)) {
+
+      const validEns = argValue.endsWith('.eth')
+      const validAddress = isAddress(argValue)
+      if (!validAddress && !validEns) {
         throw new Error('Invalid address')
       }
     } catch (err) {

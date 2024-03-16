@@ -95,14 +95,11 @@ class Action {
   }
 
   getDescription() {
-    const cliSyntax = toCliSyntax(this.task, this.args)
-
-    let description = '\n'
-    description += `${this.taskName} task`
-    description += chalk.dim(`Description: ${this.task.description}`)
-    description += chalk.dim(`Usage: ${getTaskUsage(this.task)}`)
-
-    return `${cliSyntax}\n${description}`
+    let description = ''
+    description += chalk.bold(`${toCliSyntax(this.task, this.args)}\n`)
+    description += chalk.dim(`Usage: ${getTaskUsage(this.task)}\n`)
+    description += chalk.dim(`Help: ${this.task.description}`)
+    return description
   }
 }
 
