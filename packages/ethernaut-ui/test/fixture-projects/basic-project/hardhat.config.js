@@ -23,10 +23,7 @@ module.exports = {
   },
   ethernaut: {
     ui: {
-      exclude: {
-        scopes: ['vars', 'hardhat'],
-        tasks: ['compile'],
-      },
+      exclude: ['vars/*', 'compile'],
     },
   },
 }
