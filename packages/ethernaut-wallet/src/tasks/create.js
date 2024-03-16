@@ -2,7 +2,7 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { validateVarName } = require('ethernaut-common/src/util/name')
-const { getWallet, generatePk } = require('../internal/signers')
+const { addSigner, generatePk } = require('../internal/signers')
 
 const task = require('../scopes/wallet')
   .task('create', 'Creates a new wallet')
@@ -37,28 +37,7 @@ const task = require('../scopes/wallet')
         output.info('Generated random private key')
       }
 
-      const address = getWallet(pk).address
-      if (!address) {
-        throw new Error(`Invalid private key: ${pk}`)
-      }
-
-      signers[alias] = {
-        address,
-        pk,
-      }
-
-      if (
-        signers.activeSigner === undefined ||
-        !signers[signers.activeSigner]
-      ) {
-        signers.activeSigner = alias
-      }
-
-      if (signers.activeSigner === 'none') {
-        signers.activeSigner = alias
-      }
-
-      storage.storeSigners(signers)
+      const address = addSigner(alias, pk)
 
       return output.resultBox(
         `Created new wallet ${alias} with address ${address}`,

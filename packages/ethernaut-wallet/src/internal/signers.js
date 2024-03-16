@@ -1,4 +1,5 @@
 const storage = require('./storage')
+const output = require('ethernaut-common/src/ui/output')
 
 async function setSigner(alias) {
   const signers = storage.readSigners()
@@ -13,7 +14,7 @@ async function setSigner(alias) {
   storage.storeSigners(signers)
 }
 
-function getWallet(pk) {
+function getWallet(hre, pk) {
   return new hre.ethers.Wallet(pk, hre.ethers.provider)
 }
 
@@ -29,7 +30,7 @@ async function getSigner(address) {
     throw new Error(`The signer ${address} does not exist`)
   }
 
-  return getWallet(signer.pk)
+  return getWallet(hre, signer.pk)
 }
 
 async function getSigners() {
@@ -45,16 +46,18 @@ async function getSigners() {
 
   signersArr = _sortSigners(signersArr, activeSigner)
 
-  return signersArr.map((s) => getWallet(s.pk))
+  return signersArr.map((s) => getWallet(hre, s.pk))
 }
 
 function _getSignersArray(signers) {
   const arr = []
-  Object.values(signers).forEach((s) => {
-    if (s.address) {
-      arr.push(s)
+
+  Object.entries(signers).forEach(([key, value]) => {
+    if (key !== 'activeSigner') {
+      arr.push(value)
     }
   })
+
   return arr
 }
 
@@ -77,6 +80,59 @@ function modifySigners(hre) {
   hre.ethers.getSigner = getSigner
 }
 
+function createRandomSigner(hre) {
+  const pk = generatePk(hre)
+  const wallet = getWallet(hre, pk)
+
+  return {
+    address: wallet.address,
+    pk,
+  }
+}
+
+function addSigner(hre, alias, pk) {
+  const signers = storage.readSigners()
+
+  const address = getWallet(hre, pk).address
+  if (!address) {
+    throw new Error(`Invalid private key: ${pk}`)
+  }
+
+  signers[alias] = {
+    address,
+    pk,
+  }
+
+  signers.activeSigner = alias
+
+  storage.storeSigners(signers)
+
+  return address
+}
+
+function ensureActiveSigner() {
+  const signers = storage.readSigners()
+
+  const activeSigner = signers.activeSigner
+
+  if (Object.keys(signers).length < 2) {
+    output.warn('No wallets found, please add one with `wallet create`')
+    return
+  }
+
+  if (
+    activeSigner === undefined ||
+    activeSigner === 'none' ||
+    signers[activeSigner] === undefined
+  ) {
+    const firstAlias = Object.keys(signers).find(
+      (key) => key !== 'activeSigner',
+    )
+    signers.activeSigner = firstAlias
+    storage.storeSigners(signers)
+  }
+}
+
 module.exports = {
   setSigner,
   getWallet,
@@ -84,4 +140,7 @@ module.exports = {
   getSigners,
   modifySigners,
   generatePk,
+  ensureActiveSigner,
+  addSigner,
+  createRandomSigner,
 }

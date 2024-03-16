@@ -32,15 +32,13 @@ function storeSigners(signers) {
   fs.writeFileSync(getSignersFilePath(), JSON.stringify(signers, null, 2))
 }
 
-function init() {
+function init(createFirstSigner) {
   createFolderIfMissing(getSignerFolderPath())
-  createFileIfMissing(getSignersFilePath(), {
-    activeSigner: 'none',
-  })
+  createFileIfMissing(getSignersFilePath(), createFirstSigner)
 }
 
 function getSignerFolderPath() {
-  return path.join(getEthernautFolderPath(), 'signer')
+  return path.join(getEthernautFolderPath(), 'wallet')
 }
 
 function getSignersFilePath() {
