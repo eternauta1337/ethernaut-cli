@@ -131,10 +131,10 @@ function getAssistantId(name) {
 function init() {
   createFolderIfMissing(getAiFolderPath())
   createFolderIfMissing(getAssistantsFolderPath())
-  createFileIfMissing(getInfoFilePath(), {
+  createFileIfMissing(getInfoFilePath(), () => ({
     assistants: [],
     threads: [],
-  })
+  }))
 }
 
 function readInfo() {

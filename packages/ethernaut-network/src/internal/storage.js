@@ -34,12 +34,12 @@ function storeNetworks(networks) {
 
 function init() {
   createFolderIfMissing(getNetworkFolderPath())
-  createFileIfMissing(getNetworksFilePath(), {
+  createFileIfMissing(getNetworksFilePath(), () => ({
     activeNetwork: 'mainnet',
     mainnet: {
       url: 'https://ethereum-rpc.publicnode.com',
     },
-  })
+  }))
 }
 
 function getNetworkFolderPath() {

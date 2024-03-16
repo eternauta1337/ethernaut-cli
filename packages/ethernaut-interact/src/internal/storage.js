@@ -81,7 +81,7 @@ function getInteractFilePath() {
 
 function initStorage() {
   createFolderIfMissing(getAbisFilePath())
-  createFileIfMissing(getAddressesFilePath(), {})
+  createFileIfMissing(getAddressesFilePath(), () => {})
 }
 
 function readAbiFiles() {

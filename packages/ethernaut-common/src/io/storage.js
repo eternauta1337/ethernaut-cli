@@ -26,7 +26,7 @@ function getEthernautFolderPath() {
 
 function init(defaultConfig = {}) {
   createFolderIfMissing(getEthernautFolderPath())
-  createFileIfMissing(getConfigPath(), defaultConfig)
+  createFileIfMissing(getConfigPath(), () => defaultConfig)
 }
 
 module.exports = {

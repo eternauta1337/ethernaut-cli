@@ -6,9 +6,9 @@ function createFolderIfMissing(folderPath) {
   }
 }
 
-function createFileIfMissing(filePath, data = {}) {
+function createFileIfMissing(filePath, dataFn = () => {}) {
   if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(dataFn(), null, 2))
   }
 }
 
