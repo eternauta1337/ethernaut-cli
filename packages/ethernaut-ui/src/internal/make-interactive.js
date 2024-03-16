@@ -4,6 +4,7 @@ const debug = require('ethernaut-common/src/ui/debug')
 const output = require('ethernaut-common/src/ui/output')
 const collectArguments = require('./collect-args')
 const toCliSyntax = require('ethernaut-common/src/ui/syntax')
+const getTaskUsage = require('ethernaut-common/src/tasks/usage')
 
 let _hre
 
@@ -62,7 +63,7 @@ function makeInteractive(task) {
   // We want to identify when this happens so that we still show prompts
   // with the default value merely suggested instead of directly injected.
   const special = (originalType, paramDef) => ({
-    name: 'special',
+    name: originalType.name,
     parse: (argName, argValue) => {
       const parsedValue = originalType.parse(argName, argValue)
       paramDef.parsedValue = parsedValue
@@ -82,13 +83,15 @@ function makeInteractive(task) {
   }
 
   // Override the action so that we can
-  // collect parameters from the user before runnint it
+  // collect parameters from the user before running it
   const action = async (args, hre, runSuper) => {
     // Detect nonInteractive
     let nonInteractive = !!hre.ethernaut?.ui?.nonInteractive
     debug.log(`Detected nonInteractive: ${nonInteractive}`, 'ui')
 
     if (nonInteractive === false) {
+      output.info(getTaskUsage(task))
+
       const collectedArgs = await collectArguments(args, task, _hre)
       args = { ...args, ...collectedArgs }
 

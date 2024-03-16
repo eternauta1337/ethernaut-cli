@@ -1,6 +1,7 @@
 const debug = require('ethernaut-common/src/ui/debug')
 const chalk = require('chalk')
 const toCliSyntax = require('ethernaut-common/src/ui/syntax')
+const getTaskUsage = require('ethernaut-common/src/task/usage')
 
 class Action {
   /**
@@ -95,9 +96,11 @@ class Action {
 
   getDescription() {
     const cliSyntax = toCliSyntax(this.task, this.args)
-    const description = chalk.dim(
-      `"${this.taskName}" task: ${this.task.description}`,
-    )
+
+    let description = '\n'
+    description += `${this.taskName} task`
+    description += chalk.dim(`Description: ${this.task.description}`)
+    description += chalk.dim(`Usage: ${getTaskUsage(this.task)}`)
 
     return `${cliSyntax}\n${description}`
   }
