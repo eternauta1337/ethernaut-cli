@@ -11,7 +11,19 @@ function getGamedata() {
 function getDeploymentInfo(network) {
   const filePath = path.join(getGamedataPath(), `deploy.${network}.json`)
   if (!fs.existsSync(filePath)) {
-    throw new Error(`No deployment info found for ${network}`)
+    let msg = `No deployment found on ${network}. Try connecting to one of the following networks:\n`
+    msg += '\n'
+    msg += '- Goerli Arbitrum\n'
+    msg += '- Goerli Optimism\n'
+    msg += '- Goerli\n'
+    msg += '- Holesky\n'
+    msg += '- Mumbai Polygon\n'
+    msg += '- Rinkeby\n'
+    msg += '- Ropsten\n'
+    msg += '- Sepolia Arbitrum\n'
+    msg += '- Sepolia Optimism\n'
+    msg += '- Sepolia'
+    throw new Error(msg)
   }
 
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
