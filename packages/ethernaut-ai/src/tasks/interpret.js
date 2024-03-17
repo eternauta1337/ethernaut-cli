@@ -3,7 +3,6 @@ const Interpreter = require('../internal/assistants/Interpreter')
 const Explainer = require('../internal/assistants/Explainer')
 const Thread = require('../internal/threads/Thread')
 const output = require('ethernaut-common/src/ui/output')
-const debug = require('ethernaut-common/src/ui/debug')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const prompt = require('ethernaut-common/src/ui/prompt')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
@@ -17,8 +16,9 @@ let _query
 
 const options = {
   EXECUTE: 'execute',
+  EDIT: 'edit',
   EXPLAIN: 'explain',
-  CANCEL: 'cancel',
+  SKIP: 'skip',
 }
 
 const TIMEOUT = 600000
@@ -77,51 +77,74 @@ require('../scopes/ai')
       if (response) {
         return output.resultBox(response, 'Assistant response')
       } else {
-        throw new Error('No response from assistant')
+        throw new Error('Something went wrong with the query')
       }
     } catch (err) {
       return output.errorBox(err)
     }
   })
 
-async function processActions(actions, actionDescriptions) {
-  debug.log(`Calls required: ${actionDescriptions}`, 'ai')
+function printActionSummary(actions) {
+  let strs = []
 
-  output.copyBox(actionDescriptions.join('\n'), 'Suggested Actions')
+  actions
+    .map((action) => action.getShortDescription())
+    .forEach((desc, idx) => {
+      strs.push(`${idx + 1}. ${desc}`)
+    })
+
+  const msg = strs.join('\n')
+
+  output.infoBox(msg, 'Suggested action summary')
+}
+
+async function processActions(actions) {
+  printActionSummary(actions)
 
   const outputs = []
-  switch (await promptUser()) {
-    case options.EXECUTE:
-      spinner.progress('Executing...', 'ai')
-      for (let action of actions) {
+
+  for (let i = 0; i < actions.length; i++) {
+    const action = actions[i]
+
+    output.infoBox(
+      action.getDescription(),
+      `Action ${i + 1} of ${actions.length}`,
+    )
+
+    switch (await promptUser()) {
+      case options.EXECUTE:
+        spinner.progress('Executing...', 'ai')
         // TODO: Not sure why this might be needed...
         await new Promise((resolve) => setTimeout(resolve, 1000))
-
         outputs.push(await action.execute(hre, _noConfirm))
-      }
-      spinner.progress('Analyzing...', 'ai')
-      await _interpreter.reportToolOutputs(outputs)
-      break
-    case options.EXPLAIN:
-      spinner.progress('Analyzing...', 'ai')
-      await explain(actions, actionDescriptions)
-      break
-    case options.CANCEL:
-      spinner.progress('Exiting...', 'ai')
-      await _interpreter.reportToolOutputs(undefined)
-      break
+        spinner.progress('Analyzing...', 'ai')
+        break
+      case options.EDIT:
+        console.log('Edit not implemented yet')
+        break
+      case options.EXPLAIN:
+        spinner.progress('Analyzing...', 'ai')
+        await explain(action)
+        i--
+        break
+      case options.SKIP:
+        spinner.progress('Skipping...', 'ai')
+        outputs.push('User skipped action')
+        break
+    }
+
+    await _interpreter.reportToolOutputs(outputs)
   }
 }
 
-async function explain(actions, actionDescriptions) {
+async function explain(action) {
   const waitPromise = wait(TIMEOUT)
   const response = await Promise.race([
-    await _explainer.explain(_query, actionDescriptions),
+    await _explainer.explain(_query, action.getDescription()),
     waitPromise,
   ])
   if (response) {
     output.infoBox(response, 'Explanation')
-    processActions(actions, actionDescriptions)
   } else {
     throw new Error('No response from assistant')
   }

@@ -24,11 +24,10 @@ class Interpreter extends Assistant {
     debug.log(toolCalls, 'ai-deep')
 
     const actions = toolCalls.map((tc) => new Action(tc, hre))
-    const actionDescriptions = actions.map((a) => a.getDescription())
 
     debug.log('Emitting calls_required event', 'ai')
 
-    this.emit('actions_required', actions, actionDescriptions)
+    this.emit('actions_required', actions)
   }
 }
 

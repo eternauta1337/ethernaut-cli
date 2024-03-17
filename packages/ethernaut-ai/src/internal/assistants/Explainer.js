@@ -19,10 +19,8 @@ class Explainer extends Assistant {
     )
   }
 
-  async explain(userQuery, actions) {
-    const query = `Explain how the query "${userQuery}" is addressed with the following actions:\n${actions.join(
-      '\n',
-    )}`
+  async explain(userQuery, action) {
+    const query = `Explain how the query "${userQuery}" is addressed with the following action:\n${action}`
 
     const secondaryThread = new Thread('explanation')
     await secondaryThread.stop()

@@ -2,6 +2,7 @@ const debug = require('ethernaut-common/src/ui/debug')
 const chalk = require('chalk')
 const toCliSyntax = require('ethernaut-common/src/ui/syntax')
 const getTaskUsage = require('ethernaut-common/src/tasks/usage')
+const clipboardy = require('clipboardy')
 
 class Action {
   /**
@@ -94,11 +95,22 @@ class Action {
     }
   }
 
+  getShortDescription() {
+    let description = ''
+    description += `${toCliSyntax(this.task, this.args)}`
+    return description
+  }
+
   getDescription() {
     let description = ''
-    description += chalk.bold(`${toCliSyntax(this.task, this.args)}\n`)
+
+    const syntax = toCliSyntax(this.task, this.args)
+    clipboardy.writeSync(syntax)
+
+    description += chalk.bold(`${syntax}`)
+    description += chalk.dim(' (copied to clipboard)\n')
     description += chalk.dim(`Usage: ${getTaskUsage(this.task)}\n`)
-    description += chalk.dim(`Help: ${this.task.description}`)
+    description += chalk.dim(`Desc: ${this.task.description}`)
     return description
   }
 }
