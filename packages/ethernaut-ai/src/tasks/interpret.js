@@ -3,6 +3,7 @@ const Interpreter = require('../internal/assistants/Interpreter')
 const Explainer = require('../internal/assistants/Explainer')
 const Thread = require('../internal/threads/Thread')
 const output = require('ethernaut-common/src/ui/output')
+const debug = require('ethernaut-common/src/ui/debug')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const prompt = require('ethernaut-common/src/ui/prompt')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
@@ -130,12 +131,15 @@ async function processActions(actions) {
         break
       case options.SKIP:
         spinner.progress('Skipping...', 'ai')
-        outputs.push('User skipped action')
+        outputs.push({
+          tool_call_id: action.id,
+          output: 'User skipped execution',
+        })
         i++
         break
     }
   }
-  console.log('LOOP EXITEd')
+  debug.log(`Reporting tool outputs: ${outputs}`, 'ai')
   await _interpreter.reportToolOutputs(outputs)
 }
 
