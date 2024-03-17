@@ -99,7 +99,7 @@ function makeInteractive(task) {
       // If parameters were collected, print out the call
       if (Object.values(collectedArgs).length > 0) {
         const msg = toCliSyntax(task, args)
-        await copyToClipboard(msg)
+        copyToClipboard(msg)
         output.info(`Autocompleted: "${msg}" (copied to clipboard)`)
       }
     }

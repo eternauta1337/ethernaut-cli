@@ -1,5 +1,5 @@
-module.exports = async function copyToClipboard(txt) {
-  let clipboardy = await import('clipboardy')
-  clipboardy = clipboardy.default || clipboardy
-  clipboardy.writeSync(txt)
+const { copy } = require('copy-paste')
+
+module.exports = function copyToClipboard(txt) {
+  copy(txt)
 }

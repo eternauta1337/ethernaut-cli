@@ -101,11 +101,11 @@ class Action {
     return description
   }
 
-  async getDescription() {
+  getDescription() {
     let description = ''
 
     const syntax = toCliSyntax(this.task, this.args)
-    await copyToClipboard(syntax)
+    copyToClipboard(syntax)
 
     description += chalk.bold(`${syntax}`)
     description += chalk.dim(' (copied to clipboard)\n')

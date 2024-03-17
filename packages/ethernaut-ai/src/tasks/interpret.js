@@ -109,7 +109,7 @@ async function processActions(actions) {
     const action = actions[i]
 
     output.infoBox(
-      await action.getDescription(),
+      action.getDescription(),
       `Action ${i + 1} of ${actions.length}`,
     )
 
