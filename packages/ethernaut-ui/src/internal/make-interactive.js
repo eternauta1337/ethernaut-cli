@@ -90,7 +90,7 @@ function makeInteractive(task) {
     debug.log(`Detected nonInteractive: ${nonInteractive}`, 'ui')
 
     if (nonInteractive === false) {
-      output.info(getTaskUsage(task))
+      output.info(`Usage: ${getTaskUsage(task)}`)
 
       const collectedArgs = await collectArguments(args, task, _hre)
       args = { ...args, ...collectedArgs }

@@ -2,6 +2,7 @@ const hashStr = require('ethernaut-common/src/util/hash-str')
 const storage = require('../storage')
 const openai = require('../openai')
 const debug = require('ethernaut-common/src/ui/debug')
+const output = require('ethernaut-common/src/ui/output')
 const EventEmitter = require('events')
 
 class Assistant extends EventEmitter {
@@ -26,13 +27,12 @@ class Assistant extends EventEmitter {
 
     this.thread = thread
 
+    const effectiveModel = model || this.config.model
+    output.info(`Using model ${effectiveModel}`)
+
     let params = {
       assistant_id: this.id,
-    }
-
-    if (model) {
-      debug.log('Using model:', model)
-      params.model = model
+      model: effectiveModel,
     }
 
     this.run = await openai().beta.threads.runs.create(thread.id, params)
