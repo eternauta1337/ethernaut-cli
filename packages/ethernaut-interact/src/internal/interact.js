@@ -14,6 +14,11 @@ const loadAbi = require('../internal/load-abi')
 const prompt = require('ethernaut-common/src/ui/prompt')
 const storage = require('../internal/storage')
 const path = require('path')
+const {
+  getGasData,
+  warnHighGasCost,
+  warnInsufficientFunds,
+} = require('../internal/gas-util')
 
 module.exports = async function interact({
   abi,
@@ -138,10 +143,14 @@ async function executeWrite(
     throw new Error(`Execution reverted during gas estimation: ${err.message}`)
   }
 
-  // Estimate gas cost
-  const feeData = await hre.ethers.provider.getFeeData()
-  const gasPrice = feeData.maxFeePerGas
-  const gasCost = gasAmount * gasPrice
+  const gasData = await getGasData(hre, gasAmount)
+
+  // Gas warnings
+  if (!noConfirm) {
+    if ((await warnHighGasCost(gasData.costEth)) === false) return
+    if ((await warnInsufficientFunds(signer, gasData.costEth, value)) === false)
+      return
+  }
 
   // Display tx summary
   const contractName = path.parse(abi).name
@@ -150,8 +159,8 @@ async function executeWrite(
     to: address,
     value: value,
     gasAmount,
-    gasPrice: hre.ethers.formatUnits(gasPrice, 'gwei'),
-    gasCost: hre.ethers.formatEther(gasCost),
+    gasPrice: gasData.priceGwei,
+    gasCost: gasData.costEth,
     description: `${contractName}.${getFullFunctionSignature(abiFn, params)}`,
   })
 

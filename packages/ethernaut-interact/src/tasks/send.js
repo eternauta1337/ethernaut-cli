@@ -5,6 +5,11 @@ const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
 const connectSigner = require('../internal/connect-signer')
 const types = require('ethernaut-common/src/validation/types')
+const {
+  getGasData,
+  warnHighGasCost,
+  warnInsufficientFunds,
+} = require('../internal/gas-util')
 
 require('../scopes/interact')
   .task('send', 'Sends ether to an address')
@@ -41,11 +46,16 @@ async function sendEther({ address, value, noConfirm, hre }) {
 
   const signer = await connectSigner(noConfirm)
 
-  // Estimate gas cost
-  const feeData = await hre.ethers.provider.getFeeData()
   const gasAmount = 21000n
-  const gasPrice = feeData.maxFeePerGas
-  const gasCost = gasAmount * gasPrice
+
+  const gasData = await getGasData(hre, gasAmount)
+
+  // Gas warnings
+  if (!noConfirm) {
+    if ((await warnHighGasCost(gasData.costEth)) === false) return
+    if ((await warnInsufficientFunds(signer, gasData.costEth, value)) === false)
+      return
+  }
 
   // Show a summary of the transaction
   buffer += await printTxSummary({
@@ -53,8 +63,8 @@ async function sendEther({ address, value, noConfirm, hre }) {
     to: address,
     value,
     gasAmount,
-    gasPrice: hre.ethers.formatUnits(gasPrice, 'gwei'),
-    gasCost: hre.ethers.formatEther(gasCost),
+    gasPrice: gasData.priceGwei,
+    gasCost: gasData.costEth,
     description: `Sending ${value} ETH (${valueWei} wei) to ${address}`,
   })
 

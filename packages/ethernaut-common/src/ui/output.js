@@ -101,7 +101,7 @@ function info(msg) {
 }
 
 function warn(msg) {
-  _out(chalk.yellow.bold(`! ${msg}`))
+  _out(chalk.yellow.bold(`WARNING!!! ${msg}`))
 
   return msg
 }
