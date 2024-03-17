@@ -138,6 +138,10 @@ async function executeWrite(
     throw new Error(`Execution reverted during gas estimation: ${err.message}`)
   }
 
+  // Estimate gas cost
+  // const gasPrice = await hre.ethers.provider.getGasPrice()
+  // console.log('gasPrice', gasPrice.toString())
+
   // Display tx summary
   const contractName = path.parse(abi).name
   buffer += await printTxSummary({
@@ -163,7 +167,7 @@ async function executeWrite(
 
   spinner.success('Transaction sent', 'interact')
 
-  buffer += await mineTx(tx, contract)
+  buffer += await mineTx(hre, tx, contract)
 
   buffer += output.info(
     `Resulting balance: ${await getBalance(signer.address)}`,

@@ -2,11 +2,14 @@ const spinner = require('ethernaut-common/src/ui/spinner')
 const debug = require('ethernaut-common/src/ui/debug')
 const printTxReceipt = require('./print-tx-receipt')
 
-module.exports = async function mineTx(tx, contract) {
+module.exports = async function mineTx(hre, tx, contract) {
   spinner.progress('Mining transaction', 'interact')
 
   const receipt = await tx.wait()
   // TODO: Catch wait failure here
+
+  const gasCost = receipt.gasPrice * receipt.gasUsed
+  receipt.gasCost = hre.ethers.formatEther(gasCost)
 
   debug.log(JSON.stringify(receipt, null, 2), 'interact-deep')
 

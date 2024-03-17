@@ -58,7 +58,7 @@ async function sendEther({ address, value, noConfirm, hre }) {
     value: valueWei,
   })
 
-  buffer += await mineTx(tx)
+  buffer += await mineTx(hre, tx)
 
   buffer += output.info(
     `Resulting balance: ${await getBalance(signer.address)}`,

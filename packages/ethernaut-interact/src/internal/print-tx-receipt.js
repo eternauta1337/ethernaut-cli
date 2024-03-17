@@ -10,6 +10,7 @@ module.exports = async function printTxReceipt(receipt, contract) {
     `Tx hash: ${receipt.hash}\n` +
       `Gas used: ${receipt.gasUsed.toString()}\n` +
       `Gas price: ${receipt.gasPrice.toString()}\n` +
+      `Gas cost: ${receipt.gasCost} ETH\n` +
       `Block number: ${receipt.blockNumber}`,
     'Transaction Receipt',
   )
