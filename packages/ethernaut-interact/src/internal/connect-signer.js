@@ -24,9 +24,10 @@ module.exports = async function connectSigner(noConfirm) {
   )
 
   if (balance <= 0 && !noConfirm) {
-    await warnWithPrompt(
+    const response = await warnWithPrompt(
       'WARNING! Signer balance is 0. You may not be able to send transactions.',
     )
+    if (response === false) return
   }
 
   return signer

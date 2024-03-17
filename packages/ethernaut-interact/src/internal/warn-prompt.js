@@ -7,5 +7,6 @@ module.exports = async function warnWithPrompt(message) {
     type: 'confirm',
     message: 'Continue anyway?',
   })
-  if (!response) process.exit(0)
+  if (response === undefined) process.exit(0)
+  return response
 }

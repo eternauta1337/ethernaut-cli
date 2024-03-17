@@ -77,6 +77,8 @@ module.exports = async function interact({
     return await executeRead(contract, sig, params)
   } else {
     const signer = await connectSigner(noConfirm)
+    if (!signer) return
+
     contract = contract.connect(signer)
 
     return await executeWrite(
