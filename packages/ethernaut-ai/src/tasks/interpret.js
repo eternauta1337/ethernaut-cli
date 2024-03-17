@@ -103,7 +103,8 @@ async function processActions(actions) {
 
   const outputs = []
 
-  for (let i = 0; i < actions.length; i++) {
+  let i = 0
+  while (i < actions.length) {
     const action = actions[i]
 
     output.infoBox(
@@ -118,22 +119,37 @@ async function processActions(actions) {
         await new Promise((resolve) => setTimeout(resolve, 1000))
         outputs.push(await action.execute(hre, _noConfirm))
         spinner.progress('Analyzing...', 'ai')
+        i++
         break
       case options.EDIT:
-        console.log('Edit not implemented yet')
+        await edit(action)
         break
       case options.EXPLAIN:
         spinner.progress('Analyzing...', 'ai')
         await explain(action)
-        i--
         break
       case options.SKIP:
         spinner.progress('Skipping...', 'ai')
         outputs.push('User skipped action')
+        i++
         break
     }
+  }
+  console.log('LOOP EXITEd')
+  await _interpreter.reportToolOutputs(outputs)
+}
 
-    await _interpreter.reportToolOutputs(outputs)
+async function edit(action) {
+  output.info(`Editing action: "${action.getShortDescription()}"`)
+
+  for (let argName in action.args) {
+    const arg = action.args[argName]
+    const value = await prompt({
+      type: 'input',
+      message: `Enter new value for ${argName}:`,
+      initial: arg,
+    })
+    action.args[argName] = value
   }
 }
 
