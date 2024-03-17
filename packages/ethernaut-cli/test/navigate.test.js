@@ -41,7 +41,7 @@ describe('navigation', function () {
     })
 
     it('displays all tasks', async function () {
-      terminal.has('activate')
+      terminal.has('set')
       terminal.has('add')
       terminal.has('current')
       terminal.has('edit')
