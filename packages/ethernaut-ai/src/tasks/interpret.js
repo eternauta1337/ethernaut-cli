@@ -109,7 +109,7 @@ async function processActions(actions) {
     const action = actions[i]
 
     output.infoBox(
-      action.getDescription(),
+      await action.getDescription(),
       `Action ${i + 1} of ${actions.length}`,
     )
 
@@ -160,7 +160,7 @@ async function edit(action) {
 async function explain(action) {
   const waitPromise = wait(TIMEOUT)
   const response = await Promise.race([
-    await _explainer.explain(_query, action.getDescription()),
+    await _explainer.explain(_query, action.getShortDescription()),
     waitPromise,
   ])
   if (response) {
