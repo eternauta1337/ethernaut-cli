@@ -96,8 +96,8 @@ function makeInteractive(task) {
       args = { ...args, ...collectedArgs }
 
       // If parameters were collected, print out the call
-      if (Object.values(collectedArgs).length > 1) {
-        output.info(toCliSyntax(task, args))
+      if (Object.values(collectedArgs).length > 0) {
+        output.info(`Autocompleted: ${toCliSyntax(task, args)}`)
       }
     }
 
