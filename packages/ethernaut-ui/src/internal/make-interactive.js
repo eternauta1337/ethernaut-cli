@@ -5,6 +5,7 @@ const output = require('ethernaut-common/src/ui/output')
 const collectArguments = require('./collect-args')
 const toCliSyntax = require('ethernaut-common/src/ui/syntax')
 const getTaskUsage = require('ethernaut-common/src/tasks/usage')
+const clipboardy = require('clipboardy')
 
 let _hre
 
@@ -97,7 +98,9 @@ function makeInteractive(task) {
 
       // If parameters were collected, print out the call
       if (Object.values(collectedArgs).length > 0) {
-        output.info(`Autocompleted: ${toCliSyntax(task, args)}`)
+        const msg = toCliSyntax(task, args)
+        clipboardy.writeSync(msg)
+        output.info(`Autocompleted: "${msg}" (copied to clipboard)`)
       }
     }
 
