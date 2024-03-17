@@ -50,7 +50,10 @@ async function getSigners() {
 
   signersArr = _sortSigners(signersArr, activeSigner)
 
-  return signersArr.map((s) => getWallet(hre, s.pk))
+  return signersArr.map((s) => {
+    if (s.pk) return getWallet(hre, s.pk)
+    else return hre.ethers.getSignerOriginal(s.address)
+  })
 }
 
 function _getSignersArray(signers) {
