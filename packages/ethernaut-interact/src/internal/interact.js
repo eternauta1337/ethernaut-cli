@@ -129,18 +129,19 @@ async function executeWrite(
 
   // Estimate gas
   spinner.progress('Estimating gas', 'interact')
-  let estimateGas
+  let gasAmount
   try {
-    estimateGas = await contract[sig].estimateGas(...params, txParams)
-    spinner.success(`Gas estimated: ${estimateGas}`, 'interact')
+    gasAmount = await contract[sig].estimateGas(...params, txParams)
+    spinner.success(`Gas estimated: ${gasAmount}`, 'interact')
   } catch (err) {
     spinner.fail('Gas estimation failed', 'interact')
     throw new Error(`Execution reverted during gas estimation: ${err.message}`)
   }
 
   // Estimate gas cost
-  // const gasPrice = await hre.ethers.provider.getGasPrice()
-  // console.log('gasPrice', gasPrice.toString())
+  const feeData = await hre.ethers.provider.getFeeData()
+  const gasPrice = feeData.maxFeePerGas
+  const gasCost = gasAmount * gasPrice
 
   // Display tx summary
   const contractName = path.parse(abi).name
@@ -148,6 +149,9 @@ async function executeWrite(
     signer,
     to: address,
     value: value,
+    gasAmount,
+    gasPrice: hre.ethers.formatUnits(gasPrice, 'gwei'),
+    gasCost: hre.ethers.formatEther(gasCost),
     description: `${contractName}.${getFullFunctionSignature(abiFn, params)}`,
   })
 

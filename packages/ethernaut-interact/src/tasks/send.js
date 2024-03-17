@@ -41,11 +41,20 @@ async function sendEther({ address, value, noConfirm, hre }) {
 
   const signer = await connectSigner(noConfirm)
 
+  // Estimate gas cost
+  const feeData = await hre.ethers.provider.getFeeData()
+  const gasAmount = 21000n
+  const gasPrice = feeData.maxFeePerGas
+  const gasCost = gasAmount * gasPrice
+
   // Show a summary of the transaction
   buffer += await printTxSummary({
     signer,
     to: address,
     value,
+    gasAmount,
+    gasPrice: hre.ethers.formatUnits(gasPrice, 'gwei'),
+    gasCost: hre.ethers.formatEther(gasCost),
     description: `Sending ${value} ETH (${valueWei} wei) to ${address}`,
   })
 

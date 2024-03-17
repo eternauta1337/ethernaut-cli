@@ -8,9 +8,6 @@ module.exports = async function mineTx(hre, tx, contract) {
   const receipt = await tx.wait()
   // TODO: Catch wait failure here
 
-  const gasCost = receipt.gasPrice * receipt.gasUsed
-  receipt.gasCost = hre.ethers.formatEther(gasCost)
-
   debug.log(JSON.stringify(receipt, null, 2), 'interact-deep')
 
   if (receipt.status === 0) {
