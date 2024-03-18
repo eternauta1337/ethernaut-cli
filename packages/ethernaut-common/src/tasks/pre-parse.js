@@ -70,7 +70,7 @@ function preParse(hre) {
     success = false
   }
 
-  return { success, args: allUnparsedCLAs }
+  return { success, args: allUnparsedCLAs, taskDefinitions, scopesDefinitions }
 }
 
 function getScopesAndTasks(hre) {
@@ -130,6 +130,7 @@ function setArgs(args) {
 prepareParser()
 
 module.exports = {
+  getScopesAndTasks,
   preParse,
   setArgs,
 }

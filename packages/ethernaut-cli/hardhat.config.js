@@ -8,7 +8,6 @@ refreshEnv()
 
 require('@nomicfoundation/hardhat-ethers')
 
-require('ethernaut-ui')
 require('ethernaut-ai')
 require('ethernaut-ai-ui')
 require('ethernaut-util')
@@ -20,6 +19,7 @@ require('ethernaut-network-ui')
 require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
+require('ethernaut-ui')
 
 const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
