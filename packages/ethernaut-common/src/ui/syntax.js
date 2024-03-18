@@ -34,7 +34,13 @@ module.exports = function toCliSyntax(task, args) {
     }
 
     if (!isFlag) {
-      tokens.push(`${value}`)
+      const regex = /[ '"?*&|()<>;{}!$]/
+      const needsQuotes = regex.test(value)
+      if (needsQuotes) {
+        tokens.push(`'${value}'`)
+      } else {
+        tokens.push(`${value}`)
+      }
     }
   })
 

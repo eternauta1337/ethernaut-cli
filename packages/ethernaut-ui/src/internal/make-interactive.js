@@ -100,7 +100,7 @@ function makeInteractive(task) {
       if (Object.values(collectedArgs).length > 0) {
         const msg = toCliSyntax(task, args)
         copyToClipboard(msg)
-        output.info(`Autocompleted: "${msg}" (copied to clipboard)`)
+        output.info(`Autocompleted: ${msg} (copied to clipboard)`)
       }
     }
 
