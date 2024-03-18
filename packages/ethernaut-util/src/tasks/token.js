@@ -17,8 +17,8 @@ require('../scopes/util')
   )
   .addOptionalParam(
     'chain',
-    'The name or id of the network to search on. Use "0" to only search on the current network. Use "-1" to search on any network. Default is "0" (current network)',
-    '0',
+    'The name or id of the network to search on. Use "0" to only search on the current network. Use "-1" to search on any network. Default is "-1" (any network)',
+    '-1',
     types.string,
   )
   .addOptionalParam('results', 'The number of results to show', 5, types.int)
@@ -81,7 +81,7 @@ require('../scopes/util')
       matches = dedupedMatches.slice(0, results)
 
       // Translate chainId to network name
-      if (chainInfo.name === 'Any network') {
+      if (chainInfo.name !== 'Any network') {
         const tokenChain = chains.find((c) => c.chainId === chain)
         chainInfo.name = tokenChain.name
       }
@@ -93,8 +93,9 @@ require('../scopes/util')
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
         const c = match.candidate
+        const chain = chains.find((c) => c.chainId === match.candidate.chainId)
         strs.push(
-          `${i}. ${c.name} (${c.symbol}) Address: ${c.address} (Rating: ${match.rating})`,
+          `${i}. ${c.name} (${c.symbol}) Address: ${c.address} in ${chain.name} (Rating: ${match.rating})`,
         )
       }
       str += strs.join('\n')
