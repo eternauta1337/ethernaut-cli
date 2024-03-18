@@ -23,6 +23,7 @@ Things to know:
 - There is a bug in hardhat where giving a default parameter to a non-optional parameter makes it optional. The solution used is to set it back to optional right after creation. See the create task in ethernaut-wallet.
 - You can define custom prompts for parameters (see ethernaut-interact-ui)
 - You can also define suggestions for parameters. Default values are suggested otherwise.
+- The plugin also adds a pre-parser that allows tasks to be called without a scope. E.g. `ethernaut unit` is converted to `ethernaut util unit`
 
 ### Navigation
 
