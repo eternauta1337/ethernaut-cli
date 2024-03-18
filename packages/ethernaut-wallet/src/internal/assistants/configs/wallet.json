@@ -1,0 +1,3 @@
+{
+  "additionalInstructions": "If the user says 'my wallet' or 'my address', he will be referring to the current wallet in the wallet scope, which can be retrieved with `wallet current`. This wallet is the signer activated by default in all tasks that involve signing transactions, messages, interacting with the blockchain, etc."
+}
