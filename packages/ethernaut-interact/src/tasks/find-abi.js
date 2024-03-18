@@ -21,9 +21,12 @@ require('../scopes/interact')
       if (filter !== undefined) {
         filter = filter.toLowerCase()
         abis = abis.filter((a) => a.name.toLowerCase().includes(filter))
+        if (abis.length === 0) {
+          throw new Error('No ABIs found')
+        }
 
         const matches = similarity.findBestMatch(
-          filter.toLowerCase(),
+          filter,
           abis.map((a) => a.name.toLowerCase()),
         )
 
