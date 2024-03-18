@@ -8,10 +8,12 @@ const spinner = require('ethernaut-common/src/ui/spinner')
 const debug = require('ethernaut-common/src/ui/debug')
 const { getChainId } = require('ethernaut-common/src/util/network')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
+const browse = require('ethernaut-common/src/ui/browse')
 
 const strategies = {
   ETHERSCAN: 'Fetch from Etherscan',
   BROWSE: 'Browse known ABIs',
+  BROWSE_FS: 'Browse file system',
   MANUAL: 'Enter path manually',
 }
 
@@ -27,6 +29,9 @@ module.exports = async function promptAbi({ abi, hre, address }) {
     switch (choice) {
       case strategies.BROWSE:
         abi = await browseKnownAbis()
+        break
+      case strategies.BROWSE_FS:
+        abi = await browse()
         break
       case strategies.ETHERSCAN:
         abi = await getAbiFromEtherscan(address, chainId)
@@ -50,7 +55,7 @@ module.exports = async function promptAbi({ abi, hre, address }) {
 async function selectStrategy(address, chainId) {
   // Collect available choices since
   // not all strategies might be available
-  const choices = [strategies.MANUAL]
+  const choices = [strategies.MANUAL, strategies.BROWSE_FS]
 
   // Pick one one from known abis?
   const knownAbiFiles = storage.readAbiFiles()

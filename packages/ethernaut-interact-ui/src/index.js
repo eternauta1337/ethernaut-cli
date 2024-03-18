@@ -12,6 +12,7 @@ const fnERC20Prompt = require('./prompts/fnERC20')
 const paramsERC20Prompt = require('./prompts/paramsERC20')
 const eventPrompt = require('./prompts/event')
 const paramsLogPrompt = require('./prompts/params-log')
+const abiBrowsePrompt = require('./prompts/abi-browse-only')
 
 extendEnvironment((hre) => {
   const contract = hre.scopes.interact.tasks.contract
@@ -33,4 +34,8 @@ extendEnvironment((hre) => {
   logs.paramDefinitions.abi.suggest = abiSuggest
   logs.paramDefinitions.params.prompt = paramsLogPrompt
   logs.paramDefinitions.event.prompt = eventPrompt
+
+  const addAbi = hre.scopes.interact.tasks['add-abi']
+  addAbi.positionalParamDefinitions.find((p) => p.name === 'abiPath').prompt =
+    abiBrowsePrompt
 })
