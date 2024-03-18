@@ -12,6 +12,8 @@ module.exports = function toCliSyntax(task, args) {
   tokens.push(task.name)
 
   Object.entries(args).forEach(([name, value]) => {
+    if (value === undefined) return
+
     let isOption
     let paramDef = Object.values(task.paramDefinitions).find(
       (p) => p.name === name,
