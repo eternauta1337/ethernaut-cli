@@ -1,6 +1,7 @@
 const chalk = require('chalk')
 const boxen = require('boxen')
 const debug = require('./debug')
+const spinner = require('./spinner')
 
 let _muted = false
 let _errorVerbose = false
@@ -84,6 +85,12 @@ function box(
   msg,
   { title, padding = 1, borderStyle = 'round', borderColor = 'blue' },
 ) {
+  // Spinners eat up the last line of output,
+  // which prompts use. So they can't coexist.
+  // Thus, this utility guarantees that spinners
+  // always stop when a prompt is coming...
+  spinner.stop()
+
   _out(
     boxen(msg, {
       title,
