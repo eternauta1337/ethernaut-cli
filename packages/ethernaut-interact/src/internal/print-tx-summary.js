@@ -18,7 +18,7 @@ module.exports = async function printTxSummary({
       `Value: ${value} ETH\n` +
       `Gas amount: ${gasAmount}\n` +
       `Gas price: ${gasPrice} gwei\n` +
-      `Gas cost: ${gasCost} ETH\n` +
-      'Pending Tx',
+      `Gas cost: ${gasCost} ETH`,
+    'Pending Tx',
   )
 }
