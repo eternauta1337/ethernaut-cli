@@ -8,18 +8,14 @@ describe('token', function () {
   })
 
   it('shows the token name', async function () {
-    terminal.has('Token name: usdt')
+    terminal.has('Tether (USDT)')
   })
 
   it('shows the network', async function () {
-    terminal.has('Network: Ethereum Mainnet')
-  })
-
-  it('shows the symbol', async function () {
-    terminal.has('Symbol: USDT')
+    terminal.has('Ethereum Mainnet')
   })
 
   it('shows the address', async function () {
-    terminal.has('Address: 0xdAC17F958D2ee523a2206206994597C13D831ec7')
+    terminal.has('0xdAC17F958D2ee523a2206206994597C13D831ec7')
   })
 })
