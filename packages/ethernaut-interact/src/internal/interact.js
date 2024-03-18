@@ -28,12 +28,9 @@ module.exports = async function interact({
   value,
   noConfirm,
 }) {
-  // TODO: abi is not actually needed if fn is a signature
-
   // Parse params (incoming as string)
   params = params ? params.split(',') : []
 
-  // TODO: Also validate
   if (!address) throw new Error('Address is required')
   if (!abi) throw new Error('abi is required')
   if (!fn) throw new Error('fn is required')
@@ -165,7 +162,6 @@ async function executeWrite(
   })
 
   // Prompt the user for confirmation
-  // TODO: Also calculate ETH cost for gas and warn loudly if high
   if (!noConfirm) {
     const response = await prompt({
       type: 'confirm',
@@ -180,7 +176,7 @@ async function executeWrite(
 
   spinner.success('Transaction sent', 'interact')
 
-  buffer += await mineTx(hre, tx, contract)
+  buffer += await mineTx(tx, contract)
 
   buffer += output.info(
     `Resulting balance: ${await getBalance(signer.address)}`,

@@ -37,7 +37,6 @@ async function checkLevel(level, hre) {
   const signer = (await hre.ethers.getSigners())[0]
   const playerAddress = signer.address
 
-  // TODO: Get corresponding level address
   const idx = parseInt(level) - 1
   const levelAddress = deploymentInfo[idx]
 

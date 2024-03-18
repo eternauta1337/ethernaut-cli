@@ -37,8 +37,5 @@ describe('set', function () {
       const networks = storage.readNetworks()
       assert.equal(networks.activeNetwork, 'test__1')
     })
-
-    // TODO: Test actually interacting with the set network
-    // (Only tested manually so far)
   })
 })
