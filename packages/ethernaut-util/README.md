@@ -39,6 +39,7 @@ This plugin adds the tasks listed below.
 - string Converts bytes32 to string
 - token Tries to find the address of a token, given its name or symbol in the current network
 - unit Converts between different units of Ether
+- gas Fetch gas info on the current network
 
 ## Environment extensions
 
