@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Ai agent cli with web3 capabilities",
   "license": "ISC",
   "author": "theethernaut",
@@ -45,8 +45,8 @@
     "ethernaut-network": "^1.1.0",
     "ethernaut-network-ui": "^1.1.0",
     "ethernaut-ui": "^1.1.0",
-    "ethernaut-util": "^1.1.0",
-    "ethernaut-util-ui": "^1.1.0",
+    "ethernaut-util": "^1.1.1",
+    "ethernaut-util-ui": "^1.1.1",
     "ethernaut-wallet": "^1.1.0",
     "ethernaut-wallet-ui": "^1.1.0",
     "figlet": "^1.7.0",
