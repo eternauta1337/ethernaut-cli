@@ -15,10 +15,10 @@
     "ethernaut-interact": "^1.0.15"
   },
   "peerDependencies": {
-    "hardhat": "^2.20.0"
+    "hardhat": "^2.22.2"
   },
   "devDependencies": {
-    "hardhat": "^2.20.0",
+    "hardhat": "^2.22.2",
     "mocha": "^10.3.0",
     "nyc": "^15.1.0"
   },

@@ -15,11 +15,11 @@
   "author": "theethernaut",
   "license": "ISC",
   "peerDependencies": {
-    "hardhat": "^2.20.0"
+    "hardhat": "^2.22.2"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
-    "hardhat": "^2.20.0",
+    "hardhat": "^2.22.2",
     "nyc": "^15.1.0"
   },
   "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"

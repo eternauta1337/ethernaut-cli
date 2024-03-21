@@ -6,9 +6,8 @@
     "packages/*"
   ],
   "scripts": {
-    "count": "git ls-files --exclude-standard ':!:package-lock.json' ':!:*.md' ':!:packages/ethernaut-challenges/contracts/*' ':!:packages/ethernaut-challenges/abis/*' ':!:packages/ethernaut-challenges/gamedata/*' ':!:packages/ethernaut-common/data/*' | xargs wc -l",
     "chain": "packages/ethernaut-cli/ethernaut network node --fork 'none' --port 8545",
-    "build": "lerna run build && node ./scripts/fix-hardhat.js",
+    "build": "lerna run build",
     "compile": "lerna run compile",
     "publish": "lerna publish",
     "lint": "eslint 'packages/**/*.js'",

@@ -39,12 +39,6 @@ function makeInteractive(task) {
   }
   debug.log(`Making task "${task.name}" interactive`, 'ui-deep')
 
-  // Note:
-  // The next blocks of code rely on a small change in hardhat/internal/cli/cli.js,
-  // that allows this environment extension code to run before hardhat parses cli arguments.
-  // Issue: https://github.com/NomicFoundation/hardhat/issues/4950
-  // PR: https://github.com/NomicFoundation/hardhat/pull/4951
-
   // Combine all of the task's parameter definitions in the same array,
   // for the operations that follow.
   const paramDefinitions = task.positionalParamDefinitions.concat(
