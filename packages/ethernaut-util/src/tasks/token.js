@@ -81,14 +81,15 @@ require('../scopes/util')
       matches = dedupedMatches.slice(0, results)
 
       // Translate chainId to network name
-      if (chainInfo.name !== 'Any network') {
+      console.log(chainInfo)
+      if (chainInfo.name !== 'Any network' && chainInfo.name === undefined) {
         const tokenChain = chains.find((c) => c.chainId === chain)
         chainInfo.name = tokenChain.name
       }
 
       // Print results
       let str = ''
-      str += `Found ${matches.length} matches for "${filter}" in ${chainInfo.name}:\n\n`
+      str += `Found ${matches.length} matches for "${filter}" on ${chainInfo.name}:\n\n`
       const strs = []
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
