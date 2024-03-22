@@ -1,4 +1,4 @@
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 
 module.exports = async function confirm(msg, skip, exit = true) {
   if (skip) return

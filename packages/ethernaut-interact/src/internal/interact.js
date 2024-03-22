@@ -11,7 +11,7 @@ const {
   getFunctionSignature,
 } = require('../internal/signatures')
 const loadAbi = require('../internal/load-abi')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const storage = require('../internal/storage')
 const path = require('path')
 const {

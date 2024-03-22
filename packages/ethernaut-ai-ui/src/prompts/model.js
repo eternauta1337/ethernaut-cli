@@ -1,4 +1,4 @@
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const openai = require('ethernaut-ai/src/internal/openai')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
 

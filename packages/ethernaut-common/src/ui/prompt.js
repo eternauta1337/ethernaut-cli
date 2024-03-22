@@ -1,10 +1,12 @@
-const { prompt } = require('enquirer')
+const enquirer = require('enquirer')
 const suggestDef = require('ethernaut-common/src/ui/suggest')
 const spinner = require('ethernaut-common/src/ui/spinner')
 
+// let _prompt
 let _promises = []
+let _onCancel
 
-module.exports = async function ({
+async function prompt({
   type,
   suggest,
   message,
@@ -13,17 +15,24 @@ module.exports = async function ({
   initial,
   callback,
 }) {
+  // Allows prompts to be generated with sync code,
+  // and this fn will still be able to present them asynchronously
+  await waitInLine()
+
   // Spinners eat up the last line of output,
   // which prompts use. So they can't coexist.
   // Thus, this utility guarantees that spinners
   // always stop when a prompt is coming...
   spinner.stop()
 
-  // Allows prompts to be generated with sync code,
-  // and this fn will still be able to present them asynchronously
-  await waitInLine()
+  const promptFn = enquirer.prompt
+  // Uncomment the code below if the
+  // prompt object is needed
+  // promptFn.on('prompt', (prompt) => {
+  //   _prompt = prompt
+  // })
 
-  const promise = prompt({
+  const promise = promptFn({
     type: type || 'input',
     name: 'response',
     message,
@@ -55,19 +64,34 @@ async function waitInLine() {
     let id
 
     function check() {
+      if (_onCancel) return false
+
       if (_promises.length === 0) {
         clearInterval(id)
-        resolve()
+        resolve(true)
 
         return true
       }
 
       return false
     }
-    const checked = check()
 
+    const checked = check()
     if (!checked) {
       id = setInterval(check, 1000)
     }
   })
+}
+
+function cancelAllPrompts() {
+  _promises.forEach((promise) => {
+    promise.cancel()
+  })
+  _promises = []
+  _onCancel = true
+}
+
+module.exports = {
+  prompt,
+  cancelAllPrompts,
 }

@@ -50,7 +50,8 @@
     "ethernaut-wallet": "^1.1.3",
     "ethernaut-wallet-ui": "^1.1.3",
     "figlet": "^1.7.0",
-    "hardhat": "^2.22.2"
+    "hardhat": "^2.22.2",
+    "update-notifier": "^5.1.0"
   },
   "peerDependencies": {
     "hardhat": "^2.22.2"

@@ -5,7 +5,7 @@ const Thread = require('../internal/threads/Thread')
 const output = require('ethernaut-common/src/ui/output')
 const debug = require('ethernaut-common/src/ui/debug')
 const spinner = require('ethernaut-common/src/ui/spinner')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
 const wait = require('ethernaut-common/src/util/wait')
 

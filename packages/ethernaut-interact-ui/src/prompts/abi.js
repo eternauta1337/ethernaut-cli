@@ -3,7 +3,7 @@ const {
   EtherscanApi,
   getEtherscanUrl,
 } = require('ethernaut-interact/src/internal/etherscan')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const debug = require('ethernaut-common/src/ui/debug')
 const { getChainId } = require('ethernaut-common/src/util/network')

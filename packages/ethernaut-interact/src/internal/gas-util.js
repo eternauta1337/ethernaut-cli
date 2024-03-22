@@ -1,5 +1,5 @@
 const output = require('ethernaut-common/src/ui/output')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const getBalance = require('../internal/get-balance')
 
 const WARN_GAS_COST_ETH = 0.1

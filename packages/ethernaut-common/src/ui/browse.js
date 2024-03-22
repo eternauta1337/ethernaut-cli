@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const os = require('os')
-const prompt = require('./prompt')
+const { prompt } = require('./prompt')
 
 module.exports = async function browse() {
   return browseAt(os.homedir())

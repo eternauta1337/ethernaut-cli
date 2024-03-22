@@ -1,5 +1,5 @@
 const storage = require('ethernaut-common/src/io/storage')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const Sentry = require('@sentry/node')
 const debug = require('ethernaut-common/src/ui/debug')
 const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')

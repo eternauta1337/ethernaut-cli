@@ -1,4 +1,4 @@
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const getNodes = require('ethernaut-common/src/tasks/get-nodes')
 const chalk = require('chalk')
 

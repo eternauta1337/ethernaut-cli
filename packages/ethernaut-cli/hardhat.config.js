@@ -1,11 +1,12 @@
 const figlet = require('figlet')
 const chalkAnimation = require('chalk-animation')
-const { version, bugs } = require('./package.json')
+const pkg = require('./package.json')
 const storage = require('ethernaut-common/src/io/storage')
 const { refreshEnv } = require('ethernaut-common/src/io/env')
 const {
   queryTelemetryConsent,
 } = require('ethernaut-common/src/error/telemetry')
+const checkAutoUpdate = require('./src/update')
 
 refreshEnv()
 
@@ -28,12 +29,14 @@ require('ethernaut-ai-ui')
 const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
 console.log(
-  `v${version} - Warning!!! BETA version. Please report issues here ${bugs.url}`,
+  `v${pkg.version} - Warning!!! BETA version. Please report issues here ${pkg.bugs.url}`,
 )
 
 storage.init()
 
 queryTelemetryConsent()
+
+checkAutoUpdate(pkg)
 
 module.exports = {
   solidity: '0.8.19',

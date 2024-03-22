@@ -1,4 +1,4 @@
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const storage = require('ethernaut-network/src/internal/storage')
 
 module.exports = function promptAlias(message = 'Select a network') {
