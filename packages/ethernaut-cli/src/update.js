@@ -2,6 +2,7 @@ const updateNotifier = require('update-notifier')
 const { prompt, cancelAllPrompts } = require('ethernaut-common/src/ui/prompt')
 const { spawn } = require('child_process')
 const storage = require('ethernaut-common/src/io/storage')
+const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
 
 const choices = {
   YES: 'Install this update',
@@ -10,6 +11,10 @@ const choices = {
 }
 
 module.exports = function checkAutoUpdate(pkg) {
+  if (isRunningOnCiServer()) {
+    return
+  }
+
   // Check if auto-update is disabled
   const config = storage.readConfig()
   if (!config.general) {
