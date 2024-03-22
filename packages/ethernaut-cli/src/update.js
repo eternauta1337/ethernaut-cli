@@ -3,6 +3,7 @@ const { prompt, cancelAllPrompts } = require('ethernaut-common/src/ui/prompt')
 const { spawn } = require('child_process')
 const storage = require('ethernaut-common/src/io/storage')
 const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
+const semver = require('semver')
 
 const choices = {
   YES: 'Install this update',
@@ -21,11 +22,6 @@ module.exports = function checkAutoUpdate(pkg) {
   if (!config.general) {
     config.general = {}
   }
-  if (config.general.autoUpdate !== undefined) {
-    if (config.general.autoUpdate === 'never') {
-      return
-    }
-  }
 
   // Check if there is an update
   const notifier = updateNotifier({
@@ -36,15 +32,25 @@ module.exports = function checkAutoUpdate(pkg) {
 
   // If there is an update
   if (notifier.update) {
+    notifyUpdate(notifier.update.latest)
+
+    // Has the user opted out of updates indefinitely?
+    if (config.general.autoUpdate === 'never') {
+      return
+    }
+
+    // This can happen sometimes due to the sync nature of update-notifier
     if (notifier.update.latest === pkg.version) {
+      return
+    }
+
+    // And this
+    if (!semver.gt(notifier.update.latest, notifier.update.current)) {
       return
     }
 
     // Is the new version marked to be skipped?
     if (config.general.autoUpdate === notifier.update.latest) {
-      console.log(
-        `v${notifier.update.latest} is available, update with 'npm i -g ethernaut-cli'`,
-      )
       return
     }
 
@@ -73,6 +79,10 @@ module.exports = function checkAutoUpdate(pkg) {
       },
     })
   }
+}
+
+function notifyUpdate(version) {
+  console.log(`v${version} is available, update with 'npm i -g ethernaut-cli'`)
 }
 
 function install() {
