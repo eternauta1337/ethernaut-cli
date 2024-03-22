@@ -2,11 +2,16 @@ const storage = require('ethernaut-common/src/io/storage')
 const prompt = require('ethernaut-common/src/ui/prompt')
 const Sentry = require('@sentry/node')
 const debug = require('ethernaut-common/src/ui/debug')
+const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
 
 let _consent
 let _sentryInitialized
 
 function queryTelemetryConsent() {
+  if (isRunningOnCiServer()) {
+    return
+  }
+
   const config = storage.readConfig()
 
   if (!config.general) {
