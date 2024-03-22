@@ -44,7 +44,7 @@ function hasUserConsent() {
 
   const config = storage.readConfig()
 
-  return (_consent = config.general.telemetryConsent)
+  return (_consent = config.general?.telemetryConsent)
 }
 
 function reportError(error) {
