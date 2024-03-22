@@ -12,7 +12,7 @@ module.exports = {
         throw new Error(`Invalid bytes: ${argValue}`)
       }
     } catch (err) {
-      output.errorBox(err)
+      output.errorBox(err, false)
 
       if (typeof describe === 'function') {
         throw err

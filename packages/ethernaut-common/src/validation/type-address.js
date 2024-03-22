@@ -15,7 +15,7 @@ module.exports = {
         throw new Error(`Invalid address ${argValue}`)
       }
     } catch (err) {
-      output.errorBox(err)
+      output.errorBox(err, false)
 
       if (typeof describe === 'function') {
         throw err

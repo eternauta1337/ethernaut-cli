@@ -8,7 +8,7 @@ module.exports = {
     try {
       types.string.validate(argName, argValue)
     } catch (err) {
-      output.errorBox(err)
+      output.errorBox(err, false)
 
       if (typeof describe === 'function') {
         throw err

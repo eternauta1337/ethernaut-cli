@@ -41,7 +41,7 @@ function warnBox(msg, title = 'Warning') {
   return msg
 }
 
-function errorBox(error) {
+function errorBox(error, shouldBeReported = true) {
   debug.log(error)
 
   box(_errorVerbose ? error.stack : error.message, {
@@ -55,7 +55,7 @@ function errorBox(error) {
     const ethernautError = new EthernautCliError(
       'ethernaut-cli',
       error.message,
-      true,
+      shouldBeReported,
     )
     ethernautError.stack = error.stack
 

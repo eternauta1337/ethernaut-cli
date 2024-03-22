@@ -10,7 +10,7 @@ module.exports = {
     try {
       types.int.validate(argName, parseInt(argValue, 10))
     } catch (err) {
-      output.errorBox(err)
+      output.errorBox(err, false)
 
       if (typeof describe === 'function') {
         throw err
