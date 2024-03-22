@@ -11,6 +11,7 @@ module.exports = async function ({
   choices,
   limit,
   initial,
+  callback,
 }) {
   // Spinners eat up the last line of output,
   // which prompts use. So they can't coexist.
@@ -41,6 +42,10 @@ module.exports = async function ({
 
   const { response } = await promise
   _promises.pop()
+
+  if (callback) {
+    callback(response)
+  }
 
   return response
 }
