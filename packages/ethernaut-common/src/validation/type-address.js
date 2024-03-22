@@ -12,13 +12,11 @@ module.exports = {
       const validEns = argValue.endsWith('.eth')
       const validAddress = isAddress(argValue)
       if (!validAddress && !validEns) {
-        throw new Error('Invalid address')
+        throw new Error(`Invalid address ${argValue}`)
       }
     } catch (err) {
-      output.errorBoxStr(
-        `"${argValue}" is not an address`,
-        `Invalid ${argName}`,
-      )
+      output.errorBox(err)
+
       if (typeof describe === 'function') {
         throw err
       }

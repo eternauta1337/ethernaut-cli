@@ -10,10 +10,10 @@ module.exports = {
 
       const isEns = argValue.endsWith('.eth')
       if (!isEns) {
-        throw new Error('Invalid ens')
+        throw new Error(`Invalid ens: ${argValue}`)
       }
     } catch (err) {
-      output.errorBoxStr(`"${argValue}" is not an ens`, `Invalid ${argName}`)
+      output.errorBox(err)
 
       if (typeof describe === 'function') {
         throw err

@@ -8,7 +8,7 @@ module.exports = {
     try {
       types.string.validate(argName, argValue)
     } catch (err) {
-      output.errorBoxStr(`"${argValue}" is not string`, `Invalid ${argName}`)
+      output.errorBox(err)
 
       if (typeof describe === 'function') {
         throw err

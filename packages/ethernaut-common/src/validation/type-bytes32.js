@@ -9,13 +9,10 @@ module.exports = {
     try {
       types.string.validate(argName, argValue)
       if (!isBytes32(argValue)) {
-        throw new Error('Invalid bytes32')
+        throw new Error(`Invalid bytes32: ${argValue}`)
       }
     } catch (err) {
-      output.errorBoxStr(
-        `"${argValue}" is not a bytes32 value`,
-        `Invalid ${argName}`,
-      )
+      output.errorBox(err)
 
       if (typeof describe === 'function') {
         throw err

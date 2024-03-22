@@ -2,6 +2,7 @@ const chalk = require('chalk')
 const boxen = require('boxen')
 const debug = require('./debug')
 const spinner = require('./spinner')
+const telemetry = require('../util/telemetry')
 
 let _muted = false
 let _errorVerbose = false
@@ -39,17 +40,6 @@ function warnBox(msg, title = 'Warning') {
   return msg
 }
 
-function errorBoxStr(msg, title = 'Error') {
-  box(msg, {
-    title,
-    padding: 1,
-    borderStyle: 'double',
-    borderColor: 'red',
-  })
-
-  return msg
-}
-
 function errorBox(error) {
   debug.log(error)
 
@@ -59,6 +49,10 @@ function errorBox(error) {
     borderStyle: 'double',
     borderColor: 'red',
   })
+
+  if (telemetry.hasUserConsent()) {
+    telemetry.reportError(error)
+  }
 
   return error.message
 }
@@ -131,7 +125,6 @@ module.exports = {
   infoBox,
   warnBox,
   errorBox,
-  errorBoxStr,
   copyBox,
   info,
   warn,
