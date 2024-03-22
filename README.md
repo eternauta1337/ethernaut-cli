@@ -1,5 +1,10 @@
 # ethernaut-cli
 
+[![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU)](https://codecov.io/github/theethernaut/ethernaut-cli)
+
+[![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU,flag=ethernaut-cli)](https://codecov.io/github/theethernaut/ethernaut-cli?flag=ethernat-cli)
+[![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU,flag=ethernaut-ai)](https://codecov.io/github/theethernaut/ethernaut-cli?flag=ethernat-ai)
+
 The ethernaut-cli is basically an ai agent that is given access to web3 actions through hardhat tasks. It is a cli meant to be installed globally, and used like:
 
 `ethernaut what is the total supply of USDC`
@@ -13,8 +18,6 @@ It can also be used as a regular cli:
 `ethernaut util unit 5 --from ether --to wei`
 
 And also features an interactive mode that allows easy navigation of tasks and collection of task arguments.
-
-[![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU)](https://codecov.io/github/theethernaut/ethernaut-cli)
 
 ## Installation
 
