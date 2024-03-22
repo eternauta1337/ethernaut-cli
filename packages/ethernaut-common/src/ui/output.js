@@ -2,7 +2,7 @@ const chalk = require('chalk')
 const boxen = require('boxen')
 const debug = require('./debug')
 const spinner = require('./spinner')
-const telemetry = require('../util/telemetry')
+const telemetry = require('../error/telemetry')
 const EthernautCliError = require('../error/error')
 
 let _muted = false
