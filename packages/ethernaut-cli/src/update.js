@@ -6,6 +6,7 @@ const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
 
 const choices = {
   YES: 'Install this update',
+  NO: 'No thanks',
   SKIP: 'Skip this update',
   NEVER: 'Never ask again',
 }
@@ -35,6 +36,10 @@ module.exports = function checkAutoUpdate(pkg) {
 
   // If there is an update
   if (notifier.update) {
+    if (notifier.update.latest === pkg.version) {
+      return
+    }
+
     // Is the new version marked to be skipped?
     if (config.general.autoUpdate === notifier.update.latest) {
       console.log(
