@@ -10,6 +10,8 @@
     "test": "nyc --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "dependencies": {
+    "@sentry/node": "^7.108.0",
+    "@sentry/profiling-node": "^7.108.0",
     "boxen": "^5.1.2",
     "cli-spinners": "^2.9.2",
     "debug": "^4.3.4",

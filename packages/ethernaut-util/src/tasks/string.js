@@ -2,12 +2,12 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 
 require('../scopes/util')
-  .task('string', 'Converts bytes32 to string')
+  .task('string', 'Converts bytes to string')
   .addPositionalParam(
     'value',
-    'The bytes32 value to convert',
+    'The bytes value to convert',
     undefined,
-    types.bytes32,
+    types.bytes,
   )
   .setAction(async ({ value }, hre) => {
     try {

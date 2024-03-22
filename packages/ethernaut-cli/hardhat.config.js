@@ -26,7 +26,7 @@ require('ethernaut-ai-ui')
 const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
 chalkAnimation.rainbow(txt).render()
 console.log(
-  `v${version} - Warning!!! BETA version. Please report issues ${bugs.url}`,
+  `v${version} - Warning!!! BETA version. Please report issues here ${bugs.url}`,
 )
 
 storage.init()

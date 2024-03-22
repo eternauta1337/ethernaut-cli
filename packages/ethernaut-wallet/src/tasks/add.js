@@ -16,7 +16,7 @@ const task = require('../scopes/wallet')
     'pk',
     'The private key of the wallet or "random". Pass "random" or an empty string to generate a private key.',
     'random',
-    types.bytes32,
+    types.string,
   )
   .setAction(async ({ alias, pk }) => {
     try {
