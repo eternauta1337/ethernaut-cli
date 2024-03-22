@@ -48,6 +48,10 @@ function hasUserConsent() {
 }
 
 function reportError(error) {
+  if (isRunningOnCiServer()) {
+    return
+  }
+
   if (!_sentryInitialized) {
     initializeSentry()
   }
