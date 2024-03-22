@@ -23,6 +23,7 @@
     "ethernaut": "./ethernaut"
   },
   "files": [
+    "src/",
     "hardhat.config.js",
     "ethernaut"
   ],
