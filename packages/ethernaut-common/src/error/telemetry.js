@@ -34,6 +34,10 @@ function queryTelemetryConsent() {
 }
 
 function hasUserConsent() {
+  if (isRunningOnCiServer()) {
+    return false
+  }
+
   if (_consent !== undefined) {
     return _consent
   }
