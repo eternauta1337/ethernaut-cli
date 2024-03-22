@@ -8,7 +8,7 @@
     "compile": "npx hardhat compile",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
     "extract": "node ./scripts/extract.js",
-    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "peerDependencies": {
     "hardhat": "^2.22.2"
@@ -21,7 +21,8 @@
     "hardhat": "^2.22.2",
     "nyc": "^15.1.0",
     "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
-    "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3"
+    "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3",
+    "nyc-report-lcov-absolute": "^1.0.0"
   },
   "author": "theethernaut",
   "license": "ISC",

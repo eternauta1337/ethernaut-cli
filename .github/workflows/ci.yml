@@ -38,6 +38,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-common && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-util:
     runs-on: ubuntu-latest
     strategy:
@@ -53,6 +58,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-util-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -68,6 +78,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -83,6 +98,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-interact:
     runs-on: ubuntu-latest
     strategy:
@@ -104,6 +124,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-interact-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -125,6 +150,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-challenges:
     runs-on: ubuntu-latest
     strategy:
@@ -146,6 +176,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-challenges && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-ai:
     runs-on: ubuntu-latest
     strategy:
@@ -161,6 +196,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-ai-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -176,6 +216,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-network:
     runs-on: ubuntu-latest
     strategy:
@@ -193,6 +238,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-network-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -210,6 +260,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-wallet:
     runs-on: ubuntu-latest
     strategy:
@@ -231,6 +286,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-wallet-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -252,6 +312,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet-ui && npm t
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: theethernaut/ethernaut-cli
   ethernaut-cli:
     runs-on: ubuntu-latest
     strategy:

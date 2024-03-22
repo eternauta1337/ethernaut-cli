@@ -7,7 +7,7 @@
     "build": "npm run install:test",
     "compile": "cd test/fixture-projects/basic-project && npx hardhat compile",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
-    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "author": "theethernaut",
   "license": "ISC",
@@ -20,7 +20,8 @@
   },
   "devDependencies": {
     "hardhat": "^2.22.2",
-    "nyc": "^15.1.0"
+    "nyc": "^15.1.0",
+    "nyc-report-lcov-absolute": "^1.0.0"
   },
   "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }
