@@ -14,6 +14,8 @@ It can also be used as a regular cli:
 
 And also features an interactive mode that allows easy navigation of tasks and collection of task arguments.
 
+[![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU)](https://codecov.io/github/theethernaut/ethernaut-cli)
+
 ## Installation
 
 `npm i -g ethernaut-cli`
