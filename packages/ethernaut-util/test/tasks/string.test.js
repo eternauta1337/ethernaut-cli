@@ -52,6 +52,6 @@ describe('string', function () {
     } catch (err) {
       error = err.message
     }
-    assert.ok(error.includes('Invalid bytes32'), error)
+    assert.ok(error.includes('Invalid bytes'), error)
   })
 })

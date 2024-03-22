@@ -3,7 +3,9 @@ const chalkAnimation = require('chalk-animation')
 const { version, bugs } = require('./package.json')
 const storage = require('ethernaut-common/src/io/storage')
 const { refreshEnv } = require('ethernaut-common/src/io/env')
-const { queryTelemetryConsent } = require('ethernaut-common/src/util/telemetry')
+const {
+  queryTelemetryConsent,
+} = require('ethernaut-common/src/error/telemetry')
 
 refreshEnv()
 
