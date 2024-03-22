@@ -34,11 +34,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -54,11 +49,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -74,11 +64,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -94,11 +79,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -114,11 +94,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -140,11 +115,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -166,11 +136,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -192,11 +157,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -212,11 +172,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -232,11 +187,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -254,11 +204,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -276,11 +221,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -302,11 +242,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -328,12 +263,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run compile --if-present
+      - run: cd packages/ethernaut-cli && npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: theethernaut/ethernaut-cli
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm run compile --if-present
-      - run: cd packages/ethernaut-cli && npm t
