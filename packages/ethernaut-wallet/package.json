@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-wallet",
-  "version": "1.1.3",
+  "version": "1.1.10",
   "description": "Tasks for interacting from different Ethereum accounts",
   "main": "src/index.js",
   "scripts": {
