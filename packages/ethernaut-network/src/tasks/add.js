@@ -2,6 +2,7 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { validateVarName } = require('ethernaut-common/src/util/name')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/network')
   .task('add', 'Adds a network to the cli')
@@ -20,7 +21,8 @@ require('../scopes/network')
   .setAction(async ({ alias, url }) => {
     try {
       if (!validateVarName(alias)) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-network',
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
         )
       }
@@ -28,7 +30,10 @@ require('../scopes/network')
       const networks = storage.readNetworks()
 
       if (alias in networks) {
-        throw new Error(`The network alias ${alias} already exists`)
+        throw new EthernautCliError(
+          'ethernaut-network',
+          `The network alias ${alias} already exists`,
+        )
       }
 
       networks[alias] = {

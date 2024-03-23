@@ -53,19 +53,13 @@ function reportError(error) {
     return
   }
 
-  if (error instanceof EthernautCliError && error.shouldBeReported === false) {
-    return
-  }
-
   if (!_sentryInitialized) {
     initializeSentry()
   }
 
-  if (error.shouldBeReported === false) {
-    debug.log(
-      'Error identified as EthernautCliError with shouldBeReported as false, skipping Sentry report',
-      'telemetry',
-    )
+  // Ethernaut CLI specific errors marked not to be reported are ignored,
+  // But all other errors are reported to Sentry
+  if (error instanceof EthernautCliError && error.shouldBeReported === false) {
     return
   }
 

@@ -1,5 +1,6 @@
 const axios = require('axios')
 const debug = require('ethernaut-common/src/ui/debug')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 class EtherscanApi {
   constructor(apiKey, baseUrl) {
@@ -21,7 +22,10 @@ class EtherscanApi {
     const data = result[0]
 
     if (data.ABI === 'Contract source code not verified') {
-      throw new Error('Contract source code not verified')
+      throw new EthernautCliError(
+        'ethernaut-interact',
+        'Contract source code not verified',
+      )
     }
 
     data.ABI = JSON.parse(data.ABI)
@@ -59,13 +63,19 @@ class EtherscanApi {
 
     // Http error
     if (response.status !== 200) {
-      throw new Error(`Http status error: ${response.status}`)
+      throw new EthernautCliError(
+        'ethernaut-interact',
+        `Http status error: ${response.status}`,
+      )
     }
 
     // Api error
     if (response.data.status !== '1') {
       debug.log(response.data, 'interact')
-      throw new Error(`Etherscan api error: ${response.data.result}`)
+      throw new EthernautCliError(
+        'ethernaut-interact',
+        `Etherscan api error: ${response.data.result}`,
+      )
     }
 
     return response.data.result

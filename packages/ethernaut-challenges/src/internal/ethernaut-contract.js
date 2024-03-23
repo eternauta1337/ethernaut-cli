@@ -1,5 +1,6 @@
 const helper = require('./helper')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = async function getEthernautContract(hre) {
   const network = await getNetworkName(hre)
@@ -15,7 +16,10 @@ module.exports = async function getEthernautContract(hre) {
   // Check if there is code at the game address
   const code = await hre.ethers.provider.getCode(gameAddress)
   if (code === '0x') {
-    throw new Error('No code at the game address')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'No code at the game address',
+    )
   }
 
   return ethernaut

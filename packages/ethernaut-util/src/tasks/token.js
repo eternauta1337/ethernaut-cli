@@ -3,6 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const { chains } = require('ethernaut-common/src/data/chains')
 const { tokens } = require('ethernaut-common/src/data/tokens')
 const similarity = require('string-similarity')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/util')
   .task(
@@ -32,7 +33,10 @@ require('../scopes/util')
       if (chainInfo.chainId > 0) {
         candidates = tokens.filter((t) => t.chainId === chainInfo.chainId)
         if (!candidates || candidates.length === 0) {
-          throw new Error(`Cannot find token info for ${filter}`)
+          throw new EthernautCliError(
+            'ethernaut-util',
+            `Cannot find token info for ${filter}`,
+          )
         }
       }
 
@@ -46,7 +50,10 @@ require('../scopes/util')
         candidates.map((c) => c.symbol.toLowerCase()),
       )
       if (!nameMatches && !symbolMatches) {
-        throw new Error(`Cannot find token info for ${filter}`)
+        throw new EthernautCliError(
+          'ethernaut-util',
+          `Cannot find token info for ${filter}`,
+        )
       }
 
       // Sort by rating and add the associated candidate
@@ -135,7 +142,10 @@ async function identifyNetwork(chain, hre) {
       (c) => c.name.toLowerCase() === chain.toLowerCase(),
     )
     if (!chainInfo) {
-      throw new Error(`Cannot find network ${chain}`)
+      throw new EthernautCliError(
+        'ethernaut-util',
+        `Cannot find network ${chain}`,
+      )
     }
     return {
       chainId: chainInfo.chainId,

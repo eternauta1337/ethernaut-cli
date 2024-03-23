@@ -3,6 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { chains } = require('ethernaut-common/src/data/chains')
 const { isUrl } = require('ethernaut-common/src/util/url')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/network')
   .task('info', 'Provides information about a network')
@@ -15,7 +16,10 @@ require('../scopes/network')
   .setAction(async ({ alias }, hre) => {
     try {
       if (!alias) {
-        throw new Error('You must specify a network')
+        throw new EthernautCliError(
+          'ethernaut-network',
+          'You must specify a network',
+        )
       }
 
       let info = {}
@@ -28,7 +32,10 @@ require('../scopes/network')
       }
 
       if (!info.url) {
-        throw new Error(`Unknown network: ${alias}`)
+        throw new EthernautCliError(
+          'ethernaut-network',
+          `Unknown network: ${alias}`,
+        )
       }
 
       info = await populateRemoteChainInfo(info, hre)
@@ -50,7 +57,7 @@ require('../scopes/network')
 
 function populateLocalChainInfo(info) {
   if (!info.chainId) {
-    throw new Error('No chain ID provided')
+    throw new EthernautCliError('ethernaut-network', 'No chain ID provided')
   }
 
   const localInfo = chains.find((c) => c.chainId === info.chainId)
@@ -63,7 +70,7 @@ function populateLocalChainInfo(info) {
 
 async function populateRemoteChainInfo(info, hre) {
   if (!info.url) {
-    throw new Error('No URL provided')
+    throw new EthernautCliError('ethernaut-network', 'No URL provided')
   }
 
   const provider = new hre.ethers.JsonRpcProvider(info.url)

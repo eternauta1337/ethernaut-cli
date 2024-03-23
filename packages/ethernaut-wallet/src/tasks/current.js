@@ -7,14 +7,16 @@ require('../scopes/wallet')
     try {
       const signers = storage.readSigners()
       if (Object.keys(signers).length < 2) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-wallet',
           'No wallets found. Please use the create task to add one.',
         )
       }
 
       const signer = signers[signers.activeSigner]
       if (!signer) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-wallet',
           'No active wallet found. Please use the activate task to set one.',
         )
       }

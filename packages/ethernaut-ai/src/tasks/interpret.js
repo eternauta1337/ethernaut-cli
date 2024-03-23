@@ -8,6 +8,7 @@ const spinner = require('ethernaut-common/src/ui/spinner')
 const { prompt } = require('ethernaut-common/src/ui/prompt')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
 const wait = require('ethernaut-common/src/util/wait')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 let _noConfirm
 let _thread
@@ -78,7 +79,10 @@ require('../scopes/ai')
       if (response) {
         return output.resultBox(response, 'Assistant response')
       } else {
-        throw new Error('Something went wrong with the query')
+        throw new EthernautCliError(
+          'ethernaut-ai',
+          'Something went wrong with the query',
+        )
       }
     } catch (err) {
       return output.errorBox(err)
@@ -164,7 +168,7 @@ async function explain(action) {
   if (response) {
     output.infoBox(response, 'Explanation')
   } else {
-    throw new Error('No response from assistant')
+    throw new EthernautCliError('ethernaut-ai', 'No response from assistant')
   }
 }
 

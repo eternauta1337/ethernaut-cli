@@ -1,6 +1,7 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/wallet')
   .task('watch', 'Adds a wallet with no private key')
@@ -21,7 +22,10 @@ require('../scopes/wallet')
       const signers = storage.readSigners()
 
       if (alias in signers) {
-        throw new Error(`The wallet ${alias} already exists`)
+        throw new EthernautCliError(
+          'ethernaut-wallet',
+          `The wallet ${alias} already exists`,
+        )
       }
 
       signers[alias] = {

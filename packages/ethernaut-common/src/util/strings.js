@@ -1,3 +1,5 @@
+const EthernautCliError = require('ethernaut-common/src/error/error')
+
 function findLineWith(text, fullText) {
   // Escape special characters in the lineStart string to safely use it in a regular expression
   const escapedLineStart = text.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
@@ -12,7 +14,10 @@ function findLineWith(text, fullText) {
   if (match) {
     return match[1].trim()
   } else {
-    throw new Error(`Line starting with "${text}" not found`)
+    throw new EthernautCliError(
+      'ethernaut-common',
+      `Line starting with "${text}" not found`,
+    )
   }
 }
 

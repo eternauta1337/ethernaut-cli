@@ -1,12 +1,16 @@
 const fs = require('fs-extra')
 const path = require('path')
 const debug = require('ethernaut-common/src/ui/debug')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = function copyFiles(src, dst) {
   debug.log(`>>> Copying files from ${src} to ${dst}`, 'common')
 
   if (!fs.existsSync(src)) {
-    throw new Error(`Source directory ${src} does not exist`)
+    throw new EthernautCliError(
+      'ethernaut-common',
+      `Source directory ${src} does not exist`,
+    )
   }
 
   fs.ensureDirSync(dst)

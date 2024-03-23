@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const { getEthernautFolderPath } = require('ethernaut-common/src/io/storage')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 function getGamedata() {
   const filePath = path.join(getGamedataPath(), 'gamedata.json')
@@ -23,7 +24,7 @@ function getDeploymentInfo(network) {
     msg += '- Sepolia Arbitrum\n'
     msg += '- Sepolia Optimism\n'
     msg += '- Sepolia'
-    throw new Error(msg)
+    throw new EthernautCliError('ethernaut-challenges', msg)
   }
 
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))

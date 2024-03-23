@@ -1,4 +1,5 @@
 const spinner = require('ethernaut-common/src/ui/spinner')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = async function findLevelCompletedEvents(
   ethernaut,
@@ -6,7 +7,10 @@ module.exports = async function findLevelCompletedEvents(
   levelAddress,
 ) {
   if (playerAddress === undefined) {
-    throw new Error('Player address is required')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Player address is required',
+    )
   }
 
   spinner.progress('Querying LevelCompletedLog events', 'check')

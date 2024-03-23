@@ -19,6 +19,7 @@ const {
   warnHighGasCost,
   warnInsufficientFunds,
 } = require('../internal/gas-util')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = async function interact({
   abi,
@@ -30,11 +31,6 @@ module.exports = async function interact({
 }) {
   // Parse params (incoming as string)
   params = params ? params.split(',') : []
-
-  if (!address) throw new Error('Address is required')
-  if (!abi) throw new Error('abi is required')
-  if (!fn) throw new Error('fn is required')
-  if (!value) value = '0'
 
   debug.log('Interacting with:', 'interact')
   debug.log(`abi: ${abi}`, 'interact')
@@ -63,7 +59,8 @@ module.exports = async function interact({
 
   // Double check params
   if (abiFn.inputs.length !== params.length) {
-    throw new Error(
+    throw new EthernautCliError(
+      'ethernaut-interact',
       `Invalid number of parameters. Expected ${abiFn.inputs.length}, got ${params.length}`,
     )
   }
@@ -137,7 +134,10 @@ async function executeWrite(
     spinner.success(`Gas estimated: ${gasAmount}`, 'interact')
   } catch (err) {
     spinner.fail('Gas estimation failed', 'interact')
-    throw new Error(`Execution reverted during gas estimation: ${err.message}`)
+    throw new EthernautCliError(
+      'ethernaut-interact',
+      `Execution reverted during gas estimation: ${err.message}`,
+    )
   }
 
   const gasData = await getGasData(hre, gasAmount)

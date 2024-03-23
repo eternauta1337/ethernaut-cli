@@ -2,6 +2,7 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { setNetwork } = require('../internal/set-network')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/network')
   .task('set', 'Sets the active network')
@@ -16,7 +17,10 @@ require('../scopes/network')
       const networks = storage.readNetworks()
 
       if (!(alias in networks)) {
-        throw new Error(`The network alias ${alias} does not exist`)
+        throw new EthernautCliError(
+          'ethernaut-network',
+          `The network alias ${alias} does not exist`,
+        )
       }
 
       await setNetwork(alias, hre)

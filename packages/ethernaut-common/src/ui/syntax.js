@@ -1,5 +1,6 @@
 const camelToKebabCase = require('ethernaut-common/src/util/kebab')
 const debug = require('ethernaut-common/src/ui/debug')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = function toCliSyntax(task, args) {
   debug.log(
@@ -21,7 +22,8 @@ module.exports = function toCliSyntax(task, args) {
     if (paramDef) isOption = true
     else paramDef = task.positionalParamDefinitions.find((p) => p.name === name)
     if (!paramDef) {
-      throw new Error(
+      throw new EthernautCliError(
+        'ethernaut-common',
         `No definition found for parameter ${name}, and task ${task.name}, with args ${JSON.stringify(args, null, 2)}`,
       )
     }

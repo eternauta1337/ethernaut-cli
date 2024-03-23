@@ -1,12 +1,16 @@
 const storage = require('./storage')
 const output = require('ethernaut-common/src/ui/output')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 async function setSigner(alias) {
   const signers = storage.readSigners()
 
   const signer = signers[alias]
   if (!signer) {
-    throw new Error(`The signer ${alias} does not exist`)
+    throw new EthernautCliError(
+      'ethernaut-wallet',
+      `The signer ${alias} does not exist`,
+    )
   }
 
   signers.activeSigner = alias
@@ -16,7 +20,10 @@ async function setSigner(alias) {
 
 function getWallet(hre, pk) {
   if (pk === undefined) {
-    throw new Error('No private key available for this wallet')
+    throw new EthernautCliError(
+      'ethernaut-wallet',
+      'No private key available for this wallet',
+    )
   }
 
   return new hre.ethers.Wallet(pk, hre.ethers.provider)
@@ -31,7 +38,10 @@ async function getSigner(address) {
 
   const signer = signers.values.find((signer) => signer.address === address)
   if (!signer) {
-    throw new Error(`The signer ${address} does not exist`)
+    throw new EthernautCliError(
+      'ethernaut-wallet',
+      `The signer ${address} does not exist`,
+    )
   }
 
   return getWallet(hre, signer.pk)
@@ -102,7 +112,10 @@ function addSigner(hre, alias, pk) {
 
   const address = getWallet(hre, pk).address
   if (!address) {
-    throw new Error(`Invalid private key: ${pk}`)
+    throw new EthernautCliError(
+      'ethernaut-wallet',
+      `Invalid private key: ${pk}`,
+    )
   }
 
   signers[alias] = {

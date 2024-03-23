@@ -4,6 +4,7 @@ const { execSync } = require('child_process')
 const { isUrl } = require('ethernaut-common/src/util/url')
 const storage = require('../internal/storage')
 const applyEnvVars = require('../internal/apply-env-vars')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 const task = require('../scopes/network')
   .task('node', 'Starts a local development chain, potentially with a fork.')
@@ -45,7 +46,10 @@ async function getForkUrl(fork) {
     const networks = storage.readNetworks()
     const network = networks[fork]
     if (!network) {
-      throw new Error(`Network ${fork} not found`)
+      throw new EthernautCliError(
+        'ethernaut-network',
+        `Network ${fork} not found`,
+      )
     }
     urlInfo.url = network.url
   }

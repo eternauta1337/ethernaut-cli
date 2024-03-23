@@ -3,6 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const { validateVarName } = require('ethernaut-common/src/util/name')
 const { addSigner, generatePk } = require('../internal/signers')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 const task = require('../scopes/wallet')
   .task('add', 'Adds a wallet')
@@ -21,7 +22,8 @@ const task = require('../scopes/wallet')
   .setAction(async ({ alias, pk }) => {
     try {
       if (!validateVarName(alias)) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-wallet',
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
         )
       }
@@ -29,7 +31,10 @@ const task = require('../scopes/wallet')
       const signers = storage.readSigners()
 
       if (alias in signers) {
-        throw new Error(`The wallet ${alias} already exists`)
+        throw new EthernautCliError(
+          'ethernaut-wallet',
+          `The wallet ${alias} already exists`,
+        )
       }
 
       if (pk === 'random' || pk === '') {

@@ -1,5 +1,6 @@
 const storage = require('../storage')
 const openai = require('../openai')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 class Thread {
   constructor(name = 'default', newThread) {
@@ -54,7 +55,7 @@ class Thread {
     }
 
     if (msgs.length === 0) {
-      throw new Error('No message found')
+      throw new EthernautCliError('ethernaut-ai', 'No message found')
     }
 
     const msg = msgs.sort((a, b) => b.created_at - a.created_at)[0]

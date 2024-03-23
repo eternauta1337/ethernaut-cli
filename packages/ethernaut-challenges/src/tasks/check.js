@@ -3,6 +3,7 @@ const helper = require('../internal/helper')
 const output = require('ethernaut-common/src/ui/output')
 const findLevelCompletedEvents = require('../internal/level-completed-logs')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/challenges')
   .task(
@@ -22,7 +23,7 @@ require('../scopes/challenges')
 
 async function checkLevel(level, hre) {
   if (level < 1) {
-    throw new Error('Invalid level number')
+    throw new EthernautCliError('ethernaut-challenges', 'Invalid level number')
   }
 
   const network = await getNetworkName(hre)

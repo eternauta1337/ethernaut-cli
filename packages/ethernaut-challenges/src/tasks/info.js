@@ -5,6 +5,7 @@ const path = require('path')
 const output = require('ethernaut-common/src/ui/output')
 const debug = require('ethernaut-common/src/ui/debug')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/challenges')
   .task(
@@ -39,13 +40,16 @@ require('../scopes/challenges')
 async function getLevelInfo(level) {
   const idx = parseInt(level) - 1
   if (idx < 0) {
-    throw new Error('Invalid level number')
+    throw new EthernautCliError('ethernaut-challenges', 'Invalid level number')
   }
 
   const gamedata = helper.getGamedata()
   const levelInfo = gamedata.levels[idx]
   if (!levelInfo) {
-    throw new Error(`Level ${level} not found`)
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      `Level ${level} not found`,
+    )
   }
   debug.log(`Level info: ${JSON.stringify(levelInfo, null, 2)}`, 'challenges')
 

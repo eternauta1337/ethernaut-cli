@@ -3,6 +3,7 @@ const path = require('path')
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/interact')
   .task('add-abi', 'Add an ABI to the list of known ABI paths')
@@ -22,11 +23,17 @@ require('../scopes/interact')
     output.info(`Adding ${abiPath} to the list of known ABIs...`)
     try {
       if (path.extname(abiPath) !== '.json') {
-        throw new Error(`Invalid JSON file: "${abiPath}"`)
+        throw new EthernautCliError(
+          'ethernaut-interact',
+          `Invalid JSON file: "${abiPath}"`,
+        )
       }
 
       if (!fs.existsSync(abiPath)) {
-        throw new Error(`No file at ${abiPath}`)
+        throw new EthernautCliError(
+          'ethernaut-interact',
+          `No file at ${abiPath}`,
+        )
       }
 
       let filename = name || path.basename(abiPath)
@@ -36,7 +43,8 @@ require('../scopes/interact')
 
       let abis = storage.readAbiFiles().map((p) => p.path)
       if (abis.includes(targetPath)) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-interact',
           `${targetPath} already exists. Try specifying a different name?`,
         )
       }
@@ -44,7 +52,8 @@ require('../scopes/interact')
       fs.copySync(abiPath, targetPath)
 
       if (!fs.existsSync(targetPath)) {
-        throw new Error(
+        throw new EthernautCliError(
+          'ethernaut-interact',
           `There was an error while copying the file to ${targetPath}`,
         )
       }

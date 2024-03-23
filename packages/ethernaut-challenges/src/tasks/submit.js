@@ -2,6 +2,7 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const debug = require('ethernaut-common/src/ui/debug')
 const getEthernautContract = require('../internal/ethernaut-contract')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/challenges')
   .task(
@@ -31,10 +32,16 @@ async function submitInstance(address, hre) {
   debug.log(JSON.stringify(receipt, null, 2), 'interact')
 
   if (receipt.status === 0) {
-    throw new Error('Level not completed: Submission transaction failed')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Level not completed: Submission transaction failed',
+    )
   }
   if (receipt.logs.length === 0) {
-    throw new Error('Level not completed: No events emitted upon submission')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Level not completed: No events emitted upon submission',
+    )
   }
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log))

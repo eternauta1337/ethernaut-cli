@@ -6,6 +6,7 @@ const {
   getEtherscanUrl,
 } = require('ethernaut-interact/src/internal/etherscan')
 const { checkEnvVar } = require('ethernaut-common/src/io/env')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/interact')
   .task(
@@ -43,7 +44,7 @@ require('../scopes/interact')
       const info = await etherscan.getContractCode(address)
 
       if (!info) {
-        throw new Error('Contract not found')
+        throw new EthernautCliError('ethernaut-interact', 'Contract not found')
       }
 
       let strs = []

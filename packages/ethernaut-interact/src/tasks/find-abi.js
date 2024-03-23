@@ -2,6 +2,7 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
 const similarity = require('string-similarity')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/interact')
   .task(
@@ -22,7 +23,7 @@ require('../scopes/interact')
         filter = filter.toLowerCase()
         abis = abis.filter((a) => a.name.toLowerCase().includes(filter))
         if (abis.length === 0) {
-          throw new Error('No ABIs found')
+          throw new EthernautCliError('ethernaut-interact', 'No ABIs found')
         }
 
         const matches = similarity.findBestMatch(
@@ -42,7 +43,7 @@ require('../scopes/interact')
       }
 
       if (abis.length === 0) {
-        throw new Error('No ABIs found')
+        throw new EthernautCliError('ethernaut-interact', 'No ABIs found')
       }
 
       const paths = abis.map((a) => a.path)

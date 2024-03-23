@@ -5,6 +5,7 @@ const { getNetworkName } = require('ethernaut-common/src/util/network')
 const getEthernautContract = require('../internal/ethernaut-contract')
 const spinner = require('ethernaut-common/src/ui/spinner')
 const debug = require('ethernaut-common/src/ui/debug')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/challenges')
   .task(
@@ -37,7 +38,10 @@ async function createInstance(level, hre) {
   const tx = await ethernaut.createLevelInstance(levelAddress)
   const receipt = await tx.wait()
   if (receipt.status !== 1) {
-    throw new Error('Instance creation transaction reverted')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Instance creation transaction reverted',
+    )
   }
 
   spinner.success(
@@ -47,7 +51,10 @@ async function createInstance(level, hre) {
 
   const events = receipt.logs.map((log) => ethernaut.interface.parseLog(log))
   if (events.length === 0) {
-    throw new Error('No events emitted during instance creation')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'No events emitted during instance creation',
+    )
   }
 
   const createdEvent = events[0]

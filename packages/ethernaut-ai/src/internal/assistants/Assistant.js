@@ -4,6 +4,7 @@ const openai = require('../openai')
 const debug = require('ethernaut-common/src/ui/debug')
 const output = require('ethernaut-common/src/ui/output')
 const EventEmitter = require('events')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 class Assistant extends EventEmitter {
   constructor(name, config) {
@@ -69,7 +70,10 @@ class Assistant extends EventEmitter {
       return undefined
     }
     if (status === 'failed') {
-      throw new Error(`Run failed: ${status} - ${runInfo.last_error.message}`)
+      throw new EthernautCliError(
+        'ethernaut-ai',
+        `Run failed: ${status} - ${runInfo.last_error.message}`,
+      )
     }
 
     // Action
@@ -87,7 +91,8 @@ class Assistant extends EventEmitter {
           }
           break
         default:
-          throw new Error(
+          throw new EthernautCliError(
+            'ethernaut-ai',
             `Unknown action request type: ${required_action.type}`,
           )
       }
