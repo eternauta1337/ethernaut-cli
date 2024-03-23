@@ -40,6 +40,7 @@ This plugin adds the tasks listed below.
 - token Tries to find the address of a token, given its name or symbol in the current network
 - unit Converts between different units of Ether
 - gas Fetch gas info on the current network
+- chain Finds a network name from a chain ID, or vice versa
 
 ## Environment extensions
 
