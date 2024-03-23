@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config')
 const { isAddress } = require('../util/address')
 const output = require('../ui/output')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = {
   name: 'address',
@@ -12,10 +13,14 @@ module.exports = {
       const validEns = argValue.endsWith('.eth')
       const validAddress = isAddress(argValue)
       if (!validAddress && !validEns) {
-        throw new Error(`Invalid address ${argValue}`)
+        throw new EthernautCliError(
+          'ethernaut-common',
+          `Invalid address ${argValue}`,
+          false,
+        )
       }
     } catch (err) {
-      output.errorBox(err, false)
+      output.errorBox(err)
 
       if (typeof describe === 'function') {
         throw err

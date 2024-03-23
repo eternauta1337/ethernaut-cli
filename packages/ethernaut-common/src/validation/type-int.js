@@ -1,5 +1,6 @@
 const { types } = require('hardhat/config')
 const output = require('../ui/output')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = {
   name: 'int',
@@ -10,7 +11,13 @@ module.exports = {
     try {
       types.int.validate(argName, parseInt(argValue, 10))
     } catch (err) {
-      output.errorBox(err, false)
+      const ethErr = new EthernautCliError(
+        'ethernaut-common',
+        err.message,
+        false,
+      )
+
+      output.errorBox(ethErr)
 
       if (typeof describe === 'function') {
         throw err

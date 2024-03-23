@@ -1,6 +1,7 @@
 const { types } = require('hardhat/config')
 const { isBytes } = require('../util/bytes')
 const output = require('../ui/output')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 module.exports = {
   name: 'bytes',
@@ -9,10 +10,14 @@ module.exports = {
     try {
       types.string.validate(argName, argValue)
       if (!isBytes(argValue)) {
-        throw new Error(`Invalid bytes: ${argValue}`)
+        throw new EthernautCliError(
+          'ethernaut-common',
+          `Invalid bytes: ${argValue}`,
+          false,
+        )
       }
     } catch (err) {
-      output.errorBox(err, false)
+      output.errorBox(err)
 
       if (typeof describe === 'function') {
         throw err

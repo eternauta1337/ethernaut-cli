@@ -3,6 +3,7 @@ const { prompt } = require('ethernaut-common/src/ui/prompt')
 const Sentry = require('@sentry/node')
 const debug = require('ethernaut-common/src/ui/debug')
 const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
+const EthernautCliError = require('../error/error')
 
 let _consent
 let _sentryInitialized
@@ -49,6 +50,10 @@ function hasUserConsent() {
 
 function reportError(error) {
   if (isRunningOnCiServer()) {
+    return
+  }
+
+  if (error instanceof EthernautCliError && error.shouldBeReported === false) {
     return
   }
 

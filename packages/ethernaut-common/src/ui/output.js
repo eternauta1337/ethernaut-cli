@@ -3,7 +3,6 @@ const boxen = require('boxen')
 const debug = require('./debug')
 const spinner = require('./spinner')
 const telemetry = require('../error/telemetry')
-const EthernautCliError = require('../error/error')
 
 let _muted = false
 let _errorVerbose = false
@@ -41,7 +40,7 @@ function warnBox(msg, title = 'Warning') {
   return msg
 }
 
-function errorBox(error, shouldBeReported = true) {
+function errorBox(error) {
   debug.log(error)
 
   box(_errorVerbose ? error.stack : error.message, {
@@ -52,14 +51,7 @@ function errorBox(error, shouldBeReported = true) {
   })
 
   if (telemetry.hasUserConsent()) {
-    const ethernautError = new EthernautCliError(
-      'ethernaut-cli',
-      error.message,
-      shouldBeReported,
-    )
-    ethernautError.stack = error.stack
-
-    telemetry.reportError(ethernautError)
+    telemetry.reportError(error)
   }
 
   return error.message
