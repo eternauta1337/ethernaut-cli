@@ -25,6 +25,7 @@ const task = require('../scopes/wallet')
         throw new EthernautCliError(
           'ethernaut-wallet',
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
+          false,
         )
       }
 
@@ -34,6 +35,7 @@ const task = require('../scopes/wallet')
         throw new EthernautCliError(
           'ethernaut-wallet',
           `The wallet ${alias} already exists`,
+          false,
         )
       }
 

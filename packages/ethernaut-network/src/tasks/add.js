@@ -24,6 +24,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           `Invalid alias: ${alias}. The alias must be a valid JavaScript variable name.`,
+          false,
         )
       }
 
@@ -33,6 +34,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           `The network alias ${alias} already exists`,
+          false,
         )
       }
 

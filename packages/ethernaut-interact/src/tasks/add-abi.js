@@ -26,6 +26,7 @@ require('../scopes/interact')
         throw new EthernautCliError(
           'ethernaut-interact',
           `Invalid JSON file: "${abiPath}"`,
+          false,
         )
       }
 
@@ -33,6 +34,7 @@ require('../scopes/interact')
         throw new EthernautCliError(
           'ethernaut-interact',
           `No file at ${abiPath}`,
+          false,
         )
       }
 
@@ -46,6 +48,7 @@ require('../scopes/interact')
         throw new EthernautCliError(
           'ethernaut-interact',
           `${targetPath} already exists. Try specifying a different name?`,
+          false,
         )
       }
 

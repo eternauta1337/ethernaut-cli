@@ -23,7 +23,11 @@ require('../scopes/interact')
         filter = filter.toLowerCase()
         abis = abis.filter((a) => a.name.toLowerCase().includes(filter))
         if (abis.length === 0) {
-          throw new EthernautCliError('ethernaut-interact', 'No ABIs found')
+          throw new EthernautCliError(
+            'ethernaut-interact',
+            'No ABIs found',
+            false,
+          )
         }
 
         const matches = similarity.findBestMatch(
@@ -43,7 +47,11 @@ require('../scopes/interact')
       }
 
       if (abis.length === 0) {
-        throw new EthernautCliError('ethernaut-interact', 'No ABIs found')
+        throw new EthernautCliError(
+          'ethernaut-interact',
+          'No ABIs found',
+          false,
+        )
       }
 
       const paths = abis.map((a) => a.path)

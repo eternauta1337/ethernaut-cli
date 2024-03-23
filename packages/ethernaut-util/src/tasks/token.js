@@ -36,6 +36,7 @@ require('../scopes/util')
           throw new EthernautCliError(
             'ethernaut-util',
             `Cannot find token info for ${filter}`,
+            false,
           )
         }
       }
@@ -53,6 +54,7 @@ require('../scopes/util')
         throw new EthernautCliError(
           'ethernaut-util',
           `Cannot find token info for ${filter}`,
+          false,
         )
       }
 

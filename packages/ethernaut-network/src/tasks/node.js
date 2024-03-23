@@ -49,6 +49,7 @@ async function getForkUrl(fork) {
       throw new EthernautCliError(
         'ethernaut-network',
         `Network ${fork} not found`,
+        false,
       )
     }
     urlInfo.url = network.url

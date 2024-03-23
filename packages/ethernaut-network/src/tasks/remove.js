@@ -19,6 +19,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           'The mainnet network cannot be removed',
+          false,
         )
       }
 
@@ -26,6 +27,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           `The network alias ${alias} does not exist`,
+          false,
         )
       }
 

@@ -13,6 +13,7 @@ require('../scopes/util')
         throw new EthernautCliError(
           'ethernaut-util',
           'Unable to resolve ens name',
+          false,
         )
       }
 

@@ -10,6 +10,7 @@ async function setSigner(alias) {
     throw new EthernautCliError(
       'ethernaut-wallet',
       `The signer ${alias} does not exist`,
+      false,
     )
   }
 
@@ -41,6 +42,7 @@ async function getSigner(address) {
     throw new EthernautCliError(
       'ethernaut-wallet',
       `The signer ${address} does not exist`,
+      false,
     )
   }
 
@@ -115,6 +117,7 @@ function addSigner(hre, alias, pk) {
     throw new EthernautCliError(
       'ethernaut-wallet',
       `Invalid private key: ${pk}`,
+      false,
     )
   }
 

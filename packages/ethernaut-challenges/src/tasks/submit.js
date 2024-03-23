@@ -41,6 +41,7 @@ async function submitInstance(address, hre) {
     throw new EthernautCliError(
       'ethernaut-challenges',
       'Level not completed: No events emitted upon submission',
+      false,
     )
   }
 

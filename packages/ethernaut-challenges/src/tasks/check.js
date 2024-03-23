@@ -23,7 +23,11 @@ require('../scopes/challenges')
 
 async function checkLevel(level, hre) {
   if (level < 1) {
-    throw new EthernautCliError('ethernaut-challenges', 'Invalid level number')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Invalid level number',
+      false,
+    )
   }
 
   const network = await getNetworkName(hre)

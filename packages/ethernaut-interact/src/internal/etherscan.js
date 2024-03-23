@@ -25,6 +25,7 @@ class EtherscanApi {
       throw new EthernautCliError(
         'ethernaut-interact',
         'Contract source code not verified',
+        false,
       )
     }
 

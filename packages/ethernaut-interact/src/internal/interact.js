@@ -137,6 +137,7 @@ async function executeWrite(
     throw new EthernautCliError(
       'ethernaut-interact',
       `Execution reverted during gas estimation: ${err.message}`,
+      false,
     )
   }
 

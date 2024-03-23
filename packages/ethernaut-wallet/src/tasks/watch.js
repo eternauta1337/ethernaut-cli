@@ -25,6 +25,7 @@ require('../scopes/wallet')
         throw new EthernautCliError(
           'ethernaut-wallet',
           `The wallet ${alias} already exists`,
+          false,
         )
       }
 

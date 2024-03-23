@@ -17,6 +17,7 @@ require('../scopes/wallet')
         throw new EthernautCliError(
           'ethernaut-wallet',
           'You must specify a wallet',
+          false,
         )
       }
 
@@ -30,6 +31,7 @@ require('../scopes/wallet')
         throw new EthernautCliError(
           'ethernaut-wallet',
           `Unknown wallet: ${alias}`,
+          false,
         )
       }
       info.address = signer.address

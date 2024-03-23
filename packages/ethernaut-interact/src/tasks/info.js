@@ -44,7 +44,11 @@ require('../scopes/interact')
       const info = await etherscan.getContractCode(address)
 
       if (!info) {
-        throw new EthernautCliError('ethernaut-interact', 'Contract not found')
+        throw new EthernautCliError(
+          'ethernaut-interact',
+          'Contract not found',
+          false,
+        )
       }
 
       let strs = []

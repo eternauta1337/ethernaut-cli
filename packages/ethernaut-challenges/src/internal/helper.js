@@ -24,7 +24,7 @@ function getDeploymentInfo(network) {
     msg += '- Sepolia Arbitrum\n'
     msg += '- Sepolia Optimism\n'
     msg += '- Sepolia'
-    throw new EthernautCliError('ethernaut-challenges', msg)
+    throw new EthernautCliError('ethernaut-challenges', msg, false)
   }
 
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))

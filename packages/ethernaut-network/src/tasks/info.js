@@ -19,6 +19,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           'You must specify a network',
+          false,
         )
       }
 
@@ -35,6 +36,7 @@ require('../scopes/network')
         throw new EthernautCliError(
           'ethernaut-network',
           `Unknown network: ${alias}`,
+          false,
         )
       }
 

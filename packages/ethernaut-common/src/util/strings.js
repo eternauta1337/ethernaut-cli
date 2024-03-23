@@ -17,6 +17,7 @@ function findLineWith(text, fullText) {
     throw new EthernautCliError(
       'ethernaut-common',
       `Line starting with "${text}" not found`,
+      false,
     )
   }
 }

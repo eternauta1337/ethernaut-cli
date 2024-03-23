@@ -18,6 +18,7 @@ require('../scopes/util')
         throw new EthernautCliError(
           'ethernaut-network',
           'No ens name found for address. Is the primary name configured for this ens?',
+          false,
         )
       }
 

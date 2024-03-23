@@ -20,6 +20,7 @@ module.exports = async function mineTx(tx, contract) {
     throw new EthernautCliError(
       'ethernaut-interact',
       `Transaction mined but execution reverted: ${receipt}`,
+      false,
     )
   }
 

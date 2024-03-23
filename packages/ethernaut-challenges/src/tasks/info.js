@@ -40,7 +40,11 @@ require('../scopes/challenges')
 async function getLevelInfo(level) {
   const idx = parseInt(level) - 1
   if (idx < 0) {
-    throw new EthernautCliError('ethernaut-challenges', 'Invalid level number')
+    throw new EthernautCliError(
+      'ethernaut-challenges',
+      'Invalid level number',
+      false,
+    )
   }
 
   const gamedata = helper.getGamedata()
