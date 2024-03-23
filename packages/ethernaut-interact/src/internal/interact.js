@@ -32,6 +32,8 @@ module.exports = async function interact({
   // Parse params (incoming as string)
   params = params ? params.split(',') : []
 
+  if (!value) value = '0'
+
   debug.log('Interacting with:', 'interact')
   debug.log(`abi: ${abi}`, 'interact')
   debug.log(`address: ${address}`, 'interact')
@@ -155,7 +157,7 @@ async function executeWrite(
   buffer += await printTxSummary({
     signer,
     to: address,
-    value: value,
+    value,
     gasAmount,
     gasPrice: gasData.priceGwei,
     gasCost: gasData.costEth,
