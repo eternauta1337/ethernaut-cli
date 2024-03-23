@@ -32,13 +32,6 @@ module.exports = function checkAutoUpdate(pkg) {
 
   // If there is an update
   if (notifier.update) {
-    notifyUpdate(notifier.update.latest)
-
-    // Has the user opted out of updates indefinitely?
-    if (config.general.autoUpdate === 'never') {
-      return
-    }
-
     // This can happen sometimes due to the sync nature of update-notifier
     if (notifier.update.latest === pkg.version) {
       return
@@ -49,8 +42,15 @@ module.exports = function checkAutoUpdate(pkg) {
       return
     }
 
+    notifyUpdate(notifier.update.latest)
+
     // Is the new version marked to be skipped?
     if (config.general.autoUpdate === notifier.update.latest) {
+      return
+    }
+
+    // Has the user opted out of updates indefinitely?
+    if (config.general.autoUpdate === 'never') {
       return
     }
 
