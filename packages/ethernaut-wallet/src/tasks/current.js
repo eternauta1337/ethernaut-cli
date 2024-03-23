@@ -1,5 +1,6 @@
 const output = require('ethernaut-common/src/ui/output')
 const storage = require('../internal/storage')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/wallet')
   .task('current', 'Shows which wallet is active')
