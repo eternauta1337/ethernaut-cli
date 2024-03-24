@@ -107,7 +107,6 @@ describe('types', function () {
       try {
         string.validate('string', 1)
       } catch (err) {
-        console.log(err)
         assert.equal(
           err.message,
           'HH301: Invalid value 1 for argument string of type string',
