@@ -34,6 +34,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xclip
+        run: sudo apt-get update && sudo apt-get install -y xclip
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
