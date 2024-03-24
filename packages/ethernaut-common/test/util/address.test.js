@@ -3,7 +3,7 @@ const {
   isAddress,
   containsAddress,
   extractAddress,
-} = require('../src/util/address')
+} = require('../../src/util/address')
 
 describe('address', function () {
   describe('isAddress', function () {
