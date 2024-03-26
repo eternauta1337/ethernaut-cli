@@ -3,11 +3,13 @@ const path = require('path')
 const os = require('os')
 const { prompt } = require('./prompt')
 
-module.exports = async function browse() {
-  return browseAt(os.homedir())
+let _prompt
+
+async function browse(hidden = false) {
+  return browseAt(os.homedir(), hidden)
 }
 
-async function browseAt(location) {
+async function browseAt(location, hidden = false) {
   let choices = listFilesAt(location).map((p) => {
     const fullPath = path.resolve(location, p)
     const dir = isDir(fullPath)
@@ -27,12 +29,14 @@ async function browseAt(location) {
     type: 'autocomplete',
     message: 'Select a file or directory',
     choices,
+    show: !hidden,
+    onPrompt: (p) => (_prompt = p),
   })
 
   const nextLocation = path.resolve(location, response)
 
   if (isDir(nextLocation)) {
-    return browseAt(nextLocation)
+    return browseAt(nextLocation, hidden)
   } else {
     return nextLocation
   }
@@ -44,4 +48,14 @@ function isDir(path) {
 
 function listFilesAt(path) {
   return fs.readdirSync(path).filter((p) => !p.startsWith('.'))
+}
+
+function getPrompt() {
+  return _prompt
+}
+
+module.exports = {
+  browse,
+  browseAt,
+  getPrompt,
 }
