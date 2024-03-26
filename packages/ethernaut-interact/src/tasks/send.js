@@ -1,5 +1,5 @@
 const output = require('ethernaut-common/src/ui/output')
-const prompt = require('ethernaut-common/src/ui/prompt')
+const { prompt } = require('ethernaut-common/src/ui/prompt')
 const getBalance = require('../internal/get-balance')
 const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
