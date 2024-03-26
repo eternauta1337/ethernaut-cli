@@ -1,5 +1,5 @@
 const output = require('ethernaut-common/src/ui/output')
-const confirm = require('ethernaut-common/src/ui/confirm')
+const prompt = require('ethernaut-common/src/ui/prompt')
 const getBalance = require('../internal/get-balance')
 const printTxSummary = require('../internal/print-tx-summary')
 const mineTx = require('../internal/mine-tx')
@@ -69,7 +69,13 @@ async function sendEther({ address, value, noConfirm, hre }) {
   })
 
   // Prompt the user for confirmation
-  await confirm('Do you want to proceed with the call?', noConfirm)
+  if (!noConfirm) {
+    const response = await prompt({
+      type: 'confirm',
+      message: 'Do you want to proceed with the call?',
+    })
+    if (!response) return
+  }
 
   // Prepare the tx
   const tx = await signer.sendTransaction({
