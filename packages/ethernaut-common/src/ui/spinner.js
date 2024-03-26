@@ -3,7 +3,6 @@ const cliSpinners = require('cli-spinners')
 const debug = require('ethernaut-common/src/ui/debug')
 
 let _enabled = true
-let _channelErrors = {}
 let _activeChannels = {}
 let _muted = false
 
@@ -26,8 +25,9 @@ function progress(msg, channel = 'default') {
   if (_enabled === false) return debug.log(msg, 'spinner')
 
   _ensureSpinnie(channel)
-  _spinnies.update(channel, { text: msg })
   _activeChannels[channel] = true
+
+  return _spinnies.update(channel, { text: msg })
 }
 
 function success(msg = 'Done', channel = 'default') {
@@ -35,18 +35,17 @@ function success(msg = 'Done', channel = 'default') {
   if (_enabled === false) return debug.log(msg, 'spinner')
 
   _ensureSpinnie(channel)
-  _spinnies.succeed(channel, { text: msg })
   _activeChannels[channel] = false
+
+  return _spinnies.succeed(channel, { text: msg })
 }
 
 function fail(msg = 'Fail', channel = 'default') {
   if (_muted) return
   if (_enabled === false) return debug.log(msg, 'spinner')
 
-  const text = _appendChannelErrors(msg, channel)
-
   _ensureSpinnie(channel)
-  _spinnies.fail(channel, { text })
+  _spinnies.fail(channel, { text: msg })
 }
 
 function remove(channel = 'default') {
@@ -61,13 +60,6 @@ function stop() {
     }
   })
   _spinnies.stopAll()
-}
-
-function _appendChannelErrors(msg, channel) {
-  const errors = _channelErrors[channel]
-  if (!errors) return msg
-
-  return `${msg} ${errors.join('\n')}`
 }
 
 function _ensureSpinnie(channel) {
