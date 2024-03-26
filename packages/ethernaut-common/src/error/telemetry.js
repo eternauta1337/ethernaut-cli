@@ -8,7 +8,7 @@ const EthernautCliError = require('../error/error')
 let _consent
 let _sentryInitialized
 
-function queryTelemetryConsent() {
+async function queryTelemetryConsent() {
   if (isRunningOnCiServer()) {
     return
   }
@@ -20,7 +20,7 @@ function queryTelemetryConsent() {
   }
 
   if (config.general.telemetryConsent === undefined) {
-    prompt({
+    await prompt({
       type: 'confirm',
       message:
         'Help us improve ethernaut-cli by sending anonymous crash reports and basic usage data?',

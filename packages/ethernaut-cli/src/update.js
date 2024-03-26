@@ -1,5 +1,5 @@
 const updateNotifier = require('update-notifier')
-const { prompt, cancelAllPrompts } = require('ethernaut-common/src/ui/prompt')
+const { prompt, hidePrompts } = require('ethernaut-common/src/ui/prompt')
 const { spawn } = require('child_process')
 const storage = require('ethernaut-common/src/io/storage')
 const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
@@ -9,10 +9,11 @@ const choices = {
   YES: 'Install this update',
   NO: 'No thanks',
   SKIP: 'Skip this update',
-  NEVER: 'Never ask again',
+  // eslint-disable-next-line quotes
+  NEVER: "Don't ask again",
 }
 
-module.exports = function checkAutoUpdate(pkg) {
+module.exports = async function checkAutoUpdate(pkg) {
   if (isRunningOnCiServer()) {
     return
   }
@@ -55,14 +56,14 @@ module.exports = function checkAutoUpdate(pkg) {
     }
 
     // Ask the user if they want to update
-    prompt({
+    await prompt({
       type: 'select',
       choices: Object.values(choices),
       message: `A new version of the ethernaut-cli is available (${notifier.update.current} > ${notifier.update.latest}), would you like to install it?`,
       callback: (response) => {
         switch (response) {
           case choices.YES:
-            cancelAllPrompts()
+            hidePrompts(true)
             install()
             break
           case choices.SKIP:
@@ -104,7 +105,7 @@ function install() {
 
   installProcess.on('close', () => {
     console.log(
-      'Installation successful. Please restart the ethernaut-cli to apply the update.',
+      'Installation finished. Please restart the ethernaut-cli to apply the update.',
     )
     process.exit()
   })

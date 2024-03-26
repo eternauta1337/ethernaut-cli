@@ -12,7 +12,7 @@ refreshEnv()
 
 require('@nomicfoundation/hardhat-ethers')
 
-// Order matters!
+// Order matters
 require('ethernaut-util')
 require('ethernaut-util-ui')
 require('ethernaut-interact')
@@ -26,17 +26,19 @@ require('ethernaut-ui')
 require('ethernaut-ai')
 require('ethernaut-ai-ui')
 
-const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
-chalkAnimation.rainbow(txt).render()
-console.log(
-  `v${pkg.version} - Warning!!! BETA version. Please report issues here ${pkg.bugs.url}`,
-)
+async function main() {
+  const txt = figlet.textSync('ethernaut-cli', { font: 'Graffiti' })
+  chalkAnimation.rainbow(txt).render()
+  console.log(
+    `v${pkg.version} - Warning!!! BETA version. Please report issues here ${pkg.bugs.url}`,
+  )
 
-storage.init()
+  storage.init()
 
-queryTelemetryConsent()
-
-checkAutoUpdate(pkg)
+  await queryTelemetryConsent()
+  await checkAutoUpdate(pkg)
+}
+main()
 
 module.exports = {
   solidity: '0.8.19',

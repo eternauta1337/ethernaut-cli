@@ -2,10 +2,10 @@ const enquirer = require('enquirer')
 const suggestDef = require('ethernaut-common/src/ui/suggest')
 const spinner = require('ethernaut-common/src/ui/spinner')
 
-// let _prompt
 let _promises = []
-let _onCancel
+let _hidden = false
 
+// Queues prompts and resolves them in order.
 async function prompt({
   type,
   suggest,
@@ -14,10 +14,23 @@ async function prompt({
   limit,
   initial,
   callback,
+  onPrompt,
+  show = true,
 }) {
-  // Allows prompts to be generated with sync code,
-  // and this fn will still be able to present them asynchronously
-  await waitInLine()
+  const promptFn = enquirer.prompt
+
+  // This function returns a promise that resolves to the user's response.
+  // This is convenient, unless you need to access the prompt object
+  // used internally by enquirer. In that case, use the onPrompt callback.
+  if (onPrompt) {
+    promptFn.once('prompt', (prompt) => {
+      onPrompt(prompt)
+    })
+  }
+
+  // If there are other prompts in line,
+  // wait for them to finish first.
+  await Promise.all(_promises)
 
   // Spinners eat up the last line of output,
   // which prompts use. So they can't coexist.
@@ -25,13 +38,8 @@ async function prompt({
   // always stop when a prompt is coming...
   spinner.stop()
 
-  const promptFn = enquirer.prompt
-  // Uncomment the code below if the
-  // prompt object is needed
-  // promptFn.on('prompt', (prompt) => {
-  //   _prompt = prompt
-  // })
-
+  // Creating the promise but not resolving it allows us to
+  // queue multiple prompts and resolve them in order.
   const promise = promptFn({
     type: type || 'input',
     name: 'response',
@@ -40,6 +48,7 @@ async function prompt({
     limit,
     suggest: suggest || suggestDef,
     initial,
+    show: !_hidden && show,
   }).catch(() => {
     // ctrl-c exits the prompt, and another ctrl-c
     // is needed to exit the process, which is annoying.
@@ -47,51 +56,25 @@ async function prompt({
     process.exit(0)
   })
 
+  // Now add the new promise to the queue
+  // resolve it, and remove it from the queue.
   _promises.push(promise)
-
   const { response } = await promise
   _promises.pop()
 
-  if (callback) {
-    callback(response)
-  }
-
+  // And report
+  if (callback) callback(response)
   return response
 }
 
-async function waitInLine() {
-  return new Promise((resolve) => {
-    let id
-
-    function check() {
-      if (_onCancel) return false
-
-      if (_promises.length === 0) {
-        clearInterval(id)
-        resolve(true)
-
-        return true
-      }
-
-      return false
-    }
-
-    const checked = check()
-    if (!checked) {
-      id = setInterval(check, 1000)
-    }
-  })
-}
-
-function cancelAllPrompts() {
-  _promises.forEach((promise) => {
-    promise.cancel()
-  })
-  _promises = []
-  _onCancel = true
+// Use this function to hide any enqueued prompts.
+// May be wanted while some other terminal output
+// needs to take precedence over prompts that may appear.
+function hidePrompts(value) {
+  _hidden = value
 }
 
 module.exports = {
   prompt,
-  cancelAllPrompts,
+  hidePrompts,
 }
