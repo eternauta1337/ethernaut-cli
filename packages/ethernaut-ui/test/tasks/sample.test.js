@@ -7,7 +7,7 @@ describe('sample task', function () {
 
   describe('when calling the tasks help', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample --help', 1000)
+      await terminal.run('npx hardhat sample --help', 1500)
     })
 
     it('shows Usage', async function () {
@@ -21,7 +21,7 @@ describe('sample task', function () {
 
   describe('when using --non-interactive', function () {
     before('call sample without the required value', async function () {
-      await terminal.run('npx hardhat sample --non-interactive', 1000)
+      await terminal.run('npx hardhat sample --non-interactive', 1500)
     })
 
     it('prints default-value', async function () {
@@ -31,7 +31,7 @@ describe('sample task', function () {
 
   describe('when a default value is passed explicitly', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample "default-value" --num 42', 1000)
+      await terminal.run('npx hardhat sample "default-value" --num 42', 1500)
     })
 
     it('displays the result', async function () {
@@ -41,7 +41,7 @@ describe('sample task', function () {
 
   describe('when parameters are passed', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample poop --num 42', 1000)
+      await terminal.run('npx hardhat sample poop --num 42', 1500)
     })
 
     it('displays the result', async function () {
@@ -51,7 +51,7 @@ describe('sample task', function () {
 
   describe('when the user enters an invalid number', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample poop', 1000)
+      await terminal.run('npx hardhat sample poop', 1500)
     })
 
     it('Asks for num with default value', async function () {
@@ -72,7 +72,7 @@ describe('sample task', function () {
 
   describe('when no parameters are passed', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample', 1000)
+      await terminal.run('npx hardhat sample', 1500)
     })
 
     it('Asks for param with default value', async function () {
