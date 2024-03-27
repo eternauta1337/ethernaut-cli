@@ -1,5 +1,7 @@
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
+// Note: The sample task is defined in the fixture project at packages/ethernaut-ui/test/fixture-projects/basic-project/hardhat.config.js
+
 describe('sample task', function () {
   const terminal = new Terminal()
 
@@ -29,7 +31,7 @@ describe('sample task', function () {
 
   describe('when a default value is passed explicitly', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample "default-value"', 1000)
+      await terminal.run('npx hardhat sample "default-value" --num 42', 1000)
     })
 
     it('displays the result', async function () {
@@ -39,11 +41,32 @@ describe('sample task', function () {
 
   describe('when parameters are passed', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat sample poop', 1000)
+      await terminal.run('npx hardhat sample poop --num 42', 1000)
     })
 
     it('displays the result', async function () {
       terminal.has('Sample task: poop')
+    })
+  })
+
+  describe('when the user enters an invalid number', function () {
+    before('call', async function () {
+      await terminal.run('npx hardhat sample poop', 1000)
+    })
+
+    it('Asks for num with default value', async function () {
+      terminal.has('? Enter the number')
+      terminal.has('43')
+    })
+
+    describe('when the user enters an invalid value', function () {
+      before('enter invalid value', async function () {
+        await terminal.input('poop\n')
+      })
+
+      it('displays an error', async function () {
+        terminal.has('Invalid value NaN for argument num of type int')
+      })
     })
   })
 
@@ -62,8 +85,19 @@ describe('sample task', function () {
         await terminal.input('poop\n')
       })
 
-      it('displays the result', async function () {
-        terminal.has('Sample task: poop')
+      it('Asks for num with default value', async function () {
+        terminal.has('? Enter the number')
+        terminal.has('43')
+      })
+
+      describe('when the user enters a value', function () {
+        before('enter valid value', async function () {
+          await terminal.input('42\n')
+        })
+
+        it('displays the result', async function () {
+          terminal.has('Sample task: poop')
+        })
       })
     })
   })

@@ -71,10 +71,11 @@ async function collectArg(paramDef, providedArg, parsedArg, argsSoFar) {
   let suggested
   if (paramDef.suggest) {
     suggested = await suggest(paramDef, argsSoFar)
+    argsSoFar[paramDef.name] = suggested
   }
 
   // Does the parameter provide its own custom prompt function?
-  if (suggested === undefined && paramDef.prompt) {
+  if (paramDef.prompt) {
     collectedArg = await customPrompt(paramDef, argsSoFar)
     debug.log(
       `Custom prompt for "${paramDef.name}" collected "${collectedArg}"`,
