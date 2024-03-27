@@ -59,6 +59,8 @@ function _getPositionalParamsList(positionalParamDefinitions) {
     }
 
     paramsList += name
+    paramsList += ' '
+    paramsList += _getParamValueDescription(definition)
 
     if (isOptional) {
       paramsList += ']'
