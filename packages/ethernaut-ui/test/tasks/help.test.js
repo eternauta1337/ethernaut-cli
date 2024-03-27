@@ -21,6 +21,20 @@ describe('help', function () {
     })
   })
 
+  describe('when entering the cli with just a scope', function () {
+    before('run hardhat', async function () {
+      await terminal.run('npx hardhat util', 2000)
+    })
+
+    it('displays the main prompt', async function () {
+      terminal.has('Pick a task or scope')
+    })
+
+    it('displays the unit task', async function () {
+      terminal.has('unit')
+    })
+  })
+
   describe('when entering the cli with the --help option or task', function () {
     const itShowsHelp = function () {
       it('does not show navigation', async function () {

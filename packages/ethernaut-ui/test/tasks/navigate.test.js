@@ -108,6 +108,20 @@ describe('navigate', function () {
                 it('displays a prompt for entering the value to convert', async function () {
                   terminal.has('Enter value (The value to convert)')
                 })
+
+                describe('when running the task', function () {
+                  before('enter values', async function () {
+                    await terminal.input('1\n')
+                    await terminal.input('ether\n')
+                    await terminal.input('wei\n')
+                  })
+
+                  it('shows utils again', async function () {
+                    terminal.has('bytes')
+                    terminal.has('string')
+                    terminal.has('unit')
+                  })
+                })
               })
             })
           })

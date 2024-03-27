@@ -14,10 +14,12 @@ task('help', 'Jumps into the help navigator').setAction(
         return runSuper(args, hre, runSuper)
       }
 
+      // Navigate with scope
       if (process.argv.length >= 3) {
         const scope = process.argv[2]
         await navigateFrom(hre.scopes[scope] || hre, hre)
       } else {
+        // Without scope
         await navigateFrom(hre, hre)
       }
     } catch (err) {
