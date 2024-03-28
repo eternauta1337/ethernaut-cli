@@ -9,12 +9,10 @@ let _consent
 let _sentryInitialized
 
 async function queryTelemetryConsent() {
-  console.log('t >>> ALLOW_TELEMETRY', process.env.ALLOW_TELEMETRY)
-  console.log('t >>> ALLOW_UPDATE', process.env.ALLOW_UPDATE)
-  if (isRunningOnCiServer() && !process.env.ALLOW_TELEMETRY) {
-    return
+  if (isRunningOnCiServer()) {
+    const allowed = process.env.ALLOW_TELEMETRY === true
+    if (!allowed) return
   }
-  console.log('t allowed')
 
   const config = storage.readConfig()
 

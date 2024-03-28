@@ -14,12 +14,10 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  console.log('u >>> ALLOW_TELEMETRY', process.env.ALLOW_TELEMETRY)
-  console.log('u >>> ALLOW_UPDATE', process.env.ALLOW_UPDATE)
-  if (isRunningOnCiServer() && !process.env.ALLOW_UPDATE) {
-    return
+  if (isRunningOnCiServer()) {
+    const allowed = process.env.ALLOW_UPDATE === true
+    if (!allowed) return
   }
-  console.log('u allowed')
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
