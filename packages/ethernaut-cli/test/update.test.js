@@ -3,7 +3,7 @@ const storage = require('ethernaut-common/src/io/storage')
 const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
 const assert = require('assert')
 
-describe.only('update', function () {
+describe('update', function () {
   let terminal = new Terminal()
   let cachedAutoUpdate
   let cachedPkg
