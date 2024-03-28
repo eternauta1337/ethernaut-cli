@@ -14,8 +14,8 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  console.log('>>> ALLOW_TELEMETRY', process.env.ALLOW_TELEMETRY)
-  console.log('>>> ALLOW_UPDATE', process.env.ALLOW_UPDATE)
+  console.log('u >>> ALLOW_TELEMETRY', process.env.ALLOW_TELEMETRY)
+  console.log('u >>> ALLOW_UPDATE', process.env.ALLOW_UPDATE)
   if (isRunningOnCiServer() && !process.env.ALLOW_UPDATE) {
     return
   }

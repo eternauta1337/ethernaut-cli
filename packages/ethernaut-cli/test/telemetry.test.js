@@ -32,7 +32,7 @@ describe('telemetry', function () {
     })
 
     before('start cli', async function () {
-      await terminal.run('npx hardhat', 1000)
+      await terminal.run('npx hardhat', 2000)
     })
 
     it('displays the telemetry consent prompt', async function () {
