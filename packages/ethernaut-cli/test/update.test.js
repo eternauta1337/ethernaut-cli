@@ -13,6 +13,7 @@ describe('update', function () {
     process.env.ALLOW_UPDATE = true
     await terminal.run('npx hardhat', 1000)
     await terminal.run('npx hardhat', 1500)
+    process.env.ALLOW_UPDATE = false
   }
 
   before('cache', async function () {
