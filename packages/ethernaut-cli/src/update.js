@@ -14,10 +14,7 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  if (isRunningOnCiServer()) {
-    const allowed = process.env.ALLOW_UPDATE === 'true'
-    if (!allowed) return
-  }
+  if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
