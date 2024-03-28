@@ -6,11 +6,11 @@ describe('telemetry', function () {
   let cachedTelemetryConsent
 
   before('allow telemetry in tests', async function () {
-    process.env.ALLOW_TELEMETRY = true
+    process.env.ALLOW_TELEMETRY = 'true'
   })
 
   after('lock telemetry in tests', async function () {
-    process.env.ALLOW_TELEMETRY = false
+    process.env.ALLOW_TELEMETRY = 'false'
   })
 
   before('cache telemetry consent', async function () {

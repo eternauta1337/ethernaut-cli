@@ -7,23 +7,29 @@ describe('update', function () {
   let terminal = new Terminal()
   let cachedAutoUpdate
   let cachedPkg
-  let cacheCI
-  let cacheTest
+  let cacheCI = {}
 
   before('allow updates in tests', async function () {
-    process.env.ALLOW_UPDATE = true
+    process.env.ALLOW_UPDATE = 'true'
 
-    cacheCI = process.env.CI
-    process.env.CI = false
-
-    cacheTest = process.env.NODE_ENV
-    process.env.NODE_ENV = 'not-test'
+    cacheCI = {
+      CI: process.env.CI,
+      CONTINUOUS_INTEGRATION: process.env.CONTINUOUS_INTEGRATION,
+      BUILD_NUMBER: process.env.BUILD_NUMBER,
+      RUN_ID: process.env.RUN_ID,
+    }
+    process.env.CI = 'false'
+    process.env.CONTINUOUS_INTEGRATION = 'false'
+    process.env.BUILD_NUMBER = 'false'
+    process.env.RUN_ID = 'false'
   })
 
   after('lock updates in tests', async function () {
-    process.env.ALLOW_UPDATE = false
-    process.env.CI = cacheCI
-    process.env.NODE_ENV = cacheTest
+    process.env.ALLOW_UPDATE = 'false'
+    process.env.CI = cacheCI.CI
+    process.env.CONTINUOUS_INTEGRATION = cacheCI.CONTINUOUS_INTEGRATION
+    process.env.BUILD_NUMBER = cacheCI.BUILD_NUMBER
+    process.env.RUN_ID = cacheCI.RUN_ID
   })
 
   async function triggerUpdate() {

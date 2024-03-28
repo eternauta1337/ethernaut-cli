@@ -16,6 +16,9 @@ const choices = {
 module.exports = async function checkAutoUpdate(pkg) {
   console.log('u ALLOW_UPDATE', process.env.ALLOW_UPDATE)
   console.log('u CI', process.env.CI)
+  console.log('u CONTINUOUS_INTEGRATION', process.env.CONTINUOUS_INTEGRATION)
+  console.log('u BUILD_NUMBER', process.env.BUILD_NUMBER)
+  console.log('u RUN_ID', process.env.RUN_ID)
   if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
   console.log('u allowed')
 
