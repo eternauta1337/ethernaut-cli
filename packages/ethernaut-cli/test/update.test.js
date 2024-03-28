@@ -8,17 +8,22 @@ describe('update', function () {
   let cachedAutoUpdate
   let cachedPkg
   let cacheCI
+  let cacheTest
 
   before('allow updates in tests', async function () {
     process.env.ALLOW_UPDATE = true
 
     cacheCI = process.env.CI
     process.env.CI = false
+
+    cacheTest = process.env.NODE_ENV
+    process.env.NODE_ENV = 'not-test'
   })
 
   after('lock updates in tests', async function () {
     process.env.ALLOW_UPDATE = false
     process.env.CI = cacheCI
+    process.env.NODE_ENV = cacheTest
   })
 
   async function triggerUpdate() {
