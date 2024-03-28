@@ -7,13 +7,18 @@ describe('update', function () {
   let terminal = new Terminal()
   let cachedAutoUpdate
   let cachedPkg
+  let cacheCI
 
   before('allow updates in tests', async function () {
     process.env.ALLOW_UPDATE = true
+
+    cacheCI = process.env.CI
+    process.env.CI = false
   })
 
   after('lock updates in tests', async function () {
     process.env.ALLOW_UPDATE = false
+    process.env.CI = cacheCI
   })
 
   async function triggerUpdate() {
