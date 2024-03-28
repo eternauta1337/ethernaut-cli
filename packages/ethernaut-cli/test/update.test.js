@@ -11,8 +11,8 @@ describe('update', function () {
   async function triggerUpdate() {
     // Twice because this is how update-notifier works
     process.env.ALLOW_UPDATE = true
-    await terminal.run('npx hardhat', 1000)
-    await terminal.run('npx hardhat', 1500)
+    await terminal.run('npx hardhat', 2000)
+    await terminal.run('npx hardhat', 3000)
   }
 
   before('cache', async function () {
@@ -103,7 +103,7 @@ describe('update', function () {
         describe('when no thanks is selected', function () {
           before('interact', async function () {
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
@@ -117,7 +117,7 @@ describe('update', function () {
 
         describe('when install is selected', function () {
           before('interact', async function () {
-            await terminal.input(keys.ENTER, 1000)
+            await terminal.input(keys.ENTER, 2000)
           })
 
           it('displays installation', async function () {
@@ -133,7 +133,7 @@ describe('update', function () {
           before('interact', async function () {
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
@@ -156,7 +156,7 @@ describe('update', function () {
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
