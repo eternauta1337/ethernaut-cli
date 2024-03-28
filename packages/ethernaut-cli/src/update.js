@@ -14,7 +14,9 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
+  console.log('u ALLOW_UPDATE', process.env.ALLOW_UPDATE)
   if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
+  console.log('u allowed')
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
@@ -25,6 +27,7 @@ module.exports = async function checkAutoUpdate(pkg) {
     updateCheckInterval: 0,
   })
   if (process.env.ALLOW_UPDATE === 'true') notifier.disabled = false
+  console.log('u disabled', notifier.disabled)
   notifier.check()
   notifier.notify()
 
