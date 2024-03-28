@@ -19,6 +19,7 @@ module.exports = async function checkAutoUpdate(pkg) {
   console.log('u CONTINUOUS_INTEGRATION', process.env.CONTINUOUS_INTEGRATION)
   console.log('u BUILD_NUMBER', process.env.BUILD_NUMBER)
   console.log('u RUN_ID', process.env.RUN_ID)
+  console.log('u NODE_ENV', process.env.NODE_ENV)
   if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
   console.log('u allowed')
 
