@@ -8,12 +8,18 @@ describe('update', function () {
   let cachedAutoUpdate
   let cachedPkg
 
+  before('allow updates in tests', async function () {
+    process.env.ALLOW_UPDATE = true
+  })
+
+  after('lock updates in tests', async function () {
+    process.env.ALLOW_UPDATE = false
+  })
+
   async function triggerUpdate() {
     // Twice because this is how update-notifier works
-    process.env.ALLOW_UPDATE = true
     await terminal.run('npx hardhat', 1000)
     await terminal.run('npx hardhat', 1500)
-    process.env.ALLOW_UPDATE = false
   }
 
   before('cache', async function () {

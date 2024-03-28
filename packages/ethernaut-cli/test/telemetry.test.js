@@ -5,6 +5,14 @@ describe('telemetry', function () {
   let terminal = new Terminal()
   let cachedTelemetryConsent
 
+  before('allow telemetry in tests', async function () {
+    process.env.ALLOW_TELEMETRY = true
+  })
+
+  after('lock telemetry in tests', async function () {
+    process.env.ALLOW_TELEMETRY = false
+  })
+
   before('cache telemetry consent', async function () {
     const config = storage.readConfig()
     cachedTelemetryConsent = config.general?.telemetryConsent
@@ -24,9 +32,7 @@ describe('telemetry', function () {
     })
 
     before('start cli', async function () {
-      process.env.ALLOW_TELEMETRY = true
       await terminal.run('npx hardhat', 1000)
-      process.env.ALLOW_TELEMETRY = false
     })
 
     it('displays the telemetry consent prompt', async function () {
