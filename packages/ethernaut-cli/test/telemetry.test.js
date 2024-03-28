@@ -24,6 +24,7 @@ describe('telemetry', function () {
     })
 
     before('start cli', async function () {
+      process.env.ALLOW_TELEMETRY = true
       await terminal.run('npx hardhat', 1000)
     })
 

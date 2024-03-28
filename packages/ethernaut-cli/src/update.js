@@ -14,7 +14,7 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  if (isRunningOnCiServer()) {
+  if (isRunningOnCiServer() && !process.env.ALLOW_UPDATE) {
     return
   }
 

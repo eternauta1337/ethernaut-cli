@@ -9,7 +9,7 @@ let _consent
 let _sentryInitialized
 
 async function queryTelemetryConsent() {
-  if (isRunningOnCiServer()) {
+  if (isRunningOnCiServer() && !process.env.ALLOW_TELEMETRY) {
     return
   }
 

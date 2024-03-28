@@ -3,10 +3,17 @@ const storage = require('ethernaut-common/src/io/storage')
 const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
 const assert = require('assert')
 
-describe('update', function () {
+describe.only('update', function () {
   let terminal = new Terminal()
   let cachedAutoUpdate
   let cachedPkg
+
+  async function triggerUpdate() {
+    // Twice because this is how update-notifier works
+    process.env.ALLOW_UPDATE = true
+    await terminal.run('npx hardhat', 1000)
+    await terminal.run('npx hardhat', 1500)
+  }
 
   before('cache', async function () {
     const config = storage.readConfig()
@@ -44,9 +51,7 @@ describe('update', function () {
       })
 
       before('start cli', async function () {
-        // Twice because this is how update-notifier works
-        await terminal.run('npx hardhat', 1000)
-        await terminal.run('npx hardhat', 1500)
+        await triggerUpdate()
       })
 
       it('displays navigation', async function () {
@@ -63,9 +68,7 @@ describe('update', function () {
       })
 
       before('start cli', async function () {
-        // Twice because this is how update-notifier works
-        await terminal.run('npx hardhat', 1000)
-        await terminal.run('npx hardhat', 1500)
+        await triggerUpdate()
       })
 
       it('displays navigation', async function () {
@@ -82,9 +85,7 @@ describe('update', function () {
         })
 
         before('start cli', async function () {
-          // Twice because this is how update-notifier works
-          await terminal.run('npx hardhat', 1000)
-          await terminal.run('npx hardhat', 1500)
+          await triggerUpdate()
         })
 
         it('displays the update notice', async function () {
