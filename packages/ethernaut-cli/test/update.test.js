@@ -25,6 +25,7 @@ describe('update', function () {
     // Twice because this is how update-notifier works
     await terminal.run('npx hardhat', 1000)
     await terminal.run('npx hardhat', 1500)
+    console.log(terminal.output)
   }
 
   before('cache', async function () {
