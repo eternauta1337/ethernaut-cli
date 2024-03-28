@@ -15,10 +15,6 @@ async function queryTelemetryConsent() {
 
   const config = storage.readConfig()
 
-  if (!config.general) {
-    config.general = {}
-  }
-
   if (config.general.telemetryConsent === undefined) {
     await prompt({
       type: 'confirm',

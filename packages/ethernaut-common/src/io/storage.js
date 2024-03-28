@@ -26,7 +26,11 @@ function getEthernautFolderPath() {
   return path.join(os.homedir(), '.ethernaut')
 }
 
-function init(defaultConfig = {}) {
+function init(
+  defaultConfig = {
+    general: {},
+  },
+) {
   createFolderIfMissing(getEthernautFolderPath())
   createFileIfMissing(getConfigPath(), () => defaultConfig)
 }

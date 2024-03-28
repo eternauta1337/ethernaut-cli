@@ -20,9 +20,6 @@ module.exports = async function checkAutoUpdate(pkg) {
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
-  if (!config.general) {
-    config.general = {}
-  }
 
   // Check if there is an update
   const notifier = updateNotifier({
