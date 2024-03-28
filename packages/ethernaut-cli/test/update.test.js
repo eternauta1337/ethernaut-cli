@@ -17,7 +17,7 @@ describe('update', function () {
   })
 
   async function triggerUpdate() {
-    // Twice because this is how update-notifier works
+    // Twice because this is how update notifications work
     await terminal.run('npx hardhat', 1000)
     await terminal.run('npx hardhat', 1500)
   }

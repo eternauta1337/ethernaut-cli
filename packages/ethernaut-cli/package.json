@@ -51,9 +51,7 @@
     "ethernaut-wallet": "^1.1.10",
     "ethernaut-wallet-ui": "^1.1.10",
     "figlet": "^1.7.0",
-    "hardhat": "^2.22.2",
-    "semver": "^7.6.0",
-    "update-notifier": "^5.1.0"
+    "hardhat": "^2.22.2"
   },
   "peerDependencies": {
     "hardhat": "^2.22.2"

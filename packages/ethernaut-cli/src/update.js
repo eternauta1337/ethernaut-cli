@@ -1,9 +1,8 @@
-const { UpdateNotifier } = require('update-notifier')
+const { checkUpdate } = require('ethernaut-common/src/util/update')
 const { prompt, hidePrompts } = require('ethernaut-common/src/ui/prompt')
 const { spawn } = require('child_process')
 const storage = require('ethernaut-common/src/io/storage')
 const { isRunningOnCiServer } = require('hardhat/internal/util/ci-detection')
-const semver = require('semver')
 
 const choices = {
   YES: 'Install this update',
@@ -14,39 +13,20 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  console.log('u ALLOW_UPDATE', process.env.ALLOW_UPDATE)
   if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
-  console.log('u allowed')
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
 
   // Check if there is an update
-  const notifier = new UpdateNotifier({
-    pkg,
-    updateCheckInterval: 0,
-  })
-  if (process.env.ALLOW_UPDATE === 'true') notifier.disabled = false
-  console.log('u disabled', notifier.disabled)
-  notifier.check()
-  notifier.notify()
+  const updateVersion = checkUpdate(pkg)
 
   // If there is an update
-  if (notifier.update) {
-    // This can happen sometimes due to the sync nature of update-notifier
-    if (notifier.update.latest === pkg.version) {
-      return
-    }
-
-    // And this
-    if (!semver.gt(notifier.update.latest, notifier.update.current)) {
-      return
-    }
-
-    notifyUpdate(notifier.update.latest)
+  if (updateVersion !== undefined) {
+    notifyUpdate(updateVersion)
 
     // Is the new version marked to be skipped?
-    if (config.general.autoUpdate === notifier.update.latest) {
+    if (config.general.autoUpdate === updateVersion) {
       return
     }
 
@@ -59,7 +39,7 @@ module.exports = async function checkAutoUpdate(pkg) {
     await prompt({
       type: 'select',
       choices: Object.values(choices),
-      message: `A new version of the ethernaut-cli is available (${notifier.update.current} > ${notifier.update.latest}), would you like to install it?`,
+      message: `A new version of the ethernaut-cli is available (${pkg.version} > ${updateVersion}), would you like to install it?`,
       callback: (response) => {
         switch (response) {
           case choices.YES:
@@ -71,7 +51,7 @@ module.exports = async function checkAutoUpdate(pkg) {
             break
           case choices.SKIP:
             // Mark this version to be skipped
-            config.general.autoUpdate = notifier.update.latest
+            config.general.autoUpdate = updateVersion
             storage.saveConfig(config)
             break
           case choices.NEVER:
