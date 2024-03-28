@@ -7,39 +7,19 @@ describe('update', function () {
   let terminal = new Terminal()
   let cachedAutoUpdate
   let cachedPkg
-  let cacheCI = {}
 
   before('allow updates in tests', async function () {
     process.env.ALLOW_UPDATE = 'true'
-
-    cacheCI = {
-      CI: process.env.CI,
-      CONTINUOUS_INTEGRATION: process.env.CONTINUOUS_INTEGRATION,
-      BUILD_NUMBER: process.env.BUILD_NUMBER,
-      RUN_ID: process.env.RUN_ID,
-      NODE_ENV: process.env.NODE_ENV,
-    }
-    process.env.CI = 'false'
-    process.env.CONTINUOUS_INTEGRATION = 'false'
-    process.env.BUILD_NUMBER = 'false'
-    process.env.RUN_ID = 'false'
-    process.env.NODE_ENV = 'false'
   })
 
   after('lock updates in tests', async function () {
     process.env.ALLOW_UPDATE = 'false'
-    process.env.CI = cacheCI.CI
-    process.env.CONTINUOUS_INTEGRATION = cacheCI.CONTINUOUS_INTEGRATION
-    process.env.BUILD_NUMBER = cacheCI.BUILD_NUMBER
-    process.env.RUN_ID = cacheCI.RUN_ID
-    process.env.NODE_ENV = cacheCI.NODE_ENV
   })
 
   async function triggerUpdate() {
     // Twice because this is how update-notifier works
     await terminal.run('npx hardhat', 1000)
     await terminal.run('npx hardhat', 1500)
-    console.log(terminal.output)
   }
 
   before('cache', async function () {

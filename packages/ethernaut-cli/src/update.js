@@ -1,4 +1,4 @@
-const updateNotifier = require('update-notifier')
+const { UpdateNotifier } = require('update-notifier')
 const { prompt, hidePrompts } = require('ethernaut-common/src/ui/prompt')
 const { spawn } = require('child_process')
 const storage = require('ethernaut-common/src/io/storage')
@@ -14,25 +14,19 @@ const choices = {
 }
 
 module.exports = async function checkAutoUpdate(pkg) {
-  console.log('u ALLOW_UPDATE', process.env.ALLOW_UPDATE)
-  console.log('u CI', process.env.CI)
-  console.log('u CONTINUOUS_INTEGRATION', process.env.CONTINUOUS_INTEGRATION)
-  console.log('u BUILD_NUMBER', process.env.BUILD_NUMBER)
-  console.log('u RUN_ID', process.env.RUN_ID)
-  console.log('u NODE_ENV', process.env.NODE_ENV)
   if (process.env.ALLOW_UPDATE !== 'true' && isRunningOnCiServer()) return
-  console.log('u allowed')
 
   // Check if auto-update is disabled
   const config = storage.readConfig()
 
   // Check if there is an update
-  const notifier = updateNotifier({
+  const notifier = new UpdateNotifier({
     pkg,
     updateCheckInterval: 0,
   })
+  if (process.env.ALLOW_UPDATE === 'true') notifier.disabled = false
+  notifier.check()
   notifier.notify()
-  console.log('u update', notifier.update)
 
   // If there is an update
   if (notifier.update) {
