@@ -104,7 +104,7 @@ describe('update', function () {
         describe('when no thanks is selected', function () {
           before('interact', async function () {
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
@@ -118,7 +118,7 @@ describe('update', function () {
 
         describe('when install is selected', function () {
           before('interact', async function () {
-            await terminal.input(keys.ENTER, 1000)
+            await terminal.input(keys.ENTER, 2000)
           })
 
           it('displays installation', async function () {
@@ -134,7 +134,7 @@ describe('update', function () {
           before('interact', async function () {
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
@@ -157,7 +157,7 @@ describe('update', function () {
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
-            await terminal.input(keys.ENTER, 200)
+            await terminal.input(keys.ENTER, 1000)
           })
 
           it('displays navigation', async function () {
