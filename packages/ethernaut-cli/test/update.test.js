@@ -18,8 +18,8 @@ describe('update', function () {
 
   async function triggerUpdate() {
     // Twice because this is how update notifications work
-    await terminal.run('npx hardhat', 1000)
-    await terminal.run('npx hardhat', 1500)
+    await terminal.run('npx hardhat', 2000)
+    await terminal.run('npx hardhat', 3000)
   }
 
   before('cache', async function () {
@@ -158,7 +158,7 @@ describe('update', function () {
       describe('when skipping indefinitely', function () {
         itDisplaysTheUpdatePrompt()
 
-        describe('when skip is selected', function () {
+        describe('when never is selected', function () {
           before('interact', async function () {
             await terminal.input(keys.DOWN)
             await terminal.input(keys.DOWN)
