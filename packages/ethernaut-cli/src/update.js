@@ -19,6 +19,7 @@ module.exports = async function checkAutoUpdate(pkg) {
   if (isRunningOnCiServer() && !process.env.ALLOW_UPDATE) {
     return
   }
+  console.log('u allowed')
 
   // Check if auto-update is disabled
   const config = storage.readConfig()

@@ -14,6 +14,7 @@ async function queryTelemetryConsent() {
   if (isRunningOnCiServer() && !process.env.ALLOW_TELEMETRY) {
     return
   }
+  console.log('t allowed')
 
   const config = storage.readConfig()
 
