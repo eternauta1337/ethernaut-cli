@@ -66,6 +66,9 @@ module.exports = async function checkAutoUpdate(pkg) {
             hidePrompts(true)
             install()
             break
+          case choices.NO:
+            // Do nothing
+            break
           case choices.SKIP:
             // Mark this version to be skipped
             config.general.autoUpdate = notifier.update.latest
