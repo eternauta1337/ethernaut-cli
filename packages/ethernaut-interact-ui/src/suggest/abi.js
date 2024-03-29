@@ -27,6 +27,9 @@ module.exports = async function suggestAbi({ abi, hre, address }) {
         }
       }
     }
+
+    // Completed or not, return the abi
+    // if there is one at this point
     if (abi) return abi
 
     // Try to deduce the abi from previous interactions

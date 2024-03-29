@@ -3,9 +3,9 @@ const debug = require('ethernaut-common/src/ui/debug')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
 
 module.exports = async function suggestAddress({ abi, address, hre }) {
-  if (!abi) return
+  if (address) return address
 
-  if (address !== undefined) return
+  if (!abi) return
 
   try {
     const network = await getNetworkName(hre)

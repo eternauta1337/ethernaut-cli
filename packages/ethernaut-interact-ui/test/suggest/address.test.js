@@ -7,28 +7,28 @@ describe('suggest address', function () {
   let result
   const params = { hre }
 
-  describe('when no abi is given', function () {
+  describe('when an address is given', function () {
+    before('provide address', async function () {
+      params.address = '0x123'
+    })
+
     describe('suggestAddress', function () {
       before('suggest', async function () {
         result = await suggestAddress(params)
       })
 
-      it('returns undefined', async function () {
-        assert.equal(result, undefined)
+      it('returns the address', async function () {
+        assert.equal(result, params.address)
       })
     })
   })
 
-  describe('when an abi is given', function () {
-    before('provide abi', async function () {
-      params.abi = 'some/abi'
+  describe('when an address is not given', function () {
+    before('no address', async function () {
+      params.address = undefined
     })
 
-    describe('when an address is given', function () {
-      before('provide address', async function () {
-        params.address = '0x123'
-      })
-
+    describe('when no abi is given', function () {
       describe('suggestAddress', function () {
         before('suggest', async function () {
           result = await suggestAddress(params)
@@ -40,9 +40,9 @@ describe('suggest address', function () {
       })
     })
 
-    describe('when an address is not given', function () {
-      before('no address', async function () {
-        params.address = undefined
+    describe('when an abi is given', function () {
+      before('provide abi', async function () {
+        params.abi = 'some/abi'
       })
 
       describe('in the local network', function () {
