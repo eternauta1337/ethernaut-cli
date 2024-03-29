@@ -1,1 +1,17 @@
-describe.skip('config ui', function () {})
+const { Terminal } = require('ethernaut-common/src/test/terminal')
+
+describe('config ui', function () {
+  const terminal = new Terminal()
+
+  describe('when config is called with no params', function () {
+    before('call', async function () {
+      await terminal.run('npx hardhat ai config', 2000)
+    })
+
+    it('displays gpt models', async function () {
+      terminal.has('gpt-3.5-turbo')
+      terminal.has('gpt-4-turbo-preview')
+      terminal.has('gpt-4-1106-preview')
+    })
+  })
+})

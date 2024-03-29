@@ -13,14 +13,14 @@ function refreshEnv() {
 
 async function checkEnvVar(varName, message) {
   if (process.env[varName]) {
-    debug.log(`Environment variable ${varName} found`)
+    debug.log(`Environment variable ${varName} found`, 'env')
     return
   }
 
   debug.log(`Environment variable ${varName} not found - collecting it...`)
 
   if (!fs.existsSync(envPath)) {
-    debug.log('No .env file found, creating one...')
+    debug.log('No .env file found, creating one...', 'env')
     fs.writeFileSync(envPath, '')
   }
 
