@@ -73,6 +73,7 @@ describe('suggest address', function () {
 
           before('insert entry', async function () {
             const addresses = storage.readAddresses()
+            if (!addresses[networkName]) addresses[networkName] = {}
             addresses[networkName][expectedAddress] = params.abi
             storage.storeAddresses(addresses)
           })

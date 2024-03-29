@@ -68,6 +68,7 @@ describe('suggest abi', function () {
 
         before('insert entry', async function () {
           const addresses = storage.readAddresses()
+          if (!addresses[chainId]) addresses[chainId] = {}
           addresses[chainId][params.address] = expectedAbi
           storage.storeAddresses(addresses)
         })
