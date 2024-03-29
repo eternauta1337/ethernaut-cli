@@ -1,5 +1,7 @@
+const storage = require('ethernaut-common/src/io/storage')
+const path = require('path')
 require('dotenv').config({
-  path: require('path').resolve(__dirname, '../../../../ethernaut-cli/.env'),
+  path: path.resolve(storage.getEthernautFolderPath(), '.env'),
 })
 require('@nomicfoundation/hardhat-ethers')
 require('../../../src/index')
