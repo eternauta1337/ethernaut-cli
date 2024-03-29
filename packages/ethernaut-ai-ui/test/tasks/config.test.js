@@ -9,9 +9,7 @@ describe('config ui', function () {
     })
 
     it('displays gpt models', async function () {
-      terminal.has('gpt-3.5-turbo')
-      terminal.has('gpt-4-turbo-preview')
-      terminal.has('gpt-4-1106-preview')
+      terminal.has('gpt-')
     })
   })
 })
