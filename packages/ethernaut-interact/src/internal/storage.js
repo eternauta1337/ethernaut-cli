@@ -102,6 +102,7 @@ module.exports = {
   storeAbi,
   rememberAbiAndAddress,
   readAddresses,
+  storeAddresses,
   readAbiFiles,
   findAddressWithAbi,
   getAbisFilePath,
