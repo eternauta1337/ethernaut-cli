@@ -17,8 +17,10 @@ const strategies = {
   MANUAL: 'Enter path manually',
 }
 
-module.exports = async function promptAbi({ abi, hre, address }) {
+module.exports = async function promptAbi({ hre, address }) {
   try {
+    let abi
+
     const chainId = await getChainId(hre)
 
     // Let the user select a strategy

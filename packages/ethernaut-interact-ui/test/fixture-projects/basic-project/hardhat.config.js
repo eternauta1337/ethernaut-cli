@@ -9,5 +9,8 @@ module.exports = {
     local: {
       url: 'http://localhost:8545',
     },
+    mainnet: {
+      url: 'https://ethereum-rpc.publicnode.com',
+    },
   },
 }
