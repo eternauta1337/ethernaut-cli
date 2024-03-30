@@ -26,9 +26,11 @@ function findAddressWithAbi(abi, network) {
   const networkAddresses = readAddresses()[network]
   if (!networkAddresses) return undefined
 
-  return Object.entries(networkAddresses).find(
+  const entries = Object.entries(networkAddresses).find(
     ([_, addressAbiPath]) => addressAbiPath === abi,
-  )[0]
+  )
+
+  entries.length > 0 ? entries[0] : undefined
 }
 
 function storeAddresses(data) {
