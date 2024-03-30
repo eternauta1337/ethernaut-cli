@@ -102,16 +102,11 @@ describe('abi prompt', function () {
 
     describe('when choosing an entry', function () {
       before('interact', async function () {
-        await terminal.input('ethernaut-cli')
-        await terminal.input(keys.ENTER)
-        await terminal.input('packages')
-        await terminal.input(keys.ENTER)
-        await terminal.input('ethernaut-interact')
-        await terminal.input(keys.ENTER)
-        await terminal.input('src')
-        await terminal.input(keys.ENTER)
-        await terminal.input('abis')
-        await terminal.input(keys.ENTER)
+        await terminal.input('ethernaut-cli\r')
+        await terminal.input('packages\r')
+        await terminal.input('ethernaut-interact\r')
+        await terminal.input('src\r')
+        await terminal.input('abis\r')
         await terminal.input(keys.DOWN)
         await terminal.input(keys.ENTER)
       })
