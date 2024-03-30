@@ -1,4 +1,5 @@
 const assert = require('assert')
+const { almostEqual } = require('../../src/util/math')
 
 describe('wait', function () {
   let wait
@@ -8,9 +9,10 @@ describe('wait', function () {
   })
 
   it('waits the correct time', async function () {
+    const ms = 1000
     const start = Date.now()
-    await wait(100)
+    await wait(ms)
     const end = Date.now()
-    assert.ok(end - start >= 100)
+    assert.ok(almostEqual(end - start, ms, 100))
   })
 })
