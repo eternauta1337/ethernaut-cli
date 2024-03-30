@@ -34,6 +34,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -43,7 +46,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-common && npm t
+      - run: cd packages/ethernaut-common && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -61,10 +64,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-util && npm t
+      - run: cd packages/ethernaut-util && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -82,10 +88,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-util-ui && npm t
+      - run: cd packages/ethernaut-util-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -103,10 +112,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ui && npm t
+      - run: cd packages/ethernaut-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -124,6 +136,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -133,7 +148,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact && npm t
+      - run: cd packages/ethernaut-interact && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -151,6 +166,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -160,7 +178,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact-ui && npm t
+      - run: cd packages/ethernaut-interact-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -178,6 +196,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -187,7 +208,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-challenges && npm t
+      - run: cd packages/ethernaut-challenges && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -205,10 +226,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ai && npm t
+      - run: cd packages/ethernaut-ai && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -226,10 +250,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ai-ui && npm t
+      - run: cd packages/ethernaut-ai-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -247,12 +274,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-network && npm t
+      - run: cd packages/ethernaut-network && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -270,12 +300,15 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-network-ui && npm t
+      - run: cd packages/ethernaut-network-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -293,6 +326,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -302,7 +338,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-wallet && npm t
+      - run: cd packages/ethernaut-wallet && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -320,6 +356,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -329,7 +368,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-wallet-ui && npm t
+      - run: cd packages/ethernaut-wallet-ui && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -347,10 +386,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install xvfb
+        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
+        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-cli && npm t
+      - run: cd packages/ethernaut-cli && xvfb-run npm t
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
