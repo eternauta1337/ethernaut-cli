@@ -76,42 +76,10 @@ describe('abi prompt', function () {
       terminal.has('CoinFlip')
       terminal.has('DelegateERC20')
     })
-  })
 
-  describe('when browsing the fs', function () {
-    before('call', async function () {
-      await terminal.run('npx hardhat interact contract', 2000)
-    })
-
-    before('nav', async function () {
-      await terminal.input(keys.DOWN)
-      await terminal.input(keys.ENTER, 500)
-    })
-
-    it('shows query', async function () {
-      terminal.has('Select a file or directory')
-    })
-
-    it('shows back nav', async function () {
-      terminal.has('..')
-    })
-
-    it('shows home dir abbreviation', async function () {
-      terminal.has('~')
-    })
-
-    describe('when choosing an entry', function () {
-      before('interact', async function () {
-        await terminal.input('ethernaut-cli\r')
-        console.log(terminal.output)
-        await terminal.input('packages\r')
-        console.log(terminal.output)
-        await terminal.input('ethernaut-interact\r')
-        console.log(terminal.output)
-        await terminal.input('src\r')
-        console.log(terminal.output)
-        await terminal.input('abis\r')
-        console.log(terminal.output)
+    describe('when erc20 is entered', function () {
+      before('enter', async function () {
+        await terminal.input('erc20', 500)
         await terminal.input(keys.DOWN)
         await terminal.input(keys.ENTER)
       })
@@ -138,6 +106,29 @@ describe('abi prompt', function () {
           assert.equal(address, '0xdAC17F958D2ee523a2206206994597C13D831ec7')
         })
       })
+    })
+  })
+
+  describe('when browsing the fs', function () {
+    before('call', async function () {
+      await terminal.run('npx hardhat interact contract', 2000)
+    })
+
+    before('nav', async function () {
+      await terminal.input(keys.DOWN)
+      await terminal.input(keys.ENTER, 500)
+    })
+
+    it('shows query', async function () {
+      terminal.has('Select a file or directory')
+    })
+
+    it('shows back nav', async function () {
+      terminal.has('..')
+    })
+
+    it('shows home dir abbreviation', async function () {
+      terminal.has('~')
     })
   })
 })
