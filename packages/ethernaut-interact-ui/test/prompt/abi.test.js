@@ -104,7 +104,7 @@ describe('abi prompt', function () {
             'TetherToken.json',
           )
           const address = storage.findAddressWithAbi(abi, '1')
-          assert.equal(address, addr)
+          assert.equal(address.toLowerCase(), addr.toLowerCase())
         })
       })
     })
