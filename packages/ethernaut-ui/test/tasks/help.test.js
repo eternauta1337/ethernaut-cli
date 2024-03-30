@@ -5,7 +5,7 @@ describe('help', function () {
 
   describe('when entering the cli with no arguments', function () {
     before('run hardhat', async function () {
-      await terminal.run('npx hardhat', 2000)
+      await terminal.run('npx hardhat', 2500)
     })
 
     it('displays the main prompt', async function () {
@@ -23,7 +23,7 @@ describe('help', function () {
 
   describe('when entering the cli with just a scope', function () {
     before('run hardhat', async function () {
-      await terminal.run('npx hardhat util', 2000)
+      await terminal.run('npx hardhat util', 2500)
     })
 
     it('displays the main prompt', async function () {

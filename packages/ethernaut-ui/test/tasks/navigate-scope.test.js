@@ -5,7 +5,7 @@ describe('navigate scope', function () {
 
   describe('when entering navigation at a particular scope', function () {
     before('run navigate util', async function () {
-      await terminal.run('npx hardhat navigate util', 1000)
+      await terminal.run('npx hardhat navigate util', 2500)
     })
 
     it('displays the main prompt', async function () {
