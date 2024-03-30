@@ -5,7 +5,7 @@ const path = require('path')
 
 describe('abi prompt', function () {
   const terminal = new Terminal()
-  const addr = hre.ethers.Wallet.createRandom().address
+  const addr = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
 
   describe('when an address is not provided', function () {
     before('call', async function () {
@@ -100,9 +100,7 @@ describe('abi prompt', function () {
 
         it('remembers the address and abi for mainnet', async function () {
           const abi = path.resolve(storage.getAbisFilePath(), 'erc20.json')
-          const addresses = storage.readAddresses()
-          console.log(addresses)
-          const address = storage.findAddressWithAbi(abi, 1)
+          const address = storage.findAddressWithAbi(abi, '1')
           assert.equal(address, addr)
         })
       })
