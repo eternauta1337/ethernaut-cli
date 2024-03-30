@@ -1,4 +1,7 @@
 const { Terminal, keys } = require('ethernaut-common/src/test/terminal')
+const storage = require('ethernaut-interact/src/internal/storage')
+const assert = require('assert')
+const path = require('path')
 
 describe('abi prompt', function () {
   const terminal = new Terminal()
@@ -82,7 +85,11 @@ describe('abi prompt', function () {
 
     before('nav', async function () {
       await terminal.input(keys.DOWN)
-      await terminal.input(keys.ENTER)
+      await terminal.input(keys.ENTER, 500)
+    })
+
+    it('shows query', async function () {
+      terminal.has('Select a file or directory')
     })
 
     it('shows back nav', async function () {
@@ -91,6 +98,46 @@ describe('abi prompt', function () {
 
     it('shows home dir abbreviation', async function () {
       terminal.has('~')
+    })
+
+    describe('when choosing an entry', function () {
+      before('interact', async function () {
+        await terminal.input('ethernaut-cli')
+        await terminal.input(keys.ENTER)
+        await terminal.input('packages')
+        await terminal.input(keys.ENTER)
+        await terminal.input('ethernaut-interact')
+        await terminal.input(keys.ENTER)
+        await terminal.input('src')
+        await terminal.input(keys.ENTER)
+        await terminal.input('abis')
+        await terminal.input(keys.ENTER)
+        await terminal.input(keys.DOWN)
+        await terminal.input(keys.ENTER)
+      })
+
+      it('queries address', async function () {
+        terminal.has('Enter address')
+      })
+
+      describe('when an address is provided', function () {
+        before('provide address', async function () {
+          await terminal.input(
+            '0xdAC17F958D2ee523a2206206994597C13D831ec7\r',
+            500,
+          )
+        })
+
+        it('displays functions', async function () {
+          terminal.has('name()')
+        })
+
+        it('remembers the address and abi for mainnet', async function () {
+          const abi = path.resolve(storage.getAbisFilePath(), 'erc20.json')
+          const address = storage.findAddressWithAbi(abi, 1)
+          assert.equal(address, '0xdAC17F958D2ee523a2206206994597C13D831ec7')
+        })
+      })
     })
   })
 })
