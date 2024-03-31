@@ -8,7 +8,7 @@
     "compile": "npx hardhat compile",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
     "extract": "node ./scripts/extract.js",
-    "test": "nyc --all --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc --all --use-spawn-wrap --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "peerDependencies": {
     "hardhat": "^2.22.2"

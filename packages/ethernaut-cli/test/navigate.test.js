@@ -5,7 +5,7 @@ describe('navigation', function () {
 
   describe('when navigating the root scope', function () {
     before('nav', async function () {
-      await terminal.run('npx hardhat', 2000)
+      await terminal.run('npx nyc hardhat', 2000)
     })
 
     it('shows the expected scopes', async function () {
@@ -37,7 +37,7 @@ describe('navigation', function () {
 
   describe('when navigating the network scope', function () {
     before('nav', async function () {
-      await terminal.run('npx hardhat network', 2000)
+      await terminal.run('npx nyc hardhat network', 2000)
     })
 
     it('displays all tasks', async function () {

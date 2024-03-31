@@ -21,7 +21,7 @@ describe('remove ui', function () {
 
   describe('when alias is missing', function () {
     before('run remove', async function () {
-      await terminal.run('npx hardhat network remove', 2000)
+      await terminal.run('npx nyc hardhat network remove', 2000)
     })
 
     it('suggests networks', async function () {

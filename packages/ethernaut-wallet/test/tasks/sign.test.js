@@ -26,7 +26,7 @@ describe('sign', function () {
 
     describe('when signing a message', function () {
       before('sign', async function () {
-        await terminal.run('npx hardhat wallet sign "hello"')
+        await terminal.run('npx nyc hardhat wallet sign "hello"')
       })
 
       it('prints the expected signature', async function () {

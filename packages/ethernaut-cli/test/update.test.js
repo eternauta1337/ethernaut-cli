@@ -18,8 +18,8 @@ describe('update', function () {
 
   async function triggerUpdate() {
     // Twice because this is how update notifications work
-    await terminal.run('npx hardhat', 2000)
-    await terminal.run('npx hardhat', 3000)
+    await terminal.run('npx nyc hardhat', 2000)
+    await terminal.run('npx nyc hardhat', 3000)
   }
 
   before('cache', async function () {

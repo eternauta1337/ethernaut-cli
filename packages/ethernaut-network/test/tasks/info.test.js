@@ -20,7 +20,7 @@ describe('info', function () {
 
     describe('when specifying an alias', function () {
       before('query', async function () {
-        await terminal.run('npx hardhat network info test__mainnet', 5000)
+        await terminal.run('npx nyc hardhat network info test__mainnet', 5000)
       })
 
       it('shows the expected results', async function () {

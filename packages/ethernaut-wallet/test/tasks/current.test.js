@@ -29,7 +29,7 @@ describe('current', function () {
 
   describe('when calling the task', function () {
     before('call task', async function () {
-      await terminal.run('npx hardhat wallet current ')
+      await terminal.run('npx nyc hardhat wallet current ')
     })
 
     it('prints the active signer', async function () {

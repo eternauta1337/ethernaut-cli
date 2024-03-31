@@ -17,7 +17,7 @@ describe('add ui', function () {
 
   describe('when provider is missing', function () {
     before('run add', async function () {
-      await terminal.run('npx hardhat network add test__2', 2000)
+      await terminal.run('npx nyc hardhat network add test__2', 2000)
     })
 
     it('suggests strategies', async function () {

@@ -6,7 +6,7 @@ describe('version', function () {
 
   describe('when calling any command', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat util unit 1 from --ether to --wei')
+      await terminal.run('npx nyc hardhat util unit 1 from --ether to --wei')
     })
 
     it('shows version', async function () {

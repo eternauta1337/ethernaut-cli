@@ -10,7 +10,7 @@ describe('params prompt', function () {
     before('interact', async function () {
       const abi = path.resolve(storage.getAbisFilePath(), 'erc20.json')
       await terminal.run(
-        `npx hardhat interact contract --abi ${abi} --address ${addr} --fn transfer`,
+        `npx nyc hardhat interact contract --abi ${abi} --address ${addr} --fn transfer`,
         4000,
       )
     })
