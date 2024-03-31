@@ -161,6 +161,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact-ui && npm t
+      - name: Display lcov.info content
+        run: cat /home/runner/work/ethernaut-cli/ethernaut-cli/packages/ethernaut-interact-ui/coverage/lcov.info
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
