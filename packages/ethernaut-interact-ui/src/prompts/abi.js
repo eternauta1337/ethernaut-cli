@@ -57,16 +57,7 @@ module.exports = async function promptAbi({ hre, address }) {
 async function selectStrategy(address, chainId) {
   // Collect available choices since
   // not all strategies might be available
-  const choices = [strategies.MANUAL, strategies.BROWSE_FS]
-
-  // Pick one one from known abis?
-  const knownAbiFiles = storage.readAbiFiles()
-  debug.log(`Known ABI files: ${knownAbiFiles.length}`, 'interact')
-  if (knownAbiFiles.length > 0) {
-    choices.push(strategies.BROWSE)
-  } else {
-    debug.log('Cannot browse abis', 'interact')
-  }
+  const choices = [strategies.MANUAL, strategies.BROWSE_FS, strategies.BROWSE]
 
   // Fetch from Etherscan?
   const etherscanUrl = getEtherscanUrl(chainId)
@@ -74,21 +65,6 @@ async function selectStrategy(address, chainId) {
     choices.push(strategies.ETHERSCAN)
   } else {
     debug.log('Cannot fetch from Etherscan', 'interact')
-  }
-
-  // No choices?
-  if (choices.length === 0) {
-    debug.log('No ABI strategies available', 'interact')
-    return
-  }
-
-  // A single choice?
-  if (choices.length === 1) {
-    debug.log(
-      `Single strategy available (skipping prompt): ${choices[0]}`,
-      'interact',
-    )
-    return choices[0]
   }
 
   // Show prompt

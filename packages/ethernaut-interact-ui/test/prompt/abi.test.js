@@ -29,17 +29,26 @@ describe('abi prompt', function () {
     })
   })
 
-  describe('when in mainnet', function () {
-    describe('when an address is provided', function () {
+  describe('when an address is provided', function () {
+    before('call', async function () {
+      await terminal.run(
+        `npx hardhat interact contract --address ${addr} --network mainnet`,
+        4000,
+      )
+    })
+
+    it('provides the option to fetch abi from etherscan', async function () {
+      terminal.has('Fetch from Etherscan')
+    })
+  })
+
+  describe('when fetching an ABI from etherscan', function () {
+    describe('for a verified contract', function () {
       before('call', async function () {
         await terminal.run(
           `npx hardhat interact contract --address ${addr} --network mainnet`,
           4000,
         )
-      })
-
-      it('provides the option to fetch abi from etherscan', async function () {
-        terminal.has('Fetch from Etherscan')
       })
 
       describe('when etherscan is selected', function () {
@@ -57,6 +66,28 @@ describe('abi prompt', function () {
         it('displays the fns', async function () {
           terminal.has('name()')
           terminal.has('decimals()')
+        })
+      })
+    })
+
+    describe('for an EOA', function () {
+      before('call', async function () {
+        await terminal.run(
+          'npx hardhat interact contract --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --network mainnet',
+          4000,
+        )
+      })
+
+      describe('when etherscan is selected', function () {
+        before('nav', async function () {
+          await terminal.input(keys.DOWN)
+          await terminal.input(keys.DOWN)
+          await terminal.input(keys.DOWN)
+          await terminal.input(keys.ENTER, 4000)
+        })
+
+        it('shows that the source code is not verified', async function () {
+          terminal.has('Contract source code not verified')
         })
       })
     })
@@ -110,7 +141,7 @@ describe('abi prompt', function () {
     })
   })
 
-  describe('when browsing the fs', function () {
+  describe('when browsing the file system', function () {
     before('call', async function () {
       await terminal.run('npx hardhat interact contract', 2000)
     })
