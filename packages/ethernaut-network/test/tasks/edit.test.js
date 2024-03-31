@@ -18,7 +18,7 @@ describe('edit', function () {
   })
 
   before('run edit', async function () {
-    await terminal.run('npx nyc hardhat network edit test__3 --url poop2')
+    await terminal.run('npx hardhat network edit test__3 --url poop2')
   })
 
   it('edits the network', async function () {

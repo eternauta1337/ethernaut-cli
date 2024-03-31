@@ -26,7 +26,7 @@ describe('info', function () {
       let balance
 
       before('query', async function () {
-        await terminal.run('npx nyc hardhat wallet info test__3')
+        await terminal.run('npx hardhat wallet info test__3')
       })
 
       before('get balance', async function () {

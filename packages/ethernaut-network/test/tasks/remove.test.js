@@ -20,7 +20,7 @@ describe('remove', function () {
   })
 
   before('run remove', async function () {
-    await terminal.run('npx nyc hardhat network remove test__3')
+    await terminal.run('npx hardhat network remove test__3')
   })
 
   it('removes the network', async function () {

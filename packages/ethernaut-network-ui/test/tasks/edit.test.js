@@ -19,7 +19,7 @@ describe('edit ui', function () {
 
   describe('when parameters are missing', function () {
     before('run edit', async function () {
-      await terminal.run('npx nyc hardhat network edit', 2000)
+      await terminal.run('npx hardhat network edit', 2000)
     })
 
     it('suggests networks', async function () {

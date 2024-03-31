@@ -18,7 +18,7 @@ describe('node ui', function () {
 
   describe('when parameters are not provided', function () {
     before('run', async function () {
-      await terminal.run('npx nyc hardhat network node', 2000)
+      await terminal.run('npx hardhat network node', 2000)
     })
 
     it('queries for a network to fork', async function () {

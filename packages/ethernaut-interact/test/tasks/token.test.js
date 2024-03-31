@@ -14,7 +14,7 @@ describe('contract', function () {
     describe('when reading the token name', function () {
       before('run contract', async function () {
         await terminal.run(
-          `npx nyc hardhat interact token ${await token.getAddress()} --no-confirm --fn name --params ''`,
+          `npx hardhat interact token ${await token.getAddress()} --no-confirm --fn name --params ''`,
         )
       })
 

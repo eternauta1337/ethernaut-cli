@@ -33,7 +33,7 @@ describe('logs', function () {
       describe('when finding logs', function () {
         before('use cli', async function () {
           await terminal.run(
-            `npx nyc hardhat interact logs --address ${await token.getAddress()} --abi artifacts/contracts/TestToken.sol/TestToken.json --event Transfer --params ''`,
+            `npx hardhat interact logs --address ${await token.getAddress()} --abi artifacts/contracts/TestToken.sol/TestToken.json --event Transfer --params ''`,
           )
         })
 

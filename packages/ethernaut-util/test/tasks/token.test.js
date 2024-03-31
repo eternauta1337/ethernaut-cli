@@ -4,7 +4,7 @@ describe('token', function () {
   const terminal = new Terminal()
 
   before('make call', async function () {
-    await terminal.run('npx nyc hardhat util token usdt --chain 1', 3000)
+    await terminal.run('npx hardhat util token usdt --chain 1', 3000)
   })
 
   it('shows the token name', async function () {

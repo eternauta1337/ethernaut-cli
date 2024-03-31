@@ -17,7 +17,7 @@ describe('add', function () {
 
   before('run add', async function () {
     await terminal.run(
-      'npx nyc hardhat network add test__1 --url http://localhost:8545',
+      'npx hardhat network add test__1 --url http://localhost:8545',
     )
   })
 

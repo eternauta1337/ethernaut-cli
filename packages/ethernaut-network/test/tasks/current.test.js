@@ -25,7 +25,7 @@ describe('current', function () {
 
   describe('when calling active task', function () {
     before('call task', async function () {
-      await terminal.run('npx nyc hardhat network current')
+      await terminal.run('npx hardhat network current')
     })
 
     it('prints the active network', async function () {

@@ -18,7 +18,7 @@ describe('balance', function () {
     })
 
     before('make call', async function () {
-      await terminal.run(`npx nyc hardhat interact balance ${signer.address}`)
+      await terminal.run(`npx hardhat interact balance ${signer.address}`)
     })
 
     it('shows the address', async function () {
@@ -50,7 +50,7 @@ describe('balance', function () {
     before('make call', async function () {
       const token = await contract.getAddress()
       await terminal.run(
-        `npx nyc hardhat interact balance ${signer.address} --token ${token}`,
+        `npx hardhat interact balance ${signer.address} --token ${token}`,
       )
     })
 
