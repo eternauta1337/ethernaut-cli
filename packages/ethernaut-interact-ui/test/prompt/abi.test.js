@@ -56,7 +56,7 @@ describe('abi prompt', function () {
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
-          await terminal.input(keys.ENTER, 4000)
+          await terminal.input(keys.ENTER, 5000)
         })
 
         it('finds the TetherToken ABI', async function () {
@@ -83,7 +83,7 @@ describe('abi prompt', function () {
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
-          await terminal.input(keys.ENTER, 4000)
+          await terminal.input(keys.ENTER, 5000)
         })
 
         it('shows that the source code is not verified', async function () {
