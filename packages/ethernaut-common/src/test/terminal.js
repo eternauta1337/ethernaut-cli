@@ -52,17 +52,12 @@ class Terminal {
     this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
 
-    const p = path.resolve(
-      __dirname,
-      '../../../../',
-      'node_modules/nyc/bin/wrap.js',
-    )
     const h = path.resolve(
       __dirname,
       '../../../../',
       'node_modules/.bin/hardhat',
     )
-    const c = command.replace('hardhat', `node ${p} ${h}`)
+    const c = command.replace('hardhat', `nyc ${h}`)
     this._write(`${c} && sleep 1 && exit\r`)
 
     const completion = this._waitForCompletion()
