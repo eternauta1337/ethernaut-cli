@@ -47,7 +47,7 @@ describe('navigation', function () {
       terminal.has('edit')
       terminal.has('info')
       terminal.has('list')
-      terminal.has('node')
+      terminal.has('node Starts')
       terminal.has('remove')
     })
   })
