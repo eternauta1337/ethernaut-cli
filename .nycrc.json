@@ -4,5 +4,6 @@
   "require": ["mocha"],
   "showProcessTree": true,
   "clean": true,
-  "tempDirectory": "./coverage"
+  "tempDirectory": "./coverage",
+  "useSpawnWrap": true
 }
