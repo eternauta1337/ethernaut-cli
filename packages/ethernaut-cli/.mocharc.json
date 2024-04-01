@@ -1,0 +1,8 @@
+{
+  "exit": true,
+  "timeout": 60000,
+  "require": ["test/setup.js"],
+  "recursive": true,
+  "ignore": ["../../fixture-projects/**/*"],
+  "spec": ["test/**/*.test.js"]
+}
