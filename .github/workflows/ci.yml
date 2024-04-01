@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -144,19 +144,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Print Node.js and npm versions
-        run: |
-          echo "Node.js version:"
-          node -v
-          echo "npm version:"
-          npm -v
+        - name: Print Node.js and npm versions
+          run: |
+            echo "Node.js version:"
+            node -v
+            echo "npm version:"
+            npm -v
       - run: npm i
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -177,7 +177,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -204,7 +204,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -225,7 +225,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -246,7 +246,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -269,7 +269,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -292,7 +292,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -319,7 +319,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -346,7 +346,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['20.5.1']
+        node-version: ['20.12.0']
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
