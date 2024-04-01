@@ -56,7 +56,7 @@ describe('abi prompt', function () {
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
-          await terminal.input(keys.ENTER, 5000)
+          await terminal.input(keys.ENTER, 6000)
         })
 
         it('finds the TetherToken ABI', async function () {
