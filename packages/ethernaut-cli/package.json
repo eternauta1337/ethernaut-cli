@@ -30,8 +30,7 @@
   "scripts": {
     "build": "echo 'No build step'",
     "compile": "echo 'No compile step'",
-    "test": "nyc --nycrc-path ../../.nycrc.json mocha --config ../../.mocharc.json",
-    "test-integration": "nyc --all --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.integration.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc --nycrc-path ../../.nycrc.json mocha --config ./.mocharc.json"
   },
   "dependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
@@ -58,6 +57,7 @@
   },
   "devDependencies": {
     "hardhat": "^2.22.2",
+    "mocha": "^10.3.0",
     "nyc": "^15.1.0",
     "nyc-report-lcov-absolute": "^1.0.0"
   },
