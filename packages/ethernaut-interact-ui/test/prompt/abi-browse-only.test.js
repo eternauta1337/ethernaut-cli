@@ -4,7 +4,7 @@ describe('abi browse only prompt', function () {
   const terminal = new Terminal()
 
   before('interact', async function () {
-    await terminal.run('npx hardhat interact add-abi', 4000)
+    await terminal.run('hardhat interact add-abi', 4000)
   })
 
   it('shows query', async function () {

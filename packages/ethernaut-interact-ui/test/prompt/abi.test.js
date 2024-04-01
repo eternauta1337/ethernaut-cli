@@ -9,7 +9,7 @@ describe('abi prompt', function () {
 
   describe('when an address is not provided', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat interact contract', 2000)
+      await terminal.run('hardhat interact contract', 2000)
     })
 
     it('queries for a strategy', async function () {
@@ -32,7 +32,7 @@ describe('abi prompt', function () {
   describe('when an address is provided', function () {
     before('call', async function () {
       await terminal.run(
-        `npx hardhat interact contract --address ${addr} --network mainnet`,
+        `hardhat interact contract --address ${addr} --network mainnet`,
         4000,
       )
     })
@@ -46,7 +46,7 @@ describe('abi prompt', function () {
     describe('for a verified contract', function () {
       before('call', async function () {
         await terminal.run(
-          `npx hardhat interact contract --address ${addr} --network mainnet`,
+          `hardhat interact contract --address ${addr} --network mainnet`,
           4000,
         )
       })
@@ -73,7 +73,7 @@ describe('abi prompt', function () {
     describe('for an EOA', function () {
       before('call', async function () {
         await terminal.run(
-          'npx hardhat interact contract --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --network mainnet',
+          'hardhat interact contract --address 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045 --network mainnet',
           4000,
         )
       })
@@ -83,7 +83,7 @@ describe('abi prompt', function () {
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
           await terminal.input(keys.DOWN)
-          await terminal.input(keys.ENTER, 5000)
+          await terminal.input(keys.ENTER, 6000)
         })
 
         it('shows that the source code is not verified', async function () {
@@ -95,7 +95,7 @@ describe('abi prompt', function () {
 
   describe('when browsing known ABIs', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat interact contract', 2000)
+      await terminal.run('hardhat interact contract', 2000)
     })
 
     before('nav', async function () {
@@ -143,7 +143,7 @@ describe('abi prompt', function () {
 
   describe('when browsing the file system', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat interact contract', 2000)
+      await terminal.run('hardhat interact contract', 2000)
     })
 
     before('nav', async function () {

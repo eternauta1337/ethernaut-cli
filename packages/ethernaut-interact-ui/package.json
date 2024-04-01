@@ -7,7 +7,7 @@
     "build": "npm run install:test",
     "compile": "echo 'No compile step'",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
-    "test": "nyc --show-process-tree --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
   },
   "author": "theethernaut",
   "license": "ISC",

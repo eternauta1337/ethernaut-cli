@@ -6,10 +6,7 @@ describe('params ERC20 prompt', function () {
   describe('when transferring a token', function () {
     const addr = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
     before('interact', async function () {
-      await terminal.run(
-        `npx hardhat interact token ${addr} --fn transfer`,
-        4000,
-      )
+      await terminal.run(`hardhat interact token ${addr} --fn transfer`, 4000)
     })
 
     it('queries _to', async function () {

@@ -11,7 +11,7 @@ describe('event prompt', function () {
   describe('when an abi is provided', function () {
     before('call', async function () {
       await terminal.run(
-        `npx hardhat interact logs --address ${addr} --abi ${abi}`,
+        `hardhat interact logs --address ${addr} --abi ${abi}`,
         2000,
       )
     })

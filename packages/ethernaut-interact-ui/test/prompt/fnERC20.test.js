@@ -7,7 +7,7 @@ describe('fn ERC20 prompt', function () {
 
   describe('when an abi is provided', function () {
     before('call', async function () {
-      await terminal.run(`npx hardhat interact token ${addr}`, 2000)
+      await terminal.run(`hardhat interact token ${addr}`, 2000)
     })
 
     it('presents functions', async function () {

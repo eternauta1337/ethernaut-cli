@@ -1,0 +1,6 @@
+{
+  "all": true,
+  "reporter": ["text", "lcov"],
+  "showProcessTree": true,
+  "tempDirectory": "./coverage"
+}

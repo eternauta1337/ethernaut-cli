@@ -11,7 +11,7 @@ describe('fn prompt', function () {
   describe('when an abi is provided', function () {
     before('call', async function () {
       await terminal.run(
-        `npx hardhat interact contract --address ${addr} --abi ${abi}`,
+        `hardhat interact contract --address ${addr} --abi ${abi}`,
         2000,
       )
     })
