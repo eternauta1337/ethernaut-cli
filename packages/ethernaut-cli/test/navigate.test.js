@@ -29,7 +29,7 @@ describe('navigation', function () {
       terminal.notHas('test')
       terminal.notHas('navigate')
       terminal.notHas('run Runs a user-defined')
-      terminal.notHas('node')
+      terminal.notHas('node Starts')
       terminal.notHas('help')
       terminal.notHas('console')
     })
