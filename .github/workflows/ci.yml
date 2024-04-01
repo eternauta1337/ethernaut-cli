@@ -34,9 +34,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -64,9 +61,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -88,9 +82,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -112,9 +103,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -136,9 +124,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -166,9 +151,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -196,9 +178,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -226,9 +205,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -250,9 +226,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -274,9 +247,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -300,9 +270,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
       - run: npm ci
@@ -326,9 +293,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -356,9 +320,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
@@ -386,9 +347,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install xvfb
-        if: matrix.os == 'ubuntu-latest' && needs.changes.outputs.typescript == 'true'
-        run: sudo apt-get install -y xvfb
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
