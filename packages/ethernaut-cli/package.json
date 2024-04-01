@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "hardhat": "^2.22.2",
-    "mocha": "^10.3.0",
+    "mocha": "^10.4.0",
     "nyc": "^15.1.0",
     "nyc-report-lcov-absolute": "^1.0.0"
   },

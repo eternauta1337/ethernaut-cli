@@ -19,6 +19,7 @@
     "ethers": "^6.11.1",
     "fs-extra": "^11.2.0",
     "hardhat": "^2.22.2",
+    "mocha": "^10.4.0",
     "nyc": "^15.1.0",
     "nyc-report-lcov-absolute": "^1.0.0",
     "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
