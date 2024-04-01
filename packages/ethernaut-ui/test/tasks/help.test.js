@@ -5,7 +5,7 @@ describe('help', function () {
 
   describe('when entering the cli with no arguments', function () {
     before('run hardhat', async function () {
-      await terminal.run('npx hardhat', 2500)
+      await terminal.run('hardhat', 2500)
     })
 
     it('displays the main prompt', async function () {
@@ -23,7 +23,7 @@ describe('help', function () {
 
   describe('when entering the cli with just a scope', function () {
     before('run hardhat', async function () {
-      await terminal.run('npx hardhat util', 2500)
+      await terminal.run('hardhat util', 2500)
     })
 
     it('displays the main prompt', async function () {
@@ -48,7 +48,7 @@ describe('help', function () {
 
     describe('with the explicit help task', function () {
       before('run command', async function () {
-        await terminal.run('npx hardhat help')
+        await terminal.run('hardhat help')
       })
 
       itShowsHelp()
@@ -60,7 +60,7 @@ describe('help', function () {
 
     describe('with no scope or task', function () {
       before('run command', async function () {
-        await terminal.run('npx hardhat --help')
+        await terminal.run('hardhat --help')
       })
 
       itShowsHelp()
@@ -72,7 +72,7 @@ describe('help', function () {
 
     describe('with a scope', function () {
       before('run command', async function () {
-        await terminal.run('npx hardhat util --help')
+        await terminal.run('hardhat util --help')
       })
 
       itShowsHelp()
@@ -80,7 +80,7 @@ describe('help', function () {
 
     describe('with a task', function () {
       before('run command', async function () {
-        await terminal.run('npx hardhat util unit --help')
+        await terminal.run('hardhat util unit --help')
       })
 
       itShowsHelp()

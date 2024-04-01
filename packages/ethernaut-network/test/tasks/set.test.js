@@ -30,7 +30,7 @@ describe('set', function () {
 
   describe('when calling set', function () {
     before('call set', async function () {
-      await terminal.run('npx hardhat network set test__1', 2000)
+      await terminal.run('hardhat network set test__1', 2000)
     })
 
     it('sets the active network', async function () {

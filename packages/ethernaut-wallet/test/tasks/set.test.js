@@ -24,7 +24,7 @@ describe('set', function () {
 
   describe('when all params are specified', function () {
     before('run set', async function () {
-      await terminal.run('npx hardhat wallet set  test__3')
+      await terminal.run('hardhat wallet set  test__3')
     })
 
     it('stored the active signer', async function () {

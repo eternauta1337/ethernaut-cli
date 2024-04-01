@@ -20,7 +20,7 @@ describe('remove', function () {
   })
 
   before('run remove', async function () {
-    await terminal.run('npx hardhat wallet remove test__3')
+    await terminal.run('hardhat wallet remove test__3')
   })
 
   it('removes the signer', async function () {

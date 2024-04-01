@@ -19,10 +19,7 @@ describe('node', function () {
   describe('when parameters are provided', function () {
     describe('with none', function () {
       before('run', async function () {
-        await terminal.run(
-          'npx hardhat network node --fork none --port 8547',
-          2000,
-        )
+        await terminal.run('hardhat network node --fork none --port 8547', 2000)
       })
 
       it('starts a local chain', async function () {
@@ -48,7 +45,7 @@ describe('node', function () {
 
       before('run', async function () {
         await terminal.run(
-          'npx hardhat network node --fork test__mainnet --port 8547',
+          'hardhat network node --fork test__mainnet --port 8547',
           5000,
         )
       })

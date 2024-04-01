@@ -66,7 +66,7 @@ describe('send', function () {
 
       before('run send', async function () {
         await terminal.run(
-          `npx hardhat interact send --address ${signer2.address} --value 1 --no-confirm`,
+          `hardhat interact send --address ${signer2.address} --value 1 --no-confirm`,
         )
       })
 
@@ -83,7 +83,7 @@ describe('send', function () {
 
       before('run send', async function () {
         await terminal.run(
-          `npx hardhat interact send --address ${signer2.address} --value 1`,
+          `hardhat interact send --address ${signer2.address} --value 1`,
           5000,
         )
       })

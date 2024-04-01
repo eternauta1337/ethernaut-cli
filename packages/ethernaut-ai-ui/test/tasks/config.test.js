@@ -5,7 +5,7 @@ describe('config ui', function () {
 
   describe('when config is called with no params', function () {
     before('call', async function () {
-      await terminal.run('npx hardhat ai config', 2000)
+      await terminal.run('hardhat ai config', 2000)
     })
 
     it('displays gpt models', async function () {

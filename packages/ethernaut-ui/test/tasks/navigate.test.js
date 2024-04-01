@@ -7,7 +7,7 @@ describe('navigate', function () {
 
   describe('when entering navigation', function () {
     before('run navigate', async function () {
-      await terminal.run('npx hardhat navigate', 2500)
+      await terminal.run('hardhat navigate', 2500)
     })
 
     it('displays the main prompt', async function () {
