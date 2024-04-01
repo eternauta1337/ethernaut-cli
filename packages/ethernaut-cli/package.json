@@ -30,7 +30,7 @@
   "scripts": {
     "build": "echo 'No build step'",
     "compile": "echo 'No compile step'",
-    "test": "nyc --all --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.test.js' --ignore '../../fixture-projects/**/*'",
+    "test": "nyc --nycrc-path ../../.nycrc.json mocha --config ../../.mocharc.json",
     "test-integration": "nyc --all --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 240000 --require 'test/setup.js' --recursive 'test/**/*.integration.js' --ignore '../../fixture-projects/**/*'"
   },
   "dependencies": {

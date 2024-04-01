@@ -7,7 +7,7 @@
     "build": "npm run install:test",
     "compile": "cd test/fixture-projects/basic-project && npx hardhat compile",
     "install:test": "cd test/fixture-projects/basic-project && npm install",
-    "test": "nyc --all --reporter text --reporter nyc-report-lcov-absolute mocha --exit --timeout 60000 --require 'test/setup.js' --recursive '../../**/*.test.js' --ignore '../../fixture-projects/**/*'"
+    "test": "nyc --nycrc-path ../../.nycrc.json mocha --config ../../.mocharc.json"
   },
   "author": "theethernaut",
   "license": "ISC",
