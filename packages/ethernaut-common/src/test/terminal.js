@@ -1,6 +1,5 @@
 const pty = require('node-pty')
 const os = require('os')
-const path = require('path')
 const debug = require('ethernaut-common/src/ui/debug')
 const assert = require('assert')
 const chalk = require('chalk')
@@ -52,18 +51,7 @@ class Terminal {
     this.running = true
     debug.log(`Running command: ${command}`, 'terminal')
 
-    const p = path.resolve(
-      __dirname,
-      '../../../../',
-      'node_modules/nyc/bin/wrap.js',
-    )
-    const h = path.resolve(
-      __dirname,
-      '../../../../',
-      'node_modules/.bin/hardhat',
-    )
-    const c = command.replace('npx hardhat', `node ${p} ${h}`)
-    this._write(`${c} && sleep 1 && exit\r`)
+    this._write(`${command} && sleep 1 && exit\r`)
 
     const completion = this._waitForCompletion()
     const waitPromise = wait(delay)
