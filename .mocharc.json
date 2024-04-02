@@ -3,6 +3,7 @@
   "timeout": 60000,
   "require": ["test/setup.js"],
   "recursive": true,
+  "bail": true,
   "ignore": ["../../fixture-projects/**/*"],
   "spec": ["../../**/*.test.js"]
 }

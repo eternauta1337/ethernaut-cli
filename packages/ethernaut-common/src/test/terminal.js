@@ -23,25 +23,31 @@ class Terminal {
     this.output = ''
   }
 
+  onData = (data) => {
+    console.log('DATA', data.toString())
+    const txt = data.toString().replace(ansiEscapeCodesPattern, '')
+    this.history += txt
+    this.output += txt
+    debug.log(`Terminal output: ${txt}`, 'terminal')
+  }
+
+  onError = (data) => {
+    throw new Error(`Terminal error, ${data}`)
+  }
+
   async run(command, delay = 10000, killAfter = false) {
+    this.output = ''
+
     const args = command.split(' ')
     args.concat(['&&', 'sleep', '1', '&&', 'exit'])
     const f = 'npx'
     debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
-    const onData = (data) => {
-      const txt = this.stripAnsi(data.toString())
-      this.history += txt
-      this.output += txt
-      debug.log(`Terminal output: ${txt}`, 'terminal')
-    }
-    this.process.stdout.on('data', onData)
-
-    const onError = (data) => {
-      throw new Error(`Terminal error, ${data}`)
-    }
-    this.process.stderr.on('error', onError)
+    if (this.process.stdout.listeners('data').length === 0)
+      this.process.stdout.on('data', this.onData)
+    if (this.process.stderr.listeners('error').length === 0)
+      this.process.stderr.on('error', this.onError)
 
     const completion = this._waitForCompletion().then(() => ({
       type: 'completion',
@@ -50,15 +56,17 @@ class Terminal {
     const result = await Promise.race([completion, waitPromise])
     debug.log(`Terminal process ended with type: ${result.type}`, 'terminal')
     if (result.type === 'wait') {
-      if (killAfter) {
-        this.process.stdout.removeListener('data', onData)
-        this.process.stderr.removeListener('data', onError)
-        kill(this.process.pid, 'SIGKILL', (err) => {
-          if (err) debug.log(`Unable to kill process: ${err}`, 'terminal')
-          else debug.log('Killed process', 'terminal')
-        })
-      }
+      if (killAfter) this.kill()
     }
+  }
+
+  kill() {
+    this.process.stdout.removeListener('data', this.onData)
+    this.process.stderr.removeListener('data', this.onError)
+    kill(this.process.pid, 'SIGKILL', (err) => {
+      if (err) debug.log(`Unable to kill process: ${err}`, 'terminal')
+      else debug.log('Killed process', 'terminal')
+    })
   }
 
   async input(command, delay = 200) {
@@ -78,10 +86,6 @@ class Terminal {
   _write(content) {
     this.output = ''
     this.process.stdin.write(content)
-  }
-
-  stripAnsi(inputString) {
-    return inputString.replace(ansiEscapeCodesPattern, '')
   }
 
   has(output) {

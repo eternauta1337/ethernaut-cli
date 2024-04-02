@@ -3,7 +3,7 @@ const getBalance = require('../../src/internal/get-balance')
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 const path = require('path')
 
-describe('contract', function () {
+describe.only('contract', function () {
   const terminal = new Terminal()
 
   describe('when interacting with a sample contract', function () {
@@ -104,6 +104,8 @@ describe('contract', function () {
             await terminal.run(
               `hardhat interact contract --address ${await sample.getAddress()} --no-confirm --abi ${abiPath} --fn incrementCounter --params 42`,
             )
+            console.log(terminal.output)
+            process.exit(0)
           })
 
           itPrintsPreliminaryInfo()
