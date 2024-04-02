@@ -1,9 +1,9 @@
-const pty = require('node-pty')
-const os = require('os')
 const debug = require('ethernaut-common/src/ui/debug')
 const assert = require('assert')
 const chalk = require('chalk')
 const wait = require('ethernaut-common/src/util/wait')
+const { spawn } = require('child_process')
+const kill = require('tree-kill')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
@@ -21,44 +21,44 @@ class Terminal {
   constructor() {
     this.history = ''
     this.output = ''
-    this.shell = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
   }
 
-  async run(command, delay = 10000) {
-    if (this.running) {
-      throw new Error('Terminal is already running a command')
-    }
+  async run(command, delay = 10000, killAfter = false) {
+    const args = command.split(' ')
+    args.concat(['&&', 'sleep', '1', '&&', 'exit'])
+    const f = 'npx'
+    debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
+    this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
-    this.process = pty.spawn(this.shell, [], {
-      name: 'xterm-color',
-      cols: 80,
-      rows: 30,
-      cwd: process.cwd(),
-      env: process.env,
-    })
-
-    if (this.listener) {
-      this.listener.dispose()
-    }
-
-    this.listener = this.process.onData((data) => {
+    const onData = (data) => {
       const txt = this.stripAnsi(data.toString())
       this.history += txt
       this.output += txt
       debug.log(`Terminal output: ${txt}`, 'terminal')
-    })
+    }
+    this.process.stdout.on('data', onData)
 
-    this.running = true
-    debug.log(`Running command: ${command}`, 'terminal')
+    const onError = (data) => {
+      throw new Error(`Terminal error, ${data}`)
+    }
+    this.process.stderr.on('error', onError)
 
-    const c = command.replace('hardhat', 'nyc hardhat')
-    this._write(`${c} && sleep 1 && exit\r`)
-
-    const completion = this._waitForCompletion()
-    const waitPromise = wait(delay)
-    await Promise.race([completion, waitPromise])
-
-    this.running = false
+    const completion = this._waitForCompletion().then(() => ({
+      type: 'completion',
+    }))
+    const waitPromise = wait(delay).then(() => ({ type: 'wait' }))
+    const result = await Promise.race([completion, waitPromise])
+    debug.log(`Terminal process ended with type: ${result.type}`, 'terminal')
+    if (result.type === 'wait') {
+      if (killAfter) {
+        this.process.stdout.removeListener('data', onData)
+        this.process.stderr.removeListener('data', onError)
+        kill(this.process.pid, 'SIGKILL', (err) => {
+          if (err) debug.log(`Unable to kill process: ${err}`, 'terminal')
+          else debug.log('Killed process', 'terminal')
+        })
+      }
+    }
   }
 
   async input(command, delay = 200) {
@@ -68,8 +68,8 @@ class Terminal {
 
   _waitForCompletion() {
     return new Promise((resolve) => {
-      this.process.onExit(() => {
-        debug.log('Command completed', 'terminal')
+      this.process.once('close', (code) => {
+        debug.log(`Command completed with code ${code}`, 'terminal')
         resolve()
       })
     })
@@ -77,7 +77,7 @@ class Terminal {
 
   _write(content) {
     this.output = ''
-    this.process.write(content)
+    this.process.stdin.write(content)
   }
 
   stripAnsi(inputString) {
