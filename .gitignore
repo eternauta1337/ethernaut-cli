@@ -5,4 +5,5 @@
 **/*.cast
 **/coverage
 .nyc_output
+.nyc_cache
 .DS_Store

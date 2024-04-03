@@ -4,5 +4,11 @@
   "showProcessTree": true,
   "clean": true,
   "tempDirectory": "../coverage",
-  "useSpawnWrap": false
+  "cacheDir": "../.nyc_cache",
+  "useSpawnWrap": false,
+  "esModules": false,
+  "instrument": true,
+  "hookRequire": true,
+  "hookRunInContext": false,
+  "hookRunInThisContext": false
 }

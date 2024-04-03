@@ -27,11 +27,11 @@ class Terminal {
   async run(command, delay = 10000, killAfter = false) {
     this.output = ''
 
-    const p = path.resolve(
-      __dirname,
-      '../../../../',
-      'node_modules/nyc/bin/wrap.js',
-    )
+    // const p = path.resolve(
+    //   __dirname,
+    //   '../../../../',
+    //   'node_modules/nyc/bin/wrap.js',
+    // )
     const h = path.resolve(
       __dirname,
       '../../../../',
@@ -39,9 +39,9 @@ class Terminal {
     )
     command = command.replace('hardhat', h)
     const args = command.split(' ')
-    args.unshift(p)
+    args.unshift('node')
     args.concat(['&&', 'sleep', '1', '&&', 'exit'])
-    const f = process.execPath
+    const f = 'nyc'
     debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
