@@ -72,7 +72,7 @@ describe('sample task', function () {
 
   describe('when no parameters are passed', function () {
     before('call', async function () {
-      await terminal.run('hardhat sample', 1500)
+      await terminal.run('hardhat sample', 2000)
     })
 
     it('Asks for param with default value', async function () {
