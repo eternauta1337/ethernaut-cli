@@ -3,8 +3,6 @@
   "reporter": ["text", "nyc-report-lcov-absolute"],
   "showProcessTree": true,
   "clean": true,
-  "tempDirectory": "../coverage",
-  "cacheDir": "../.nyc_cache",
   "useSpawnWrap": false,
   "esModules": false,
   "instrument": true,
