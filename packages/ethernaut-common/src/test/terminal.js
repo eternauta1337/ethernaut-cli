@@ -22,6 +22,7 @@ class Terminal {
   constructor() {
     this.history = ''
     this.output = ''
+    this.command = ''
   }
 
   async run(command, delay = 10000, killAfter = false) {
@@ -42,7 +43,8 @@ class Terminal {
     args.unshift(n, process.execPath)
     args.concat(['&&', 'sleep', '1', '&&', 'exit'])
     const f = process.execPath
-    debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
+    this.command = `${f} ${args.join(' ')}`
+    debug.log(`Running command: ${this.command}}`, 'terminal')
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
     const onData = (data) => {
@@ -116,6 +118,9 @@ class Terminal {
 
   outputErrorMessage(expected, include) {
     let str = '\n'
+
+    str += chalk.black(`Command: ${this.command}\n`)
+    str += '```\n'
     str += chalk.black(
       `\nExpected output to${include ? ' ' : ' NOT '}include:\n`,
     )
