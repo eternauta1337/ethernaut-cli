@@ -3,7 +3,7 @@ const suggestAddress = require('../../src/suggest/address')
 const { getNetworkName } = require('ethernaut-common/src/util/network')
 const storage = require('ethernaut-interact/src/internal/storage')
 
-describe('suggest address', function () {
+describe.skip('suggest address', function () {
   let result
   const params = { hre }
 

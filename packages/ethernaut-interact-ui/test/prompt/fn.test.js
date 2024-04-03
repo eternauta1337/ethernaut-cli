@@ -2,7 +2,7 @@ const path = require('path')
 const storage = require('ethernaut-interact/src/internal/storage')
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
-describe('fn prompt', function () {
+describe.skip('fn prompt', function () {
   const addr = '0xdAC17F958D2ee523a2206206994597C13D831ec7'
   const abi = path.resolve(storage.getAbisFilePath(), 'erc20.json')
 

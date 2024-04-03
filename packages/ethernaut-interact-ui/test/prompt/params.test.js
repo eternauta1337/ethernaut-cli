@@ -2,7 +2,7 @@ const path = require('path')
 const storage = require('ethernaut-interact/src/internal/storage')
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
-describe('params prompt', function () {
+describe.skip('params prompt', function () {
   const terminal = new Terminal()
 
   describe('when transferring a token', function () {

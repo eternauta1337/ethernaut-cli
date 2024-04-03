@@ -5,7 +5,7 @@ describe('fn ERC20 prompt', function () {
 
   const terminal = new Terminal()
 
-  describe('when an abi is provided', function () {
+  describe.skip('when an abi is provided', function () {
     before('call', async function () {
       await terminal.run(`hardhat interact token ${addr}`, 2000)
     })

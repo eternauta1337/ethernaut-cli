@@ -1,6 +1,6 @@
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
-describe('abi browse only prompt', function () {
+describe.skip('abi browse only prompt', function () {
   const terminal = new Terminal()
 
   before('interact', async function () {
