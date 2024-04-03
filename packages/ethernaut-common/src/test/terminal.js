@@ -28,6 +28,10 @@ class Terminal {
   async run(command, delay = 10000, killAfter = false) {
     this.output = ''
 
+    // Build the command to call as:
+    // node nyc node hardhat ...args
+    // Which is extremely weird, but its the only way I found to guarantee
+    // proper test coverage with nested processes
     const n = path.resolve(
       __dirname,
       '../../../../',
