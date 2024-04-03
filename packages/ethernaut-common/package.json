@@ -21,8 +21,8 @@
   "devDependencies": {
     "fs-extra": "^11.2.0",
     "mocha": "^10.4.0",
-    "node-pty": "^1.0.0",
     "nyc": "^15.1.0",
+    "tree-kill": "^1.2.2",
     "nyc-report-lcov-absolute": "^1.0.0"
   },
   "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
