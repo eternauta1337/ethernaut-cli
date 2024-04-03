@@ -23,18 +23,6 @@ class Terminal {
     this.output = ''
   }
 
-  onData = (data) => {
-    console.log('DATA', data.toString())
-    const txt = data.toString().replace(ansiEscapeCodesPattern, '')
-    this.history += txt
-    this.output += txt
-    debug.log(`Terminal output: ${txt}`, 'terminal')
-  }
-
-  onError = (data) => {
-    throw new Error(`Terminal error, ${data}`)
-  }
-
   async run(command, delay = 10000, killAfter = false) {
     this.output = ''
 
@@ -44,10 +32,20 @@ class Terminal {
     debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
-    if (this.process.stdout.listeners('data').length === 0)
-      this.process.stdout.on('data', this.onData)
-    if (this.process.stderr.listeners('error').length === 0)
-      this.process.stderr.on('error', this.onError)
+    const onData = (data) => {
+      const txt = data.toString().replace(ansiEscapeCodesPattern, '')
+      this.history += txt
+      this.output += txt
+      debug.log(`Terminal output: ${txt}`, 'terminal')
+    }
+
+    const onError = (data) => {
+      throw new Error(`Terminal error, ${data}`)
+    }
+
+    this.process.stdout.on('data', onData)
+    this.process.stderr.on('data', onData)
+    this.process.stderr.on('error', onError)
 
     const completion = this._waitForCompletion().then(() => ({
       type: 'completion',
@@ -61,8 +59,9 @@ class Terminal {
   }
 
   kill() {
-    this.process.stdout.removeListener('data', this.onData)
-    this.process.stderr.removeListener('data', this.onError)
+    this.process.stdout.removeAllListeners('data')
+    this.process.stderr.removeAllListeners('data')
+    this.process.stderr.removeAllListeners('error')
     kill(this.process.pid, 'SIGKILL', (err) => {
       if (err) debug.log(`Unable to kill process: ${err}`, 'terminal')
       else debug.log('Killed process', 'terminal')
