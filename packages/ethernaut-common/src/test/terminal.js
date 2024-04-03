@@ -49,6 +49,8 @@ class Terminal {
     const f = process.execPath
     this.command = `${f} ${args.join(' ')}`
     debug.log(`Running command: ${this.command}}`, 'terminal')
+
+    // Spawn the process and immediately attach event handlers
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
     const onData = (data) => {
