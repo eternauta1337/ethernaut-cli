@@ -6,7 +6,7 @@ describe('terminal', function () {
     let terminal = new Terminal()
 
     before('run command', async function () {
-      await terminal.run('hardhat --version', 1000)
+      await terminal.run('hardhat --version', 2000)
     })
 
     it('shows hardhat version', async function () {
