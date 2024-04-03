@@ -5,7 +5,7 @@
   "clean": true,
   "cache": false,
   "useSpawnWrap": false,
-  "esModules": false,
+  "esModules": true,
   "instrument": true,
   "hookRequire": true,
   "hookRunInContext": false,
