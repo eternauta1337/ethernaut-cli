@@ -4,6 +4,7 @@ const chalk = require('chalk')
 const wait = require('ethernaut-common/src/util/wait')
 const { spawn } = require('child_process')
 const kill = require('tree-kill')
+const path = require('path')
 
 // eslint-disable-next-line no-control-regex
 const ansiEscapeCodesPattern = /\x1B\[[0-?]*[ -/]*[@-~]/g
@@ -26,9 +27,21 @@ class Terminal {
   async run(command, delay = 10000, killAfter = false) {
     this.output = ''
 
+    const p = path.resolve(
+      __dirname,
+      '../../../../',
+      'node_modules/nyc/bin/wrap.js',
+    )
+    const h = path.resolve(
+      __dirname,
+      '../../../../',
+      'node_modules/.bin/hardhat',
+    )
+    command = command.replace('hardhat', h)
     const args = command.split(' ')
+    args.unshift(p)
     args.concat(['&&', 'sleep', '1', '&&', 'exit'])
-    const f = 'npx'
+    const f = process.execPath
     debug.log(`Running command: ${f} ${args.join(' ')}`, 'terminal')
     this.process = spawn(f, args, { shell: true, stdio: 'pipe' })
 
