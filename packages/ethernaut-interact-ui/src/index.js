@@ -6,6 +6,7 @@ require('ethernaut-interact/src/index')
 const abiSuggest = require('./suggest/abi')
 const abiPrompt = require('./prompts/abi')
 const addressSuggest = require('./suggest/address')
+const addressSuggestERC20 = require('./suggest/addressERC20')
 const fnPrompt = require('./prompts/fn')
 const paramsPrompt = require('./prompts/params')
 const fnERC20Prompt = require('./prompts/fnERC20')
@@ -24,7 +25,7 @@ extendEnvironment((hre) => {
 
   const token = hre.scopes.interact.tasks.token
   token.positionalParamDefinitions.find((p) => p.name === 'address').suggest =
-    addressSuggest
+    addressSuggestERC20
   token.paramDefinitions.fn.prompt = fnERC20Prompt
   token.paramDefinitions.params.prompt = paramsERC20Prompt
 
