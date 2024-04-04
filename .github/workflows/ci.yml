@@ -44,6 +44,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-common && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-common
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -65,6 +70,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-util
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -86,6 +96,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-util-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -107,6 +122,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -134,6 +154,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-interact
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -161,6 +186,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-interact-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -188,6 +218,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-challenges && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-challenges
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -209,6 +244,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-ai
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -230,6 +270,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-ai-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -253,6 +298,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-network
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -276,6 +326,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-network-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -303,6 +358,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-wallet
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -330,6 +390,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet-ui && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-wallet-ui
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
@@ -351,6 +416,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-cli && xvfb-run npm t
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ethernaut-cli
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
         with:
