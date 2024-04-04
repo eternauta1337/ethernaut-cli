@@ -44,6 +44,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-common && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-common/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -70,6 +72,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-util/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -96,6 +100,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-util-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -122,6 +128,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -154,6 +162,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-interact/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -220,6 +230,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-challenges && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-challenges/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -246,6 +258,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-ai/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -272,6 +286,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-ai-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -300,6 +316,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-network/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -328,6 +346,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-network-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -360,6 +380,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-wallet/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -392,6 +414,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-wallet-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
@@ -418,6 +442,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-cli && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-cli/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
