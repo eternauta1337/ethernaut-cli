@@ -1,9 +1,9 @@
 {
   "all": true,
-  "reporter": ["text", "nyc-report-lcov-absolute"],
+  "reporter": ["text", "lcov"],
   "showProcessTree": false,
-  "clean": false,
-  "cache": false,
+  "clean": true,
+  "cache": true,
   "useSpawnWrap": false,
   "esModules": true,
   "instrument": true,
