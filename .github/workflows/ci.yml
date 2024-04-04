@@ -44,19 +44,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-common && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-common/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-common
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-common
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-util:
     runs-on: ubuntu-latest
     strategy:
@@ -72,19 +64,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-util/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-util
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-util-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -100,19 +84,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-util-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-util-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-util-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -128,19 +104,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-interact:
     runs-on: ubuntu-latest
     strategy:
@@ -162,19 +130,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-interact/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-interact
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-interact-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -196,19 +156,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-interact-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-interact-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-challenges:
     runs-on: ubuntu-latest
     strategy:
@@ -230,19 +182,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-challenges && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-challenges/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-challenges
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-challenges
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-ai:
     runs-on: ubuntu-latest
     strategy:
@@ -258,19 +202,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-ai/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-ai
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-ai-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -286,19 +222,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-ai-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-ai-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-ai-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-network:
     runs-on: ubuntu-latest
     strategy:
@@ -316,19 +244,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-network/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-network
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-network-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -346,19 +266,11 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-network-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-network-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-network-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-wallet:
     runs-on: ubuntu-latest
     strategy:
@@ -380,19 +292,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-wallet/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-wallet
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-wallet-ui:
     runs-on: ubuntu-latest
     strategy:
@@ -414,19 +318,11 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-wallet-ui && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-wallet-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet-ui
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-wallet-ui
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
   ethernaut-cli:
     runs-on: ubuntu-latest
     strategy:
@@ -442,16 +338,8 @@ jobs:
       - run: npm run build --if-present
       - run: npm run compile --if-present
       - run: cd packages/ethernaut-cli && npm t
-      - name: Print lcov.info
-        run: cat packages/ethernaut-cli/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-cli
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          flags: ethernaut-cli
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: theethernaut/ethernaut-cli
