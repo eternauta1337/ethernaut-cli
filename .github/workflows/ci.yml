@@ -43,7 +43,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-common && xvfb-run npm t
+      - run: cd packages/ethernaut-common && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-common/coverage/lcov.info
       - name: Coveralls
@@ -71,7 +71,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-util && xvfb-run npm t
+      - run: cd packages/ethernaut-util && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-util/coverage/lcov.info
       - name: Coveralls
@@ -99,7 +99,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-util-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-util-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-util-ui/coverage/lcov.info
       - name: Coveralls
@@ -127,7 +127,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-ui/coverage/lcov.info
       - name: Coveralls
@@ -161,7 +161,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact && xvfb-run npm t
+      - run: cd packages/ethernaut-interact && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-interact/coverage/lcov.info
       - name: Coveralls
@@ -195,7 +195,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-interact-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-interact-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-interact-ui/coverage/lcov.info
       - name: Coveralls
@@ -229,7 +229,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-challenges && xvfb-run npm t
+      - run: cd packages/ethernaut-challenges && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-challenges/coverage/lcov.info
       - name: Coveralls
@@ -257,7 +257,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ai && xvfb-run npm t
+      - run: cd packages/ethernaut-ai && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-ai/coverage/lcov.info
       - name: Coveralls
@@ -285,7 +285,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-ai-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-ai-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-ai-ui/coverage/lcov.info
       - name: Coveralls
@@ -315,7 +315,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-network && xvfb-run npm t
+      - run: cd packages/ethernaut-network && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-network/coverage/lcov.info
       - name: Coveralls
@@ -345,7 +345,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-network-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-network-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-network-ui/coverage/lcov.info
       - name: Coveralls
@@ -379,7 +379,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-wallet && xvfb-run npm t
+      - run: cd packages/ethernaut-wallet && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-wallet/coverage/lcov.info
       - name: Coveralls
@@ -413,7 +413,7 @@ jobs:
         run: |
           npm run chain &
           sleep 5
-      - run: cd packages/ethernaut-wallet-ui && xvfb-run npm t
+      - run: cd packages/ethernaut-wallet-ui && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-wallet-ui/coverage/lcov.info
       - name: Coveralls
@@ -441,7 +441,7 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run compile --if-present
-      - run: cd packages/ethernaut-cli && xvfb-run npm t
+      - run: cd packages/ethernaut-cli && npm t
       - name: Print lcov.info
         run: cat packages/ethernaut-cli/coverage/lcov.info
       - name: Coveralls
