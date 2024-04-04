@@ -2,7 +2,7 @@
   "name": "ethernaut-common",
   "version": "1.1.10",
   "description": "Simple utilities used across all packages in the monorepo",
-  "author": "theethernaut",
+  "author": "Alejandro Santander",
   "scripts": {
     "build": "npm run install:test",
     "compile": "echo 'No compile step'",

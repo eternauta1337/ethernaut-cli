@@ -25,7 +25,7 @@
     "openzeppelin-contracts-06": "npm:@openzeppelin/contracts@3.4.2",
     "openzeppelin-contracts-08": "npm:@openzeppelin/contracts@4.7.3"
   },
-  "author": "theethernaut",
+  "author": "Alejandro Santander",
   "license": "ISC",
   "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }

@@ -3,7 +3,7 @@
   "version": "1.1.10",
   "description": "Ai agent cli with web3 capabilities",
   "license": "ISC",
-  "author": "theethernaut",
+  "author": "Alejandro Santander",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theethernaut/ethernaut-cli.git"

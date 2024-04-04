@@ -12,7 +12,7 @@
   "files": [
     "src/"
   ],
-  "author": "theethernaut",
+  "author": "Alejandro Santander",
   "license": "ISC",
   "peerDependencies": {
     "hardhat": "^2.22.2"

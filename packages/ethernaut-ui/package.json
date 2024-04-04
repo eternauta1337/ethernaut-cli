@@ -10,7 +10,7 @@
     "test": "nyc --nycrc-path ../../.nycrc.json mocha --config ../../.mocharc.json"
   },
   "keywords": [],
-  "author": "theethernaut",
+  "author": "Alejandro Santander",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.2",
