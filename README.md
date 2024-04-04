@@ -3,6 +3,7 @@
 [![Dynamic JSON Badge](https://img.shields.io/npm/v/ethernaut-cli.svg)](https://www.npmjs.com/package/ethernaut-cli)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/theethernaut/ethernaut-cli/ci.yml)](https://github.com/theethernaut/ethernaut-cli/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/github/theethernaut/ethernaut-cli/graph/badge.svg?token=ZBKMD0BTEU)](https://codecov.io/github/theethernaut/ethernaut-cli)
+[![Coverage Status](https://coveralls.io/repos/github/theethernaut/ethernaut-cli/badge.svg)](https://coveralls.io/github/theethernaut/ethernaut-cli)
 
 The ethernaut-cli is basically an ai agent that is given access to web3 actions through hardhat tasks. It is a cli meant to be installed globally, and used like:
 
