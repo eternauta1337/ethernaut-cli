@@ -2,7 +2,7 @@
   "all": true,
   "reporter": ["text", "nyc-report-lcov-absolute"],
   "showProcessTree": false,
-  "clean": true,
+  "clean": false,
   "cache": false,
   "useSpawnWrap": false,
   "esModules": true,
