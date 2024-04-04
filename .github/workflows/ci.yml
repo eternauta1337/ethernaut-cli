@@ -186,6 +186,8 @@ jobs:
           npm run chain &
           sleep 5
       - run: cd packages/ethernaut-interact-ui && xvfb-run npm t
+      - name: Print lcov.info
+        run: cat packages/ethernaut-interact-ui/coverage/lcov.info
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
