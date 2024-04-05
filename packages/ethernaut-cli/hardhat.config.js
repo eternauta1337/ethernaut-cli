@@ -23,6 +23,8 @@ require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 require('ethernaut-ui')
+require('ethernaut-retropgf')
+// AI should always go last
 require('ethernaut-ai')
 require('ethernaut-ai-ui')
 
