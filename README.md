@@ -4,7 +4,9 @@
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/theethernaut/ethernaut-cli/ci.yml)](https://github.com/theethernaut/ethernaut-cli/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/theethernaut/ethernaut-cli/badge.svg)](https://coveralls.io/github/theethernaut/ethernaut-cli)
 
-The ethernaut-cli is basically an ai agent that is given access to web3 actions through hardhat tasks. It is a cli meant to be installed globally, and used like:
+AI agent for Web3 composed of [hardhat](https://github.com/NomicFoundation/hardhat) plugins.
+
+Example usages:
 
 `ethernaut what is the total supply of USDC`
 
@@ -20,13 +22,11 @@ And also features an interactive mode that allows easy navigation of tasks and c
 
 ## Installation
 
+This CLI is mean to be installed globally, and not as a per-project task runner as hardhat is normally used for.
+
 `npm i -g ethernaut-cli`
 
-Warning!!! This software is in beta, and very experimental atm.
-
-![danger](https://media.giphy.com/media/X8t6i3zOvLfGw/giphy.gif?cid=790b7611j0imei4nyl4pp57rhrk4bjb60d4z2vwc8suct6i1&ep=v1_gifs_search&rid=giphy.gif&ct=g)
-
-## Tutorials
+## Tutorials and articles
 
 - [Announcing the ethernaut-cli](https://mirror.xyz/theethernaut.eth/0HP3L4mWzb4isXYERfsncBQgzT1T99uQTH8tvJvICmE)
 
@@ -118,21 +118,21 @@ All the plugins combined conform the ethernaut-cli.
 
 <summary>List of packages</summary>
 
-| Title                                                                   | Description                                                             |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| [ethernaut-ai](packages/title/README.md#ethernaut-ai)                   | AI assistant that interprets user input and executes hardhat tasks      |
-| [ethernaut-ai-ui](packages/title/README.md#ethernaut-ai-ui)             | Ui extensions for the ethernaut-ai package                              |
-| [ethernaut-cli](packages/title/README.md#ethernaut-cli)                 | Main hardhat project                                                    |
-| [ethernaut-challenges](packages/title/README.md#ethernaut-challenges)   | Tasks for playing the Open Zeppelin Ethernaut challenges from the CLI   |
-| [ethernaut-common](packages/title/README.md#ethernaut-common)           | Common utils used by several ethernaut-cli plugins                      |
-| [ethernaut-interact](packages/title/README.md#ethernaut-interact)       | Tasks for sending transactions and interacting with contracts           |
-| [ethernaut-interact-ui](packages/title/README.md#ethernaut-interact-ui) | Ui extensions for the ethernaut-interact package                        |
-| [ethernaut-network](packages/title/README.md#ethernaut-network)         | Tasks for interacting with different networks                           |
-| [ethernaut-network-ui](packages/title/README.md#ethernaut-network-ui)   | Ui extensions for the ethernaut-network package                         |
-| [ethernaut-ui](packages/title/README.md#ethernaut-ui)                   | Intuitive navigation and interactive param collection for hardhat tasks |
-| [ethernaut-util](packages/title/README.md#ethernaut-util)               | Simple, everyday utilities for Ethereum devs                            |
-| [ethernaut-util-ui](packages/title/README.md#ethernaut-util-ui)         | Ui extensions for the ethernaut-util package                            |
-| [ethernaut-wallet](packages/title/README.md#ethernaut-wallet)           | Tasks for interacting from different Ethereum accounts                  |
-| [ethernaut-wallet-ui](packages/title/README.md#ethernaut-wallet-ui)     | Ui extensions for the ethernaut-wallet package                          |
+| Title                                                             | Description                                                             |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [ethernaut-ai](packages/ethernaut-ai/README.md)                   | AI assistant that interprets user input and executes hardhat tasks      |
+| [ethernaut-ai-ui](packages/ethernaut-ai-ui/README.md)             | Ui extensions for the ethernaut-ai package                              |
+| [ethernaut-cli](packages/ethernaut-cli/README.md)                 | Main hardhat project                                                    |
+| [ethernaut-challenges](packages/ethernaut-challenges/README.md)   | Tasks for playing the Open Zeppelin Ethernaut challenges from the CLI   |
+| [ethernaut-common](packages/ethernaut-common/README.md)           | Common utils used by several ethernaut-cli plugins                      |
+| [ethernaut-interact](packages/ethernaut-interact/README.md)       | Tasks for sending transactions and interacting with contracts           |
+| [ethernaut-interact-ui](packages/ethernaut-interact-ui/README.md) | Ui extensions for the ethernaut-interact package                        |
+| [ethernaut-network](packages/ethernaut-network/README.md)         | Tasks for interacting with different networks                           |
+| [ethernaut-network-ui](packages/ethernaut-network-ui/README.md)   | Ui extensions for the ethernaut-network package                         |
+| [ethernaut-ui](packages/ethernaut-ui/README.md)                   | Intuitive navigation and interactive param collection for hardhat tasks |
+| [ethernaut-util](packages/ethernaut-util/README.md)               | Simple, everyday utilities for Ethereum devs                            |
+| [ethernaut-util-ui](packages/ethernaut-util-ui/README.md)         | Ui extensions for the ethernaut-util package                            |
+| [ethernaut-wallet](packages/ethernaut-wallet/README.md)           | Tasks for interacting from different Ethereum accounts                  |
+| [ethernaut-wallet-ui](packages/ethernaut-wallet-ui/README.md)     | Ui extensions for the ethernaut-wallet package                          |
 
 </details>
