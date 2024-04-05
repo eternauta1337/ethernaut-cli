@@ -71,7 +71,6 @@ For example, the ui extension of the interact plugin can fetch the abi from Ethe
   <summary>Custom ABI Prompt</summary>
   <img src="demos/custom.gif" alt="Etherscan custom ABI prompt">
 </details>
-<br>
 
 But after you've interacted with the contract, it already has the abi, so the abi is instead suggested:
 
@@ -79,7 +78,6 @@ But after you've interacted with the contract, it already has the abi, so the ab
   <summary>Abi suggestion</summary>
   <img src="demos/custom1.gif" alt="Abi suggestion">
 </details>
-<br>
 
 Another example is the extension for the model param in `ethernaut ai config --model`, which queries the openai API and presents a list of available models.
 
@@ -91,7 +89,6 @@ If that wasn't easy enough, just type whatever you want and AI will kick in to t
   <summary>Ai natural language interpretation</summary>
   <img src="demos/interpret.gif" alt="Ai natural language interpretation">
 </details>
-<br>
 
 You want the AI to also teach you how the commands work? Sure.
 
@@ -99,7 +96,6 @@ You want the AI to also teach you how the commands work? Sure.
   <summary>Ai command explanation</summary>
   <img src="demos/explain.gif" alt="Ai command explanation">
 </details>
-<br>
 
 You want the AI to also teach you about Ethereum. Also sure.
 
