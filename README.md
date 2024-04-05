@@ -38,20 +38,26 @@ Just type `ethernaut` and jump straight into an enquirer based navigation mode. 
 
 <details>
   <summary>Navigation demo</summary>
-  ![Enquirer navigation](demos/nav.gif)
+  <img src="demos/nav.gif" alt="Enquirer navigation">
 </details>
 
 ## Smart interactive mode
 
 Once in a task, interactive mode kicks in, and parameters are collected through enquirer prompts.
 
-![Enquirer param collection](demos/interactive.gif)
+<details>
+  <summary>Enquirer param collection</summary>
+  <img src="demos/interactive.gif" alt="Enquirer param collection">
+</details>
 
 ## Normal CLI interaction
 
 This is still a regular CLI app, so commands can be called without all the fancy ui or ai stuff:
 
-![Normal CLI mode](demos/normal.gif)
+<details>
+  <summary>Normal CLI mode</summary>
+  <img src="demos/normal.gif" alt="Normal CLI mode">
+</details>
 
 ## Ui extensions
 
@@ -61,11 +67,19 @@ Plugins that enhance parameter collection prompts in other plugins with even coo
 
 For example, the ui extension of the interact plugin can fetch the abi from Etherscan if you didn't provide an abi:
 
-![Etherscan custom abi prompt](demos/custom.gif)
+<details>
+  <summary>Custom ABI Prompt</summary>
+  <img src="demos/custom.gif" alt="Etherscan custom ABI prompt">
+</details>
+<br>
 
 But after you've interacted with the contract, it already has the abi, so the abi is instead suggested:
 
-![Abi suggestion](demos/custom1.gif)
+<details>
+  <summary>Abi suggestion</summary>
+  <img src="demos/custom1.gif" alt="Abi suggestion">
+</details>
+<br>
 
 Another example is the extension for the model param in `ethernaut ai config --model`, which queries the openai API and presents a list of available models.
 
@@ -73,15 +87,26 @@ Another example is the extension for the model param in `ethernaut ai config --m
 
 If that wasn't easy enough, just type whatever you want and AI will kick in to try to make sense of what you typed, and the right command or sequence of commands will be executed.
 
-![Ai natural language interpretation](demos/interpret.gif)
+<details>
+  <summary>Ai natural language interpretation</summary>
+  <img src="demos/interpret.gif" alt="Ai natural language interpretation">
+</details>
+<br>
 
 You want the AI to also teach you how the commands work? Sure.
 
-![Ai command explanation](demos/explain.gif)
+<details>
+  <summary>Ai command explanation</summary>
+  <img src="demos/explain.gif" alt="Ai command explanation">
+</details>
+<br>
 
 You want the AI to also teach you about Ethereum. Also sure.
 
-![Complete level 1](demos/teach.gif)
+<details>
+  <summary>Complete level 1</summary>
+  <img src="demos/teach.gif" alt="Complete level 1">
+</details>
 
 ## Extensibility through hardhat plugins
 
@@ -92,6 +117,10 @@ You just want task navigation and interactive mode in your project: use the `eth
 Or the ai stuff: use `ethernaut-ai` plugin.
 
 All the plugins combined conform the ethernaut-cli.
+
+<details>
+
+<summary>List of packages</summary>
 
 | Title                                                                   | Description                                                             |
 | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
@@ -109,3 +138,5 @@ All the plugins combined conform the ethernaut-cli.
 | [ethernaut-util-ui](packages/title/README.md#ethernaut-util-ui)         | Ui extensions for the ethernaut-util package                            |
 | [ethernaut-wallet](packages/title/README.md#ethernaut-wallet)           | Tasks for interacting from different Ethereum accounts                  |
 | [ethernaut-wallet-ui](packages/title/README.md#ethernaut-wallet-ui)     | Ui extensions for the ethernaut-wallet package                          |
+
+</details>
