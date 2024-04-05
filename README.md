@@ -36,7 +36,10 @@ No more man pages. No more --help.
 
 Just type `ethernaut` and jump straight into an enquirer based navigation mode. Select a scope, select a task, and boom.
 
-![Enquirer navigation](demos/nav.gif)
+<details>
+  <summary>Navigation demo</summary>
+  ![Enquirer navigation](demos/nav.gif)
+</details>
 
 ## Smart interactive mode
 
