@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-common",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Simple utilities used across all packages in the monorepo",
   "author": "Alejandro Santander",
   "scripts": {
@@ -22,8 +22,8 @@
     "fs-extra": "^11.2.0",
     "mocha": "^10.4.0",
     "nyc": "^15.1.0",
-    "tree-kill": "^1.2.2",
-    "nyc-report-lcov-absolute": "^1.0.0"
+    "nyc-report-lcov-absolute": "^1.0.0",
+    "tree-kill": "^1.2.2"
   },
   "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
 }
