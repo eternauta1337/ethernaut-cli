@@ -3,7 +3,7 @@ const OpenSourceObserver = require('../internal/oso')
 const types = require('ethernaut-common/src/validation/types')
 
 require('../scopes/oso')
-  .task('list', 'Lists Open Source Observer projects')
+  .task('list', 'Lists Open Source Observer projects by name and slug')
   .addPositionalParam(
     'filter',
     'A keyword used to filter projects',

@@ -4,7 +4,10 @@ const types = require('ethernaut-common/src/validation/types')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/oso')
-  .task('metrics', 'Get Open Source Observer code metrics for a project')
+  .task(
+    'metrics',
+    'Prints Open Source Observer code metrics for a project, including number of Github stars, commits, contributors, and more',
+  )
   .addPositionalParam(
     'name',
     'The name or slug of the project',
