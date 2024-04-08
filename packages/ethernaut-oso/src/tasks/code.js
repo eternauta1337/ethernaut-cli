@@ -29,23 +29,31 @@ require('../scopes/metrics')
 
       const project = projects[0]
 
-      let str = ''
-      str += `Project: ${project.project_name} (${project.project_slug})\n`
-      str += `Stars: ${project.stars}\n`
-      str += `Last commit date: ${project.last_commit_date}\n`
-      str += `Commits (6 months): ${project.commits_6_months}\n`
-      str += `Number of repositories: ${project.repositories}\n`
-      str += `Average active devs (6 months): ${project.avg_active_devs_6_months}\n`
-      str += `Contributors: ${project.contributors}\n`
-      str += `Contributors (6 months): ${project.contributors_6_months}\n`
-      str += `New contributors (6 months): ${project.new_contributors_6_months}\n`
-      str += `Forks: ${project.forks}\n`
-      str += `Issues closed (6 months): ${project.issues_closed_6_months}\n`
-      str += `Issues opened (6 months): ${project.issues_opened_6_months}\n`
-      str += `Pull requests merged (6 months): ${project.pull_requests_merged_6_months}\n`
-      str += `Pull requests opened (6 months): ${project.pull_requests_opened_6_months}`
+      const strs = []
+      strs.push(`Project: ${project.project_name} (${project.project_slug})`)
+      strs.push(`Stars: ${project.stars}`)
+      strs.push(`Last commit date: ${project.last_commit_date}`)
+      strs.push(`Commits (6 months): ${project.commits_6_months}`)
+      strs.push(`Number of repositories: ${project.repositories}`)
+      strs.push(
+        `Average active devs (6 months): ${project.avg_active_devs_6_months}`,
+      )
+      strs.push(`Contributors: ${project.contributors}`)
+      strs.push(`Contributors (6 months): ${project.contributors_6_months}`)
+      strs.push(
+        `New contributors (6 months): ${project.new_contributors_6_months}`,
+      )
+      strs.push(`Forks: ${project.forks}`)
+      strs.push(`Issues closed (6 months): ${project.issues_closed_6_months}`)
+      strs.push(`Issues opened (6 months): ${project.issues_opened_6_months}`)
+      strs.push(
+        `Pull requests merged (6 months): ${project.pull_requests_merged_6_months}`,
+      )
+      strs.push(
+        `Pull requests opened (6 months): ${project.pull_requests_opened_6_months}`,
+      )
 
-      return output.resultBox(str)
+      return output.resultBox(strs.join('\n'))
     } catch (err) {
       return output.errorBox(err)
     }

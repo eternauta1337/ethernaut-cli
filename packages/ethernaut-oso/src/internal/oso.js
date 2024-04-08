@@ -29,6 +29,38 @@ class OpenSourceObserver {
     return data.projects
   }
 
+  async getChainMetrics(filter = '') {
+    const data = await this.makeGraphQLRequest(
+      `
+        query GetChainMetrics {
+          onchain_metrics_by_project(where: {project_name: {_ilike: "%${filter}%"}}) {
+            active_users
+            first_txn_date
+            high_frequency_users
+            l2_gas_6_months
+            less_active_users
+            more_active_users
+            multi_project_users
+            network
+            new_user_count
+            num_contracts
+            project_id
+            project_name
+            project_slug
+            total_l2_gas
+            total_txns
+            total_users
+            txns_6_months
+            users_6_months
+          }
+        }
+    `,
+      {},
+    )
+
+    return data.onchain_metrics_by_project
+  }
+
   async getCodeMetrics(filter = '') {
     const data = await this.makeGraphQLRequest(
       `
