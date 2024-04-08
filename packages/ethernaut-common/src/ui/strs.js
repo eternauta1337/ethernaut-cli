@@ -12,6 +12,15 @@ class Strs {
     }
   }
 
+  pushAll(fields) {
+    for (const field of fields) {
+      const value = this.obj[field]
+      if (value !== undefined && value !== null) {
+        this.push(`${field}: ${value}`)
+      }
+    }
+  }
+
   print() {
     return this.arr.join('\n')
   }
