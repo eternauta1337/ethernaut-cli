@@ -10,7 +10,7 @@ require('../scopes/metrics')
     'Prints Open Source Observer code metrics for a project, including number of Github stars, commits, contributors, and more',
   )
   .addOptionalParam(
-    'name',
+    'project',
     'The name or slug of the project',
     undefined,
     types.string,
@@ -22,16 +22,16 @@ require('../scopes/metrics')
     undefined,
     types.string,
   )
-  .setAction(async ({ name, limit, sort }) => {
+  .setAction(async ({ project, limit, sort }) => {
     try {
       const oso = new OpenSourceObserver()
 
-      const projects = await oso.getCodeMetrics(name, limit, sort)
+      const projects = await oso.getCodeMetrics(project, limit, sort)
 
       if (projects.length === 0) {
         throw new EthernautCliError(
           'ethernaut-oso',
-          `No projects found for "${name}"`,
+          `No projects found for "${project}"`,
         )
       }
 
