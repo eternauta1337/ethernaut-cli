@@ -36,7 +36,8 @@ require('../scopes/metrics')
       }
 
       const buffer = []
-      for (const project of projects) {
+      for (let idx = 0; idx < projects.length; idx++) {
+        const project = projects[idx]
         const strs = new Strs(project)
         strs.push(`Project: ${project.project_name} (${project.project_slug})`)
         strs.push(`Active users: ${project.active_users}`)
@@ -55,7 +56,7 @@ require('../scopes/metrics')
         strs.push(`Transactions (6 months): ${project.txns_6_months}`)
         strs.push(`Users (6 months): ${project.users_6_months}`)
         const str = strs.print()
-        output.resultBox(str)
+        output.resultBox(str, `Result ${idx + 1} of ${projects.length}`)
         buffer.push(str)
       }
 
