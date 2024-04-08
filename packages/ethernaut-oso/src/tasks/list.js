@@ -7,7 +7,7 @@ require('../scopes/oso')
   .addPositionalParam(
     'filter',
     'A keyword used to filter projects',
-    '',
+    undefined,
     types.string,
   )
   .addOptionalParam('limit', 'Number of projects to list', 10, types.int)
@@ -15,7 +15,7 @@ require('../scopes/oso')
     try {
       const oso = new OpenSourceObserver()
 
-      let projects = await oso.getProjects(filter, limit)
+      const projects = await oso.getProjects(filter, limit)
 
       let strs = []
       for (const project of projects) {
