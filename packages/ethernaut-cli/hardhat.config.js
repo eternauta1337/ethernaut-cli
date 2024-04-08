@@ -23,6 +23,7 @@ require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 require('ethernaut-ui')
+require('ethernaut-oso')
 require('ethernaut-ai')
 require('ethernaut-ai-ui')
 
