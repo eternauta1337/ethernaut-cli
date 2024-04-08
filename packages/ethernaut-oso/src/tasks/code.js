@@ -9,18 +9,24 @@ require('../scopes/metrics')
     'code',
     'Prints Open Source Observer code metrics for a project, including number of Github stars, commits, contributors, and more',
   )
-  .addPositionalParam(
+  .addOptionalParam(
     'name',
     'The name or slug of the project',
     undefined,
     types.string,
   )
   .addOptionalParam('limit', 'Number of projects to list', 10, types.int)
-  .setAction(async ({ name, limit }) => {
+  .addOptionalParam(
+    'sort',
+    `Sort by field. One of: ${OpenSourceObserver.getCodeMetricsFields().join(', ')}`,
+    undefined,
+    types.string,
+  )
+  .setAction(async ({ name, limit, sort }) => {
     try {
       const oso = new OpenSourceObserver()
 
-      const projects = await oso.getCodeMetrics(name, limit)
+      const projects = await oso.getCodeMetrics(name, limit, sort)
 
       if (projects.length === 0) {
         throw new EthernautCliError(
