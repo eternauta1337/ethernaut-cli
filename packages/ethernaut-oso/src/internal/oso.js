@@ -12,7 +12,10 @@ class OpenSourceObserver {
     const data = await this.makeGraphQLRequest(
       `
         query GetProjects {
-          projects(where: {project_name: {_ilike: "%${filter}%"}}, limit: ${limit}) {
+          projects(
+            where: {project_name: {_ilike: "%${filter}%"}}
+            limit: ${limit}
+          ) {
             count_blockchain_artifacts
             count_github_artifacts
             count_npm_artifacts
@@ -29,11 +32,14 @@ class OpenSourceObserver {
     return data.projects
   }
 
-  async getChainMetrics(filter = '') {
+  async getChainMetrics(filter = '', limit = 1000) {
     const data = await this.makeGraphQLRequest(
       `
         query GetChainMetrics {
-          onchain_metrics_by_project(where: {project_name: {_ilike: "%${filter}%"}}) {
+          onchain_metrics_by_project(
+            where: {project_name: {_ilike: "%${filter}%"}}
+            limit: ${limit}
+          ) {
             active_users
             first_txn_date
             high_frequency_users
@@ -61,13 +67,14 @@ class OpenSourceObserver {
     return data.onchain_metrics_by_project
   }
 
-  async getCodeMetrics(filter = '') {
+  async getCodeMetrics(filter = '', limit = 1000) {
     const data = await this.makeGraphQLRequest(
       `
         query GetCodeMetrics {
           code_metrics_by_project(
             where: { project_name: { _ilike: "%${filter}%" } }
             order_by: { avg_active_devs_6_months: desc_nulls_last }
+            limit: ${limit}
           ) {
             project_id
             project_name
