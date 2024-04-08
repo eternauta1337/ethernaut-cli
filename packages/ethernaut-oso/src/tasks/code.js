@@ -2,6 +2,7 @@ const output = require('ethernaut-common/src/ui/output')
 const OpenSourceObserver = require('../internal/oso')
 const types = require('ethernaut-common/src/validation/types')
 const EthernautCliError = require('ethernaut-common/src/error/error')
+const Strs = require('ethernaut-common/src/ui/strs')
 
 require('../scopes/metrics')
   .task(
@@ -29,7 +30,7 @@ require('../scopes/metrics')
 
       const project = projects[0]
 
-      const strs = []
+      const strs = new Strs(project)
       strs.push(`Project: ${project.project_name} (${project.project_slug})`)
       strs.push(`Stars: ${project.stars}`)
       strs.push(`Last commit date: ${project.last_commit_date}`)
@@ -53,7 +54,7 @@ require('../scopes/metrics')
         `Pull requests opened (6 months): ${project.pull_requests_opened_6_months}`,
       )
 
-      return output.resultBox(strs.join('\n'))
+      return output.resultBox(strs.print())
     } catch (err) {
       return output.errorBox(err)
     }
