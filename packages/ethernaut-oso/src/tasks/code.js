@@ -3,15 +3,15 @@ const OpenSourceObserver = require('../internal/oso')
 const types = require('ethernaut-common/src/validation/types')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 
-require('../scopes/oso')
+require('../scopes/metrics')
   .task(
-    'metrics',
+    'code',
     'Prints Open Source Observer code metrics for a project, including number of Github stars, commits, contributors, and more',
   )
   .addPositionalParam(
     'name',
     'The name or slug of the project',
-    '',
+    undefined,
     types.string,
   )
   .setAction(async ({ name }) => {

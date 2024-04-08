@@ -2,8 +2,11 @@ const output = require('ethernaut-common/src/ui/output')
 const OpenSourceObserver = require('../internal/oso')
 const types = require('ethernaut-common/src/validation/types')
 
-require('../scopes/oso')
-  .task('list', 'Lists Open Source Observer projects by name and slug')
+require('../scopes/metrics')
+  .task(
+    'find',
+    'Finds Open Source Observer projects by keyword, listing matches by name and slug',
+  )
   .addPositionalParam(
     'filter',
     'A keyword used to filter projects',
@@ -16,6 +19,10 @@ require('../scopes/oso')
       const oso = new OpenSourceObserver()
 
       const projects = await oso.getProjects(filter, limit)
+
+      if (projects.length === 0) {
+        throw new Error(`No projects found for "${filter}"`)
+      }
 
       let strs = []
       for (const project of projects) {

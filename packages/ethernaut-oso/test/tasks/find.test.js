@@ -1,10 +1,10 @@
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
-describe('list', function () {
+describe('find', function () {
   const terminal = new Terminal()
 
-  before('list', async function () {
-    await terminal.run('hardhat oso list ethers')
+  before('run', async function () {
+    await terminal.run('hardhat metrics find ethers')
   })
 
   it('lists projects', async function () {
