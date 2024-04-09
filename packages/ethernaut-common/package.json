@@ -1,6 +1,6 @@
 {
   "name": "ethernaut-common",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Simple utilities used across all packages in the monorepo",
   "author": "Alejandro Santander",
   "scripts": {
