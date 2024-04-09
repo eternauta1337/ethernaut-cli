@@ -49,6 +49,7 @@
     "ethernaut-util-ui": "^1.1.11",
     "ethernaut-wallet": "^1.1.11",
     "ethernaut-wallet-ui": "^1.1.11",
+    "ethernaut-oso": "^1.1.11",
     "figlet": "^1.7.0",
     "hardhat": "^2.22.2"
   },
