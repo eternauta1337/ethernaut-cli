@@ -9,7 +9,7 @@ require('../scopes/metrics')
     'code',
     'Prints Open Source Observer code metrics for a project, including number of Github stars, commits, contributors, and more',
   )
-  .addOptionalParam(
+  .addParam(
     'project',
     'The name or slug of the project',
     undefined,

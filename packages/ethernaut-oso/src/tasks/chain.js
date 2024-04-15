@@ -9,7 +9,7 @@ require('../scopes/metrics')
     'chain',
     'Prints Open Source Observer onchain metrics for a project, including number of contracts, active users, gas usage, and more',
   )
-  .addOptionalParam(
+  .addParam(
     'project',
     'The name or slug of the project',
     undefined,
