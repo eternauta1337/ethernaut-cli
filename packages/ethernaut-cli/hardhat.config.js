@@ -13,6 +13,8 @@ refreshEnv()
 require('@nomicfoundation/hardhat-ethers')
 
 // Order matters
+// AI goes first, so that other packages can inject assistant instructions
+require('ethernaut-ai')
 require('ethernaut-util')
 require('ethernaut-util-ui')
 require('ethernaut-interact')
@@ -23,9 +25,7 @@ require('ethernaut-wallet')
 require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 require('ethernaut-ui')
-require('ethernaut-retropgf')
-// AI should always go last
-require('ethernaut-ai')
+require('ethernaut-oso')
 require('ethernaut-ai-ui')
 
 async function main() {

@@ -4,7 +4,15 @@
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/theethernaut/ethernaut-cli/ci.yml)](https://github.com/theethernaut/ethernaut-cli/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/theethernaut/ethernaut-cli/badge.svg)](https://coveralls.io/github/theethernaut/ethernaut-cli)
 
-AI agent for Web3 composed of [hardhat](https://github.com/NomicFoundation/hardhat) plugins.
+## What is it?
+
+A universal Ethereum swiss army knife with an AI duck taped onto it.
+
+A CLI for non-technical users, trying to bridge the gap between graphical UIs and CLIs.
+
+A framework for rapid tool building; integrate a new tool in a matter of hours.
+
+An extensible framework composed of [hardhat](https://github.com/NomicFoundation/hardhat) plugins.
 
 Example usages:
 

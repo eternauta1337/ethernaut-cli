@@ -1,0 +1,3 @@
+{
+  "additionalInstructions": "When asked to find or recommend projects, use the metrics scope's tasks. Always make sure to consider a big enough sample, i.e. 100 projects. Off-chain metrics can be queried with the 'code' task, and on-chain metrics with the 'chain' task. Always try to consider both on and off chain metrics when making a recommendation."
+}
