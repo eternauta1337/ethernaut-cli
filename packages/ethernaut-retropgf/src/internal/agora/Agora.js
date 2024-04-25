@@ -5,11 +5,14 @@ const Identity = require('./Identity')
 const Governance = require('./Governance')
 const Retro = require('./Retro')
 
-const BASE_URL = 'https://api.agora.space/ethernaut/retropgf'
+const BASE_URL = 'https://vote.optimism.io/api/v1'
+
+// See API spec at https://vote.optimism.io/api_v1
+// API categories split into Identity, Governance, and Retro objects
 
 class Agora {
-  constructor(apiKey) {
-    this.apiKey = apiKey
+  constructor() {
+    this.bearerToken = process.env.AGORA_BEARER_TOKEN
 
     this._identity = new Identity(this)
     this._governance = new Governance(this)
@@ -32,17 +35,17 @@ class Agora {
     return this.createRequest('/api/v1/spec', {})
   }
 
-  async createRequest(endpoint, params = {}) {
+  async createRequest(endpoint, params = {}, method = 'GET') {
     let populatedEndpoint = endpoint
     for (const key in params) {
       populatedEndpoint = populatedEndpoint.replace(`:${key}`, params[key])
     }
 
     const config = {
-      method: 'POST',
+      method,
       url: `${BASE_URL}${populatedEndpoint}`,
       headers: {
-        Authorization: `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${this.bearerToken}`,
       },
       responseType: 'json',
     }
@@ -57,16 +60,9 @@ class Agora {
       )
     }
 
-    // Api error
-    if (response.data.status !== '1') {
-      debug.log(response.data, 'interact')
-      throw new EthernautCliError(
-        'ethernaut-retropgf',
-        `Agora api error: ${response.data.result}`,
-      )
-    }
+    debug.log(response.data, 'retropgf')
 
-    return response.data.result
+    return response.data
   }
 }
 

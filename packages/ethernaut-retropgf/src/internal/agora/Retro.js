@@ -49,6 +49,14 @@ class Retro {
       roundId,
     })
   }
+
+  async getProjects(limit = 10, offset = 0) {
+    const data = await this.agora.createRequest(
+      `/projects?limit=${limit}&?offset=${offset}`,
+    )
+
+    return data.projects
+  }
 }
 
 module.exports = Retro

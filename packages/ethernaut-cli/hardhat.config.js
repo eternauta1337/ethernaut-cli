@@ -26,6 +26,7 @@ require('ethernaut-wallet-ui')
 require('ethernaut-challenges')
 require('ethernaut-ui')
 require('ethernaut-oso')
+require('ethernaut-retropgf')
 require('ethernaut-ai-ui')
 
 async function main() {
