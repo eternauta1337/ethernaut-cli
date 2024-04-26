@@ -7,8 +7,10 @@ require('../scopes/retro')
     try {
       const agora = new Agora()
 
-      const info = await agora.retro.getProjects()
-      console.log('@@@@', info)
+      const info = await agora.retro.roundImpactMetrics({
+        roundId: 1,
+      })
+      console.log('@@@@', JSON.stringify(info, null, 2))
 
       // TODO
       return output.resultBox('RetroPGF')
