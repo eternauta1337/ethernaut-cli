@@ -3,6 +3,7 @@ const debug = require('ethernaut-common/src/ui/debug')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 const RetroFunding = require('./RetroFunding')
 const Delegates = require('./Delegates')
+const Proposals = require('./Proposals')
 
 const BASE_URL = 'https://vote.optimism.io/api/v1'
 
@@ -15,6 +16,7 @@ class Agora {
 
     this.retro = new RetroFunding(this)
     this.delegates = new Delegates(this)
+    this.proposals = new Proposals(this)
   }
 
   async getSpec() {

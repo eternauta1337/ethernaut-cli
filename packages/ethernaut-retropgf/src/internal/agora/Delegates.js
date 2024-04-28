@@ -1,6 +1,6 @@
-const EthernautCliError = require('ethernaut-common/src/error/error')
+const { validateSort } = require('./validate')
 
-const DELEGATES_SORT_TYPE = ['most_delegates', 'weighted_random']
+const DELEGATES_SORT_TYPE = ['most_delegators', 'weighted_random']
 const DELEGATE_VOTES_SORT_TYPE = ['weight', 'block']
 
 class Delegates {
@@ -9,7 +9,7 @@ class Delegates {
   }
 
   async delegates({ limit = 10, offset = 0, sort = DELEGATES_SORT_TYPE[0] }) {
-    this.validateSort(sort, DELEGATES_SORT_TYPE)
+    validateSort(sort, DELEGATES_SORT_TYPE)
 
     return (
       await this.agora.createRequest(
@@ -29,7 +29,7 @@ class Delegates {
     offset = 0,
     sort = DELEGATE_VOTES_SORT_TYPE[0],
   }) {
-    this.validateSort(sort, DELEGATE_VOTES_SORT_TYPE)
+    validateSort(sort, DELEGATE_VOTES_SORT_TYPE)
 
     return (
       await this.agora.createRequest(
@@ -52,15 +52,6 @@ class Delegates {
         `/delegators/${addressOrEnsName}?limit=${limit}&?offset=${offset}`,
       )
     ).delegate
-  }
-
-  validateSort(sort, types) {
-    if (!types.includes(sort)) {
-      throw new EthernautCliError(
-        'retropgf',
-        `Invalid sort type ${sort}. Should be one of ${types}`,
-      )
-    }
   }
 }
 
