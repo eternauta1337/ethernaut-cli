@@ -6,6 +6,7 @@ const Delegation = require('./Delegation')
 const Proposals = require('./Proposals')
 const Projects = require('./Projects')
 const Contracts = require('./Contracts')
+const Auth = require('./Auth')
 
 const BASE_URL = 'https://vote.optimism.io/api/v1'
 
@@ -21,6 +22,7 @@ class Agora {
     this.proposals = new Proposals(this)
     this.projects = new Projects(this)
     this.contracts = new Contracts(this)
+    this.auth = new Auth(this)
   }
 
   async getSpec() {
