@@ -19,8 +19,7 @@ class Delegates {
   }
 
   async delegate({ addressOrEnsName }) {
-    return (await this.agora.createRequest(`/delegates/${addressOrEnsName}`))
-      .delegate
+    return await this.agora.createRequest(`/delegates/${addressOrEnsName}`)
   }
 
   async delegateVotes({
@@ -35,23 +34,19 @@ class Delegates {
       await this.agora.createRequest(
         `/delegates/${addressOrEnsName}/votes?limit=${limit}&?offset=${offset}&?sort=${sort}`,
       )
-    ).delegate
+    ).votes
   }
 
   async delegatees({ addressOrEnsName, limit = 10, offset = 0 }) {
-    return (
-      await this.agora.createRequest(
-        `/delegatees/${addressOrEnsName}?limit=${limit}&?offset=${offset}`,
-      )
-    ).delegate
+    return await this.agora.createRequest(
+      `/delegatees/${addressOrEnsName}?limit=${limit}&?offset=${offset}`,
+    )
   }
 
   async delegators({ addressOrEnsName, limit = 10, offset = 0 }) {
-    return (
-      await this.agora.createRequest(
-        `/delegators/${addressOrEnsName}?limit=${limit}&?offset=${offset}`,
-      )
-    ).delegate
+    return await this.agora.createRequest(
+      `/delegators/${addressOrEnsName}?limit=${limit}&?offset=${offset}`,
+    )
   }
 }
 

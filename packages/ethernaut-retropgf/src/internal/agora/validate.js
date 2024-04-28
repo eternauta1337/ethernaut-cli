@@ -9,6 +9,13 @@ function validateSort(sort, types) {
   }
 }
 
+function validateResponse(received, expected, message) {
+  if (received !== expected) {
+    throw new EthernautCliError('retropgf', message)
+  }
+}
+
 module.exports = {
   validateSort,
+  validateResponse,
 }

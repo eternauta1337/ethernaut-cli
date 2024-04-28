@@ -23,7 +23,7 @@ class Agora {
     return await this.createRequest('/spec')
   }
 
-  async createRequest(endpoint, method = 'GET') {
+  async createRequest(endpoint, method = 'GET', body = {}) {
     const url = `${BASE_URL}${endpoint}`
 
     debug.log(`Requesting ${url}`, 'retropgf')
@@ -35,6 +35,7 @@ class Agora {
         Authorization: `Bearer ${this.bearerToken}`,
       },
       responseType: 'json',
+      body,
     }
 
     const response = await axios(config)
