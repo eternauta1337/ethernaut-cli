@@ -3,7 +3,7 @@ const { validateSort } = require('./validate')
 const DELEGATES_SORT_TYPE = ['most_delegators', 'weighted_random']
 const DELEGATE_VOTES_SORT_TYPE = ['weight', 'block']
 
-class Delegates {
+class Delegation {
   constructor(agora) {
     this.agora = agora
   }
@@ -50,4 +50,4 @@ class Delegates {
   }
 }
 
-module.exports = Delegates
+module.exports = Delegation

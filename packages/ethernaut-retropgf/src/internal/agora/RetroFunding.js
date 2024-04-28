@@ -5,14 +5,6 @@ class RetroFunding {
     this.agora = agora
   }
 
-  async projects({ limit = 10, offset = 0 }) {
-    return (
-      await this.agora.createRequest(
-        `/projects?limit=${limit}&?offset=${offset}`,
-      )
-    ).projects
-  }
-
   async round({ roundId }) {
     return await this.agora.createRequest(`/retrofunding/rounds/${roundId}`)
   }
