@@ -2,6 +2,7 @@ const axios = require('axios')
 const debug = require('ethernaut-common/src/ui/debug')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 const RetroFunding = require('./RetroFunding')
+const Delegates = require('./Delegates')
 
 const BASE_URL = 'https://vote.optimism.io/api/v1'
 
@@ -13,10 +14,11 @@ class Agora {
     this.bearerToken = process.env.AGORA_BEARER_TOKEN
 
     this.retro = new RetroFunding(this)
+    this.delegates = new Delegates(this)
   }
 
   async getSpec() {
-    return this.createRequest('/api/v1/spec', {})
+    return await this.createRequest('/spec')
   }
 
   async createRequest(endpoint, method = 'GET') {
