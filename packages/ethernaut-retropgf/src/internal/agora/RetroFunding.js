@@ -6,7 +6,7 @@ class RetroFunding {
   }
 
   async round({ roundId }) {
-    return await this.agora.createRequest(`/retrofunding/rounds/${roundId}`)
+    return this.agora.createRequest(`/retrofunding/rounds/${roundId}`)
   }
 
   async ballots({ roundId, limit = 10, offset = 0 }) {
@@ -52,19 +52,19 @@ class RetroFunding {
   }
 
   async roundImpactMetrics({ roundId }) {
-    return await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/impactMetrics`,
     )
   }
 
   async impactMetric({ roundId, impactMetricId }) {
-    return await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}`,
     )
   }
 
   async impactMetricComments({ roundId, impactMetricId }) {
-    return await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}/comments`,
     )
   }

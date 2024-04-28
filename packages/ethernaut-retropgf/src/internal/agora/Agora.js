@@ -7,11 +7,12 @@ const Proposals = require('./Proposals')
 const Projects = require('./Projects')
 const Contracts = require('./Contracts')
 const Auth = require('./Auth')
+const Votes = require('./Votes')
 
 const BASE_URL = 'https://vote.optimism.io/api/v1'
 
 // See API spec at https://vote.optimism.io/api_v1
-// API categories split into Identity, Governance, and Retro objects
+// API categories split into sub-objects.
 
 class Agora {
   constructor() {
@@ -23,10 +24,11 @@ class Agora {
     this.projects = new Projects(this)
     this.contracts = new Contracts(this)
     this.auth = new Auth(this)
+    this.votes = new Votes(this)
   }
 
   async getSpec() {
-    return await this.createRequest('/spec')
+    return this.createRequest('/spec')
   }
 
   async createRequest(endpoint, method = 'GET', body = {}) {

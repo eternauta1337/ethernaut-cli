@@ -20,7 +20,7 @@ class Proposals {
   }
 
   async proposal({ proposalId }) {
-    return (await this.agora.createRequest(`/proposals/${proposalId}`)).proposal
+    return this.agora.createRequest(`/proposals/${proposalId}`)
   }
 
   async proposalVotes({
