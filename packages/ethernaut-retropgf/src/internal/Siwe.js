@@ -1,7 +1,7 @@
 const siwe = require('siwe')
 
-const domain = 'localhost'
-const origin = 'https://localhost/login'
+const domain = 'com.ethernaut.cli'
+const origin = 'https://github.com/theethernaut/ethernaut-cli'
 
 function createSiweMessage(address, statement) {
   const siweMessage = new siwe.SiweMessage({
