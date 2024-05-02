@@ -21,5 +21,8 @@
     "nyc": "^15.1.0",
     "nyc-report-lcov-absolute": "^1.0.0"
   },
-  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475"
+  "gitHead": "5ffea95c7b8186e6365da19d189a79f09a78d475",
+  "dependencies": {
+    "siwe": "^2.3.2"
+  }
 }

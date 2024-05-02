@@ -6,7 +6,6 @@ require('../scopes/retro')
   .setAction(async () => {
     try {
       const agora = new Agora()
-
       const info = await agora.retro.roundImpactMetrics({
         roundId: 1,
       })
