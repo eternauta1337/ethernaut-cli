@@ -31,7 +31,12 @@ class Agora {
     return this.createRequest('/spec')
   }
 
-  async createRequest(endpoint, method = 'GET', body = {}) {
+  async createRequest(
+    endpoint,
+    method = 'GET',
+    body = {},
+    successStatus = 200,
+  ) {
     const url = `${BASE_URL}${endpoint}`
 
     debug.log(`Requesting ${url}`, 'retropgf')
@@ -48,7 +53,7 @@ class Agora {
 
     const response = await axios(config)
 
-    if (response.status !== 200) {
+    if (response.status !== successStatus) {
       throw new EthernautCliError(
         'ethernaut-retropgf',
         `Http status error: ${response.status}`,

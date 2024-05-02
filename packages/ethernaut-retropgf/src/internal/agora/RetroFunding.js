@@ -1,5 +1,3 @@
-const { validateResponse } = require('./validate')
-
 class RetroFunding {
   constructor(agora) {
     this.agora = agora
@@ -30,7 +28,7 @@ class RetroFunding {
     ballotContent,
     signature,
   }) {
-    const response = await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/ballots/${ballotCasterAddressOrEns}/submit`,
       'POST',
       {
@@ -39,8 +37,6 @@ class RetroFunding {
         signature,
       },
     )
-
-    validateResponse(response, 200, `Error submitting ballot: ${response}`)
   }
 
   async roundProjects({ roundId, limit = 10, offset = 0 }) {
@@ -76,7 +72,7 @@ class RetroFunding {
     commenter,
     content,
   }) {
-    const response = await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}/comments`,
       'PUT',
       {
@@ -85,21 +81,13 @@ class RetroFunding {
         content,
       },
     )
-
-    validateResponse(
-      response,
-      200,
-      `Error commenting on impact metric: ${response}`,
-    )
   }
 
   async deleteImpactMetricComment({ roundId, impactMetricId, commentId }) {
-    const response = await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}/comments/${commentId}`,
       'DELETE',
     )
-
-    validateResponse(response, 200, `Error deleting comment: ${response}`)
   }
 
   async ballotImpactMetrics({
@@ -121,16 +109,15 @@ class RetroFunding {
     impactMetricId,
     allocationAmount,
   }) {
-    const response = await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/ballots/${ballotCasterAddressOrEns}/impactMetrics`,
       'POST',
       {
         impactMetricId,
         allocationAmount,
       },
+      201,
     )
-
-    validateResponse(response, 201, `Error creating impact metric: ${response}`)
   }
 
   async deleteImpactMetric({
@@ -138,12 +125,10 @@ class RetroFunding {
     ballotCasterAddressOrEns,
     impactMetricId,
   }) {
-    const response = await this.agora.createRequest(
+    return this.agora.createRequest(
       `/retrofunding/rounds/${roundId}/ballots/${ballotCasterAddressOrEns}/impactMetrics/${impactMetricId}`,
       'DELETE',
     )
-
-    validateResponse(response, 200, `Error deleting impact metric: ${response}`)
   }
 }
 

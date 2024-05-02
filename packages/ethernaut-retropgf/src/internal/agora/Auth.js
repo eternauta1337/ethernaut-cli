@@ -1,5 +1,3 @@
-const { validateResponse } = require('./validate')
-
 class Auth {
   constructor(agora) {
     this.agora = agora
@@ -10,17 +8,10 @@ class Auth {
   }
 
   async verify({ message, signature }) {
-    await this.agora.createRequest('/auth/verify', 'POST', {
+    return this.agora.createRequest('/auth/verify', 'POST', {
       message,
       signature,
     })
-
-    // TODO: Fix validation
-    // validateResponse(
-    //   response,
-    //   200,
-    //   `Error verifying user: ${JSON.stringify(response, null, 2)}`,
-    // )
   }
 }
 
