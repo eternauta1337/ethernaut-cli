@@ -1,3 +1,5 @@
+const dummyProjects = require('../../../data/projects.json')
+
 class RetroFunding {
   constructor(agora) {
     this.agora = agora
@@ -39,12 +41,22 @@ class RetroFunding {
     )
   }
 
+  async projects({ limit, offset } = { limit: 10, offset: 0 }) {
+    return dummyProjects
+    // return (
+    //   await this.agora.createRequest(
+    //     `/projects?limit=${limit}&?offset=${offset}`,
+    //   )
+    // ).projects
+  }
+
   async roundProjects({ roundId, limit = 10, offset = 0 }) {
-    return (
-      await this.agora.createRequest(
-        `/retrofunding/rounds/${roundId}/projects?limit=${limit}&offset=${offset}`,
-      )
-    ).projects
+    return dummyProjects
+    // return (
+    //   await this.agora.createRequest(
+    //     `/retrofunding/rounds/${roundId}/projects?limit=${limit}&offset=${offset}`,
+    //   )
+    // ).projects
   }
 
   async roundImpactMetrics({ roundId }) {
