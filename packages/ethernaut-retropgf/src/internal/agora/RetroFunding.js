@@ -1,4 +1,5 @@
 const dummyProjects = require('../../../data/projects.json')
+const dummyMetrics = require('../../../data/metrics.json')
 
 class RetroFunding {
   constructor(agora) {
@@ -60,9 +61,12 @@ class RetroFunding {
   }
 
   async roundImpactMetrics({ roundId }) {
-    return this.agora.createRequest(
-      `/retrofunding/rounds/${roundId}/impactMetrics`,
-    )
+    return dummyMetrics
+    // return (
+    //   await this.agora.createRequest(
+    //     `/retrofunding/rounds/${roundId}/impactMetrics`,
+    //   )
+    // ).impactMetrics
   }
 
   async impactMetric({ roundId, impactMetricId }) {

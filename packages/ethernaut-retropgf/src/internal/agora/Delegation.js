@@ -1,4 +1,4 @@
-const { validateSort } = require('./validate')
+const { validateSort } = require('./utils/validate')
 
 const DELEGATES_SORT_TYPE = ['most_delegators', 'weighted_random']
 const DELEGATE_VOTES_SORT_TYPE = ['weight', 'block']

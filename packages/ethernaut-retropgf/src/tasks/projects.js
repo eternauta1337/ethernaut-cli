@@ -1,6 +1,7 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const Agora = require('../internal/agora/Agora')
+const { getLatestRound } = require('../internal/agora/utils/rounds')
 
 require('../scopes/retro')
   .task(
@@ -9,9 +10,9 @@ require('../scopes/retro')
   )
   .addParam(
     'round',
-    'The round number to query. Defaults to 0, which is the latest round. If set to -1, all rounds will be queried.',
-    0,
-    types.int,
+    'The round number to query. Defaults to "latest". Can also be "any" or a number > 0.',
+    'latest',
+    types.string,
   )
   .addOptionalParam(
     'name',
@@ -65,23 +66,17 @@ function printProjects(projects) {
 }
 
 async function getProjects(round) {
-  let projects
-
   const agora = new Agora()
 
-  if (round === '-1') {
-    // Any round
-    projects = await agora.retro.projects()
-  } else if (round >= 0) {
-    if (round === 0) {
-      // Latest round
-      const latestRound = 3
-      projects = await agora.retro.roundProjects({ roundId: latestRound })
-    } else {
-      // Specified round
-      projects = await agora.retro.roundProjects({ roundId: round })
-    }
+  if (round === 'any') {
+    return await agora.retro.projects()
   }
 
-  return projects
+  if (round === 'latest') {
+    return await agora.retro.roundProjects({
+      roundId: await getLatestRound(),
+    })
+  }
+
+  return await agora.retro.roundProjects({ roundId: round })
 }
