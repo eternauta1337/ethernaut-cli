@@ -1,17 +1,12 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const { getProjects } = require('../internal/agora/utils/projects')
+const { addRoundParam } = require('../internal/agora/utils/round-param')
 
-require('../scopes/retro')
+const task = require('../scopes/retro')
   .task(
     'projects',
     'Prints a list of projects registered in RetroPGF applying specified filters',
-  )
-  .addParam(
-    'round',
-    'The round number to query. Defaults to "latest". Can also be "any" or a number > 0.',
-    'latest',
-    types.string,
   )
   .addOptionalParam(
     'name',
@@ -63,3 +58,5 @@ function printProjects(projects) {
 
   return strs.join('\n')
 }
+
+addRoundParam(task)

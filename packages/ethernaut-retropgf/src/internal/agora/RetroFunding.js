@@ -1,5 +1,6 @@
 const dummyProjects = require('../../../data/projects.json')
 const dummyMetrics = require('../../../data/metrics.json')
+const dummyBallots = require('../../../data/ballots.json')
 
 class RetroFunding {
   constructor(agora) {
@@ -11,11 +12,12 @@ class RetroFunding {
   }
 
   async ballots({ roundId, limit = 10, offset = 0 }) {
-    return (
-      await this.agora.createRequest(
-        `/retrofunding/rounds/${roundId}/ballots?limit=${limit}&offset=${offset}`,
-      )
-    ).ballots
+    return dummyBallots
+    // return (
+    //   await this.agora.createRequest(
+    //     `/retrofunding/rounds/${roundId}/ballots?limit=${limit}&offset=${offset}`,
+    //   )
+    // ).ballots[0].ballots
   }
 
   async ballot({ roundId, ballotCasterAddressOrEns }) {

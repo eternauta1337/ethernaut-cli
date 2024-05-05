@@ -1,5 +1,5 @@
-const Agora = require('../internal/agora/Agora')
-const { getLatestRound } = require('../internal/agora/utils/rounds')
+const Agora = require('../Agora')
+const { getLatestRound } = require('./rounds')
 
 async function getProjects(round) {
   const agora = new Agora()

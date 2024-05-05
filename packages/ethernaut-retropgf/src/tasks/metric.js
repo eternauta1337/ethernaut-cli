@@ -1,17 +1,11 @@
-const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const { getMetrics } = require('../internal/agora/utils/metrics')
 const similarity = require('string-similarity')
+const { addRoundParam } = require('../internal/agora/utils/round-param')
 
-require('../scopes/retro')
+const task = require('../scopes/retro')
   .task('metric', 'Retrieves a specific impact metric for a RetroPGF round')
   .addPositionalParam('name', 'The metric name to query')
-  .addParam(
-    'round',
-    'The round number to query. Defaults to "latest". Can also be a number > 0.',
-    'latest',
-    types.string,
-  )
   .setAction(async ({ name }) => {
     try {
       let metrics = await getMetrics()
@@ -32,3 +26,5 @@ require('../scopes/retro')
       return output.errorBox(err)
     }
   })
+
+addRoundParam(task)

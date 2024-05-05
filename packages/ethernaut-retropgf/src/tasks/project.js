@@ -2,16 +2,11 @@ const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const similarity = require('string-similarity')
 const { getProjects } = require('../internal/agora/utils/projects')
+const { addRoundParam } = require('../internal/agora/utils/round-param')
 
-require('../scopes/retro')
+const task = require('../scopes/retro')
   .task('project', 'Information about a particular RetroPGF project')
   .addPositionalParam('name', 'The project name to query')
-  .addParam(
-    'round',
-    'The round number to query. Defaults to "latest". Can also be "any" or a number > 0.',
-    'latest',
-    types.string,
-  )
   .setAction(async ({ name, round }) => {
     try {
       let projects = await getProjects(round)
@@ -32,3 +27,5 @@ require('../scopes/retro')
       return output.errorBox(err)
     }
   })
+
+addRoundParam(task)

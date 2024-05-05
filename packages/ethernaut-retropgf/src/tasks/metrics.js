@@ -1,15 +1,10 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const { getMetrics } = require('../internal/agora/utils/metrics')
+const { addRoundParam } = require('../internal/agora/utils/round-param')
 
-require('../scopes/retro')
+const task = require('../scopes/retro')
   .task('metrics', 'Retrieves a list of impact metrics for a RetroPGF round')
-  .addParam(
-    'round',
-    'The round number to query. Defaults to "latest". Can also be a number > 0.',
-    'latest',
-    types.string,
-  )
   .setAction(async ({ round }) => {
     try {
       let metrics = await getMetrics(round)
@@ -29,3 +24,5 @@ function printMetrics(metrics) {
 
   return strs.join('\n')
 }
+
+addRoundParam(task)

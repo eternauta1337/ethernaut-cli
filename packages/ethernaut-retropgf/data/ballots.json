@@ -1,0 +1,702 @@
+[
+  {
+    "ballotId": 0,
+    "roundId": "2",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 89, "allocation": "133" }],
+    "ballotCasterAddress": "HEPA29156613222396"
+  },
+  {
+    "ballotId": 1,
+    "roundId": "10",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 10, "allocation": "90" }],
+    "ballotCasterAddress": "CHLI16476662314409"
+  },
+  {
+    "ballotId": 2,
+    "roundId": "3",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 66, "allocation": "889" }],
+    "ballotCasterAddress": "HSMY79338001860529"
+  },
+  {
+    "ballotId": 3,
+    "roundId": "2",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 16, "allocation": "645" }],
+    "ballotCasterAddress": "HUUX48244028657896"
+  },
+  {
+    "ballotId": 4,
+    "roundId": "1",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 27, "allocation": "230" }],
+    "ballotCasterAddress": "EWZQ13296818056289"
+  },
+  {
+    "ballotId": 5,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 39, "allocation": "928" }],
+    "ballotCasterAddress": "BRRQ08175257089437"
+  },
+  {
+    "ballotId": 6,
+    "roundId": "5",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 56, "allocation": "688" }],
+    "ballotCasterAddress": "HXQO13770378217926"
+  },
+  {
+    "ballotId": 7,
+    "roundId": "1",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 53, "allocation": "105" }],
+    "ballotCasterAddress": "CYBW85358024099599"
+  },
+  {
+    "ballotId": 8,
+    "roundId": "9",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 97, "allocation": "821" }],
+    "ballotCasterAddress": "JHHO04478576244840"
+  },
+  {
+    "ballotId": 9,
+    "roundId": "4",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 48, "allocation": "356" }],
+    "ballotCasterAddress": "DQQW98122742696597"
+  },
+  {
+    "ballotId": 10,
+    "roundId": "1",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 31, "allocation": "214" }],
+    "ballotCasterAddress": "DMAQ53035343521857"
+  },
+  {
+    "ballotId": 11,
+    "roundId": "2",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 9, "allocation": "169" }],
+    "ballotCasterAddress": "JMFA94980323840585"
+  },
+  {
+    "ballotId": 12,
+    "roundId": "10",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 10, "allocation": "900" }],
+    "ballotCasterAddress": "RQDC90270933678539"
+  },
+  {
+    "ballotId": 13,
+    "roundId": "1",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 53, "allocation": "392" }],
+    "ballotCasterAddress": "PAWN11191951773986"
+  },
+  {
+    "ballotId": 14,
+    "roundId": "3",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 61, "allocation": "163" }],
+    "ballotCasterAddress": "TMEI03449264544569"
+  },
+  {
+    "ballotId": 15,
+    "roundId": "5",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 20, "allocation": "187" }],
+    "ballotCasterAddress": "GCCJ67697954877468"
+  },
+  {
+    "ballotId": 16,
+    "roundId": "6",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 6, "allocation": "232" }],
+    "ballotCasterAddress": "SAPF47017486012654"
+  },
+  {
+    "ballotId": 17,
+    "roundId": "3",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 77, "allocation": "687" }],
+    "ballotCasterAddress": "ICSE99139592704318"
+  },
+  {
+    "ballotId": 18,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 89, "allocation": "439" }],
+    "ballotCasterAddress": "JQTQ96740935575545"
+  },
+  {
+    "ballotId": 19,
+    "roundId": "8",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 32, "allocation": "789" }],
+    "ballotCasterAddress": "JLPG51403252653507"
+  },
+  {
+    "ballotId": 20,
+    "roundId": "4",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 44, "allocation": "788" }],
+    "ballotCasterAddress": "XXHD23079410990039"
+  },
+  {
+    "ballotId": 21,
+    "roundId": "4",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 76, "allocation": "345" }],
+    "ballotCasterAddress": "MKFD79912323302728"
+  },
+  {
+    "ballotId": 22,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 56, "allocation": "449" }],
+    "ballotCasterAddress": "MALR62546354926429"
+  },
+  {
+    "ballotId": 23,
+    "roundId": "5",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 32, "allocation": "723" }],
+    "ballotCasterAddress": "MNBN33634883689518"
+  },
+  {
+    "ballotId": 24,
+    "roundId": "6",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 47, "allocation": "104" }],
+    "ballotCasterAddress": "RFQA45865535270178"
+  },
+  {
+    "ballotId": 25,
+    "roundId": "5",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 23, "allocation": "274" }],
+    "ballotCasterAddress": "RIFA39432345800438"
+  },
+  {
+    "ballotId": 26,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 93, "allocation": "171" }],
+    "ballotCasterAddress": "FDZT16051460198411"
+  },
+  {
+    "ballotId": 27,
+    "roundId": "1",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 12, "allocation": "482" }],
+    "ballotCasterAddress": "JRQJ45692790130625"
+  },
+  {
+    "ballotId": 28,
+    "roundId": "2",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 75, "allocation": "208" }],
+    "ballotCasterAddress": "WHKA22969872798460"
+  },
+  {
+    "ballotId": 29,
+    "roundId": "1",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 50, "allocation": "112" }],
+    "ballotCasterAddress": "TGHY21148217068574"
+  },
+  {
+    "ballotId": 30,
+    "roundId": "7",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 43, "allocation": "896" }],
+    "ballotCasterAddress": "XPMS38965158945306"
+  },
+  {
+    "ballotId": 31,
+    "roundId": "2",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 55, "allocation": "312" }],
+    "ballotCasterAddress": "ARCL07224975390914"
+  },
+  {
+    "ballotId": 32,
+    "roundId": "2",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 5, "allocation": "274" }],
+    "ballotCasterAddress": "LUSR69801312451500"
+  },
+  {
+    "ballotId": 33,
+    "roundId": "5",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 29, "allocation": "158" }],
+    "ballotCasterAddress": "RHFX53681142597781"
+  },
+  {
+    "ballotId": 34,
+    "roundId": "8",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 89, "allocation": "757" }],
+    "ballotCasterAddress": "EXID47782374457137"
+  },
+  {
+    "ballotId": 35,
+    "roundId": "10",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 28, "allocation": "614" }],
+    "ballotCasterAddress": "YJHJ84914630791293"
+  },
+  {
+    "ballotId": 36,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 60, "allocation": "933" }],
+    "ballotCasterAddress": "YDFM88663440740179"
+  },
+  {
+    "ballotId": 37,
+    "roundId": "6",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 43, "allocation": "0" }],
+    "ballotCasterAddress": "HRBA12903414458456"
+  },
+  {
+    "ballotId": 38,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 5, "allocation": "719" }],
+    "ballotCasterAddress": "GFNB16961885518727"
+  },
+  {
+    "ballotId": 39,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 20, "allocation": "14" }],
+    "ballotCasterAddress": "KRZB77025261638821"
+  },
+  {
+    "ballotId": 40,
+    "roundId": "5",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 41, "allocation": "197" }],
+    "ballotCasterAddress": "ASAT14841250000556"
+  },
+  {
+    "ballotId": 41,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 51, "allocation": "768" }],
+    "ballotCasterAddress": "IICT30696595657879"
+  },
+  {
+    "ballotId": 42,
+    "roundId": "8",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 34, "allocation": "514" }],
+    "ballotCasterAddress": "UYOY49009315990725"
+  },
+  {
+    "ballotId": 43,
+    "roundId": "1",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 32, "allocation": "249" }],
+    "ballotCasterAddress": "RDYW58972439412883"
+  },
+  {
+    "ballotId": 44,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 85, "allocation": "465" }],
+    "ballotCasterAddress": "YIJQ78271059089172"
+  },
+  {
+    "ballotId": 45,
+    "roundId": "6",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 20, "allocation": "773" }],
+    "ballotCasterAddress": "ZPWM36935235222561"
+  },
+  {
+    "ballotId": 46,
+    "roundId": "3",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 41, "allocation": "942" }],
+    "ballotCasterAddress": "EVKA97566285071904"
+  },
+  {
+    "ballotId": 47,
+    "roundId": "9",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 29, "allocation": "73" }],
+    "ballotCasterAddress": "QEET02093495212417"
+  },
+  {
+    "ballotId": 48,
+    "roundId": "4",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 13, "allocation": "778" }],
+    "ballotCasterAddress": "WCPZ94924868848144"
+  },
+  {
+    "ballotId": 49,
+    "roundId": "10",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 73, "allocation": "783" }],
+    "ballotCasterAddress": "BLAF43479904929567"
+  },
+  {
+    "ballotId": 50,
+    "roundId": "9",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 94, "allocation": "866" }],
+    "ballotCasterAddress": "MFDC87494556618065"
+  },
+  {
+    "ballotId": 51,
+    "roundId": "3",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 58, "allocation": "817" }],
+    "ballotCasterAddress": "PHVK26869335750262"
+  },
+  {
+    "ballotId": 52,
+    "roundId": "4",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 88, "allocation": "552" }],
+    "ballotCasterAddress": "JCPZ40826147421923"
+  },
+  {
+    "ballotId": 53,
+    "roundId": "5",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 64, "allocation": "646" }],
+    "ballotCasterAddress": "SIST09268535372423"
+  },
+  {
+    "ballotId": 54,
+    "roundId": "2",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 93, "allocation": "730" }],
+    "ballotCasterAddress": "WZTX69318692190082"
+  },
+  {
+    "ballotId": 55,
+    "roundId": "10",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 36, "allocation": "705" }],
+    "ballotCasterAddress": "TYAD99010062978551"
+  },
+  {
+    "ballotId": 56,
+    "roundId": "9",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 58, "allocation": "25" }],
+    "ballotCasterAddress": "JMHQ77465289439450"
+  },
+  {
+    "ballotId": 57,
+    "roundId": "8",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 6, "allocation": "831" }],
+    "ballotCasterAddress": "DLYR72562931794686"
+  },
+  {
+    "ballotId": 58,
+    "roundId": "8",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 18, "allocation": "70" }],
+    "ballotCasterAddress": "FVWX78971735978160"
+  },
+  {
+    "ballotId": 59,
+    "roundId": "4",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 27, "allocation": "458" }],
+    "ballotCasterAddress": "FQVK40662795570075"
+  },
+  {
+    "ballotId": 60,
+    "roundId": "6",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 16, "allocation": "393" }],
+    "ballotCasterAddress": "YRIM01137881137509"
+  },
+  {
+    "ballotId": 61,
+    "roundId": "8",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 35, "allocation": "509" }],
+    "ballotCasterAddress": "LUNI64354771760116"
+  },
+  {
+    "ballotId": 62,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 52, "allocation": "478" }],
+    "ballotCasterAddress": "AJMB33201063734462"
+  },
+  {
+    "ballotId": 63,
+    "roundId": "8",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 55, "allocation": "167" }],
+    "ballotCasterAddress": "XZKU20302874787602"
+  },
+  {
+    "ballotId": 64,
+    "roundId": "5",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 37, "allocation": "289" }],
+    "ballotCasterAddress": "ZFCW44481991397773"
+  },
+  {
+    "ballotId": 65,
+    "roundId": "7",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 60, "allocation": "254" }],
+    "ballotCasterAddress": "CPTQ22854845641537"
+  },
+  {
+    "ballotId": 66,
+    "roundId": "6",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 90, "allocation": "711" }],
+    "ballotCasterAddress": "WBRK28610814882599"
+  },
+  {
+    "ballotId": 67,
+    "roundId": "1",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 85, "allocation": "847" }],
+    "ballotCasterAddress": "JIVF59161035363001"
+  },
+  {
+    "ballotId": 68,
+    "roundId": "6",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 81, "allocation": "462" }],
+    "ballotCasterAddress": "JSGO62883064205012"
+  },
+  {
+    "ballotId": 69,
+    "roundId": "10",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 30, "allocation": "628" }],
+    "ballotCasterAddress": "MLXV49783720581230"
+  },
+  {
+    "ballotId": 70,
+    "roundId": "2",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 54, "allocation": "348" }],
+    "ballotCasterAddress": "DOQA78883111144225"
+  },
+  {
+    "ballotId": 71,
+    "roundId": "9",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 8, "allocation": "146" }],
+    "ballotCasterAddress": "HPOR18180288186926"
+  },
+  {
+    "ballotId": 72,
+    "roundId": "3",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 18, "allocation": "514" }],
+    "ballotCasterAddress": "PGRQ19538391969790"
+  },
+  {
+    "ballotId": 73,
+    "roundId": "5",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 75, "allocation": "607" }],
+    "ballotCasterAddress": "ZGCD31085901377091"
+  },
+  {
+    "ballotId": 74,
+    "roundId": "5",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 48, "allocation": "386" }],
+    "ballotCasterAddress": "QGUY94090513783259"
+  },
+  {
+    "ballotId": 75,
+    "roundId": "3",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 88, "allocation": "841" }],
+    "ballotCasterAddress": "CEJE29135247939117"
+  },
+  {
+    "ballotId": 76,
+    "roundId": "8",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 57, "allocation": "496" }],
+    "ballotCasterAddress": "BYRU63551846842307"
+  },
+  {
+    "ballotId": 77,
+    "roundId": "6",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 59, "allocation": "151" }],
+    "ballotCasterAddress": "HETG24651662280621"
+  },
+  {
+    "ballotId": 78,
+    "roundId": "4",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 92, "allocation": "322" }],
+    "ballotCasterAddress": "RVVS04672072992323"
+  },
+  {
+    "ballotId": 79,
+    "roundId": "2",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 58, "allocation": "988" }],
+    "ballotCasterAddress": "UYNG08496633581700"
+  },
+  {
+    "ballotId": 80,
+    "roundId": "4",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 85, "allocation": "893" }],
+    "ballotCasterAddress": "MLZP29646666333172"
+  },
+  {
+    "ballotId": 81,
+    "roundId": "5",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 19, "allocation": "341" }],
+    "ballotCasterAddress": "JTOU75706339582905"
+  },
+  {
+    "ballotId": 82,
+    "roundId": "2",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 87, "allocation": "903" }],
+    "ballotCasterAddress": "GCVF37046797483058"
+  },
+  {
+    "ballotId": 83,
+    "roundId": "4",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 73, "allocation": "946" }],
+    "ballotCasterAddress": "RWDB39687328599087"
+  },
+  {
+    "ballotId": 84,
+    "roundId": "5",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 28, "allocation": "863" }],
+    "ballotCasterAddress": "EKIB55951776639165"
+  },
+  {
+    "ballotId": 85,
+    "roundId": "8",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 23, "allocation": "372" }],
+    "ballotCasterAddress": "YFPD51293355091384"
+  },
+  {
+    "ballotId": 86,
+    "roundId": "10",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 47, "allocation": "614" }],
+    "ballotCasterAddress": "REWL92976905777447"
+  },
+  {
+    "ballotId": 87,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 18, "allocation": "280" }],
+    "ballotCasterAddress": "EGAV59065037038686"
+  },
+  {
+    "ballotId": 88,
+    "roundId": "10",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 24, "allocation": "370" }],
+    "ballotCasterAddress": "UHTC87783138041454"
+  },
+  {
+    "ballotId": 89,
+    "roundId": "9",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 96, "allocation": "890" }],
+    "ballotCasterAddress": "GBBY39385916871394"
+  },
+  {
+    "ballotId": 90,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 81, "allocation": "979" }],
+    "ballotCasterAddress": "ZRWZ75160729197816"
+  },
+  {
+    "ballotId": 91,
+    "roundId": "6",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 94, "allocation": "434" }],
+    "ballotCasterAddress": "CEFY66097369042024"
+  },
+  {
+    "ballotId": 92,
+    "roundId": "9",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 93, "allocation": "127" }],
+    "ballotCasterAddress": "AGHA40335329045817"
+  },
+  {
+    "ballotId": 93,
+    "roundId": "9",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 75, "allocation": "773" }],
+    "ballotCasterAddress": "LJLO08699728678202"
+  },
+  {
+    "ballotId": 94,
+    "roundId": "4",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 64, "allocation": "45" }],
+    "ballotCasterAddress": "BNOI85556453321677"
+  },
+  {
+    "ballotId": 95,
+    "roundId": "7",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 4, "allocation": "648" }],
+    "ballotCasterAddress": "RISZ92673167584420"
+  },
+  {
+    "ballotId": 96,
+    "roundId": "1",
+    "status": "PENDING",
+    "allocations": [{ "metricId": 84, "allocation": "370" }],
+    "ballotCasterAddress": "XNTG16461504603378"
+  },
+  {
+    "ballotId": 97,
+    "roundId": "9",
+    "status": "APPROVED",
+    "allocations": [{ "metricId": 5, "allocation": "305" }],
+    "ballotCasterAddress": "TGFY37778736285054"
+  },
+  {
+    "ballotId": 98,
+    "roundId": "7",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 69, "allocation": "698" }],
+    "ballotCasterAddress": "UHMW45639970813263"
+  },
+  {
+    "ballotId": 99,
+    "roundId": "3",
+    "status": "REJECTED",
+    "allocations": [{ "metricId": 51, "allocation": "29" }],
+    "ballotCasterAddress": "KHBO85843234476032"
+  }
+]
