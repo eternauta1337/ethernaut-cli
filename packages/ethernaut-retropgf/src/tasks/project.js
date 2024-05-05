@@ -1,13 +1,20 @@
-const Agora = require('../internal/agora/Agora')
+const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const similarity = require('string-similarity')
+const { getProjects } = require('../internal/agora/utils/projects')
 
 require('../scopes/retro')
   .task('project', 'Information about a particular RetroPGF project')
   .addPositionalParam('name', 'The project name to query')
-  .setAction(async ({ name }) => {
+  .addParam(
+    'round',
+    'The round number to query. Defaults to "latest". Can also be "any" or a number > 0.',
+    'latest',
+    types.string,
+  )
+  .setAction(async ({ name, round }) => {
     try {
-      let projects = await getProjects()
+      let projects = await getProjects(round)
 
       const matches = similarity.findBestMatch(
         name,
@@ -25,9 +32,3 @@ require('../scopes/retro')
       return output.errorBox(err)
     }
   })
-
-async function getProjects() {
-  const agora = new Agora()
-
-  return agora.retro.projects()
-}

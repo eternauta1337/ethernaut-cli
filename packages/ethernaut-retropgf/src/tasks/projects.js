@@ -1,7 +1,6 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
-const Agora = require('../internal/agora/Agora')
-const { getLatestRound } = require('../internal/agora/utils/rounds')
+const { getProjects } = require('../internal/agora/utils/projects')
 
 require('../scopes/retro')
   .task(
@@ -63,20 +62,4 @@ function printProjects(projects) {
   }
 
   return strs.join('\n')
-}
-
-async function getProjects(round) {
-  const agora = new Agora()
-
-  if (round === 'any') {
-    return await agora.retro.projects()
-  }
-
-  if (round === 'latest') {
-    return await agora.retro.roundProjects({
-      roundId: await getLatestRound(),
-    })
-  }
-
-  return await agora.retro.roundProjects({ roundId: round })
 }
