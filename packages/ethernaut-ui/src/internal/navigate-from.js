@@ -41,7 +41,9 @@ module.exports = async function navigateFrom(node, hre) {
 
   const response = await prompt({
     type: 'autocomplete',
-    message: 'Pick a task or scope',
+    message: node.isScope
+      ? `Pick a task [${node.name}]`
+      : 'Pick a task or scope',
     limit: 15,
     choices,
   })
