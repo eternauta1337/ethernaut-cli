@@ -1,31 +1,27 @@
-const types = require('ethernaut-common/src/validation/types')
-const output = require('ethernaut-common/src/ui/output')
-const similarity = require('string-similarity')
-const { getProjects } = require('../internal/agora/utils/projects')
-const { addRoundParam } = require('../internal/agora/utils/round-param')
+// const output = require('ethernaut-common/src/ui/output')
+// const similarity = require('string-similarity')
+// const { getProjects } = require('../internal/agora/utils/projects')
 
-const task = require('../scopes/retro')
-  .task('project', 'Information about a particular RetroPGF project')
-  .addPositionalParam('name', 'The project name to query')
-  .setAction(async ({ name, round }) => {
-    try {
-      let projects = await getProjects(round)
+// require('../scopes/retro')
+//   .task('project', 'Information about a particular RetroPGF project')
+//   .addPositionalParam('name', 'The project name to query')
+//   .setAction(async ({ name, round }) => {
+//     try {
+//       let projects = await getProjects(round)
 
-      const matches = similarity.findBestMatch(
-        name,
-        projects.map((p) => p.name),
-      )
+//       const matches = similarity.findBestMatch(
+//         name,
+//         projects.map((p) => p.name),
+//       )
 
-      if (!matches) {
-        return output.resultBox('No project found')
-      }
+//       if (!matches) {
+//         return output.resultBox('No project found')
+//       }
 
-      const match = projects.find((p) => p.name === matches.bestMatch.target)
+//       const match = projects.find((p) => p.name === matches.bestMatch.target)
 
-      return output.resultBox(JSON.stringify(match, null, 2))
-    } catch (err) {
-      return output.errorBox(err)
-    }
-  })
-
-addRoundParam(task)
+//       return output.resultBox(JSON.stringify(match, null, 2))
+//     } catch (err) {
+//       return output.errorBox(err)
+//     }
+//   })

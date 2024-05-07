@@ -21,9 +21,12 @@ class RetroFunding {
   }
 
   async ballot({ roundId, ballotCasterAddressOrEns }) {
-    return this.agora.createRequest(
-      `/retrofunding/rounds/${roundId}/ballots/${ballotCasterAddressOrEns}`,
+    return dummyBallots.find(
+      (b) => b.ballotCasterAddress === ballotCasterAddressOrEns,
     )
+    // return this.agora.createRequest(
+    //   `/retrofunding/rounds/${roundId}/ballots/${ballotCasterAddressOrEns}`,
+    // )
   }
 
   async submitBallot({

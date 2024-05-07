@@ -1,4 +1,4 @@
-const { validateSort } = require('./utils/validate')
+const { validateSort } = require('./utils/validate-sort')
 
 const PROPOSALS_SORT_TYPE = ['status', 'term']
 const PROPOSAL_VOTES_SORT_TYPE = ['weight', 'block']

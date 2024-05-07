@@ -1,4 +1,4 @@
-const { getRoundNumber } = require('./rounds')
+const { getRoundNumber } = require('./latest-round')
 const Agora = require('../Agora')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 
