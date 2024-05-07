@@ -6,7 +6,7 @@ const { getLatestRound } = require('../internal/agora/utils/latest-round')
 require('../scopes/retro')
   .task(
     'projects',
-    'Prints a list of projects registered in RetroPGF applying specified filters',
+    'Prints a list of projects registered in RetroPGF, given specified filters',
   )
   .addParam(
     'round',
