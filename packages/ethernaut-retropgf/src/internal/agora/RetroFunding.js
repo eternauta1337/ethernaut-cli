@@ -75,9 +75,10 @@ class RetroFunding {
   }
 
   async impactMetric({ roundId, impactMetricId }) {
-    return this.agora.createRequest(
-      `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}`,
-    )
+    return dummyMetrics.find((m) => m.id === impactMetricId)
+    // return this.agora.createRequest(
+    //   `/retrofunding/rounds/${roundId}/impactMetrics/${impactMetricId}`,
+    // )
   }
 
   async impactMetricComments({ roundId, impactMetricId }) {

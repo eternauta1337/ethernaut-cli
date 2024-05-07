@@ -1,27 +1,29 @@
-// const output = require('ethernaut-common/src/ui/output')
-// const { getMetrics } = require('../internal/agora/utils/metrics')
-// const similarity = require('string-similarity')
+const output = require('ethernaut-common/src/ui/output')
+const { getLatestRound } = require('../internal/agora/utils/latest-round')
+const types = require('ethernaut-common/src/validation/types')
+const Agora = require('../internal/agora/Agora')
 
-// require('../scopes/retro')
-//   .task('metric', 'Retrieves a specific impact metric for a RetroPGF round')
-//   .addPositionalParam('name', 'The metric name to query')
-//   .setAction(async ({ name }) => {
-//     try {
-//       let metrics = await getMetrics()
+require('../scopes/retro')
+  .task('metric', 'Retrieves a specific impact metric for a RetroPGF round')
+  .addParam(
+    'round',
+    'The round number to query. Defaults to "latest"',
+    'latest',
+    types.string,
+  )
+  .addParam('id', 'The metric id')
+  .setAction(async ({ id, round }) => {
+    try {
+      const roundId = round === 'latest' ? await getLatestRound() : round
 
-//       const matches = similarity.findBestMatch(
-//         name,
-//         metrics.map((p) => p.name),
-//       )
+      const agora = new Agora()
+      const metric = await agora.retro.impactMetric({
+        roundId,
+        impactMetricId: id,
+      })
 
-//       if (!matches) {
-//         return output.resultBox('No metric found')
-//       }
-
-//       const match = metrics.find((p) => p.name === matches.bestMatch.target)
-
-//       return output.resultBox(JSON.stringify(match, null, 2))
-//     } catch (err) {
-//       return output.errorBox(err)
-//     }
-//   })
+      return output.resultBox(JSON.stringify(metric, null, 2))
+    } catch (err) {
+      return output.errorBox(err)
+    }
+  })
