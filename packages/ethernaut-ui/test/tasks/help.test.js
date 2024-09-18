@@ -27,7 +27,7 @@ describe('help', function () {
     })
 
     it('displays the main prompt', async function () {
-      terminal.has('Pick a task or scope')
+      terminal.has('Pick a task [util]')
     })
 
     it('displays the unit task', async function () {
