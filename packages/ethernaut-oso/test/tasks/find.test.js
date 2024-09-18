@@ -8,9 +8,13 @@ describe('find', function () {
   })
 
   it('lists projects', async function () {
-    terminal.has('Etherscan (etherscan)')
-    terminal.has('etherspot (etherspot)')
-    terminal.has('EtherScore (etherscore)')
-    terminal.has('ethers.js (ethers-io)')
+    terminal.has('etherscore')
+    terminal.has('etherscan')
+    terminal.has(
+      'etherspot - Account Abstraction SDK for EVM-compatible chains.',
+    )
+    terminal.has(
+      'ethers-io - Hub to use, share and develop Ethereum Applications.',
+    )
   })
 })

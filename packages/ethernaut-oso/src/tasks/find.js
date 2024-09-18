@@ -26,7 +26,10 @@ require('../scopes/metrics')
 
       let strs = []
       for (const project of projects) {
-        strs.push(`- ${project.project_name} (${project.project_slug})`)
+        const descriptionStr = project.description
+          ? ` - ${project.description}`
+          : ''
+        strs.push(`- ${project.projectName}${descriptionStr}`)
       }
 
       return output.resultBox(strs.join('\n'))
