@@ -16,9 +16,9 @@ jobs:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -29,9 +29,9 @@ jobs:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Foundry
@@ -49,15 +49,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-common
+          parallel: true
   ethernaut-oso:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -69,15 +70,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-oso
+          parallel: true
   ethernaut-util:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -89,15 +91,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util
+          parallel: true
   ethernaut-util-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -109,15 +112,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util-ui
+          parallel: true
   ethernaut-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -129,15 +133,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ui
+          parallel: true
   ethernaut-interact:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -155,15 +160,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact
+          parallel: true
   ethernaut-interact-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -181,15 +187,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact-ui
+          parallel: true
   ethernaut-challenges:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -207,15 +214,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-challenges
+          parallel: true
   ethernaut-ai:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -227,15 +235,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai
+          parallel: true
   ethernaut-ai-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -247,15 +256,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai-ui
+          parallel: true
   ethernaut-network:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Foundry
@@ -269,15 +279,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network
+          parallel: true
   ethernaut-network-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Foundry
@@ -291,15 +302,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network-ui
+          parallel: true
   ethernaut-wallet:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -317,15 +329,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet
+          parallel: true
   ethernaut-wallet-ui:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -343,15 +356,16 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet-ui
+          parallel: true
   ethernaut-cli:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: ['20.12.0']
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
@@ -363,3 +377,4 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-cli
+          parallel: true
