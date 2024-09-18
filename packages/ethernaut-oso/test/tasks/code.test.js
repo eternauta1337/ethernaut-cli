@@ -13,7 +13,6 @@ describe('code', function () {
     const starsLine = output
       .split('\n')
       .find((line) => line.includes('starCount:'))
-    console.log(starsLine)
     assert(starsLine, 'Stars line not found in terminal output')
 
     const match = starsLine.match(/starCount:\s(\d+)/)
