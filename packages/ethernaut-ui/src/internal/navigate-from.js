@@ -43,7 +43,7 @@ module.exports = async function navigateFrom(node, hre) {
     type: 'autocomplete',
     message: node.isScope
       ? `Pick a task [${node.name}]`
-      : 'Pick a task or scope',
+      : 'Pick a task or poop',
     limit: 15,
     choices,
   })
