@@ -17,17 +17,17 @@ const task = require('../scopes/util')
     'timestamp',
     `Returns current timestamp X units of time in the future. Units can be one of ${timeOptions.join(', ')}.`,
   )
-  .addPositionalParam(
-    'value',
-    'The value to advance in the future',
-    undefined,
-    types.string,
+  .addParam(
+    'offset',
+    'The offset to add to the current timestamp',
+    0,
+    types.int,
   )
   .addParam('unit', 'The unit of time to advance', 'days', types.string)
-  .setAction(async ({ value, unit }) => {
+  .setAction(async ({ offset, unit }) => {
     try {
       // Convert the value to a number
-      const numericValue = Number(value)
+      const numericValue = Number(offset)
 
       // Get the current timestamp
       const currentTimestamp = Math.floor(Date.now() / 1000)

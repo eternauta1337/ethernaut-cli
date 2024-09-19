@@ -26,7 +26,7 @@ describe('timestamp', function () {
     const result = await hre.run(
       { scope: 'util', task: 'timestamp' },
       {
-        value: '10',
+        offset: '10',
         unit: 'seconds',
       },
     )
@@ -37,7 +37,7 @@ describe('timestamp', function () {
     const result = await hre.run(
       { scope: 'util', task: 'timestamp' },
       {
-        value: '1',
+        offset: '1',
         unit: 'days',
       },
     )
@@ -48,7 +48,7 @@ describe('timestamp', function () {
     const result = await hre.run(
       { scope: 'util', task: 'timestamp' },
       {
-        value: '2',
+        offset: '2',
         unit: 'weeks',
       },
     )
@@ -59,7 +59,7 @@ describe('timestamp', function () {
     const result = await hre.run(
       { scope: 'util', task: 'timestamp' },
       {
-        value: '1',
+        offset: '1',
         unit: 'years',
       },
     )
