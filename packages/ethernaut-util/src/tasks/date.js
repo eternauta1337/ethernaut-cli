@@ -3,14 +3,14 @@ const output = require('ethernaut-common/src/ui/output')
 
 const task = require('../scopes/util')
   .task(
-    'timestamp-to-human',
+    'date',
     'Converts a Unix timestamp to human-readable UTC and local time.',
   )
   .addPositionalParam(
     'timestamp',
     'The Unix timestamp to convert',
     undefined,
-    types.string,
+    types.int,
   )
   .setAction(async ({ timestamp }) => {
     try {

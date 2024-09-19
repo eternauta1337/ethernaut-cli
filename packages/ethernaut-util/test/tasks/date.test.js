@@ -1,9 +1,9 @@
 const assert = require('assert')
 
-describe('timestamp-to-human', function () {
+describe('date', function () {
   it('should return correct UTC and local time for a given timestamp', async function () {
     const result = await hre.run(
-      { scope: 'util', task: 'timestamp-to-human' },
+      { scope: 'util', task: 'date' },
       {
         timestamp: '1704067200', // 1 January 2024 00:00:00 UTC
       },
@@ -26,7 +26,7 @@ describe('timestamp-to-human', function () {
 
   it('should return correct UTC and local time for another timestamp', async function () {
     const result = await hre.run(
-      { scope: 'util', task: 'timestamp-to-human' },
+      { scope: 'util', task: 'date' },
       {
         timestamp: '1630454400', // 1 September 2021 00:00:00 UTC
       },
@@ -49,7 +49,7 @@ describe('timestamp-to-human', function () {
 
   it('should return correct UTC and local time for a timestamp in the past', async function () {
     const result = await hre.run(
-      { scope: 'util', task: 'timestamp-to-human' },
+      { scope: 'util', task: 'date' },
       {
         timestamp: '0', // 1 January 1970 00:00:00 UTC (Unix Epoch)
       },
