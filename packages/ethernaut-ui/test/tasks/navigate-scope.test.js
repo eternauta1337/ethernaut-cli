@@ -9,11 +9,11 @@ describe('navigate scope', function () {
     })
 
     it('displays the main prompt', async function () {
-      terminal.has('Pick a task or scope')
+      terminal.has('Pick a task [util]')
     })
 
     it('doesnt display any scopes', async function () {
-      terminal.notHas('[')
+      terminal.notHas('[network]')
     })
 
     it('shows utils', async function () {

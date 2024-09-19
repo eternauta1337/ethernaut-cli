@@ -1,67 +1,70 @@
 const axios = require('axios')
 const debug = require('ethernaut-common/src/ui/debug')
+const { checkEnvVar } = require('ethernaut-common/src/io/env')
 
-// See GraphQL playground for this API here: https://cloud.hasura.io/public/graphiql?endpoint=https://opensource-observer.hasura.app/v1/graphql
+// See GraphQL playground for this API here: https://www.opensource.observer/graphql
 
 class OpenSourceObserver {
   constructor() {
-    this.graphqlUrl = 'https://opensource-observer.hasura.app/v1/graphql'
+    this.graphqlUrl = 'https://www.opensource.observer/api/v1/graphql'
   }
 
   async getProjects(filter = '', limit = 1000) {
     const data = await this.makeGraphQLRequest(
       `
         query GetProjects {
-          projects(
-            where: {project_name: {_ilike: "%${filter}%"}}
+          oso_projectsV1(
+            where: {projectName: {_ilike: "%${filter}%"}}
             limit: ${limit}
           ) {
-            count_blockchain_artifacts
-            count_github_artifacts
-            count_npm_artifacts
-            project_id
-            project_name
-            project_slug
-            user_namespace
+            description
+            displayName
+            projectId
+            projectName
+            projectNamespace
+            projectSource
           }
         }
     `,
       {},
     )
 
-    return data.projects
+    return data['oso_projectsV1']
   }
 
   static getCodeMetricsFields() {
     return [
-      'project_id',
-      'project_name',
-      'project_slug',
-      'repositories',
-      'avg_active_devs_6_months',
-      'avg_fulltime_devs_6_months',
-      'contributors',
-      'contributors_6_months',
-      'new_contributors_6_months',
-      'first_commit_date',
-      'last_commit_date',
-      'forks',
-      'stars',
-      'issues_closed_6_months',
-      'issues_opened_6_months',
-      'pull_requests_merged_6_months',
-      'pull_requests_opened_6_months',
-      'commits_6_months',
+      'activeDeveloperCount6Months',
+      'closedIssueCount6Months',
+      'commitCount6Months',
+      'contributorCount',
+      'contributorCount6Months',
+      'displayName',
+      'eventSource',
+      'firstCommitDate',
+      'forkCount',
+      'fulltimeDeveloperAverage6Months',
+      'lastCommitDate',
+      'mergedPullRequestCount6Months',
+      'newContributorCount6Months',
+      'openedIssueCount6Months',
+      'openedPullRequestCount6Months',
+      'projectId',
+      'projectName',
+      'projectNamespace',
+      'projectSource',
+      'repositoryCount',
+      'starCount',
     ]
   }
 
-  async getCodeMetrics(filter = '', limit = 1000, sort = 'stars') {
+  async getCodeMetrics(filter = '', limit = 1000, sort = 'starCount') {
     const data = await this.makeGraphQLRequest(
       `
         query GetCodeMetrics {
-          code_metrics_by_project(
-            where: { project_name: { _ilike: "%${filter}%" } }
-            order_by: { ${sort}: desc_nulls_last }
+          oso_codeMetricsByProjectV1(
+            where: { projectName: { _ilike: "%${filter}%" } }
+            order_by: { ${sort}: Desc }
             limit: ${limit}
           ) {
             ${OpenSourceObserver.getCodeMetricsFields().join('\n')}
@@ -71,39 +74,45 @@ class OpenSourceObserver {
       {},
     )
 
-    return data.code_metrics_by_project
+    return data['oso_codeMetricsByProjectV1']
   }
 
   static getChainMetricsFields() {
     return [
-      'active_users',
-      'first_txn_date',
-      'high_frequency_users',
-      'l2_gas_6_months',
-      'less_active_users',
-      'more_active_users',
-      'multi_project_users',
-      'network',
-      'new_user_count',
-      'num_contracts',
-      'project_id',
-      'project_name',
-      'project_slug',
-      'total_l2_gas',
-      'total_txns',
-      'total_users',
-      'txns_6_months',
-      'users_6_months',
+      'activeContractCount90Days',
+      'addressCount',
+      'addressCount90Days',
+      'daysSinceFirstTransaction',
+      'displayName',
+      'eventSource',
+      'gasFeesSum',
+      'gasFeesSum6Months',
+      'highActivityAddressCount90Days',
+      'lowActivityAddressCount90Days',
+      'mediumActivityAddressCount90Days',
+      'multiProjectAddressCount90Days',
+      'newAddressCount90Days',
+      'projectId',
+      'projectName',
+      'projectNamespace',
+      'projectSource',
+      'returningAddressCount90Days',
+      'transactionCount',
+      'transactionCount6Months',
     ]
   }
 
-  async getChainMetrics(filter = '', limit = 1000, sort = 'active_users') {
+  async getChainMetrics(
+    filter = '',
+    limit = 1000,
+    sort = 'addressCount90Days',
+  ) {
     const data = await this.makeGraphQLRequest(
       `
         query GetChainMetrics {
-          onchain_metrics_by_project(
-            where: {project_name: {_ilike: "%${filter}%"}}
-            order_by: { ${sort}: desc_nulls_last }
+          oso_onchainMetricsByProjectV1(
+            where: {projectName: {_ilike: "%${filter}%"}}
+            order_by: { ${sort}: Desc }
             limit: ${limit}
           ) {
             ${OpenSourceObserver.getChainMetricsFields().join('\n')}
@@ -113,10 +122,15 @@ class OpenSourceObserver {
       {},
     )
 
-    return data.onchain_metrics_by_project
+    return data['oso_onchainMetricsByProjectV1']
   }
 
   async makeGraphQLRequest(query) {
+    await checkEnvVar(
+      'OSO_DEVELOPER_API_KEY',
+      'This is required by the oso package to interact with the oso API.',
+    )
+
     const response = await axios.post(
       this.graphqlUrl,
       {
@@ -124,9 +138,8 @@ class OpenSourceObserver {
       },
       {
         headers: {
+          Authorization: `Bearer ${process.env.OSO_DEVELOPER_API_KEY}`,
           'Content-Type': 'application/json',
-          // Include the Authorization header if needed
-          // 'Authorization': 'Bearer YOUR_AUTH_TOKEN',
         },
       },
     )

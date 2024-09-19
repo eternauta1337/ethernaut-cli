@@ -43,6 +43,7 @@ This plugin adds the tasks listed below.
 - chain Finds a network name from a chain ID, or vice versa
 - Returns the current timestamp adjusted by a given amount of units of time into the future
 - Converts a Unix timestamp to human-readable UTC and local time
+- hex Converts integers to hex
 
 ## Environment extensions
 
