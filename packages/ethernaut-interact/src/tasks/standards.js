@@ -54,9 +54,24 @@ async function checkERC20(address, hre) {
   try {
     const contract = await getContract('erc20', address, hre)
 
-    // Check the existence of ERC-20 functions without state changes
+    // Check the existence of key ERC-20 functions
     await contract.totalSupply()
     await contract.balanceOf(address)
+
+    // Additional checks for ERC-20 functions using their function signatures
+    const functionsToCheck = [
+      'transfer',
+      'approve',
+      'allowance',
+      'transferFrom',
+    ]
+
+    // Check if these key ERC-20 functions exist in the contract
+    for (const fn of functionsToCheck) {
+      if (!contract.interface.getFunction(fn)) {
+        return false // If any function is missing, it's not ERC-20 compliant
+      }
+    }
 
     return true
   } catch (err) {
