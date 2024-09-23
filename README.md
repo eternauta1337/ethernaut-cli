@@ -34,11 +34,87 @@ This CLI is mean to be installed globally, and not as a per-project task runner 
 
 `npm i -g ethernaut-cli`
 
+### Additional requirements:
+
+Anvil
+
+`curl -L https://foundry.paradigm.xyz | bash`
+
+`foundryup`
+
+## Development
+
+This is a monorepo built with [lerna](https://lerna.js.org/), composed of [hardhat](https://github.com/NomicFoundation/hardhat) plugins. The global nodejs application entry point is in `packages/ethernaut-cli/ethernaut`. All code is vanilla javascript.
+
+### Setup
+
+Clone the repo.
+
+Installs all monorepo dependencies.
+
+`npm install`
+
+Bootstraps lerna and runs build scripts for all packages.
+
+`npm run build`
+
+Compiles any contracts in the monorepo's packages.
+
+`npm run compile`
+
+### Running
+
+Use the global `ethernaut` binary to run the CLI.
+
+`./packages/ethernaut-cli/ethernaut <command> <args>`
+
+You may want to add this binary to your PATH in your .zshrc or .bashrc, so that you can run it with an abbreviation such as 'eth'.
+
+`eth <command> <args>`
+
+This would allow you to have an `eth` develpment version as well as an `ethernaut` official version installed on your system as a global npm package.
+
+To run the CLI with verbose output, run:
+
+`DEBUG=* eth <command> <args>` // All packages
+
+`DEBUG=*hardhat* eth <command> <args>` // Hardhat packages
+
+`DEBUG=*ethernaut* eth <command> <args>` // ethernaut packages
+
+`DEBUG=*ethernaut:ui* eth <command> <args>` // ethernaut-ui packages
+
+### Testing
+
+Some tests require a network to be running. You can start one with:
+
+`npm run chain`
+
+Tests all packages in the monorepo.
+
+`npm run test`
+
+To test a single package, run:
+
+`cd packages/ethernaut-ai && npm test`
+
+To run tests with verbose output, run:
+
+`DEBUG=* npm test` // All packages
+
+`DEBUG=*hardhat* npm test` // Hardhat packages
+
+`DEBUG=*ethernaut* npm test` // ethernaut packages
+
+`DEBUG=*ethernaut:ui* npm test` // ethernaut-ui packages
+
 ## Tutorials and articles
 
 - [Announcing the ethernaut-cli](https://mirror.xyz/theethernaut.eth/0HP3L4mWzb4isXYERfsncBQgzT1T99uQTH8tvJvICmE)
 
-## Intuitive navigation
+## Features
+
+### Intuitive navigation
 
 No more man pages. No more --help.
 
@@ -58,7 +134,7 @@ Once in a task, interactive mode kicks in, and parameters are collected through 
   <img src="demos/interactive.gif" alt="Enquirer param collection">
 </details>
 
-## Normal CLI interaction
+### Normal CLI interaction
 
 This is still a regular CLI app, so commands can be called without all the fancy ui or ai stuff:
 
@@ -89,7 +165,7 @@ But after you've interacted with the contract, it already has the abi, so the ab
 
 Another example is the extension for the model param in `ethernaut ai config --model`, which queries the openai API and presents a list of available models.
 
-## Natural language to cli commands
+### Natural language to cli commands
 
 If that wasn't easy enough, just type whatever you want and AI will kick in to try to make sense of what you typed, and the right command or sequence of commands will be executed.
 
@@ -112,7 +188,7 @@ You want the AI to also teach you about Ethereum. Also sure.
   <img src="demos/teach.gif" alt="Complete level 1">
 </details>
 
-## Extensibility through hardhat plugins
+### Extensibility through hardhat plugins
 
 You don't have to use this entire plethora of features tho. You can use a single feature in your regular hardhat project with exactly what you need. This is because the ethernaut-cli is completely built with hardhat plugins.
 
