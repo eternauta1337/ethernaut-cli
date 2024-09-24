@@ -41,7 +41,6 @@ This plugin adds the tasks listed below.
 - unit Converts between different units of Ether
 - gas Fetch gas info on the current network
 - chain Finds a network name from a chain ID, or vice versa
-- calldata Decodes calldata from a transaction id
 
 ## Environment extensions
 

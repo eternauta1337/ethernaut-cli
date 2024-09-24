@@ -41,6 +41,7 @@ This plugin adds the following tasks:
 - logs Finds logs emitted by a contract
 - send Sends ether to an address
 - token Interacts with any ERC20 token
+- calldata Decodes calldata from a transaction id
 
 ## Environment extensions
 
