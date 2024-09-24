@@ -1,13 +1,18 @@
 const fs = require('fs')
 const path = require('path')
+const debug = require('ethernaut-common/src/ui/debug')
 
 async function connect(network, hre) {
+  debug.log(`Connecting to ${network}`, 'zeronaut')
+
   // Retrieve the deployed addresses for the given network
   const addresses = _getDeployedAddresses(network)
   const address = addresses['Zeronaut#Zeronaut']
+  debug.log(`Main contract address: ${address}`, 'zeronaut')
 
   // Retrieve the game abi
   const abi = _getGameAbi(network)
+  // debug.log(`Game abi: ${JSON.stringify(abi, null, 2)}`, 'zeronaut')
 
   // Create the game contract instance
   const contract = await hre.ethers.getContractAt(abi, address)
