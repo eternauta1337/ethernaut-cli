@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-function connect(network) {
+async function connect(network, hre) {
   // Retrieve the deployed addresses for the given network
   const addresses = _getDeployedAddresses(network)
   const address = addresses['Zeronaut#Zeronaut']
@@ -10,7 +10,9 @@ function connect(network) {
   const abi = _getGameAbi(network)
 
   // Create the game contract instance
-  // TODO
+  const contract = await hre.ethers.getContractAt(abi, address)
+
+  return contract
 }
 
 function _getGameAbi(network) {

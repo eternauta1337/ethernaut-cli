@@ -14,7 +14,11 @@ require('../scopes/zeronaut')
   .setAction(async ({ name }, hre) => {
     try {
       const chainId = await getChainId(hre)
-      connect(`chain-${chainId}`)
+      const contract = await connect(`chain-${chainId}`, hre)
+
+      const id = hre.ethers.encodeBytes32String(name)
+      const tx = await contract.createCampaign(id)
+      await tx.wait()
 
       return output.resultBox(`Created campaign ${name}`)
     } catch (err) {
