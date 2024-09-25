@@ -5,7 +5,7 @@ const { connect } = require('../internal/connect')
 const debug = require('ethernaut-common/src/ui/debug')
 
 require('../scopes/zeronaut')
-  .task('get-campaign', 'finds an existing campaign')
+  .task('get-campaign', 'Retrieves details for a campaign')
   .addPositionalParam(
     'name',
     'The name of the campaign',

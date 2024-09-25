@@ -4,7 +4,7 @@ const { getChainId } = require('ethernaut-common/src/util/network')
 const { connect } = require('../internal/connect')
 
 require('../scopes/zeronaut')
-  .task('get-level', 'finds an existing campaign')
+  .task('get-level', 'Retrieves details for a level')
   .addPositionalParam(
     'name',
     'The name of the campaign',
