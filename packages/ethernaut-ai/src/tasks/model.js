@@ -3,7 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const storage = require('ethernaut-common/src/io/storage')
 
 require('../scopes/ai')
-  .task('config', 'Configures ai scope parameters')
+  .task('model', 'Sets the openai model')
   .addParam('model', 'The openai model to use', undefined, types.string)
   .setAction(async ({ model }, hre) => {
     try {
