@@ -1,11 +1,11 @@
 const { Terminal } = require('ethernaut-common/src/test/terminal')
 
-describe('config ui', function () {
+describe('model ui', function () {
   const terminal = new Terminal()
 
-  describe('when config is called with no params', function () {
+  describe('when model is called with no params', function () {
     before('call', async function () {
-      await terminal.run('hardhat ai config', 2000)
+      await terminal.run('hardhat ai model', 2000)
     })
 
     it('displays gpt models', async function () {
