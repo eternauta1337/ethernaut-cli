@@ -19,6 +19,8 @@ function refreshEnv() {
 }
 
 async function checkEnvVar(varName, message) {
+  refreshEnv()
+
   // Check if the env var exists at runtime
   if (process.env[varName]) {
     debug.log(`Environment variable ${varName} found`, 'env')
