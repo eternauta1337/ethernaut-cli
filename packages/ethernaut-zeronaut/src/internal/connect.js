@@ -29,12 +29,31 @@ function _getGameAbi(network) {
   return JSON.parse(fs.readFileSync(abiPath, 'utf8')).abi
 }
 
+async function getLevelContract(hre, address) {
+  const abi = _getLevelAbi()
+  return await hre.ethers.getContractAt(abi, address)
+}
+
+function _getLevelAbi() {
+  const artifactsFolderPath = path.join(
+    _getArtifactsFolderPath(),
+    'contracts',
+    'interfaces',
+  )
+  const abiPath = path.join(artifactsFolderPath, 'ILevel.sol', 'ILevel.json')
+  return JSON.parse(fs.readFileSync(abiPath, 'utf8')).abi
+}
+
 function _getDeployedAddresses(network) {
   const addressesPath = path.join(
     _getNetworkFolderPath(network),
     'deployed_addresses.json',
   )
   return JSON.parse(fs.readFileSync(addressesPath, 'utf8'))
+}
+
+function _getArtifactsFolderPath() {
+  return path.join(_getZeronautFolderPath(), 'artifacts')
 }
 
 function _getNetworkFolderPath(network) {
@@ -47,9 +66,13 @@ function _getNetworkFolderPath(network) {
 }
 
 function _getIgnitionFolderPath() {
-  const zeronautPkgPath = require.resolve('zeronaut/package.json')
-  const zeronautDir = path.dirname(zeronautPkgPath)
+  const zeronautDir = _getZeronautFolderPath()
   return path.join(zeronautDir, 'ignition', 'deployments')
 }
 
-module.exports = { connect }
+function _getZeronautFolderPath() {
+  const zeronautPkgPath = require.resolve('zeronaut/package.json')
+  return path.dirname(zeronautPkgPath)
+}
+
+module.exports = { connect, getLevelContract }

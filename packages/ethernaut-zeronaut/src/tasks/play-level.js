@@ -1,36 +1,33 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
 const { getChainId } = require('ethernaut-common/src/util/network')
-const { connect } = require('../internal/connect')
+const { connect, getLevelContract } = require('../internal/connect')
 const { prompt } = require('ethernaut-common/src/ui/prompt')
 
 require('../scopes/zeronaut')
   .task('play-level', 'Plays a level')
   .addPositionalParam(
-    'campaign',
-    'The name of the campaign',
+    'name',
+    'The name of level to play',
     undefined,
     types.string,
   )
-  .addPositionalParam(
-    'level',
-    'The index of level to play',
-    undefined,
-    types.string,
-  )
-  .setAction(async ({ campaign, level }, hre) => {
+  .setAction(async ({ name }, hre) => {
     try {
       // Retrieve the game contract
       const chainId = await getChainId(hre)
       const contract = await connect(`chain-${chainId}`, hre)
 
-      // Retrieve the campaign
-      const id = hre.ethers.encodeBytes32String(campaign)
-      const campaignData = await contract.getCampaign(id)
+      // Retrieve the level address
+      const levelId = hre.ethers.encodeBytes32String(name)
+      const levelData = await contract.getLevel(levelId)
+      const levelAddress = levelData.addr
 
-      // Retrieve the level
-      const levelAddress = campaignData.levels[level]
-      const levelCircuitData = await contract.getLevelCircuit(levelAddress)
+      // Connect to the level contract
+      const level = await getLevelContract(hre, levelAddress)
+
+      // Retrieve the level circuit
+      const levelCircuitData = await level.circuit()
 
       // Build the circuit and collect the parameters
       const circuit = JSON.parse(levelCircuitData)
@@ -42,12 +39,11 @@ require('../scopes/zeronaut')
       const proof = await _buildProof(circuit, inputs)
       // console.log('proof', proof)
 
-      // Submit the proof to the contract
-      const success = await contract.checkLevel(
-        levelAddress,
-        proof,
-        publicInputs,
-      )
+      // Check the proof
+      const success = await level.check(proof, publicInputs)
+
+      // Submit the proof
+      // TODO
 
       return output.resultBox(`Success: ${success}`)
     } catch (err) {

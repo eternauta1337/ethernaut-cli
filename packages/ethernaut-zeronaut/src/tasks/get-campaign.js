@@ -22,13 +22,7 @@ require('../scopes/zeronaut')
 
       let str = ''
       str += `\n  name: ${hre.ethers.decodeBytes32String(campaign.id)}`
-      str += `\n  levels: ${campaign.levels.length}`
-
-      for (let i = 0; i < campaign.levels.length; i++) {
-        const levelAddress = campaign.levels[i]
-        const levelName = await contract.getLevelName(levelAddress)
-        str += `\n   - Level ${i}: "${hre.ethers.decodeBytes32String(levelName)}"`
-      }
+      str += `\n  owner: ${campaign.owner}`
 
       return output.resultBox(str)
     } catch (err) {
