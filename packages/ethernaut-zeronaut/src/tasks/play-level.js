@@ -42,7 +42,7 @@ require('../scopes/zeronaut')
 
       // Check the proof
       const success = await level.check(proof, publicInputs)
-      console.log('success', success)
+      console.log('Check proof:', success)
 
       // Submit the proof
       const tx = await contract.solveLevel(levelId, proof, publicInputs)
@@ -61,20 +61,27 @@ async function _collectInputs(abi) {
   const publicInputs = []
 
   for (const param of abi.parameters) {
-    if (param.type.kind === 'string') {
-      const value = await prompt({
-        type: 'input',
-        name: param.name,
-        message: `Enter the value for ${param.name}`,
-      })
+    // Collect value with prompt
+    const value = await prompt({
+      type: 'input',
+      name: param.name,
+      message: `Enter the value for ${param.name}`,
+    })
 
-      inputs[param.name] = value
-
-      if (param.visibility !== 'private') {
-        publicInputs.push('0x' + Buffer.from(value).toString('hex'))
-      }
+    // Parse and store value
+    if (param.type.kind === 'integer') {
+      inputs[param.name] = hre.ethers.zeroPadValue(
+        hre.ethers.toBeHex(value),
+        32,
+      )
     } else {
-      throw new Error(`Unsupported parameter type: ${param.type}`)
+      inputs[param.name] = value
+    }
+    console.log('inputs', inputs)
+
+    // Identify public inputs
+    if (param.visibility !== 'private') {
+      publicInputs.push(inputs[param.name])
     }
   }
 
