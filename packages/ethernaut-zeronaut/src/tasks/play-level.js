@@ -3,6 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const { getChainId } = require('ethernaut-common/src/util/network')
 const { connect, getLevelContract } = require('../internal/connect')
 const { prompt } = require('ethernaut-common/src/ui/prompt')
+const { buildProof } = require('zeronaut/utils/build-proof')
 
 require('../scopes/zeronaut')
   .task('play-level', 'Plays a level')
@@ -36,11 +37,12 @@ require('../scopes/zeronaut')
       // console.log('publicInputs', publicInputs)
 
       // Build the proof
-      const proof = await _buildProof(circuit, inputs)
+      const proof = await buildProof(circuit, inputs)
       // console.log('proof', proof)
 
       // Check the proof
       const success = await level.check(proof, publicInputs)
+      console.log('success', success)
 
       // Submit the proof
       const tx = await contract.solveLevel(levelId, proof, publicInputs)
@@ -51,32 +53,6 @@ require('../scopes/zeronaut')
       return output.errorBox(err)
     }
   })
-
-async function _buildProof(circuit, inputs) {
-  const { Noir } = await import('@noir-lang/noir_js')
-  const { BarretenbergBackend } = await import(
-    '@noir-lang/backend_barretenberg'
-  )
-  const noirFrontend = new Noir(circuit)
-  const noirBackend = new BarretenbergBackend(circuit)
-
-  // Generate a witness for the circuit
-  const { witness } = await noirFrontend.execute(inputs)
-  // console.log('Witness:', witness);
-
-  // Generate a proof for the witness
-  const proofData = await noirBackend.generateProof(witness)
-  // console.log('Proof:', proofData);
-
-  // Verify the proof
-  const verification = await noirBackend.verifyProof(proofData)
-  if (!verification) {
-    throw new Error('Proof verification failed')
-  }
-  // console.log('Verification:', verification)
-
-  return '0x' + Buffer.from(proofData.proof).toString('hex')
-}
 
 async function _collectInputs(abi) {
   // console.log(JSON.stringify(abi, null, 2))
