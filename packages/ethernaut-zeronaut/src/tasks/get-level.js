@@ -17,6 +17,10 @@ require('../scopes/zeronaut')
       const chainId = await getChainId(hre)
       const contract = await connect(`chain-${chainId}`, hre)
 
+      // Get the player address
+      const signer = (await hre.ethers.getSigners())[0]
+      const playerAddress = signer.address
+
       // Retrieve the level address
       const id = hre.ethers.encodeBytes32String(name)
       const levelData = await contract.getLevel(id)
@@ -29,10 +33,15 @@ require('../scopes/zeronaut')
       const levelName = await level.name()
       const levelInstructions = await level.instructions()
 
+      // Check if the level is completed
+      const solved = await contract.isLevelSolved(id, playerAddress)
+
       // Display the level details
       let str = ''
       str += `  name: ${hre.ethers.decodeBytes32String(levelName)}`
+      str += `\n  solved: ${solved}`
       str += `\n  instructions: ${levelInstructions}`
+
       return output.resultBox(str)
     } catch (err) {
       return output.errorBox(err)

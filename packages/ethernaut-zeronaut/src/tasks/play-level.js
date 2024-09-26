@@ -43,9 +43,10 @@ require('../scopes/zeronaut')
       const success = await level.check(proof, publicInputs)
 
       // Submit the proof
-      // TODO
+      const tx = await contract.solveLevel(levelId, proof, publicInputs)
+      await tx.wait()
 
-      return output.resultBox(`Success: ${success}`)
+      return output.resultBox(`Level solved: ${success}`)
     } catch (err) {
       return output.errorBox(err)
     }
