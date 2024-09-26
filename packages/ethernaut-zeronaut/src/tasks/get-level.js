@@ -30,7 +30,6 @@ require('../scopes/zeronaut')
       const level = await getLevelContract(hre, levelAddress)
 
       // Query the level details
-      const levelName = await level.name()
       const levelInstructions = await level.instructions()
 
       // Check if the level is completed
@@ -38,7 +37,7 @@ require('../scopes/zeronaut')
 
       // Display the level details
       let str = ''
-      str += `  name: ${hre.ethers.decodeBytes32String(levelName)}`
+      str += `  name: ${name}`
       str += `\n  solved: ${solved}`
       str += `\n  instructions: ${levelInstructions}`
 

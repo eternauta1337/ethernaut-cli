@@ -34,12 +34,9 @@ require('../scopes/zeronaut')
       // Get each level's details
       for (let i = 0; i < campaign.levels.length; i++) {
         const levelId = campaign.levels[i]
-        const levelData = await contract.getLevel(levelId)
-        const levelAddress = levelData.addr
-        const level = await getLevelContract(hre, levelAddress)
         const solved = await contract.isLevelSolved(levelId, playerAddress)
-        const levelName = hre.ethers.decodeBytes32String(await level.name())
-        str += `\n    [${i + 1}] "${levelName}" ${solved ? '✅' : '❌'}`
+        const levelName = hre.ethers.decodeBytes32String(levelId)
+        str += `\n    [${i + 1}] "${levelName}" ${solved ? '✅' : ''}`
       }
 
       return output.resultBox(str)
