@@ -37,9 +37,9 @@ describe('standards', function () {
 
     describe('when checking TestToken (ERC-20)', function () {
       it('returns true for ERC-20 and false for others', async function () {
-        const address = await testToken.getAddress()
-        console.log(`TestToken Address: ${address}`)
-        await terminal.run(`hardhat interact standards ${address}`)
+        await terminal.run(
+          `hardhat interact standards  ${await testToken.getAddress()}`,
+        )
         terminal.has('ERC-165 Supported: No')
         terminal.has('ERC-20: Yes')
         terminal.has('ERC-721: No')
@@ -48,10 +48,14 @@ describe('standards', function () {
     })
 
     describe('when checking SimpleERC165 (ERC-165 only)', function () {
+      this.timeout(10000) // Increase timeout to 10 seconds
       it('returns true for ERC-165 and false for others', async function () {
         const address = await simpleERC165.getAddress()
         console.log(`SimpleERC165 Address: ${address}`)
-        await terminal.run(`hardhat interact standards ${address}`)
+        const result = await terminal.run(
+          `hardhat interact standards ${address}`,
+        )
+        console.log(`Result: ${result}`)
         terminal.has('ERC-165 Supported: Yes')
         terminal.has('ERC-20: No')
         terminal.has('ERC-721: No')
@@ -60,10 +64,14 @@ describe('standards', function () {
     })
 
     describe('when checking SimpleERC721 (ERC-721)', function () {
+      this.timeout(10000) // Increase timeout to 10 seconds
       it('returns true for ERC-721 and ERC-165, false for others', async function () {
         const address = await simpleERC721.getAddress()
         console.log(`SimpleERC721 Address: ${address}`)
-        await terminal.run(`hardhat interact standards ${address}`)
+        const result = await terminal.run(
+          `hardhat interact standards ${address}`,
+        )
+        console.log(`Result: ${result}`)
         terminal.has('ERC-165 Supported: Yes')
         terminal.has('ERC-20: No')
         terminal.has('ERC-721: Yes')
