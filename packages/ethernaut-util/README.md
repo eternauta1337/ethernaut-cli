@@ -41,6 +41,8 @@ This plugin adds the tasks listed below.
 - unit Converts between different units of Ether
 - gas Fetch gas info on the current network
 - chain Finds a network name from a chain ID, or vice versa
+- timestamp Returns the current timestamp adjusted by a given amount of units of time into the future
+- date Converts a Unix timestamp to human-readable UTC and local time
 - hex Converts integers to hex
 
 ## Environment extensions
