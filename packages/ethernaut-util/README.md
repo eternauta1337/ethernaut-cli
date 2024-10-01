@@ -41,6 +41,7 @@ This plugin adds the tasks listed below.
 - unit Converts between different units of Ether
 - gas Fetch gas info on the current network
 - chain Finds a network name from a chain ID, or vice versa
+- hex Converts integers to hex
 
 ## Environment extensions
 
