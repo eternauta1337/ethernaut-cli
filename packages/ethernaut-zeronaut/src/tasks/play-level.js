@@ -3,7 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const { getChainId } = require('ethernaut-common/src/util/network')
 const { connect, getLevelContract } = require('../internal/connect')
 const { prompt } = require('ethernaut-common/src/ui/prompt')
-const { buildProof } = require('zeronaut/utils/build-proof')
+const { buildProof, buildSignature } = require('zeronaut/utils/build-proof')
 
 require('../scopes/zeronaut')
   .task('play-level', 'Plays a level')
@@ -36,6 +36,22 @@ require('../scopes/zeronaut')
       // console.log('inputs', inputs)
       // console.log('publicInputs', publicInputs)
 
+      // Retrieve the signer
+      const signer = (await hre.ethers.getSigners())[0]
+
+      // Build the signature, and include it in the inputs
+      const { signature, pubKeyX, pubKeyY, hashedMsg } =
+        await buildSignature(signer)
+      inputs.signature = signature
+      inputs.pubKeyX = pubKeyX
+      inputs.pubKeyY = pubKeyY
+      inputs.hashedMsg = hashedMsg
+      // Also include it in the public inputs
+      publicInputs.push(...pubKeyX)
+      publicInputs.push(...pubKeyY)
+      console.log('inputs', inputs)
+      console.log('publicInputs', publicInputs)
+
       // Build the proof
       const proof = await buildProof(circuit, inputs)
       // console.log('proof', proof)
@@ -61,6 +77,16 @@ async function _collectInputs(abi) {
   const publicInputs = []
 
   for (const param of abi.parameters) {
+    // Do not collect signature stuff
+    if (
+      param.name === 'signature' ||
+      param.name === 'pubKeyX' ||
+      param.name === 'pubKeyY' ||
+      param.name === 'hashedMsg'
+    ) {
+      continue
+    }
+
     // Collect value with prompt
     const value = await prompt({
       type: 'input',
@@ -77,7 +103,6 @@ async function _collectInputs(abi) {
     } else {
       inputs[param.name] = value
     }
-    console.log('inputs', inputs)
 
     // Identify public inputs
     if (param.visibility !== 'private') {
