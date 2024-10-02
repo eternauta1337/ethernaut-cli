@@ -48,7 +48,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-common
           parallel: true
   ethernaut-oso:
@@ -69,7 +69,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-oso
           parallel: true
   ethernaut-util:
@@ -90,7 +90,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util
           parallel: true
   ethernaut-util-ui:
@@ -111,7 +111,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-util-ui
           parallel: true
   ethernaut-ui:
@@ -132,7 +132,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ui
           parallel: true
   ethernaut-interact:
@@ -159,7 +159,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact
           parallel: true
   ethernaut-interact-ui:
@@ -186,7 +186,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-interact-ui
           parallel: true
   ethernaut-challenges:
@@ -213,7 +213,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-challenges
           parallel: true
   ethernaut-ai:
@@ -234,7 +234,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai
           parallel: true
   ethernaut-ai-ui:
@@ -255,7 +255,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-ai-ui
           parallel: true
   ethernaut-network:
@@ -278,7 +278,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network
           parallel: true
   ethernaut-network-ui:
@@ -301,7 +301,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-network-ui
           parallel: true
   ethernaut-wallet:
@@ -328,7 +328,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet
           parallel: true
   ethernaut-wallet-ui:
@@ -355,7 +355,7 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-wallet-ui
           parallel: true
   ethernaut-cli:
@@ -376,6 +376,32 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-cli
           parallel: true
+  finish:
+    needs:
+      - lint
+      - ethernaut-common
+      - ethernaut-oso
+      - ethernaut-util
+      - ethernaut-util-ui
+      - ethernaut-ui
+      - ethernaut-interact
+      - ethernaut-interact-ui
+      - ethernaut-challenges
+      - ethernaut-ai
+      - ethernaut-ai-ui
+      - ethernaut-network
+      - ethernaut-network-ui
+      - ethernaut-wallet
+      - ethernaut-wallet-ui
+      - ethernaut-cli
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
+          carryforward: 'lint,ethernaut-common,ethernaut-oso,ethernaut-util,ethernaut-util-ui,ethernaut-ui,ethernaut-interact,ethernaut-interact-ui,ethernaut-challenges,ethernaut-ai,ethernaut-ai-ui,ethernaut-network,ethernaut-network-ui,ethernaut-wallet,ethernaut-wallet-ui,ethernaut-cli'
