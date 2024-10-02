@@ -7,6 +7,7 @@
 ## What is it?
 
 A universal Ethereum swiss army knife with an AI duck taped onto it.
+.
 
 A CLI for non-technical users, trying to bridge the gap between graphical UIs and CLIs.
 
