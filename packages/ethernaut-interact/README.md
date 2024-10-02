@@ -41,6 +41,7 @@ This plugin adds the following tasks:
 - logs Finds logs emitted by a contract
 - send Sends ether to an address
 - token Interacts with any ERC20 token
+- tx Gives information about a mined transaction
 - standards Checks if a contract address meets known token standards
 
 ## Environment extensions
