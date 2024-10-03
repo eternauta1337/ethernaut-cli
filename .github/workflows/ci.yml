@@ -379,3 +379,29 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           flag-name: ethernaut-cli
           parallel: true
+  finish:
+    needs:
+      - lint
+      - ethernaut-common
+      - ethernaut-oso
+      - ethernaut-util
+      - ethernaut-util-ui
+      - ethernaut-ui
+      - ethernaut-interact
+      - ethernaut-interact-ui
+      - ethernaut-challenges
+      - ethernaut-ai
+      - ethernaut-ai-ui
+      - ethernaut-network
+      - ethernaut-network-ui
+      - ethernaut-wallet
+      - ethernaut-wallet-ui
+      - ethernaut-cli
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
+          carryforward: 'lint,ethernaut-common,ethernaut-oso,ethernaut-util,ethernaut-util-ui,ethernaut-ui,ethernaut-interact,ethernaut-interact-ui,ethernaut-challenges,ethernaut-ai,ethernaut-ai-ui,ethernaut-network,ethernaut-network-ui,ethernaut-wallet,ethernaut-wallet-ui,ethernaut-cli'
