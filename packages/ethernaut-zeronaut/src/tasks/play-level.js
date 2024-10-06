@@ -3,7 +3,7 @@ const output = require('ethernaut-common/src/ui/output')
 const { getChainId } = require('ethernaut-common/src/util/network')
 const { connect, getLevelContract } = require('../internal/connect')
 const { prompt } = require('ethernaut-common/src/ui/prompt')
-const { buildProof, buildSignature } = require('zeronaut/utils/build-proof')
+const { buildProof } = require('zeronaut-contracts/utils/build-proof')
 
 require('../scopes/zeronaut')
   .task('play-level', 'Plays a level')
@@ -33,28 +33,17 @@ require('../scopes/zeronaut')
       // Build the circuit and collect the parameters
       const circuit = JSON.parse(levelCircuitData)
       const { inputs, publicInputs } = await _collectInputs(circuit.abi)
-      // console.log('inputs', inputs)
-      // console.log('publicInputs', publicInputs)
 
       // Retrieve the signer
       const signer = (await hre.ethers.getSigners())[0]
 
-      // Build the signature, and include it in the inputs
-      const { signature, pubKeyX, pubKeyY, hashedMsg } =
-        await buildSignature(signer)
-      inputs.signature = signature
-      inputs.pubKeyX = pubKeyX
-      inputs.pubKeyY = pubKeyY
-      inputs.hashedMsg = hashedMsg
-      // Also include it in the public inputs
-      publicInputs.push(...pubKeyX)
-      publicInputs.push(...pubKeyY)
-      console.log('inputs', inputs)
-      console.log('publicInputs', publicInputs)
-
       // Build the proof
-      const proof = await buildProof(circuit, inputs)
-      // console.log('proof', proof)
+      const { proof, publicInputs: morePublicInputs } = await buildProof(
+        signer,
+        circuit,
+        inputs,
+      )
+      publicInputs.push(...morePublicInputs)
 
       // Check the proof
       const success = await level.check(proof, publicInputs)

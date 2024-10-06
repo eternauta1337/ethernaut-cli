@@ -7,7 +7,7 @@ async function connect(network, hre) {
 
   // Retrieve the deployed addresses for the given network
   const addresses = _getDeployedAddresses(network)
-  const address = addresses['Zeronaut#Zeronaut']
+  const address = addresses['ProxyModule#UUPSProxy']
   debug.log(`Main contract address: ${address}`, 'zeronaut')
 
   // Retrieve the game abi
@@ -25,7 +25,10 @@ function _getGameAbi(network) {
     _getNetworkFolderPath(network),
     'artifacts',
   )
-  const abiPath = path.join(artifactsFolderPath, 'Zeronaut#Zeronaut.json')
+  const abiPath = path.join(
+    artifactsFolderPath,
+    'ProxyModule#WrappedProxy.json',
+  )
   return JSON.parse(fs.readFileSync(abiPath, 'utf8')).abi
 }
 
@@ -71,7 +74,7 @@ function _getIgnitionFolderPath() {
 }
 
 function _getZeronautFolderPath() {
-  const zeronautPkgPath = require.resolve('zeronaut/package.json')
+  const zeronautPkgPath = require.resolve('zeronaut-contracts/package.json')
   return path.dirname(zeronautPkgPath)
 }
 

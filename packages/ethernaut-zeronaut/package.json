@@ -21,7 +21,7 @@
     "nyc-report-lcov-absolute": "^1.0.0"
   },
   "dependencies": {
-    "zeronaut": "file:~/zeronaut/zeronaut",
+    "zeronaut-contracts": "file:~/zeronaut/zeronaut-contracts",
     "@noir-lang/backend_barretenberg": "0.31.0",
     "@noir-lang/noir_js": "0.31.0"
   },
