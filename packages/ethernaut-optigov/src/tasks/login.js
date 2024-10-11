@@ -1,7 +1,7 @@
 const Auth = require('../internal/agora/Auth')
 const output = require('ethernaut-common/src/ui/output')
 const { createSiweMessage } = require('../internal/Siwe')
-const { EthernautCliError } = require('ethernaut-common/src/error/error')
+const EthernautCliError = require('ethernaut-common/src/error/error')
 
 require('../scopes/optigov')
   .task(
@@ -15,6 +15,7 @@ require('../scopes/optigov')
         throw new EthernautCliError(
           'ethernaut-optigov',
           'No signers available - If you are using the ethernaut-cli, please add one with `ethernaut wallet create`',
+          false,
         )
       }
       const signer = signers[0]
