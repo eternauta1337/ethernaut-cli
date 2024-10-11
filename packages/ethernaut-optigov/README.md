@@ -1,10 +1,10 @@
 # ethernaut-optigov
 
-Tasks for interacting the Optimism retroactive public goods funding rounds (RetroPGF)
+Tasks for interacting with the Optimism Agora API, including RetroPGF rounds, governance proposals, and delegation.
 
 ## What
 
-This plugin enables seamless interaction with Optimism’s Retroactive Public Goods Funding (RetroPGF) rounds. It allows users to access data on rounds, projects, and votes, streamlining participation and analysis within the Optimism ecosystem. Perfect for tracking funding and engaging with the RetroPGF process.
+This plugin enables seamless interaction with Optimism’s Retroactive Public Goods Funding (RetroPGF) rounds, allowing users to access RetroPGF rounds, governance proposals, delegation, and voting data. It streamlines participation in governance and funding processes within the Optimism ecosystem. Perfect for tracking funding and engaging with the RetroPGF process.
 
 ## Installation
 
