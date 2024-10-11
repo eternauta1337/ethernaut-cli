@@ -50,6 +50,7 @@
     "ethernaut-util-ui": "^1.1.11",
     "ethernaut-wallet": "^1.1.11",
     "ethernaut-wallet-ui": "^1.1.11",
+    "ethernaut-optiguides": "^1.0.0",
     "figlet": "^1.7.0",
     "hardhat": "^2.22.2"
   },
