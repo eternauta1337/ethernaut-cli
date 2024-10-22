@@ -1,8 +1,6 @@
 const types = require('ethernaut-common/src/validation/types')
 const output = require('ethernaut-common/src/ui/output')
-const Projects = require('../internal/agora/Projects')
-// const Agora = require('../internal/agora/Agora')
-// const { getLatestRound } = require('../internal/agora/utils/latest-round')
+const Agora = require('../internal/agora/Agora')
 
 require('../scopes/optigov')
   .task(
@@ -28,15 +26,14 @@ require('../scopes/optigov')
     types.string,
   )
   .setAction(async ({ round, name, category }) => {
-    console.log('params: ', { round, name, category })
-
     try {
+      const agora = new Agora()
+
       let roundId
-      if (round === 'latest')
-        roundId = 5 // await getLatestRound()
+      if (round === 'latest') roundId = agora.projects.getLatestRound()
       else if (round === 'any') roundId = undefined
 
-      let projects = await getProjects(roundId)
+      let projects = await getProjects(agora, roundId)
 
       projects = filterProjects(projects, name, category)
 
@@ -75,22 +72,10 @@ function printProjects(projects) {
   return strs.join('\n\n')
 }
 
-async function getProjects(roundId) {
-  const agora = new Projects()
-
+async function getProjects(agora, roundId) {
   if (roundId === undefined) {
-    return await agora.projects()
+    return await agora.projects.projects()
   }
 
-  return await agora.roundProjects({ roundId })
+  return await agora.projects.roundProjects({ roundId })
 }
-
-// async function getProjects(roundId) {
-//   const agora = new Agora()
-
-//   if (roundId === 'any') {
-//     return await agora.retro.projects()
-//   }
-
-//   return await agora.retro.roundProjects({ roundId })
-// }

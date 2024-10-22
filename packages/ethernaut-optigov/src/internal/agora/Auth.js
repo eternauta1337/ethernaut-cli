@@ -1,15 +1,16 @@
 const axios = require('axios')
 const debug = require('ethernaut-common/src/ui/debug')
 const EthernautCliError = require('ethernaut-common/src/error/error')
-const API_BASE_URL = 'https://vote.optimism.io/api/v1'
 
 class Auth {
-  constructor() {}
+  constructor(agora) {
+    this.agora = agora
+  }
 
   // Get a nonce from the Agora API
   async getNonce() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/auth/nonce`)
+      const response = await axios.get(`${this.agora.API_BASE_URL}/auth/nonce`)
 
       debug.log(`Nonce: ${response.data.nonce}`, 'ethernaut-optigov')
       return response.data
@@ -25,7 +26,7 @@ class Auth {
   async authenticateWithAgora(message, signature, nonce) {
     try {
       const response = await axios.post(
-        `${API_BASE_URL}/auth/verify`,
+        `${this.agora.API_BASE_URL}/auth/verify`,
         {
           message,
           signature,

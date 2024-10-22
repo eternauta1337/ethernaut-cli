@@ -1,29 +1,29 @@
 const axios = require('axios')
-// const debug = require('ethernaut-common/src/ui/debug')
+const debug = require('ethernaut-common/src/ui/debug')
 const EthernautCliError = require('ethernaut-common/src/error/error')
-const API_BASE_URL = 'https://vote.optimism.io/api/v1'
 
 class Projects {
-  // constructor(agora) {
-  //   this.agora = agora
-  // }
+  constructor(agora) {
+    this.agora = agora
+  }
 
-  constructor() {
-    this.apiKey = process.env.AGORA_API_KEY
+  async getLatestRound() {
+    // TODO: Implement this
+    return 5
   }
 
   async projects({ limit, offset } = { limit: 10, offset: 0 }) {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/projects?limit=${limit}&?offset=${offset}`,
+        `${this.agora.API_BASE_URL}/projects?limit=${limit}&?offset=${offset}`,
         {
           headers: {
-            Authorization: `Bearer ${this.apiKey}`,
+            Authorization: `Bearer ${this.agora.AGORA_API_KEY}`,
           },
         },
       )
 
-      // debug.log(`Nonce: ${response.data.nonce}`, 'ethernaut-optigov')
+      debug.log(`Projects: ${response.data}`, 'ethernaut-optigov')
       return response.data.data
     } catch (error) {
       throw new EthernautCliError(
@@ -36,7 +36,7 @@ class Projects {
   async roundProjects({ roundId, limit = 10, offset = 0 }) {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/retrofunding/rounds/${roundId}/projects?limit=${limit}&offset=${offset}`,
+        `${this.agora.API_BASE_URL}/retrofunding/rounds/${roundId}/projects?limit=${limit}&offset=${offset}`,
         {
           headers: {
             Authorization: `Bearer ${this.apiKey}`,
@@ -44,8 +44,7 @@ class Projects {
         },
       )
 
-      // debug.log(`Nonce: ${response.data.nonce}`, 'ethernaut-optigov')
-      // console.log('roundProjects: ', response.data)
+      debug.log(`Round Projects: ${response.data}`, 'ethernaut-optigov')
       return response.data.data
     } catch (error) {
       throw new EthernautCliError(
