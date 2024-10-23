@@ -58,12 +58,14 @@ require('../scopes/ai')
       const buildingAssistantLIstener = () =>
         spinner.progress('Building assistant...', 'ai')
 
-      _interpreter = new Interpreter(hre)
+      _interpreter = new Interpreter()
+      await _interpreter.initialize(hre)
       _interpreter.on('status_update', statusUpdateListener)
       _interpreter.on('building_assistant', buildingAssistantLIstener)
       _interpreter.on('actions_required', processActions)
 
-      _explainer = new Explainer(hre)
+      _explainer = new Explainer()
+      await _explainer.initialize(hre)
       _explainer.on('status_update', statusUpdateListener)
       _explainer.on('building_assistant', buildingAssistantLIstener)
 

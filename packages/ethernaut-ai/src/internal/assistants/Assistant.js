@@ -3,13 +3,12 @@ const storage = require('../storage')
 const openai = require('../openai')
 const debug = require('ethernaut-common/src/ui/debug')
 const output = require('ethernaut-common/src/ui/output')
+const { uploadFiles } = require('./utils/files')
 const EventEmitter = require('events')
 const EthernautCliError = require('ethernaut-common/src/error/error')
 
 class Assistant extends EventEmitter {
-  constructor(name, config) {
-    super()
-
+  async initialize(hre, name, config) {
     if (hre.config.ethernaut.ai.model !== config.model) {
       config.model = hre.config.ethernaut.ai.model
     }
@@ -184,6 +183,11 @@ class Assistant extends EventEmitter {
       `[${tag}]`,
       text,
     )
+  }
+
+  async processFiles(files) {
+    await uploadFiles(openai(), files)
+    process.exit(0)
   }
 }
 

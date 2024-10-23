@@ -4,15 +4,17 @@ const Action = require('../Action')
 const debug = require('ethernaut-common/src/ui/debug')
 
 class Interpreter extends Assistant {
-  constructor(hre) {
+  async initialize(hre) {
     const config = require('./configs/interpreter.json')
     config.tools = buildToolsSpec(hre)
 
-    super('interpreter', config)
+    await super.initialize(hre, 'interpreter', config)
 
     this.injectAdditionalInstructions(
       hre.config.ethernaut.ai.interpreter.additionalInstructions,
     )
+
+    await this.processFiles(hre.config.ethernaut.ai.interpreter.files)
 
     this.on('tool_calls_required', this.processToolCalls)
 

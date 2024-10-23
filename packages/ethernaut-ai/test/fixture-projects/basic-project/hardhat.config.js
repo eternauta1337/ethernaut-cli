@@ -19,6 +19,7 @@ module.exports = {
     ai: {
       interpreter: {
         additionalInstructions: [''],
+        files: ['files/colors.md'],
       },
       explainer: {
         additionalInstructions: [''],

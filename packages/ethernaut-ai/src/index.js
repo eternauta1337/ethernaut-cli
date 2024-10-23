@@ -32,6 +32,10 @@ extendConfig((config, userConfig) => {
         localConfig.ai?.interpreter?.additionalInstructions.concat() ||
         userConfig.ethernaut?.ai?.interpreter?.additionalInstructions?.concat() ||
         [],
+      files:
+        localConfig.ai?.interpreter?.files.concat() ||
+        userConfig.ethernaut?.ai?.interpreter?.files?.concat() ||
+        [],
     },
     explainer: {
       additionalInstructions:

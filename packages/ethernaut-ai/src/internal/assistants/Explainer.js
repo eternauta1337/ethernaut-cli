@@ -3,7 +3,7 @@ const Assistant = require('./Assistant')
 const Thread = require('../threads/Thread')
 
 class Explainer extends Assistant {
-  constructor(hre) {
+  async initialize(hre) {
     const config = require('./configs/explainer.json')
 
     const docs = buildDocs(hre)
@@ -12,7 +12,7 @@ class Explainer extends Assistant {
       docs.join('\n'),
     )
 
-    super('explainer', config)
+    await super.initialize(hre, 'explainer', config)
 
     this.injectAdditionalInstructions(
       hre.config.ethernaut.ai.explainer.additionalInstructions,
