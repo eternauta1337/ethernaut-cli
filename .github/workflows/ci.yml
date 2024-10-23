@@ -397,7 +397,7 @@ jobs:
       - ethernaut-wallet
       - ethernaut-wallet-ui
       - ethernaut-cli
-    if: ${{ always() }}
+    if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
