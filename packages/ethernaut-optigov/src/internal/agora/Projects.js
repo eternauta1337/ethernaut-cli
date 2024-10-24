@@ -1,6 +1,4 @@
-const axios = require('axios')
 const debug = require('ethernaut-common/src/ui/debug')
-const EthernautCliError = require('ethernaut-common/src/error/error')
 
 class Projects {
   constructor(agora) {
@@ -8,49 +6,37 @@ class Projects {
   }
 
   async getLatestRound() {
-    // TODO: Implement this
-    return 5
+    return 5 // Placeholder, you can implement this logic
   }
 
-  async projects({ limit, offset } = { limit: 10, offset: 0 }) {
+  async getProjects({ limit = 10, offset = 0 } = {}) {
     try {
-      const response = await axios.get(
-        `${this.agora.API_BASE_URL}/projects?limit=${limit}&?offset=${offset}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.agora.AGORA_API_KEY}`,
-          },
-        },
-      )
+      const axiosInstance = this.agora.createAxiosInstance()
+      const response = await axiosInstance.get('/projects', {
+        params: { limit, offset },
+      })
 
       debug.log(`Projects: ${response.data}`, 'ethernaut-optigov')
       return response.data.data
     } catch (error) {
-      throw new EthernautCliError(
-        'ethernaut-optigov',
-        `Http status error: ${error.message}`,
-      )
+      this.agora.handleError(error)
     }
   }
 
-  async roundProjects({ roundId, limit = 10, offset = 0 }) {
+  async getRoundProjects({ roundId, limit = 10, offset = 0 }) {
     try {
-      const response = await axios.get(
-        `${this.agora.API_BASE_URL}/retrofunding/rounds/${roundId}/projects?limit=${limit}&offset=${offset}`,
+      const axiosInstance = this.agora.createAxiosInstance()
+      const response = await axiosInstance.get(
+        `/retrofunding/rounds/${roundId}/projects`,
         {
-          headers: {
-            Authorization: `Bearer ${this.apiKey}`,
-          },
+          params: { limit, offset },
         },
       )
 
       debug.log(`Round Projects: ${response.data}`, 'ethernaut-optigov')
       return response.data.data
     } catch (error) {
-      throw new EthernautCliError(
-        'ethernaut-optigov',
-        `Http status error: ${error.message}`,
-      )
+      this.agora.handleError(error)
     }
   }
 }
